@@ -9,7 +9,7 @@ class Preference extends Model
     //
     protected $table = 'lendersPreferences';
 
-    protected $fillable = ['lenderId', 'categoryIds', 'turnover', 'band', 'otherRequirements', 'rate', 'year', 'duration'];
+    protected $fillable = ['lenderId', 'categoryIds', 'turnover', 'band', 'otherRequirements', 'rate', 'year', 'duration', 'lenderCategoryId'];
 
     public function category() {
         return $this->hasOne('App\Models\Category', 'id', 'categoryId');

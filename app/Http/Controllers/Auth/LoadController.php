@@ -66,7 +66,7 @@ class LoadController extends Controller
                     return redirect('/')->withErrors('Welcome '.$this->auth::user()->name);
                 } else {
 
-                    return redirect('/')->withErrors("Welcome back ".$this->auth::user()->name);
+                    return redirect('dashboard')->withErrors("Welcome back ".$this->auth::user()->fullName);
                 }
         } catch(\Exception $e) {
             \Session::put('danger', true);

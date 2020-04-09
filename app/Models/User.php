@@ -26,4 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token', 'updated_at'
     ];
+
+    public function business()
+    {
+        return $this->hasOne('App\Models\Business', 'userId', 'id')->get();
+    }
+
+    public function investor()
+    {
+        return $this->hasOne('App\Models\Lender', 'userId', 'id')->get();
+    }
 }

@@ -19,6 +19,7 @@ class CreatePreferencesTable extends Migration
             $table->string('band', 150);
             $table->string('turnover', 150);
             $table->string('categoryIds', 150);
+            $table->string('lenderCategoryId', 150);
             $table->string('rate', 150);
             $table->string('year', 150);
             $table->string('duration', 150);

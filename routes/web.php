@@ -19,4 +19,6 @@ if (App::environment('production')) {
 
 Route::group(['namespace' => 'Index'], function() {
     Route::get('/', 'PageController@index');
+    Route::get('/invest', 'PageController@about');
+    Route::get('/contact', 'PageController@contact');
 });

@@ -19,7 +19,7 @@
                                                         </div>
                                                     </div>
                                                     <p class="font-size-37px font-weight-bold text-black f-2">Sign up to Invest</p>
-                                                    <p>It takes two simple steps</p>
+                                                    <p>Start investing into businesses of your preference</p>
                                                     <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2 mb-0"></h6>
                                                     @include("_partials.errors")
                                                 </div>
@@ -28,9 +28,13 @@
                                                         <form action="{{ URL('/lender') }}" class="number-tab-steps wizard-notification" method="POST" enctype="multipart/form-data">
                                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                             <input type="hidden" name="type" value="business">
+
                                                             <!-- Step 1 -->
-                                                            <h6>&nbsp;</h6>
+                                                            <h6>&nbsp;Investor Profile</h6>
                                                             <fieldset class="mt-5">
+
+                                                                {{-- ROw --}}
+
                                                                 <div class="row">
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
@@ -45,18 +49,69 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
+                                                                {{-- ROw --}}
+
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="form-group">
+                                                                            <label for="">What type of Investor best describes you <span class="red">*</span> :</label>
+                                                                            <div class="card collapse-icon accordion-icon-rotate">
+
+                                                                                @for($i = 0; $i<count($l_category); $i++)
+                                                                                <div id='{{"headingCollapse1".$i}}' class="card-header">
+                                                                                    <input type="radio" name="lenderCategoryId" value={{$l_category[$i]["id"]}}>
+
+                                                                                    @if($i === 0)
+                                                                                        <a data-toggle="collapse" href='{{"#collapse1".$i}}' aria-expanded="true" aria-controls='{{"#collapse1".$i}}' class="text-blue f-2 font-weight-bold card-title lead collapsed pl-1">{{$l_category[$i]["name"]}}</a>
+                                                                                    @else
+                                                                                        <a data-toggle="collapse" href='{{"#collapse1".$i}}' aria-expanded="false" aria-controls='{{"#collapse1".$i}}' class="text-blue f-2 font-weight-bold card-title lead collapsed pl-1">{{$l_category[$i]["name"]}}</a>
+                                                                                    @endif
+                                                                                </div>
+
+                                                                                    @if($i === 0)
+                                                                                        <div id='{{"collapse1".$i}}' role="tabpanel" aria-labelledby='{{"headingCollapse1".$i}}' class="collapse show" aria-expanded="true">
+                                                                                    @else
+                                                                                        <div id='{{"collapse1".$i}}' role="tabpanel" aria-labelledby='{{"headingCollapse1".$i}}' class="collapse" aria-expanded="false">
+                                                                                    @endif
+                                                                                    <div class="card-content">
+                                                                                        <div class="card-body pt-0 pl-4">
+                                                                                            {{$l_category[$i]["description"]}}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                @endfor
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                {{-- ROw --}}
+
                                                                 <div class="row">
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label for="categoryId">Select Industries You lend to <span class="red">*</span> :</label>
                                                                             <select class="form-control" name="categoryIds[]" id="categoryId" multiple data-live-search="true">
                                                                                 <option value="0" onchange="return checkValue();">All Industries</option>
-                                                                            @foreach($categories as $category)
+                                                                                @foreach($categories as $category)
                                                                                     <option value="{{ $category->id }}">{{ ucfirst($category->name) }}</option>
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>
                                                                     </div>
+                                                                </div>
+                                                            </fieldset>
+
+                                                            <!-- Step 2 -->
+                                                            <h6>&nbsp;Business Preference</h6>
+                                                            <fieldset class="mt-5">
+
+                                                                {{-- ROw --}}
+
+                                                                <div class="row">
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
                                                                             <label for="location1">Loan interest duration <span class="red">*</span> :</label>
@@ -87,6 +142,9 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
+                                                                {{-- ROw --}}
+
                                                                 <div class="row">
                                                                     <div class="col-md-6">
                                                                         <label for="location1">Businesses minimum year of existence <span class="red">*</span> :</label>
@@ -117,6 +175,9 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
+                                                                {{-- ROw --}}
+
                                                                 <div class="row">
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
@@ -132,8 +193,9 @@
                                                                     </div>
                                                                 </div>
                                                             </fieldset>
-                                                            <!-- Step 2 -->
-                                                            <h6>&nbsp;</h6>
+
+                                                            <!-- Step 3 -->
+                                                            <h6>&nbsp;Personal Details</h6>
                                                             <fieldset class="mt-5">
                                                                 <div class="row">
                                                                     <div class="col-md-12">

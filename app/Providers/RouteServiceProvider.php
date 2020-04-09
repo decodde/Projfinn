@@ -57,6 +57,9 @@ class RouteServiceProvider extends ServiceProvider
 
         //Business
         $this->mapBusinessRoutes();
+
+        //Dashboard
+        $this->mapDashboardRoutes();
     }
 
     /**
@@ -116,6 +119,23 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace.'\Lender')
             ->group(base_path('routes/lender.php'));
     }
+    /**
+     * Define the "lender" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapDashboardRoutes()
+    {
+        Route::prefix('dashboard')
+            ->middleware(['web', 'user'])
+            ->namespace($this->namespace.'\Dashboard')
+            ->group(base_path('routes/dashboard.php'));
+    }
+
+
+
     /**
      * Define the "lender" routes for the application.
      *

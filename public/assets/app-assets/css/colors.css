@@ -10427,6 +10427,11 @@ input:focus ~ .bg-shades {
 .black {
   color: #000000; }
 
+.text-blue, .text-blue:hover{
+    color: #2b335e;
+}
+
+
 .bg-black {
   background-color: #000000; }
   .bg-black.bg-glow {

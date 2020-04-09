@@ -12,4 +12,14 @@ class PageController extends Controller
 
         return view('default.index');
     }
+    //
+    public function about() {
+
+        return view('default.about');
+    }
+    //
+    public function contact() {
+
+        return view('default.contact');
+    }
 }

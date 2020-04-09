@@ -225,6 +225,10 @@ h6 {
   color: var(--color-primary) !important;
 }
 
+.text-blue{
+    color: var(--color-primary) !important;
+}
+
 .h-88{
   height: 88px;
 }
@@ -245,4 +249,13 @@ h6 {
   .mt-c-0{
     margin-top: 0rem;
   }
+}
+
+
+.f-1{
+    font-family: 'Nunito', sans-serif;
+}
+
+.f-2{
+    font-family: 'Lato', sans-serif;
 }

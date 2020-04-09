@@ -25,7 +25,9 @@
         line-height: 0;}
         .app-content .wizard > .steps > ul > li a {
           position: relative;
-          padding-top: 52px;
+          padding-top: 64px;
+          font-weight: 600;
+          font-size: 16px;
           margin-top: 20px;
           display: block; }
         .app-content .wizard > .steps > ul > li:before {

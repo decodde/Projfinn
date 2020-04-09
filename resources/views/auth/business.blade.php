@@ -44,7 +44,7 @@
                                                                             </select>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label for="yearsOfRunning">How long have you been in business ? <span class="red">*</span> :</label>
                                                                             <select name="yearsOfRunning" id="yearsOfRunning" class="form-control" required="required">
