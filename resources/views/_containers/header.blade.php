@@ -50,12 +50,12 @@
                                         </li>
 
                                         <li>
-                                            <a href="{{URL('/about')}}">
+                                            <a href="{{URL('/faq')}}">
                                                 <span class="link-icon"></span>
                                                 <span class="link-txt btn-underlined">
                                                         <span class="link-ext"></span>
                                                         <span class="txt">
-                                                            Faq
+                                                            FAQ
                                                             <span class="submenu-expander">
                                                             </span>
                                                         </span>

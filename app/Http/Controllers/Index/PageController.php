@@ -22,4 +22,9 @@ class PageController extends Controller
 
         return view('default.contact');
     }
+    //
+    public function faq() {
+
+        return view('default.faq');
+    }
 }
