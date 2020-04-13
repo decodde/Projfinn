@@ -357,7 +357,7 @@ class partials{
     }
 
     public function documentTypes() {
-        return ['Bank statements', 'Electricity bills'];
+        return ['Bank statements'];
     }
 
     public function profilePercentage($bvn, $guarantors, $documents, $test) {

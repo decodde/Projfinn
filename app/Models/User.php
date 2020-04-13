@@ -29,7 +29,7 @@ class User extends Authenticatable
 
     public function business()
     {
-        return $this->hasOne('App\Models\Business', 'userId', 'id')->get();
+        return $this->hasOne('App\Models\Business', 'userId', 'id')->first();
     }
 
     public function investor()

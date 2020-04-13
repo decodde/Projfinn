@@ -7,7 +7,7 @@
 <div class="app-content content">
     <div class="content-wrapper">
         <div class="content-header row">
-
+            @include('_partials.errors')
         </div>
         @include('_partials.dashboard.sidebar')
         <div class="content-body">

@@ -209,7 +209,7 @@
 
                     <div class="lqd-column col-md-12 text-center mb-60">
 
-                        <h3 class="mt-0"><span class="font-size-1-25x">Our Partners</span></h3>
+                        <h3 class="mt-0"><span class="font-size-50 f-2">Our Partners</span></h3>
 
                     </div><!-- /.lqd-column col-md-12 -->
 
@@ -218,7 +218,7 @@
 
                             <div class="lqd-column carousel-item col-md-12 text-center">
                                 <div class="text-center">
-                                    <img src="https://engage.armpension.com/assets/images/fulllogo.png" class="w-30 text-center" alt="Client">
+                                    <img src="https://armtrustees.com/wp-content/uploads/2015/12/ARM-trustees.png" class="w-30 text-center" alt="Client">
                                 </div>
                             </div>
 

@@ -1,11 +1,39 @@
 <div class="main-menu menu-static menu-light menu-accordion menu-shadow border-radius-10" data-scroll-to-active="true">
     <div class="main-menu-content border-radius-10">
         <ul class="navigation navigation-main border-radius-10" id="main-menu-navigation" data-menu="menu-navigation">
-            <li class=" nav-item"><a href="index.html"><i class="la la-home"></i><span class="menu-title" data-i18n="nav.dash.main">Overview</span></a>
+
+                @if(Request::is('dashboard'))
+                <li class=" nav-item open">
+                    <a href="{{URL('dashboard')}}" class="active">
+                @else
+                    <li class=" nav-item">
+                        <a href="">
+                @endif
+                    <i class="la la-home"></i><span class="menu-title" data-i18n="nav.dash.main">Overview</span>
+                </a>
             </li>
-            <li class=" nav-item"><a href="#"><i class="la la-clipboard"></i><span class="menu-title" data-i18n="nav.templates.main">Eligibility</span></a>
+                @if(Request::is('dashboard/eligibility/score*'))
+                    <li class=" nav-item open">
+                        <a href="{{URL('dashboard/eligibility/score')}}" class="active">
+                @else
+                    <li class=" nav-item">
+                        <a href="{{URL('dashboard/eligibility/score*')}}">
+                @endif
+                    <i class="la la-check"></i><span class="menu-title" data-i18n="nav.templates.main">Eligibility</span>
+                </a>
             </li>
-            <li class=" nav-item"><a href="#"><i class="la la-clipboard"></i><span class="menu-title" data-i18n="nav.templates.main">Funds</span></a>
+                @if(Request::is('dashboard/document*'))
+                    <li class=" nav-item open">
+                        <a href="{{URL('dashboard/document')}}" class="active">
+                @else
+                    <li class=" nav-item">
+                        <a href="{{URL('dashboard/document')}}">
+                @endif
+                    <i class="la la-paperclip"></i><span class="menu-title" data-i18n="nav.templates.main">Documents</span>
+                </a>
+            </li>
+            <li class=" nav-item">
+                <a href="#"><i class="la la-money"></i><span class="menu-title" data-i18n="nav.templates.main">Funds</span></a>
             </li>
             <li class=" navigation-header">
                 <span data-i18n="nav.category.layouts">License</span><i class="la la-ellipsis-h ft-minus" data-toggle="tooltip"

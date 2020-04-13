@@ -58,8 +58,14 @@ class RouteServiceProvider extends ServiceProvider
         //Business
         $this->mapBusinessRoutes();
 
+        //BVN
+        $this->mapBvnRoutes();
+
         //Dashboard
         $this->mapDashboardRoutes();
+
+        //Document
+        $this->mapDocumentRoutes();
     }
 
     /**
@@ -149,5 +155,37 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace.'\Business')
             ->group(base_path('routes/business.php'));
+    }
+
+
+    /**
+     * Define the "BVN" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapBvnRoutes()
+    {
+        Route::prefix('bvn')
+            ->middleware('web')
+            ->namespace($this->namespace.'\Bvn')
+            ->group(base_path('routes/bvn.php'));
+    }
+
+
+    /**
+     * Define the "Document" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapDocumentRoutes()
+    {
+        Route::prefix('documents')
+            ->middleware(['web', 'user'])
+            ->namespace($this->namespace.'\Document')
+            ->group(base_path('routes/document.php'));
     }
 }
