@@ -14,7 +14,7 @@
                                 <h7 class="text-muted">Stash</h7>
                             </div>
                             <div class="col-5 text-right">
-                                <h4>₦900,980</h4>
+                                <h5>₦900,980</h5>
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                                 <h7 class="text-muted">Invested Money</h7>
                             </div>
                             <div class="col-5 text-right">
-                                <h4>₦1,460,000</h4>
+                                <h5>₦1,460,000</h5>
                             </div>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                                 <h7 class="text-muted">Total return on Investment</h7>
                             </div>
                             <div class="col-5 text-right">
-                                <h4>₦10,460,000</h4>
+                                <h5>₦10,460,000</h5>
                             </div>
                         </div>
                     </div>
