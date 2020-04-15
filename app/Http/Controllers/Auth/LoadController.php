@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use Crypt;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
 
@@ -238,7 +238,7 @@ class LoadController extends Controller
 
     public function logout() {
         try {
-            $this->auth::logout();
+            Auth::logout();
             \Session::flush();
 
             return redirect('login')->withErrors('You\'re now logged out');

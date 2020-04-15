@@ -21,3 +21,4 @@ Route::get('/lender', 'PageController@lender');
 Route::get('/business', 'PageController@eligibilityTest');
 
 Route::post('/login', 'LoadController@login');
+

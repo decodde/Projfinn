@@ -32,12 +32,16 @@
                             @endif
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
+                    <li class="dropdown dropdown-user nav-item">
+                        <a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown">
                             <span class="mr-1">Hello,
                               <span class="user-name text-bold-700">{{$user->name}}</span>
                             </span>
+                            <i class="fa fa-angle-down"></i>
                         </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="{{URL('logout')}}"><i class="ft-power"></i> Logout</a>
+                        </div>
                     </li>
                 </ul>
             </div>

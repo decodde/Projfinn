@@ -18,8 +18,8 @@
                                                             <img src="http://www.owoafara.com/assets/frontend/images/logo.png" width="150px" alt="branding logo">
                                                         </div>
                                                     </div>
-                                                    <p class="font-size-37px font-weight-bold text-black f-2">Sign up as a Business</p>
-                                                    <p>It takes two simple steps</p>
+                                                    <p class="font-size-30px text-black">Let's Get Started</p>
+                                                    <p>Fund your business needs today</p>
                                                     <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2 mb-0"></h6>
                                                     @include("_partials.errors")
                                                 </div>
@@ -29,7 +29,7 @@
                                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                             <input type="hidden" name="type" value="business">
                                                             <!-- Step 1 -->
-                                                            <h6>&nbsp;</h6>
+                                                            <h6>&nbsp;Eligibility Test</h6>
                                                             <fieldset class="mt-5">
 
                                                                 <div class="row">
@@ -81,7 +81,7 @@
                                                                 </div>
                                                             </fieldset>
                                                             <!-- Step 2 -->
-                                                            <h6>&nbsp;</h6>
+                                                            <h6>Registration</h6>
                                                             <fieldset class="mt-5">
 
                                                                 <div class="row">
@@ -151,7 +151,7 @@
                                         </div>
                                     </div>
                                 </section>
-                                <p class="mt-0 mb-2">Already have an Account? <a href="/">Login.</a></p>
+                                <p class="mt-0 mb-2">Already have an Account? <a href="{{URL('/login')}}">Login.</a></p>
                             </div>
                         </div>
                     </section>
@@ -160,10 +160,10 @@
         </div>
 
         <div class="sidebar-left">
-            <div class="sidebar sidebar-fixed overflow-hidden" style="height: calc(100vh - 44px);background:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)),url({{ asset('assets/app-assets/images/adobe/adb2.png') }});background-size: cover;background-repeat: no-repeat;background-position: center ">
+            <div class="sidebar sidebar-fixed overflow-hidden" style="height: calc(100vh - 44px);background:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)),url({{ asset('https://images.unsplash.com/photo-1573162915851-0af01102b7be?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80') }});background-size: cover;background-repeat: no-repeat;background-position-x: left ">
                 <div class="card-title text-left height-100-per">
-                    <div class="pt-1 pl-2 mb-3 position-relative height-90-per">
-                        <p class="position-absolute position-bottom-0 text-white font-size-17px">Everything is still arranged the same way you left it.</p>
+                    <div class="pt-2 pl-2 mb-3 position-relative height-90-per">
+                        <p class="position-absolute position-bottom-0 text-white font-size-17px">We are here to support you and we help businesses of all time take their next step.</p>
                     </div>
                 </div>
             </div>

@@ -17,7 +17,7 @@
                         <a href="{{URL('dashboard/eligibility/score')}}" class="active">
                 @else
                     <li class=" nav-item">
-                        <a href="{{URL('dashboard/eligibility/score*')}}">
+                        <a href="{{URL('dashboard/eligibility/score')}}">
                 @endif
                     <i class="la la-check"></i><span class="menu-title" data-i18n="nav.templates.main">Eligibility</span>
                 </a>

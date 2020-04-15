@@ -23,3 +23,8 @@ Route::group(['namespace' => 'Index'], function() {
     Route::get('/contact', 'PageController@contact');
     Route::get('/faq', 'PageController@faq');
 });
+
+Route::group(['namespace' => 'Auth'], function() {
+    Route::get('/logout', 'LoadController@logout');
+});
+

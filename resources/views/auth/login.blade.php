@@ -38,8 +38,8 @@
                                             </div>
                                             <button type="submit" class="btn btn-info px-3 border-radius-none"><i class="ft-unlock"></i> Login</button>
 
-                                            <p class="mt-3">Don't have an account? <a href="{{URL('/business')}}">Register</a></p>
-                                            <p class="">Register as an <a href="{{URL('/lender')}}">Investor.</a></p>
+                                            <p class="mt-3">Don't have an account? <a href="{{URL('/lender')}}">Register</a></p>
+                                            <p class="">Register as an <a href="{{URL('/business')}}">Business.</a></p>
                                         </form>
                                     </div>
                                 </div>
