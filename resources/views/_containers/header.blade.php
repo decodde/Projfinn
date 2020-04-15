@@ -91,29 +91,49 @@
 
                                 </div>
                             </div>
-                            <div class="col text-right">
+                            @if(auth()->check())
+                                <div class="col text-right">
 
-                                <div class="header-module">
+                                    <div class="header-module">
+                                        @if(auth()->user()->type === "investor")
+                                        <a href="{{URL('/dashboard/i')}}" class="btn btn-default btn-sm round border-thin btn-register py-0">
+                                        @else
+                                            <a href="{{URL('/dashboard')}}" class="btn btn-default btn-sm round border-thin btn-register py-0">
+                                        @endif
 
-                                    <a href="{{URL('/login')}}" class="btn btn-underlined border-thin btn-bordered-gradient">
+                                                <span>
+                                                <span class="btn-txt">Go To Dashboard</span>
+                                            </span>
+                                        </a>
+
+                                    </div><!-- /.header-module -->
+
+                                </div><!-- /.col -->
+                            @else
+                                <div class="col text-right">
+
+                                    <div class="header-module">
+
+                                        <a href="{{URL('/login')}}" class="btn btn-underlined border-thin btn-bordered-gradient">
                                             <span>
                                                 <span class="btn-txt">Login</span>
                                             </span>
-                                    </a>
+                                        </a>
 
-                                </div><!-- /.header-module -->
+                                    </div><!-- /.header-module -->
 
-                                <div class="header-module">
+                                    <div class="header-module">
 
-                                    <a href="{{URL('/lender')}}" class="btn btn-default btn-sm round border-thin btn-register">
+                                        <a href="{{URL('/lender')}}" class="btn btn-default btn-sm round border-thin btn-register">
                                             <span>
                                                 <span class="btn-txt">Investor's Sign up</span>
                                             </span>
-                                    </a>
+                                        </a>
 
-                                </div><!-- /.header-module -->
+                                    </div><!-- /.header-module -->
 
-                            </div><!-- /.col -->
+                                </div><!-- /.col -->
+                            @endif
 
                         </div><!-- /.mainbar-row -->
                     </div><!-- /.mainbar -->

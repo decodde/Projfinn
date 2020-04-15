@@ -7,7 +7,7 @@
                     <a href="{{URL('dashboard')}}" class="active">
                 @else
                     <li class=" nav-item">
-                        <a href="">
+                        <a href="{{URL('dashboard')}}">
                 @endif
                     <i class="la la-home"></i><span class="menu-title" data-i18n="nav.dash.main">Overview</span>
                 </a>

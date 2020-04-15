@@ -72,7 +72,7 @@ class LoadController extends Controller
 
                     $lenderId = $this->lender->create($lenderData)->id;
 
-                    $preferenceData = $request->only('band', 'turnover', 'otherRequirements', 'categoryIds', 'year', 'duration', 'rate', 'lenderCategoryId');
+                    $preferenceData = $request->only('categoryIds', 'lenderCategoryId');
                     $preferenceData['lenderId'] = $lenderId;
                     $preferenceData['categoryIds'] = implode(',', $request->categoryIds);
 

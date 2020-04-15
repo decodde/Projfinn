@@ -56,14 +56,12 @@ class LoadController extends Controller
 
             if(!$this->auth::attempt($data))
                 {
-
-//                                dd("hey");
                     \Session::put('danger', true);
                     return back()->withErrors("Incorrect login details");
 
-                } elseif($this->auth::user()->type == 'admin') {
+                } elseif($this->auth::user()->type === 'investor') {
 
-                    return redirect('/')->withErrors('Welcome '.$this->auth::user()->name);
+                    return redirect('/dashboard/i')->withErrors('Welcome back'.$this->auth::user()->fullName);
                 } else {
 
                     return redirect('dashboard')->withErrors("Welcome back ".$this->auth::user()->fullName);

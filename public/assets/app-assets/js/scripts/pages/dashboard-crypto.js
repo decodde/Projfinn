@@ -18,7 +18,7 @@
     var btcChartjs = document.getElementById("btc-chartjs").getContext("2d");
     // Create Linear Gradient
     var blue_trans_gradient = btcChartjs.createLinearGradient(0, 0, 0, 100);
-    blue_trans_gradient.addColorStop(0, 'rgba(255, 145, 73,0.4)');
+    blue_trans_gradient.addColorStop(0, 'rgba(15, 179, 101 ,0.4)');
     blue_trans_gradient.addColorStop(1, 'rgba(255,255,255,0)');
     // Chart Options
     var BTCStats = {
@@ -26,7 +26,7 @@
         maintainAspectRatio: false,
         datasetStrokeWidth : 3,
         pointDotStrokeWidth : 4,
-        tooltipFillColor: "rgba(255, 145, 73,0.8)",
+        tooltipFillColor: "rgba(15, 179, 101 ,0.8)",
         legend: {
             display: false,
         },
@@ -61,9 +61,9 @@
             label: "BTC",
             data: [20, 18, 35, 60, 38, 40, 70],
             backgroundColor: blue_trans_gradient,
-            borderColor: "#FF9149",
+            borderColor: "#0b7c46",
             borderWidth: 1.5,
-            strokeColor : "#FF9149",
+            strokeColor : "#0b7c46",
             pointRadius: 0,
         }]
     };

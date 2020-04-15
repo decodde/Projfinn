@@ -27,18 +27,20 @@ class PageController extends Controller
         try {
             $user = Auth::user();
 
-            $data = ['title' => 'Dashboard', 'business' => $user->business() ?? null, 'investor' => $user->investor() ?? null];
+            $data = ['title' => 'Dashboard', 'business' => $user->business()];
 
-//            dd($data);
             if($user->type == 'business') {
                 return view('dashboard.business.index', $data);
             } else {
                 return view('dashboard.investor.index', $data);
             }
         } catch(\Exception $e) {
-            dd($e->getMessage());
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
+
+
 
     public function score(Request $request){
         try {
@@ -94,4 +96,18 @@ class PageController extends Controller
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
+
+    public function i_dashboard(Request $request) {
+    try {
+        $user = Auth::user();
+
+        $data = ['title' => 'Dashboard', 'investor' => $user->investor()];
+
+        return view('dashboard.investor.index', $data);
+
+    } catch(\Exception $e) {
+        \Session::put('danger', true);
+        return back()->withErrors('An error has occurred: '.$e->getMessage());
+    }
+}
 }

@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/fonts/meteocons/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/app.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/core/menu/menu-types/vertical-content-menu.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/vendors/css/cryptocoins/cryptocoins.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/core/colors/palette-gradient.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/fonts/simple-line-icons/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/core/colors/palette-gradient.css') }}">

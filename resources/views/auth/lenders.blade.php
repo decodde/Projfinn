@@ -27,11 +27,11 @@
                                                     <div class="card-body pt-0">
                                                         <form action="{{ URL('/lender') }}" class="number-tab-steps wizard-notification" method="POST" enctype="multipart/form-data">
                                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                            <input type="hidden" name="type" value="business">
+                                                            <input type="hidden" name="type" value="investor">
 
                                                             <!-- Step 1 -->
                                                             <h6>&nbsp;Investor Profile</h6>
-                                                            <fieldset class="mt-5">
+                                                            <fieldset class="mt-5 pb-2">
 
                                                                 {{-- ROw --}}
 
@@ -46,6 +46,23 @@
                                                                         <div class="form-group">
                                                                             <label for="lastName1">Phone Number  <span class="red">*</span> :</label>
                                                                             <input type="tel" class="form-control" name="phone" id="lastName1" value="{{ old('phone') }}">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                {{-- ROw --}}
+
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="form-group">
+                                                                            <label for="categoryId">Select Industries You lend to <span class="red">*</span> :</label>
+                                                                            <select class="form-control" name="categoryIds[]" id="categoryId" multiple data-live-search="true">
+                                                                                <option value="0" onchange="return checkValue();">All Industries</option>
+                                                                                @foreach($categories as $category)
+                                                                                    <option value="{{ $category->id }}">{{ ucfirst($category->name) }}</option>
+                                                                                @endforeach
+                                                                            </select>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -88,113 +105,8 @@
                                                                 </div>
 
 
-                                                                {{-- ROw --}}
-
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <div class="form-group">
-                                                                            <label for="categoryId">Select Industries You lend to <span class="red">*</span> :</label>
-                                                                            <select class="form-control" name="categoryIds[]" id="categoryId" multiple data-live-search="true">
-                                                                                <option value="0" onchange="return checkValue();">All Industries</option>
-                                                                                @foreach($categories as $category)
-                                                                                    <option value="{{ $category->id }}">{{ ucfirst($category->name) }}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
                                                             </fieldset>
-
                                                             <!-- Step 2 -->
-                                                            <h6>&nbsp;Business Preference</h6>
-                                                            <fieldset class="mt-5">
-
-                                                                {{-- ROw --}}
-
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label for="location1">Loan interest duration <span class="red">*</span> :</label>
-                                                                            <select name="duration" id="duration" class="c-select form-control" onchange="return checkOthers('durationSection', 'duration');">
-                                                                                <option disabled selected>Please select an option</option>
-                                                                                @foreach($durations as $duration)
-                                                                                    <option value="{{ $duration }}">{{ ucfirst($duration) }}</option>
-                                                                                @endforeach
-                                                                                <option value="others">Others</option>
-                                                                            </select>
-
-                                                                            <input type="text" id="durationOthers" class="form-control d-none" placeholder="Your option">
-                                                                            <span onclick="return switchDurationFields(true);" id='back' style="color:blue; cursor:pointer;" class="small d-none">change option</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label for="location1">Interest rate band for loans <span class="red">*</span> :</label>
-                                                                            <select name="rate" id="rate" class="form-control" onchange="return checkOthers('rateSection', 'rate');" required="required">
-                                                                                    <option disabled selected>Please select an option</option>
-                                                                                    @foreach($interestRates as $rate)
-                                                                                        <option value="{{ $rate }}">{{ $rate }}</option>
-                                                                                    @endforeach
-                                                                            </select>
-
-                                                                            <input type="text" id="rateOthers" class="form-control d-none" placeholder="Your option">
-                                                                            <span onclick="return switchRateFields(true);" id='back' style="color:blue; cursor:pointer;" class="small d-none">change option</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                {{-- ROw --}}
-
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <label for="location1">Businesses minimum year of existence <span class="red">*</span> :</label>
-                                                                        <select name="year" id="year" class="form-control gap-label" onchange="return checkOthers('yearSection', 'year');">
-                                                                            <option disabled selected>Please select an option</option>
-                                                                            @foreach($minimumYears as $year)
-                                                                                <option value="{{ $year }}">{{ $year }} years</option>
-                                                                            @endforeach
-                                                                            <option value="others">Others</option>
-                                                                        </select>
-
-                                                                        <input type="text" id="yearOthers" class="form-control d-none" placeholder="Your option">
-                                                                        <span onclick="return switchYearFields(true);" id='back' style="color:blue; cursor:pointer;" class="small d-none">change option</span>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label for="date1">What is your preferred loan band to give? <span style="color:red;">*</span>:</label>
-                                                                            <select name="band" id="band" class="form-control" onchange="return checkOthers('bandSection', 'band');">
-                                                                                <option disabled selected>Please select an option</option>
-                                                                                @foreach($loanBand as $band)
-                                                                                    <option value="{{ $band }}">&#x20A6;{{ $band }}</option>
-                                                                                @endforeach
-                                                                                <option value="others">Others</option>
-                                                                            </select>
-
-                                                                            <input type="text" id="bandOthers" class="form-control d-none" placeholder="Your option" onkeydown="return verifyBandInput(event);">
-                                                                            <span onclick="return switchBandFields(true);" id='back' style="color:blue; cursor:pointer;" class="small d-none">change option</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                {{-- ROw --}}
-
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <div class="form-group">
-                                                                            <label for="turnover">What is the minimum turnover a business should have to be eligible to get a loan from you? <span class="red">*</span> :</label>
-                                                                            <input type="number" name="turnover" id="turnover" class="form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-12">
-                                                                        <div class="form-group">
-                                                                            <label for="otherRequirements">What other requirements will determine if an SME is eligible for loans? :</label>
-                                                                            <input type="text" name="otherRequirements" id="otherRequirements" class="form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </fieldset>
-
-                                                            <!-- Step 3 -->
                                                             <h6>&nbsp;Personal Details</h6>
                                                             <fieldset class="mt-5">
                                                                 <div class="row">
