@@ -15,7 +15,7 @@
                                                 <div class="card-header bg-transparent border-0 pt-0">
                                                     <div class="card-title text-left height-100-per">
                                                         <div class="pt-0 mb-2">
-                                                            <img src="http://www.owoafara.com/assets/frontend/images/logo.png" width="150px" alt="branding logo">
+                                                            <img src="{{ asset('assets/app-assets/images/adobe/logo.png') }}" width="150px" alt="branding logo">
                                                         </div>
                                                     </div>
                                                     <p class="font-size-30px text-black">Let's Get Started</p>

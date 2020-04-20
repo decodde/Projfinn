@@ -13,10 +13,10 @@
                                 <div class="navbar-header py-2">
                                     <a class="navbar-brand p-2" href="{{URL('/')}}" rel="home">
                                             <span class="navbar-brand-inner">
-                                                <img class="logo-dark" src="http://www.owoafara.com/assets/frontend/images/logo.png" width="120" alt="Projfinn">
-                                                <img class="logo-sticky" src="http://www.owoafara.com/assets/frontend/images/logo.png" width="120" alt="Projfinn">
-                                                <img class="mobile-logo-default" src="http://www.owoafara.com/assets/frontend/images/logo.png" width="120" alt="Projfinn">
-                                                <img class="logo-default" src="http://www.owoafara.com/assets/frontend/images/logo.png" width="120" alt="Projfinn">
+                                                <img class="logo-dark" src="{{ asset('assets/app-assets/images/adobe/logo.png') }}" width="120" alt="Projfinn">
+                                                <img class="logo-sticky" src="{{ asset('assets/app-assets/images/adobe/logo.png') }}" width="120" alt="Projfinn">
+                                                <img class="mobile-logo-default" src="{{ asset('assets/app-assets/images/adobe/logo.png') }}" width="120" alt="Projfinn">
+                                                <img class="logo-default" src="{{ asset('assets/app-assets/images/adobe/logo.png') }}" width="100" alt="Projfinn">
                                             </span>
                                     </a>
                                     <button type="button" class="navbar-toggle collapsed nav-trigger style-mobile" data-toggle="collapse" data-target="#main-header-collapse" aria-expanded="false" data-changeclassnames='{ "html": "mobile-nav-activated overflow-hidden" }'>
