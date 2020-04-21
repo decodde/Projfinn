@@ -50,23 +50,6 @@
                                                                     </div>
                                                                 </div>
 
-
-                                                                {{-- ROw --}}
-
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <div class="form-group">
-                                                                            <label for="categoryId">Select Industries You lend to <span class="red">*</span> :</label>
-                                                                            <select class="form-control" name="categoryIds[]" id="categoryId" multiple data-live-search="true">
-                                                                                <option value="0" onchange="return checkValue();">All Industries</option>
-                                                                                @foreach($categories as $category)
-                                                                                    <option value="{{ $category->id }}">{{ ucfirst($category->name) }}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
                                                                 {{-- ROw --}}
 
                                                                 <div class="row">

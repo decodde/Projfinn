@@ -72,9 +72,8 @@ class LoadController extends Controller
 
                     $lenderId = $this->lender->create($lenderData)->id;
 
-                    $preferenceData = $request->only('categoryIds', 'lenderCategoryId');
+                    $preferenceData = $request->only('lenderCategoryId');
                     $preferenceData['lenderId'] = $lenderId;
-                    $preferenceData['categoryIds'] = implode(',', $request->categoryIds);
 
                     $this->preference->create($preferenceData);
 
@@ -131,7 +130,7 @@ class LoadController extends Controller
                 return back()->withErrors($validation->getMessageBag())->withInput();
             } else {
                 $preferenceQuery = $this->preference->where('lenderId', $lenderId);
-                $body['categoryIds'] = implode(',', $request->categoryIds);
+                $body['lenderCategoryId'] = $request->lenderCategoryId;
 
                 if($preferenceQuery->count() > 0) {
                     $preferenceQuery->update($body);

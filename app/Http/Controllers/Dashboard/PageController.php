@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Helpers\Formatter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as Auth;
 use App\Models\User;
 use App\Models\Eligibility;
+use App\Models\Stash;
+use App\Models\Transaction;
 use App\Http\Helpers\partials;
 
 class PageController extends Controller
@@ -16,11 +19,18 @@ class PageController extends Controller
     private $user;
     private $eligible;
     private $partials;
-    public function __construct(Auth $auth, User $user, Eligibility $eligible, partials $partials){
+    private $transaction;
+    private $stash;
+    private $formatter;
+
+    public function __construct(Auth $auth, User $user, Eligibility $eligible, partials $partials, Transaction $transaction, Stash $stash, Formatter $formatter){
         $this->auth = $auth;
         $this->user = $user;
         $this->eligible = $eligible;
         $this->partials = $partials;
+        $this->transaction = $transaction;
+        $this->stash = $stash;
+        $this->formatter = $formatter;
     }
 
     public function dashboard(Request $request) {
@@ -39,8 +49,6 @@ class PageController extends Controller
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
-
-
 
     public function score(Request $request){
         try {
@@ -98,16 +106,73 @@ class PageController extends Controller
     }
 
     public function i_dashboard(Request $request) {
-    try {
-        $user = Auth::user();
+        try {
+            $user = Auth::user();
 
-        $data = ['title' => 'Dashboard', 'investor' => $user->investor()];
+            $stash = $this->stash->where('investorId', $user->investor()->id);
 
-        return view('dashboard.investor.index', $data);
+            if($stash->first() === null){
+                $availableBalance = 0;
+            }
+            else{
+                $availableBalance = $stash->first()->availableAmount;
+            }
 
-    } catch(\Exception $e) {
-        \Session::put('danger', true);
-        return back()->withErrors('An error has occurred: '.$e->getMessage());
+            $data = [
+                'title' => 'Dashboard',
+                'investor' => $user->investor(),
+                'balance' => $this->formatter->MoneyConvert($availableBalance, 'full')
+                ];
+
+            return view('dashboard.investor.index', $data);
+
+        } catch(\Exception $e) {
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
     }
-}
+
+    public function i_dashboard_stash(Request $request) {
+        try {
+            $user = Auth::user();
+
+            $stash = $this->stash->where('investorId', $user->investor()->id);
+
+            if($stash->first() === null){
+                $availableBalance = 0;
+            }
+            else{
+                $availableBalance = $stash->first()->availableAmount;
+            }
+
+
+            $transactions = $this->transaction->where('investorId', $user->investor()->id)->get();
+
+            $creditAmount = 0;
+            $debitAmount = 0.00;
+            foreach ($transactions as $transaction){
+                if ($transaction->type === "credit"){
+                    $creditAmount += $transaction->amount;
+                } else {
+                    $debitAmount += $transaction->amount;
+                }
+                $transaction->amount = $this->formatter->MoneyConvert($transaction->amount, "full");
+                $transaction->date = $this->formatter->dataTime($transaction->created_at);
+            }
+
+            $data = [
+                'title' => 'Dashboard',
+                'investor' => $user->investor(),
+                'balance' => $this->formatter->MoneyConvert($availableBalance, 'full'),
+                'tranX' => [ "credit" => $this->formatter->MoneyConvert($creditAmount, "full"), "debit" => $this->formatter->MoneyConvert($debitAmount), "full"],
+                'transactions' => $transactions
+            ];
+
+            return view('dashboard.investor.stash', $data);
+
+        } catch(\Exception $e) {
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
 }

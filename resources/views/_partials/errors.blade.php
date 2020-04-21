@@ -16,3 +16,5 @@
         </div>
     </div>
 @endforeach
+
+<?php Session::forget('warning'); Session::forget('danger'); Session::forget('info'); Session::forget('success'); ?>

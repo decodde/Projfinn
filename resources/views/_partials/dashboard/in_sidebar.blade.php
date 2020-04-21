@@ -12,12 +12,12 @@
                         <i class="la la-home"></i><span class="menu-title" data-i18n="nav.dash.main">Overview</span>
                     </a>
                 </li>
-                @if(Request::is('dashboard/eligibility/score*'))
+                @if(Request::is('dashboard/i/stash*'))
                     <li class=" nav-item open">
-                        <a href="{{URL('dashboard/eligibility/score')}}" class="active">
+                        <a href="{{URL('dashboard/i/stash')}}" class="active">
                 @else
                     <li class=" nav-item">
-                        <a href="{{URL('dashboard/eligibility/score*')}}">
+                        <a href="{{URL('dashboard/i/stash')}}">
                             @endif
                             <i class="la la-check"></i><span class="menu-title" data-i18n="nav.templates.main">Stash</span>
                         </a>

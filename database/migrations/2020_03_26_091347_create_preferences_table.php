@@ -16,7 +16,6 @@ class CreatePreferencesTable extends Migration
         Schema::create('lendersPreferences', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('lenderId');
-            $table->string('categoryIds', 150);
             $table->string('lenderCategoryId', 150);
             $table->timestamps();
         });

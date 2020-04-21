@@ -22,7 +22,7 @@
     }
 
 </style>
-<body class="vertical-layout vertical-content-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-content-menu" data-col="2-columns">
+<body class="vertical-layout vertical-content-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-content-menu" data-col="2-columns" style="background-color: #F4F5FA">
     @include('_partials.dashboard.header')
 
     <div class="app-content content">
@@ -30,7 +30,7 @@
         <div class="content-wrapper">
 
             <div class="content-header row">
-                @include('_partials.errors')
+
             </div>
 
             @if($user->type === 'business')
@@ -40,6 +40,7 @@
             @endif
 
             <div class="content-body">
+                @include('_partials.errors')
                 @yield('content')
             </div>
 

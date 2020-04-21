@@ -109,7 +109,6 @@ class Validate {
                     'l_name' => 'required',
                     'email' => 'required|email|unique:lenders',
                     'phone' => 'required|unique:lenders',
-                    'categoryIds' => 'required',
                     'lenderCategoryId' => 'required',
                 ]);
                 break;
@@ -123,7 +122,6 @@ class Validate {
                 break;
             case 'preference':
                 return $this->validator::make($data, [
-                    'categoryIds' => 'required',
                     'lenderCategoryId' => 'required',
                 ]);
             default:

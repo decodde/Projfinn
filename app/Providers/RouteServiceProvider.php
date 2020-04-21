@@ -66,6 +66,9 @@ class RouteServiceProvider extends ServiceProvider
 
         //Document
         $this->mapDocumentRoutes();
+
+        //Transaction
+        $this->mapTransactionRoutes();
     }
 
     /**
@@ -187,5 +190,21 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware(['web', 'user'])
             ->namespace($this->namespace.'\Document')
             ->group(base_path('routes/document.php'));
+    }
+
+
+    /**
+     * Define the "Document" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapTransactionRoutes()
+    {
+        Route::prefix('transaction')
+            ->middleware(['web', 'user'])
+            ->namespace($this->namespace.'\Transaction')
+            ->group(base_path('routes/transaction.php'));
     }
 }

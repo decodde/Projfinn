@@ -3251,6 +3251,10 @@ input[type="month"].form-control {
     font-size: 30px;
 }
 
+.font-size-40px{
+    font-size: 40px !important;
+}
+
 .f-1{
     font-family: 'Nunito', sans-serif;
 }

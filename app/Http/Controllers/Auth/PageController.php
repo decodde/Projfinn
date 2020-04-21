@@ -33,7 +33,6 @@ class PageController extends Controller
 
     public function lender(Request $request){
         try{
-            $categories = $this->category->select('id', 'name')->orderBy('name', 'ASC')->get();
             $l_category = $this->l_category->get();
 
             $sizes = $this->partials->sizes();
@@ -44,7 +43,6 @@ class PageController extends Controller
 
             $data = [
                 'title' => 'Create an Account',
-                'categories' => $categories,
                 'sizes' => $sizes,
                 'durations' => $durations,
                 'interestRates' => $interestRates,

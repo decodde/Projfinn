@@ -16,7 +16,7 @@ class CreateStashesTable extends Migration
         Schema::create('stashes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('investorId');
-            $table->integer('customerId');
+            $table->string('customerId');
             $table->bigInteger('totalAmount')->default(0);
             $table->bigInteger('availableAmount')->default(0);
             $table->timestamps();

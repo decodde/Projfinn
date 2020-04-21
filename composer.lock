@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7184fb4e5c3fd5cdf471a7c88b4135fb",
+    "content-hash": "fb0f599f4cb4f1db5029440f394cf94f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2041,6 +2041,45 @@
                 "uuid"
             ],
             "time": "2020-03-29T20:13:32+00:00"
+        },
+        {
+            "name": "stillat/numeral.php",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Stillat/numeral.php.git",
+                "reference": "bb5445d6ab25917e2dd445886ff5e350efedea7f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Stillat/numeral.php/zipball/bb5445d6ab25917e2dd445886ff5e350efedea7f",
+                "reference": "bb5445d6ab25917e2dd445886ff5e350efedea7f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Stillat\\Numeral\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Johnathon Koster",
+                    "email": "john@stillat.com"
+                }
+            ],
+            "description": "A PHP port of adamwdraper/Numeral-js",
+            "time": "2016-10-17T01:01:05+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

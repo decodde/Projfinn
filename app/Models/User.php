@@ -34,6 +34,6 @@ class User extends Authenticatable
 
     public function investor()
     {
-        return $this->hasOne('App\Models\Lender', 'userId', 'id')->get();
+        return $this->hasOne('App\Models\Lender', 'userId', 'id')->first();
     }
 }

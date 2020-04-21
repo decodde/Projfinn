@@ -15,12 +15,11 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('lenderId')->nullable();
+            $table->integer('investorId')->nullable();
             $table->integer('businessId')->nullable();
             $table->integer('userId');
             $table->integer('amount');
-            $table->string('planId')->nullable();
-            $table->string('type', 20)->default('credit');
+            $table->enum('type', ['credit', 'debit'])->default('credit');
             $table->string('message');
             $table->string('status');
             $table->string('reference');

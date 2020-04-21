@@ -91,7 +91,7 @@ class LoadController extends Controller
                 //encrypt password string
                 $body["password"] = bcrypt($body["password"]);
 
-                $body["name"] = $body["l_name"] ." ".$body["f_name"];
+                $body["name"] = $body["f_name"]." ".$body["l_name"] ;
                 //store create the user info
                 $userId = $this->user->create($body)->id;
                 $body['id'] = $userId;
