@@ -8,6 +8,11 @@
         .table td{
             border-top: none !important;
         }
+        .dotted-btn{
+            padding: 20px 30px;
+            border: 1px dashed #c4c4c4;
+            margin: 0 auto;
+        }
 
     </style>
     <div class="row">
@@ -25,8 +30,7 @@
                             </div>
                         </div>
 
-                        <div class="chart-stats mb-2 float-right mt-1">
-                            <a href="javascript:void(0);" data-toggle="modal" data-target="#makePayment" class="btn btn-success mr-1 btn-glow btn-sm">credit your wallet <i class="fa fa-plus"></i></a>
+                        <div class="chart-stats mb-2 float-right mt-3">
                         </div>
                     </div>
                 </div>
@@ -54,63 +58,76 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-12">
-            <div class="card">
+            <a href="javascript:void(0);" data-toggle="modal" data-target="#makePayment" class="btn btn-success mr-1 btn-md mb-2 float-right">credit your wallet <i class="fa fa-plus"></i></a>
+            <br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card pb-1">
                 <div class="card-header">
                     <h4 class="card-title">Transactions</h4>
                 </div>
                 <div class="card-content collapse show">
                     <div class="card-body">
-                        <p class="card-text">The <code>type</code> field shows if the transaction was a credit or debit transaction.<br>
-                            The <code>status</code> field shows if the transaction was successful or failed.
-                        </p>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                <tr class="borderless">
-                                    <th>Status</th>
-                                    <th>Reference</th>
-                                    <th>Type</th>
-                                    <th>Amount</th>
-                                    <th>Message</th>
-                                    <th>Date</th>
-                                </tr>
-                                </thead>
-                                <tbody class="borderless">
-                                @foreach($transactions as $transaction)
-                                    <tr>
-                                        <td>
-                                            @if($transaction->status === "success")
-                                                <i class="fa fa-check success"></i>
-                                            @else
-                                                <i class="fa fa-times danger"></i>
-                                            @endif
-                                        </td>
-                                        <td>{{$transaction->reference}}</td>
-                                        <td>
-                                            @if($transaction->type === "debit")
-                                                <button type="button" class="btn mr-1 mb-1 btn-outline-danger btn-sm">Debit</button>
-                                            @else
-                                                <button type="button" class="btn mr-1 mb-1 btn-outline-success btn-sm">Credit</button>
-                                            @endif
-
-                                        </td>
-                                        <td>
-                                            <p class="font-size-17px success darken-4">
-                                                ₦ {{$transaction->amount}}
-                                            </p>
-                                        </td>
-
-                                        <td>{{$transaction->message}}</td>
-                                        <td>{{$transaction->date}} </td>
-
+                        @if(count($transactions) !== 0 )
+                            <p class="card-text">The <code>type</code> field shows if the transaction was a credit or debit transaction.<br>
+                                The <code>status</code> field shows if the transaction was successful or failed.
+                            </p>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr class="borderless">
+                                        <th>Status</th>
+                                        <th>Reference</th>
+                                        <th>Type</th>
+                                        <th>Amount</th>
+                                        <th>Message</th>
+                                        <th>Date</th>
                                     </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                                    </thead>
+                                    <tbody class="borderless">
+                                    @foreach($transactions as $transaction)
+                                        <tr>
+                                            <td>
+                                                @if($transaction->status === "success")
+                                                    <i class="fa fa-check success"></i>
+                                                @else
+                                                    <i class="fa fa-times danger"></i>
+                                                @endif
+                                            </td>
+                                            <td>{{$transaction->reference}}</td>
+                                            <td>
+                                                @if($transaction->type === "debit")
+                                                    <button type="button" class="btn mr-1 mb-1 btn-outline-danger btn-sm">Debit</button>
+                                                @else
+                                                    <button type="button" class="btn mr-1 mb-1 btn-outline-success btn-sm">Credit</button>
+                                                @endif
+
+                                            </td>
+                                            <td>
+                                                <p class="font-size-17px success darken-4">
+                                                    ₦ {{$transaction->amount}}
+                                                </p>
+                                            </td>
+
+                                            <td>{{$transaction->message}}</td>
+                                            <td>{{$transaction->date}} </td>
+
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @else
+                            <div class="text-center dotted-btn width-550">
+                                You haven't made any transaction Yet
+                                <br>
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#makePayment" class="btn btn-success mr-1 btn-md mt-2">credit your wallet <i class="fa fa-plus"></i></a>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
