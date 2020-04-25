@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePreferencesTable extends Migration
+class CreateLenderAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreatePreferencesTable extends Migration
      */
     public function up()
     {
-        Schema::create('lendersPreferences', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('lenderId');
-            $table->string('lenderCategoryId', 150);
+        Schema::create('lender_accounts', function (Blueprint $table) {
+            $table->id();
+            $table->string('userId');
+            $table->string('bankId');
+            $table->string('bvn', 150)->unique();
+            $table->string('accountNumber', 150)->unique();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreatePreferencesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lendersPreferences');
+        Schema::dropIfExists('lender_accounts');
     }
 }

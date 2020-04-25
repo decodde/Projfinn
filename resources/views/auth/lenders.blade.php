@@ -18,8 +18,14 @@
                                                             <img src="{{ asset('assets/app-assets/images/adobe/logo.png') }}" width="150px" alt="branding logo">
                                                         </div>
                                                     </div>
-                                                    <p class="font-size-30px text-black f-2">Start Investing Into Businesses</p>
-                                                    <p>Help Businesses Thrive</p>
+                                                    @if($r_user !== null)
+
+                                                        <p class="font-size-24px text-black f-2"><a class="text-blue">{{$r_user["name"]}}</a> has invited you to Invest into Businesses </p>
+                                                        <p>Help Businesses Thrive</p>
+                                                     @else
+                                                        <p class="font-size-24px text-black f-2">Start Investing Into Businesses</p>
+                                                        <p>Help Businesses Thrive</p>
+                                                    @endif
                                                     <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2 mb-0"></h6>
                                                     @include("_partials.errors")
                                                 </div>
@@ -28,7 +34,9 @@
                                                         <form action="{{ URL('/lender') }}" class="number-tab-steps wizard-notification" method="POST" enctype="multipart/form-data">
                                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                             <input type="hidden" name="type" value="investor">
-
+                                                            @if($r_user !== null)
+                                                                <input type="hidden" name="rCode" value="{{$r_user["code"]}}">
+                                                            @endif
                                                             <!-- Step 1 -->
                                                             <h6>&nbsp;Investor Profile</h6>
                                                             <fieldset class="mt-5 pb-2">

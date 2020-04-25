@@ -34,7 +34,12 @@
 
                             <div class="lqd-column col-md-9">
 
-                                <p class="font-size-15 lh-2 mb-40">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation</p>
+                                <p class="font-size-15 lh-2 mb-40">Rouzo is an online platform that allows verified businesses, access expansion funds for their projects.
+
+                                    Through the platform, funds are sourced and pooled from individual and corporate investors to sponsor and or invest in a business project
+
+                                    The goal at Rouzo is to empower over 1 million small businesses in Africa with the financing and support capabilities to grow, become self-sustainable and add value to the economy.
+                                </p>
 
                                 <a href="{{URL('/lender')}}" class="btn btn-default btn-sm round border-thin btn-register">
                                     <span>

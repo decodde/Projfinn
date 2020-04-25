@@ -20,6 +20,11 @@
         font-family: 'Quicksand', sans-serif;
         color: #1a1c26;
     }
+    .dotted-btn{
+        padding: 20px 30px;
+        border: 1px dashed #c4c4c4;
+        margin: 0 auto;
+    }
 
 </style>
 <body class="vertical-layout vertical-content-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-content-menu" data-col="2-columns" style="background-color: #F4F5FA">

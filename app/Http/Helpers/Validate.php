@@ -44,6 +44,35 @@ class Validate {
         }
     }
 
+    public function account($data, $type)
+    {
+        if($type == "edit")
+        {
+            return $this->validator::make($data, [
+                "userId" => "required",
+                "l_name" => "required",
+                "f_name" => "required",
+            ]);
+        }
+        else if($type == "updateDetails"){
+            return $this->validator::make($data, [
+                "dd" => "required",
+                "userId" => "required",
+                "bankId" => "required",
+                "bvn" => "required",
+                "accountNumber" => "required"
+            ]);
+        }
+        else {
+            return $this->validator::make($data, [
+                "userId" => "required",
+                "bankId" => "required",
+                "bvn" => "required|unique:lender_accounts",
+                "accountNumber" => "required|unique:lender_accounts"
+            ]);
+        }
+    }
+
     public function category($data, $type)
     {
         switch ($type) {

@@ -17,8 +17,13 @@ if (App::environment('production')) {
 }
 
 Route::get('/login', 'PageController@login');
+Route::get('/forgot-password', 'PageController@forgotPassword');
 Route::get('/lender', 'PageController@lender');
+Route::get('/r/{referralSlug}', 'PageController@referral');
 Route::get('/business', 'PageController@eligibilityTest');
 
+Route::get('activate-account/{id}', 'LoadController@activateAccount');
 Route::post('/login', 'LoadController@login');
-
+Route::post('/reset-password', 'LoadController@resetPassword');
+Route::post('/reset', 'LoadController@forgotPassword');
+Route::get('/reset-password/{token}', 'PageController@resetPassword');

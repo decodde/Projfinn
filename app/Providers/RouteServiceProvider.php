@@ -45,6 +45,9 @@ class RouteServiceProvider extends ServiceProvider
         //Api
         $this->mapApiRoutes();
 
+        //Account
+        $this->mapAccountRoutes();
+
         //Web
         $this->mapWebRoutes();
 
@@ -206,5 +209,20 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware(['web', 'user'])
             ->namespace($this->namespace.'\Transaction')
             ->group(base_path('routes/transaction.php'));
+    }
+
+    /**
+     * Define the "Document" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapAccountRoutes()
+    {
+        Route::prefix('account')
+            ->middleware(['web', 'user'])
+            ->namespace($this->namespace.'\Account')
+            ->group(base_path('routes/account.php'));
     }
 }

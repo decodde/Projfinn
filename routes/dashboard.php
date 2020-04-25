@@ -13,4 +13,6 @@ Route::group(['middleware' => 'business'], function() {
 Route::group(['middleware' => 'investor', 'prefix' => 'i'], function() {
     Route::get('/', 'PageController@i_dashboard');
     Route::get('/stash', 'PageController@i_dashboard_stash');
+    Route::get('/share', 'PageController@i_dashboard_referral');
+    Route::get('/settings', 'PageController@i_dashboard_settings');
 });

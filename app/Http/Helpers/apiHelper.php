@@ -48,10 +48,6 @@ class apiHelper{
 
 //        dd($response);
 
-        if(!$response->status){
-            // there was an error from the API
-            print_r('API returned error: ' . $response['message']);
-        }
         //get the curl info
         $responseInfo = curl_getinfo($ch);
 

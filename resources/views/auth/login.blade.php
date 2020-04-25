@@ -34,7 +34,7 @@
                                                 <input type="password" name="password" class="form-control" id="user-password" placeholder="Enter Password" required>
                                             </fieldset>
                                             <div class="form-group row">
-                                                <div class="col-md-6 col-12 float-sm-left"><a href="recover-password.html" class="card-link">Forgot Password?</a></div>
+                                                <div class="col-md-6 col-12 float-sm-left"><a href="{{URL('/forgot-password')}}" class="card-link">Forgot Password?</a></div>
                                             </div>
                                             <button type="submit" class="btn btn-info px-3 border-radius-none"><i class="ft-unlock"></i> Login</button>
 

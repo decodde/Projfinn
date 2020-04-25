@@ -24,10 +24,11 @@
                             data-split-text="true"
                             data-split-options='{"type":"lines"}'
                             data-fittext="true"
-                            data-fittext-options='{"compressor": 0.75, "maxFontSize": 52}'>Invest Without Compromising your value
+                            data-fittext-options='{"compressor": 0.75, "maxFontSize": 42}'>Returns Are Scarce,<br>
+                            Earn Healthy Returns In These Times
                         </h2>
 
-                        <p class="font-size-14 lh-175 text-fade-white-07 pr-md-9 mr-md-9 mb-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <p class="font-size-14 lh-175 text-fade-white-07 pr-md-9 mr-md-9 mb-50">Support small businesses to grow and contribute to economic development.</p>
 
                         <a href="about.html" class="btn btn-default btn-sm border-none btn-register box-shadow-3">
                             <span>
@@ -220,9 +221,14 @@
                     <div class="lqd-column col-lg-7 col-md-6 mb-5 mb-md-0" data-custom-animations="true" data-ca-options='{"triggerHandler":"inview","animationTarget":"all-childs","duration":1200,"delay":160,"initValues":{"translateY":50,"opacity":0},"animations":{"translateY":0,"opacity":1}}'>
 
                         <header class="fancy-title mb-20">
-                            <h2 class="mt-20 mb-1 font-weight-bold">About Projfinn</h2>
+                            <h2 class="mt-20 mb-1 font-weight-bold">About Rouzo</h2>
                             <br>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum....<br><br> </p>
+                            <p class="font-size-16">Rouzo is a portfolio managed platform that allows smart individual and corporate investors invest in portfolios that are you to provide financing for small businesses. Rouzo platform is owned by Owoafara Fintech services a financial technology company that builds platforms and tools to facilitate small business financing, support and growth
+                                By investing on Rouzo, investors generate a healthy return and contribute to economic development by empowering small businesses to grow and expand.
+                                Since Owoafara launched in November 2019, we have curated and verified over 300 small businesses for matching with financial institutions with our signature algorithm which we have further refined in the last 3 months.
+                                With Rouzo, have are providing access to finance to these small businesses in the form of asset finance and working capital finance.
+                                Our goal is to impact 1 million small businesses in the next 3 years.
+                                <br><br> </p>
 
                         </header><!-- /.fancy-title -->
 
@@ -389,9 +395,9 @@
                     <div class="lqd-column col-md-6 col-md-offset-1 col-xs-12">
 
                         <div class="ld-fancy-heading mb-30">
-                            <h2 class="text-white" data-text-rotator="true">
+                            <h2 class="text-white font-weight-bold" data-text-rotator="true">
 									<span class="ld-fh-txt">
-										 Projfinn is a platform for
+										 Rouzo is a platform for
 										<span class="txt-rotate-keywords">
 											<span class="keyword active">Investors</span>
 											<span class="keyword">Businesses</span>

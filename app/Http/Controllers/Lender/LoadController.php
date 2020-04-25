@@ -10,6 +10,7 @@ use App\Models\Lender;
 use App\Models\User;
 use App\Models\Credit;
 use App\Models\Preference;
+use App\Models\Referral;
 
 use App\Http\Helpers\Validate;
 use App\Http\Helpers\sendMail;
@@ -30,8 +31,9 @@ class LoadController extends Controller
     private $cloudinary;
     private $registration;
     private $preference;
+    private $referral;
 
-    public function __construct(User $user, Validate $validate, Cloudinary $cloudinary, sendMail $mail, Registration $registration, Partials $partials, Preference $preference, Lender $lender, Credit $credit) {
+    public function __construct(User $user, Validate $validate, Cloudinary $cloudinary, sendMail $mail, Registration $registration, Partials $partials, Preference $preference, Lender $lender, Credit $credit, Referral $referral) {
         $this->user = $user;
         $this->mail = $mail;
         $this->lender = $lender;
@@ -41,6 +43,7 @@ class LoadController extends Controller
         $this->cloudinary = $cloudinary;
         $this->registration = $registration;
         $this->preference = $preference;
+        $this->referral = $referral;
     }
 
     public function create(Request $request) {
@@ -64,6 +67,16 @@ class LoadController extends Controller
                 } else {
 //                    dd("Hey");
                     $user = $register->data;
+                    if ($request->has('rCode')){
+                        $referrer = $this->user->where('referralSlug', $request->rCode)->first();
+                        $rParams = [
+                            'userId' => $user->id,
+                            'refererId' => $referrer->id,
+                        ];
+
+                        $this->referral->create($rParams);
+                    }
+
                     $lenderData = $request->only('l_name', 'f_name', 'email', 'phone', 'address');
 
                     $lenderData['userId'] = $user->id;

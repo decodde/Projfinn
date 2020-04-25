@@ -1,5 +1,6 @@
 <script src="{{ asset('assets/app-assets/vendors/js/vendors.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/app-assets/vendors/js/ui/headroom.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/app-assets/vendors/js/extensions/toastr.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/app-assets/vendors/js/charts/chart.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/app-assets/vendors/js/charts/echarts/echarts.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/app-assets/vendors/js/charts/raphael-min.js') }}" type="text/javascript"></script>

@@ -56,6 +56,10 @@ return [
             'transport' => 'postmark',
         ],
 
+        'sendgrid' => [
+            'transport' => 'sendgrid',
+        ],
+
         'sendmail' => [
             'transport' => 'sendmail',
             'path' => '/usr/sbin/sendmail -bs',

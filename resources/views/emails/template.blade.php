@@ -1,6 +1,6 @@
 <html>
 <body>
-<img src="{{ URL('assets/images/logo.png') }}" alt="" width="70px">
+<img src="{{ URL('assets/app-assets/images/adobe/logo.png') }}" alt="" width="70px">
 <br>
 <h3>{!! $data["salute"] !!}</h3>
 

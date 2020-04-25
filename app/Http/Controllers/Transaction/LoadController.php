@@ -7,6 +7,8 @@ use App\Http\Helpers\apiHelper;
 use App\Models\Transaction;
 use App\Models\Stash;
 use Illuminate\Http\Request;
+use App\Models\Referral;
+use App\Models\Lender;
 
 class LoadController extends Controller
 {
@@ -14,11 +16,15 @@ class LoadController extends Controller
     private $api;
     private $transaction;
     private $stash;
+    private $referral;
+    private $investor;
 
-    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash){
+    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor){
         $this->api = $api;
         $this->transaction = $transaction;
         $this->stash = $stash;
+        $this->referral = $referral;
+        $this->investor = $investor;
     }
 
     public function buy(Request $request){
@@ -84,6 +90,18 @@ class LoadController extends Controller
                 $stash->increment('totalAmount', $amountPaid);
                 $stash->increment('availableAmount', $amountPaid);
             }
+
+            $gr = $this->referral->where(['userId' => $user->id, 'hasPayed' => false]);
+            $getRef = $gr->first();
+
+            if($getRef !== null){
+                $refId = $this->investor->where('userId', $getRef->refererId)->first();
+                $refStash = $this->stash->where('investorId', $refId->id);
+                $refStash->increment('totalAmount', 5000);
+                $refStash->increment('availableAmount', 5000);
+                $gr->update(['hasPayed' => true]);
+            }
+
             \Session::forget('type');
             \Session::put('success', true);
             return redirect('dashboard/i/stash')->withErrors('Stash credited successfully');

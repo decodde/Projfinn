@@ -8,11 +8,6 @@
         .table td{
             border-top: none !important;
         }
-        .dotted-btn{
-            padding: 20px 30px;
-            border: 1px dashed #c4c4c4;
-            margin: 0 auto;
-        }
 
     </style>
     <div class="row">

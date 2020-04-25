@@ -3,14 +3,19 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Helpers\Formatter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as Auth;
+
 use App\Models\User;
+use App\Models\Bank;
 use App\Models\Eligibility;
 use App\Models\Stash;
 use App\Models\Transaction;
+use App\Models\Referral;
+use App\Models\lenderAccount;
+
 use App\Http\Helpers\partials;
+use App\Http\Helpers\Formatter;
 
 class PageController extends Controller
 {
@@ -22,8 +27,11 @@ class PageController extends Controller
     private $transaction;
     private $stash;
     private $formatter;
+    private $referral;
+    private $lenderAccount;
+    private $bank;
 
-    public function __construct(Auth $auth, User $user, Eligibility $eligible, partials $partials, Transaction $transaction, Stash $stash, Formatter $formatter){
+    public function __construct(Auth $auth, User $user, Eligibility $eligible, partials $partials, Transaction $transaction, Stash $stash, Formatter $formatter, Referral $referral, lenderAccount $lenderAccount, Bank $bank){
         $this->auth = $auth;
         $this->user = $user;
         $this->eligible = $eligible;
@@ -31,6 +39,9 @@ class PageController extends Controller
         $this->transaction = $transaction;
         $this->stash = $stash;
         $this->formatter = $formatter;
+        $this->referral = $referral;
+        $this->lenderAccount = $lenderAccount;
+        $this->bank = $bank;
     }
 
     public function dashboard(Request $request) {
@@ -136,6 +147,13 @@ class PageController extends Controller
         try {
             $user = Auth::user();
 
+            $l_account = $this->lenderAccount->where('userId', $user->id)->first();
+
+            if($l_account == null){
+                \Session::put('warning', true);
+                return redirect('/dashboard/i/settings')->withErrors('Your bank detail are needed to credit your wallet');
+            }
+
             $stash = $this->stash->where('investorId', $user->investor()->id);
 
             if($stash->first() === null){
@@ -169,6 +187,79 @@ class PageController extends Controller
             ];
 
             return view('dashboard.investor.stash', $data);
+
+        } catch(\Exception $e) {
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function i_dashboard_referral(Request $request) {
+        try {
+            $user = Auth::user();
+
+            $p = $this->stash->where('investorId', $user->investor()->id)->first();
+
+            if($p !== null){
+                $payedIn = true;
+            }
+            else{
+                $payedIn = false;
+            }
+
+            $referrals = $this->referral->where('refererId', $user->id)->get();
+
+            $signUpReferrals = $referrals->reject(function ($referral){
+               return $referral->hasSignUp == false;
+            });
+
+            $payedReferrals = $referrals->reject(function ($referral){
+                return $referral->hasPayed == false;
+            });
+
+            foreach ($payedReferrals as $pf){
+                $pf->user = $pf->user();
+            }
+//            dd($payedReferrals);
+            $user->referralLink = env('APP_UR').'r/';
+            $data = [
+                'title' => 'Dashboard',
+                'user' => $user,
+                'referrals' => $referrals,
+                'signReferral' => $signUpReferrals,
+                'payedReferrals' => $payedReferrals,
+                'payedIn' => $payedIn
+            ];
+
+            return view('dashboard.investor.referral', $data);
+
+        } catch(\Exception $e) {
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function i_dashboard_settings(Request $request) {
+        try {
+            $user = Auth::user();
+
+            $l_account = $this->lenderAccount->where('userId', $user->id)->first();
+
+            $banks = $this->bank->get();
+
+            $names = explode(" ", $user->name);
+
+            $user->f_name = $names[0];
+            $user->l_name = $names[1];
+
+            $data = [
+                'title' => 'Dashboard',
+                'user' => $user,
+                'banks' => $banks,
+                'accountDetails' => $l_account,
+            ];
+
+            return view('dashboard.investor.settings', $data);
 
         } catch(\Exception $e) {
             \Session::put('danger', true);

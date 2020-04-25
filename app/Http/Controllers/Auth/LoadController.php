@@ -50,22 +50,29 @@ class LoadController extends Controller
             \Session::put('warning', true);
             return back()->withErrors($validation->getMessageBag())->withInput();
         }
-
-
+//        dd("Hey");
         try {
 
-            if(!$this->auth::attempt($data))
-                {
-                    \Session::put('danger', true);
-                    return back()->withErrors("Incorrect login details");
+            if(!$this->auth::attempt($data)) {
+                \Session::put('danger', true);
+                return back()->withErrors("Incorrect login details");
+            }
 
-                } elseif($this->auth::user()->type === 'investor') {
+            if($this->auth::user()->verified == false) {
+                Auth::logout();
+                \Session::flush();
 
-                    return redirect('/dashboard/i')->withErrors('Welcome back'.$this->auth::user()->fullName);
-                } else {
+                \Session::put('warning', true);
+                return back()->withErrors("Your account is not verified. Kindly check your email for a verification link");
+            }
 
-                    return redirect('dashboard')->withErrors("Welcome back ".$this->auth::user()->fullName);
-                }
+            if($this->auth::user()->type === 'investor') {
+
+                return redirect('/dashboard/i')->withErrors('Welcome back'.$this->auth::user()->name);
+            } else {
+
+                return redirect('dashboard')->withErrors("Welcome back ".$this->auth::user()->name);
+            }
         } catch(\Exception $e) {
             \Session::put('danger', true);
             return back()->withErrors('An error has occurred: '.$e->getMessage())->withInput();
@@ -92,6 +99,8 @@ class LoadController extends Controller
                 $body["password"] = bcrypt($body["password"]);
 
                 $body["name"] = $body["f_name"]." ".$body["l_name"] ;
+
+                $body["referralSlug"] = str_random(10);
                 //store create the user info
                 $userId = $this->user->create($body)->id;
                 $body['id'] = $userId;
@@ -103,7 +112,9 @@ class LoadController extends Controller
                 $body['url'] = URL('activate-account/'.\Crypt::encrypt($userId));
                 //You can decide to enable the send confirmation mail feature
                 //by removing the comment below this line
+
                 $this->mail->welcomeMessage($body);
+//                dd("Hey");
 
                 //it's a beautiful day, don't you think
                 return response()->json(["message" => "User successfully created", "data" => $body], 200);
@@ -116,7 +127,7 @@ class LoadController extends Controller
     public function activateAccount(Request $request, $id) {
         try {
             //query
-            $query = $this->user->where("id", \Crypt::decrypt($id));
+            $query = $this->user->where("id", decrypt($id));
 
             if($query->first() !== null) {
                 $query->update(['verified' => true]);
@@ -150,12 +161,12 @@ class LoadController extends Controller
                 if($findEmail !== null)
                 {
                     //create a recovery token from the user's ID
-                    $token = Crypt::encrypt($findEmail->id);
+                    $token = encrypt($findEmail->id);
 
                     //prepare mail variables
                     $data = [
                         "email" => $findEmail->email,
-                        "name" => $findEmail->fullName,
+                        "name" => $findEmail->name,
                         "url" => URL('reset-password').'/'.$token,
                     ];
 
@@ -165,6 +176,7 @@ class LoadController extends Controller
                     //store the value in the database
                     $this->reset->create($expiry);
 
+//                    dd("Hey");
                     //send password recovery mail to user
                     $this->mail->sendPasswordRecoveryMail($data);
 
@@ -243,7 +255,7 @@ class LoadController extends Controller
 
             return redirect('login')->withErrors('You\'re now logged out');
         } catch(\Exception $e) {
-            \Session::put('red', true);
+            \Session::put('danger', true);
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
