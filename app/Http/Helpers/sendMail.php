@@ -18,10 +18,9 @@ class sendMail {
         $mail["salute"] = "Hello ".$data['name'].",";
 
         $mail["message"] = "Thank you for joining ".env('APP_NAME');
-        $mail["message"] .= "<br><br>".env('APP_NAME')." is a finance matching and business support platform,";
-        $mail["message"] .= "<br><br>that matches small businesses with financing options and supports them to grow their businesses.";
-        $mail["message"] .= "<br><br>by providing practical resources, training, community and support.";
-        $mail["message"] .= "<br><br>Your organization has been successfully registered, please click the link below to activate your dashboard.";
+        $mail["message"] .= "<br><br>".env('APP_NAME')." is an online lending market place that allows you to buy ";
+        $mail["message"] .= "<br><br>units in our portfolios’ that are then used to lend to small businesses.";
+        $mail["message"] .= "<br><br>You have been successfully registered, please click the link below to activate your dashboard.";
         $mail['buttonTitle'] = 'Activate dashboard';
         $mail['targetUrl'] = $data['url'];
 

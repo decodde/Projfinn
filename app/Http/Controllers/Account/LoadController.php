@@ -90,6 +90,7 @@ class LoadController extends Controller
                 'last_name' => $name[1]
             ];
 
+//            dd("Heyyy");
             $is_verified = $this->verifyACC($body);
 
             if($is_verified === true){
@@ -167,7 +168,10 @@ class LoadController extends Controller
 
     private function verifyACC($data){
         try{
+//            dd("Hey");
             $nubanMatch = $this->api->call('/bank/resolve?account_number='.$data['account_number'].'&bank_code='.$data['bank_code'], 'GET');
+
+//            dd($nubanMatch);
 
             if (!$nubanMatch->status){
                 return false;

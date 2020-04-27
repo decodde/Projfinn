@@ -38,4 +38,11 @@
     .nav-item span{
         margin-top: 1px;
     }
+    .green .kt-svg-icon g [fill]{
+        fill: #28D094;
+    }
+    .green .kt-svg-icon g [fill]{
+        fill: #28D094;
+    }
+
 </style>

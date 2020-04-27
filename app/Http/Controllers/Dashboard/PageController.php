@@ -266,4 +266,38 @@ class PageController extends Controller
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
+
+    public function i_dashboard_investment(Request $request) {
+        try {
+            $user = Auth::user();
+
+            $data = [
+                'title' => 'Dashboard',
+                'user' => $user,
+            ];
+
+            return view('dashboard.investor.investment', $data);
+
+        } catch(\Exception $e) {
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function i_dashboard_oneInvestment(Request $request) {
+        try {
+            $user = Auth::user();
+
+            $data = [
+                'title' => 'Dashboard',
+                'user' => $user,
+            ];
+
+            return view('dashboard.investor.oneInvestment', $data);
+
+        } catch(\Exception $e) {
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
 }

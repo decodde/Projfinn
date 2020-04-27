@@ -43,7 +43,9 @@ class apiHelper{
         curl_setopt($ch, CURLINFO_HTTP_CODE, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 
+//        dd($uri);
         $result = curl_exec($ch);
+//        dd($result);
         $response = json_decode($result);
 
 //        dd($response);
