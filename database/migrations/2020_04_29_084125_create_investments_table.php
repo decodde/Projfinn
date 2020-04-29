@@ -15,6 +15,14 @@ class CreateInvestmentsTable extends Migration
     {
         Schema::create('investments', function (Blueprint $table) {
             $table->id();
+            $table->string("userId");
+            $table->string("investorId");
+            $table->string("portfolioId");
+            $table->string("transactionId");
+            $table->string("unitsBought");
+            $table->enum("paymentMethod", ["stash", "bank"]);
+            $table->string("datePurchased");
+            $table->string("amount");
             $table->timestamps();
         });
     }

@@ -70,6 +70,9 @@ class RouteServiceProvider extends ServiceProvider
         //Document
         $this->mapDocumentRoutes();
 
+        //Investment
+        $this->mapInvestmentRoutes();
+
         //Transaction
         $this->mapTransactionRoutes();
     }
@@ -224,5 +227,21 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware(['web', 'user'])
             ->namespace($this->namespace.'\Account')
             ->group(base_path('routes/account.php'));
+    }
+
+
+    /**
+     * Define the "Investment" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapInvestmentRoutes()
+    {
+        Route::prefix('investment')
+            ->middleware(['web', 'user'])
+            ->namespace($this->namespace.'\Investment')
+            ->group(base_path('routes/investment.php'));
     }
 }

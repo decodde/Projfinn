@@ -266,4 +266,20 @@ class Validate {
                 break;
         }
     }
+
+    public function investment($data, $type) {
+        switch ($type) {
+            case 'create':
+                return $this->validator::make($data, [
+                    'unitsBought' => 'required',
+                    'portfolioId' => 'required',
+                    'paymentMethod' => 'required',
+                    'amount' => 'required',
+                ]);
+                break;
+            default:
+                # code...
+                break;
+        }
+    }
 }

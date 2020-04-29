@@ -41,7 +41,7 @@
                         <span class="menu-title" data-i18n="nav.templates.main">Stash</span>
                     </a>
                 </li>
-            @if(Request::is('dashboard/i/investments*'))
+            @if(Request::is('dashboard/i/investment*'))
                 <li class=" nav-item open">
                     <a href="{{URL('dashboard/i/investments')}}" class="active">
             @else

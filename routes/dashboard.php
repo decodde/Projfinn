@@ -16,5 +16,5 @@ Route::group(['middleware' => 'investor', 'prefix' => 'i'], function() {
     Route::get('/share', 'PageController@i_dashboard_referral');
     Route::get('/settings', 'PageController@i_dashboard_settings');
     Route::get('/investments', 'PageController@i_dashboard_investment');
-    Route::get('/investment', 'PageController@i_dashboard_oneInvestment');
+    Route::get('/investment/{id}', 'PageController@i_dashboard_oneInvestment');
 });

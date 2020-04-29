@@ -12,7 +12,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/fonts/meteocons/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/app.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/core/menu/menu-types/vertical-content-menu.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/vendors/css/cryptocoins/cryptocoins.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/core/colors/palette-gradient.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/fonts/simple-line-icons/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/core/colors/palette-gradient.css') }}">
@@ -23,8 +22,10 @@
     <link rel="stylesheet" href="{{ asset('assets/assets/vendors/font-awesome/css/font-awesome.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/assets/css/themes/opus-2.css') }}" />
     <script async src="{{ asset('assets/assets/vendors/modernizr.min.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/plugins/forms/wizard.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/plugins/extensions/toastr.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/assets/css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.4/numeral.min.js" ></script>
 </head>
 <style>
     .nav-item .kt-svg-icon g [fill]{
@@ -34,15 +35,17 @@
     .nav-item.open .kt-svg-icon g [fill]{
         fill: #2193dd;
     }
-
     .nav-item span{
         margin-top: 1px;
     }
     .green .kt-svg-icon g [fill]{
         fill: #28D094;
     }
-    .green .kt-svg-icon g [fill]{
-        fill: #28D094;
+    .info .kt-svg-icon g [fill]{
+        fill: #2193dd;
+    }
+    .yellow .kt-svg-icon g [fill]{
+        fill: #FF8942;
     }
 
 </style>

@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Helpers\apiHelper;
 use App\Models\Transaction;
 use App\Models\Stash;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Referral;
 use App\Models\Lender;
+use App\Models\Portfolio;
+use App\Models\Investment;
 
 class LoadController extends Controller
 {
@@ -18,13 +21,17 @@ class LoadController extends Controller
     private $stash;
     private $referral;
     private $investor;
+    private $portfolio;
+    private $investment;
 
-    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor){
+    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment){
         $this->api = $api;
         $this->transaction = $transaction;
         $this->stash = $stash;
+        $this->portfolio = $portfolio;
         $this->referral = $referral;
         $this->investor = $investor;
+        $this->investment = $investment;
     }
 
     public function buy(Request $request){
@@ -72,39 +79,71 @@ class LoadController extends Controller
                 'type' => $trnxType
             ];
 
-            $this->transaction->create($params);
+            $trnXId = $this->transaction->create($params)->id;
 
             //credit the Investor's wallet
+            if ( $trnxType == 'credit') {
+                $stash = $this->stash->where('investorId', $user->investor()->id);
 
-            $stash = $this->stash->where('investorId', $user->investor()->id);
+                if ($stash->first() === null) {
+                    $stashParams = [
+                        'investorId' => $user->investor()->id,
+                        'customerId' => $trnxData->customer->customer_code,
+                        'totalAmount' => $amountPaid,
+                        'availableAmount' => $amountPaid
+                    ];
+                    $stash->create($stashParams);
+                } else {
+                    $stash->increment('totalAmount', $amountPaid);
+                    $stash->increment('availableAmount', $amountPaid);
+                }
 
-            if($stash->first() === null){
-                $stashParams = [
-                    'investorId' => $user->investor()->id,
-                    'customerId' => $trnxData->customer->customer_code,
-                    'totalAmount' => $amountPaid,
-                    'availableAmount' => $amountPaid
-                ];
-                $stash->create($stashParams);
-            } else {
-                $stash->increment('totalAmount', $amountPaid);
-                $stash->increment('availableAmount', $amountPaid);
+                $gr = $this->referral->where(['userId' => $user->id, 'hasPayed' => false]);
+                $getRef = $gr->first();
+
+                if ($getRef !== null) {
+                    $refId = $this->investor->where('userId', $getRef->refererId)->first();
+                    $refStash = $this->stash->where('investorId', $refId->id);
+                    $refStash->increment('totalAmount', 2000);
+                    $refStash->increment('availableAmount', 2000);
+                    $gr->update(['hasPayed' => true]);
+                }
+
+                \Session::forget('type');
+                \Session::put('success', true);
+                return redirect('dashboard/i/stash')->withErrors('Stash credited successfully');
             }
+            else{
+                if (\Session::get('portfolioId') !== null){
+                    $portfolioId = \Session::get('portfolioId');
+                    $getPortfolio = $this->portfolio->where("id", $portfolioId);
 
-            $gr = $this->referral->where(['userId' => $user->id, 'hasPayed' => false]);
-            $getRef = $gr->first();
+                    $getP = $getPortfolio->first();
+                    if($getP === null){
+                        \Session::put('danger', true);
+                        return redirect('dashboard/i')->withErrors('An error has occurred');
+                    }
 
-            if($getRef !== null){
-                $refId = $this->investor->where('userId', $getRef->refererId)->first();
-                $refStash = $this->stash->where('investorId', $refId->id);
-                $refStash->increment('totalAmount', 5000);
-                $refStash->increment('availableAmount', 5000);
-                $gr->update(['hasPayed' => true]);
+                    $units = $amountPaid / $getP->amountPerUnit;
+
+                    $invData = [
+                        'userId' => $user->id,
+                        "investorId" => $user->investor()->id,
+                        "portfolioId" => $portfolioId,
+                        "transactionId" => $trnXId,
+                        "unitsBought" => $units,
+                        "amount" => $amountPaid,
+                        "paymentMethod" => "stash",
+                        "datePurchased" => Carbon::now(),
+                    ];
+
+                    $getPortfolio->decrement('sizeRemaining', $amountPaid);
+                    $this->investment->create($invData);
+
+                    \Session::put('success', true);
+                    return redirect('dashboard/i/investments')->withErrors("You have successfully invested into '". $getP->name."'");
+                }
             }
-
-            \Session::forget('type');
-            \Session::put('success', true);
-            return redirect('dashboard/i/stash')->withErrors('Stash credited successfully');
         } catch(\Exception $e) {
             \Session::put('danger', true);
             return redirect('dashboard/i')->withErrors('An error has occurred: '.$e->getMessage());

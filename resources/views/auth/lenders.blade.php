@@ -7,7 +7,7 @@
                 <div class="content-body">
                     <section class="flexbox-container">
                         <div class="col-12 d-flex align-items-center justify-content-between">
-                            <div class="col-md-8 offset-1 col-10 box-shadow-0 p-0">
+                            <div class="offset-md-1 offset-sm-0 col-sm-12 col-md-8 box-shadow-0 p-0">
                                 <section id="number-tabs">
                                     <div class="row">
                                         <div class="col-12">
@@ -23,7 +23,7 @@
                                                         <p class="font-size-24px text-black f-2"><a class="text-blue">{{$r_user["name"]}}</a> has invited you to Invest into Businesses </p>
                                                         <p>Help Businesses Thrive</p>
                                                      @else
-                                                        <p class="font-size-24px text-black f-2">Start Investing Into Businesses</p>
+                                                        <p class="font-size-24px text-black f-2">Start Investing Into Portfolios</p>
                                                         <p>Help Businesses Thrive</p>
                                                     @endif
                                                     <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2 mb-0"></h6>

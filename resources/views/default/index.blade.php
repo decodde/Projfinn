@@ -6,7 +6,7 @@
         <section
             class="vc_row py-5 py-md-0 bg-cover bg-center vh-80 d-flex flex-wrap align-items-center"
             data-slideshow-bg="true"
-            data-slideshow-options='{ "effect": "slide", "imageArray": ["{{ asset('assets/app-assets/images/adobe/adb2.png') }}", "{{ asset('assets/app-assets/images/adobe/adb3.png') }}", "{{ asset('assets/app-assets/images/adobe/adb1.png') }}"] }'>
+            data-slideshow-options='{ "effect": "slide", "imageArray": ["https://images.unsplash.com/photo-1573164574144-649081e9421a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80", "{{ asset('assets/app-assets/images/adobe/adb3.png') }}", "{{ asset('assets/app-assets/images/adobe/adb1.png') }}"] }'>
 
             <span class="row-bg-loader"></span>
 
@@ -20,25 +20,21 @@
                         data-custom-animations="true"
                         data-ca-options='{ "triggerHandler":"inview", "animationTarget":"all-childs", "duration":"1200", "delay":"150", "easing":"easeOutQuint", "direction":"forward", "initValues":{"translateY":60, "opacity":0}, "animations":{"translateY":0, "opacity":1} }'>
                         <h2
-                            class="text-white mt-0 mb-30 font-weight-normal"
-                            data-split-text="true"
-                            data-split-options='{"type":"lines"}'
-                            data-fittext="true"
-                            data-fittext-options='{"compressor": 0.75, "maxFontSize": 42}'>Returns Are Scarce,<br>
+                            class="text-white mt-0 mb-30 font-weight-normal">Returns Are Scarce,<br>
                             Earn Healthy Returns In These Times
                         </h2>
 
                         <p class="font-size-14 lh-175 text-fade-white-07 pr-md-9 mr-md-9 mb-50">Support small businesses to grow and contribute to economic development.</p>
 
-                        <a href="about.html" class="btn btn-default btn-sm border-none btn-register box-shadow-3">
+                        <a href="{{URL('/lender')}}" class="btn btn-default btn-sm border-none btn-register box-shadow-3 f-1 font-weight-light">
                             <span>
-                                <span class="btn-txt"> &nbsp; How it Works &nbsp;</span>
+                                <span class="btn-txt"> &nbsp; Create A Free Account &nbsp;</span>
                             </span>
                         </a>
 
                     </div><!-- /.col-md-7 -->
 
-                    <div class="lqd-column col-md-5 col-xs-12 px-md-4 text-center">
+                    <div class="lqd-column col-md-5 hidden-xs col-xs-12 px-md-4 text-center">
 
                         <div class="lqd-column-inner bg-white border-radius-6 px-3 px-md-4 pt-40 pb-40">
 

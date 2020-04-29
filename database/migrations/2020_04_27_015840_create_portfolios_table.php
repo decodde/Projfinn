@@ -20,8 +20,11 @@ class CreatePortfoliosTable extends Migration
             $table->string("returnInPer");
             $table->string("trustee");
             $table->enum("riskLevel", ['low', 'medium', 'high'])->default('low');
-            $table->string("totalFunds");
+            $table->string("size");
+            $table->string("uniqueCode")->unique();
+            $table->string("sizeRemaining");
             $table->string("amountPerUnit");
+            $table->string("managementFee");
             $table->timestamps();
         });
     }

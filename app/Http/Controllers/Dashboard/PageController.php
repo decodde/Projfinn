@@ -13,6 +13,7 @@ use App\Models\Stash;
 use App\Models\Transaction;
 use App\Models\Referral;
 use App\Models\lenderAccount;
+use App\Models\Portfolio;
 
 use App\Http\Helpers\partials;
 use App\Http\Helpers\Formatter;
@@ -30,8 +31,9 @@ class PageController extends Controller
     private $referral;
     private $lenderAccount;
     private $bank;
+    private $portfolio;
 
-    public function __construct(Auth $auth, User $user, Eligibility $eligible, partials $partials, Transaction $transaction, Stash $stash, Formatter $formatter, Referral $referral, lenderAccount $lenderAccount, Bank $bank){
+    public function __construct(Auth $auth, User $user, Eligibility $eligible, partials $partials, Transaction $transaction, Stash $stash, Formatter $formatter, Referral $referral, lenderAccount $lenderAccount, Bank $bank, Portfolio $portfolio){
         $this->auth = $auth;
         $this->user = $user;
         $this->eligible = $eligible;
@@ -42,6 +44,7 @@ class PageController extends Controller
         $this->referral = $referral;
         $this->lenderAccount = $lenderAccount;
         $this->bank = $bank;
+        $this->portfolio = $portfolio;
     }
 
     public function dashboard(Request $request) {
@@ -116,6 +119,7 @@ class PageController extends Controller
         }
     }
 
+//    Investors Dashboard View Functions
     public function i_dashboard(Request $request) {
         try {
             $user = Auth::user();
@@ -270,10 +274,12 @@ class PageController extends Controller
     public function i_dashboard_investment(Request $request) {
         try {
             $user = Auth::user();
+            $portfolios = $this->portfolio->get();
 
             $data = [
                 'title' => 'Dashboard',
                 'user' => $user,
+                'portfolios' => $portfolios,
             ];
 
             return view('dashboard.investor.investment', $data);
@@ -284,13 +290,18 @@ class PageController extends Controller
         }
     }
 
-    public function i_dashboard_oneInvestment(Request $request) {
+    public function i_dashboard_oneInvestment(Request $request, $id) {
         try {
             $user = Auth::user();
+
+            $portfolio = $this->portfolio->where('id', decrypt($id))->first();
+
+            $portfolio->units = $portfolio->size / $portfolio->amountPerUnit;
 
             $data = [
                 'title' => 'Dashboard',
                 'user' => $user,
+                'portfolio' => $portfolio
             ];
 
             return view('dashboard.investor.oneInvestment', $data);
@@ -300,4 +311,6 @@ class PageController extends Controller
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
+
+//    End Investors Dashboard view Functions
 }
