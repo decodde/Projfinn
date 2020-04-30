@@ -142,7 +142,6 @@
                             <h2 class="mb-30" data-fittext="true" data-fittext-options='{ "compressor": 0.65, "maxFontSize": 60 }'>
                                 <span class="f-2 font-weight-normal" style="color: #3d3d3d">A better financial pathway</span>
                             </h2>
-                            <h3 class="font-size-18 lh-185 pr-7 mr-3"> Ut enim ad minim veniam, quis nostrud exercitation </h3>
 
                         </header><!-- /.fancy-title -->
 

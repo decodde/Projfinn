@@ -139,6 +139,7 @@ class Validate {
                     'email' => 'required|email|unique:lenders',
                     'phone' => 'required|unique:lenders',
                     'lenderCategoryId' => 'required',
+                    'terms' => 'required'
                 ]);
                 break;
             case 'save':

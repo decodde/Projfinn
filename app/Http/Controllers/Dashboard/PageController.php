@@ -129,6 +129,12 @@ class PageController extends Controller
 
             $stash = $this->stash->where('investorId', $user->investor()->id);
 
+            $investments = $this->investment->where('userId', $user->id)->get();
+
+            $funds = 0;
+            foreach ($investments as $investment) {
+                $funds += $investment->amount;
+            }
             if($stash->first() === null){
                 $availableBalance = 0;
             }
@@ -136,10 +142,14 @@ class PageController extends Controller
                 $availableBalance = $stash->first()->availableAmount;
             }
 
+            $percents["stash"] = ($availableBalance / ($funds+$availableBalance)) * 100;
+            $percents["funds"] = ($funds / ($funds+$availableBalance)) * 100;
             $data = [
                 'title' => 'Dashboard',
                 'investor' => $user->investor(),
-                'balance' => $this->formatter->MoneyConvert($availableBalance, 'full')
+                'funds' => $this->formatter->MoneyConvert($funds, 'full'),
+                'balance' => $this->formatter->MoneyConvert($availableBalance, 'full'),
+                'percents' => $percents,
                 ];
 
             return view('dashboard.investor.index', $data);
@@ -306,6 +316,10 @@ class PageController extends Controller
 
             $portfolio = $this->portfolio->where('id', decrypt($id))->first();
 
+            if($portfolio->sizeRemaining == 0){
+                \Session::put('danger', true);
+                return back()->withErrors('An error has occurred');
+            }
             $portfolio->units = $portfolio->size / $portfolio->amountPerUnit;
 
             $data = [

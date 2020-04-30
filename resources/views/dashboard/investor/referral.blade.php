@@ -17,7 +17,7 @@
     </div>
     <div class="row">
         <div class="col-12 col-md-4">
-            <div class="card" title="This is the total money you have in your stash. click on the 'credit your wallet button to credit your stash for investment' ">
+            <div class="card">
                 <div class="card-header py-1">
                     <h5 class="card-title" style="font-size: 14px !important;">Referral Code</h5>
                 </div>
@@ -35,6 +35,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <h5 class="font-weight-bold">{{$user->referralSlug}}</h5>
+                                copy this code and share with your friends to register
                                 <div class="row">
                                     <div class="form-group col-10">
                                         <input type="text" class="form-control" id="copyLink" value="{{$user->referralLink.$user->referralSlug}}" disabled="disabled">
@@ -61,7 +62,7 @@
                         <div class="row" style="margin-bottom: 10px;">
                             <div class="col-md-4 col-12 border-right-blue-grey border-right-lighten-5 text-center">
                                 <p class="blue-grey lighten-2 mb-0">Amount Per Referral (Naira)</p>
-                                <h6 class="text-bold-400"><a class="blue-grey">₦ 5,000.00</a></h6>
+                                <h6 class="text-bold-400"><a class="blue-grey">₦ 2,000.00</a></h6>
                             </div>
                             <div class="col-md-4 col-12 border-right-blue-grey border-right-lighten-5 text-center">
                                 <p class="blue-grey lighten-2 mb-0">Number Of Referrals</p>
@@ -106,7 +107,7 @@
                                             <td>{{$payedReferrals[$i]->user->name}}</td>
                                             <td>
                                                 <p class="font-size-17px success darken-4">
-                                                    ₦ 5,000
+                                                    ₦ 2,000
                                                 </p>
                                             </td>
 

@@ -66,7 +66,7 @@ class LoadController extends Controller
 
                 $getStash = $stash->first();
 
-                if($getStash->first() == null){
+                if($getStash == null){
                     $trnxData = [
                         'reference' => str_random(10),
                         'status' => "failure",

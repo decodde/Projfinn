@@ -47,13 +47,13 @@
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
                                                                             <label for="firstName1">Email Address <span class="red">*</span> :</label>
-                                                                            <input type="email" class="form-control" name="email" id="firstName1" value="{{ old('email') }}">
+                                                                            <input type="email" class="form-control" name="email" id="firstName1" value="{{ old('email') }}" required>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
                                                                             <label for="lastName1">Phone Number  <span class="red">*</span> :</label>
-                                                                            <input type="tel" class="form-control" name="phone" id="lastName1" value="{{ old('phone') }}">
+                                                                            <input type="tel" class="form-control" name="phone" id="lastName1" value="{{ old('phone') }}" required>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -68,7 +68,7 @@
 
                                                                                 @for($i = 0; $i<count($l_category); $i++)
                                                                                 <div id='{{"headingCollapse1".$i}}' class="card-header">
-                                                                                    <input type="radio" name="lenderCategoryId" value={{$l_category[$i]["id"]}}>
+                                                                                    <input type="radio" name="lenderCategoryId" value="{{$l_category[$i]["id"]}}" required>
 
                                                                                     @if($i === 0)
                                                                                         <a data-toggle="collapse" href='{{"#collapse1".$i}}' aria-expanded="true" aria-controls='{{"#collapse1".$i}}' class="text-blue f-2 font-weight-bold card-title lead collapsed pl-1">{{$l_category[$i]["name"]}}</a>
@@ -106,12 +106,12 @@
                                                                         <div class="row">
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
-                                                                                    <input type="text" id="name" class="form-control" placeholder="First Name" name="f_name" value="{{ old('f_name') }}">
+                                                                                    <input type="text" id="name" class="form-control" placeholder="First Name" name="f_name" value="{{ old('f_name') }}" required>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
-                                                                                    <input type="text" id="name" class="form-control" placeholder="Last Name" name="l_name" value="{{ old('l_name') }}">
+                                                                                    <input type="text" id="name" class="form-control" placeholder="Last Name" name="l_name" value="{{ old('l_name') }}" required>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -136,6 +136,12 @@
                                                                             <label for="confirmation_password">Confirm Password <span class="red">*</span> :</label>
                                                                             <input type="password" class="form-control" id="confirmation_password" name="password_confirmation">
                                                                         </div>
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <label for="">
+                                                                            <input type="checkbox" name="terms" required>
+                                                                            I agree to the <a href="{{ asset('assets/docs/Rouzo-Investors-Terms-and-Conditions.pdf') }}">Terms & Conditions</a>
+                                                                        </label>
                                                                     </div>
                                                                 </div>
                                                             </fieldset>

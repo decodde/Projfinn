@@ -66,7 +66,7 @@
                             <table class="table">
                                 <thead>
                                 <tr class="borderless text-center">
-                                    <th class="grey-blue lighten-1 font-size-16px font-weight-normal">Returns</th>
+                                    <th class="grey-blue lighten-1 font-size-16px font-weight-normal">Average Returns</th>
                                     <th class="grey-blue lighten-1 font-size-16px font-weight-normal">Amount Per Units</th>
                                     <th class="grey-blue lighten-1 font-size-16px font-weight-normal">Number Of Units</th>
                                 </tr>
@@ -143,7 +143,8 @@
                             <br>
                             <h5 class="font-weight-bold grey-blue lighten-3">Terms Of Use</h5>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation<br> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                Kindly read through the
+                                <a href="{{ asset('assets/docs/Rouzo-Borrowers-Terms-and-Conditions.pdf') }}" target="_blank">Investor's Terms of Use</a>
                             </p>
                         </div>
                     </div>

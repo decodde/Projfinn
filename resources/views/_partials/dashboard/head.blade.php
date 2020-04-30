@@ -29,6 +29,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.4/numeral.min.js" ></script>
     <script src="{{ asset('assets/assets/vendors/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/assets/vendors/flickity/flickity.pkgd.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
 </head>
 <style>
     .nav-item .kt-svg-icon g [fill]{

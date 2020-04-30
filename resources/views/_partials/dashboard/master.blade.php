@@ -30,25 +30,6 @@
         display: block;
     }
 
-    /*.carousel-cell {*/
-    /*    width: 66%;*/
-    /*    height: 200px;*/
-    /*    margin-right: 10px;*/
-    /*    background: #8C8;*/
-    /*    border-radius: 5px;*/
-    /*    counter-increment: gallery-cell;*/
-    /*}*/
-
-    /*!* cell number *!*/
-    /*.carousel-cell:before {*/
-    /*    display: block;*/
-    /*    text-align: center;*/
-    /*    content: counter(gallery-cell);*/
-    /*    line-height: 200px;*/
-    /*    font-size: 80px;*/
-    /*    color: white;*/
-    /*}*/
-
 </style>
 <body class="vertical-layout vertical-content-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-content-menu" data-col="2-columns" style="background-color: #F4F5FA">
     @include('_partials.dashboard.header')

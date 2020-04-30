@@ -90,12 +90,16 @@
                                     <dd class="col-md-6 text-right font-size-16px font-weight-bold success darken-2">₦ {{App\Http\Helpers\Formatter::MoneyConvert($portfolio->amountPerUnit, "full")}}</dd>
                                 </dl>
                                 <dl class="row pb-1">
-                                    <dt class="col-md-6 text-muted font-weight-normal" >Return (%)</dt>
+                                    <dt class="col-md-6 text-muted font-weight-normal" >Average Returns (%)</dt>
                                     <dd class="col-md-6 text-right font-size-16px font-weight-bold success darken-2">{{$portfolio->returnInPer}} %</dd>
                                 </dl>
                                 <hr class="pb-1">
                             </div>
-                            <a href="{{URL('/dashboard/i/investment/'.encrypt($portfolio->id))}}" class="btn btn-outline-info info ">Invest Now<i class="la la-arrow-right" style="margin-left: 6px; font-size: 15px"></i></a>
+                            @if($portfolio->sizeRemaining == 0)
+                                <a class="btn btn-outline-info info" disabled="">Sold Out</a>
+                            @else
+                                <a href="{{URL('/dashboard/i/investment/'.encrypt($portfolio->id))}}" class="btn btn-outline-info info ">Invest Now<i class="la la-arrow-right" style="margin-left: 6px; font-size: 15px"></i></a>
+                            @endif
                         </div>
                     </div>
                 </div>
