@@ -31,6 +31,13 @@
                                 <span class="btn-txt"> &nbsp; Create A Free Account &nbsp;</span>
                             </span>
                         </a>
+                        <p class="text-white mb-0 hidden-lg" style="margin-top: 10px !important; margin-bottom: 5px !important;">Or</p>
+                        <a href="{{URL('/login')}}" class="btn btn-white btn-sm border-none btn-login box-shadow-3 f-1 hidden-lg font-weight-light mt-1">
+                            <span>
+                                <span class="btn-txt"> &nbsp; Login &nbsp;</span>
+                                <span class="icon-ion-ios-arrow-forward"></span>
+                            </span>
+                        </a>
 
                     </div><!-- /.col-md-7 -->
 
@@ -406,7 +413,9 @@
 
                             <div class="lqd-column col-sm-12">
 
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum....<br><br> </p>
+                                <p>Rouzo is a small business lending marketplace that allows smart individuals and corporates invest in portfolios that lend to micro and small businesses. They earn healthy returns while contributing to empowering small businesses and promoting economic development.
+
+                                    These portfolios provide asset financing and working capital financing to verified small businesses that pass our eligibility criteria and pass the basic credit assessment provided by registered credit bureaus like CRC Bureau...<br><br> </p>
 
                             </div><!-- /.lqd-column col-sm-6 -->
 
@@ -431,14 +440,14 @@
                             <div class="lqd-column col-sm-6">
 
                                 <p class="font-size-16 text-primary">Address</p>
-                                <p class="font-size-15"> 12 Lorem ipsum .<br>Behind Federal Secretariat,</p>
+                                <p class="font-size-15"> 7a, Milverton road, Ikoyi, <br>Lagos, Nigeria</p>
 
                             </div><!-- /.col-sm-6 -->
 
                             <div class="lqd-column col-sm-6">
 
                                 <p class="font-size-16 text-primary">Call Us</p>
-                                <p class="font-size-15"> 01-8198515, 01-8140499 <br> hello@owoafare.com</p>
+                                <p class="font-size-15"> 01-8198515, 01-8140499 <br> hello@rouzo.org</p>
 
                             </div><!-- /.col-sm-6 -->
 

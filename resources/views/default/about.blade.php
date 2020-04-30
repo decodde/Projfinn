@@ -176,7 +176,7 @@
                             </div><!-- /.testimonial-quote -->
                             <div class="testimonial-details">
                                 <div class="testimonial-info">
-                                    <h5>Tale Alimi</h5>
+                                    <h5>Sally Osunwe</h5>
                                     <h6 class="font-weight-normal">Business Loan</h6>
                                 </div><!-- /.testimonial-info -->
                             </div><!-- /.testimonial-details -->

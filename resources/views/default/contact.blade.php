@@ -97,9 +97,9 @@
                             <div class="lqd-column col-md-12 col-sm-12">
 
                                 <h2 class="font-size-24 font-weight-bold"><small><i class="icon-liquid_map_pin mr-2 fa-1x"></i></small> Lagos</h2>
-                                <p class="font-size-14"> 12 Lorem ipsum .<br>Behind Federal Secretariat,</p>
+                                <p class="font-size-14"> 7a, Milverton road, Ikoyi, <br>Lagos, Nigeria</p>
                                 <hr class="w-30 ml-0 border-color-primary">
-                                <p class="font-size-14"> 01-8198515, 01-8140499 <br> hello@owoafara.com</p>
+                                <p class="font-size-14"> 01-8198515, 01-8140499 <br> hello@rouzo.org</p>
 
                                 <div class="ld-gmap-container" style="height: 450px;">
                                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.6508421609306!2d3.455606515339085!3d6.438867325926404!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf4ffd6603a65%3A0xe65a3a043d294b95!2sOwoafara!5e0!3m2!1sen!2sng!4v1585419646999!5m2!1sen!2sng" height="450" frameborder="0" style="border:0; width: 100%" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
