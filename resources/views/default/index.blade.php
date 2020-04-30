@@ -454,7 +454,7 @@
                         </div><!-- /.row -->
 
                         <div class="ld-gmap-container" style="height: 280px;">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.6508421609306!2d3.455606515339085!3d6.438867325926404!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf4ffd6603a65%3A0xe65a3a043d294b95!2sOwoafara!5e0!3m2!1sen!2sng!4v1585419646999!5m2!1sen!2sng" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.5615666835174!2d3.4425954153390905!3d6.450289425798251!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf4e8b32cd023%3A0x7f3cfa141ea66fc7!2s7a%20Milverton%20Rd%2C%20Ikoyi%2C%20Lagos!5e0!3m2!1sen!2sng!4v1588276225326!5m2!1sen!2sng" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                         </div><!-- /.ld-gmap-container -->
 
                     </div><!-- /.col-md-6 -->
