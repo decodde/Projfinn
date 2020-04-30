@@ -10,6 +10,21 @@
         }
 
     </style>
+    <div class="content-header row">
+        <div class="content-header-left col-md-6 col-12 mb-2">
+            <h5 class="content-header-title">Stash</h5>
+            <div class="row breadcrumbs-top">
+                <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{URL('/dashboard/i')}}">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">Stash
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-12 col-md-4">
             <div class="card" title="This is the total money you have in your stash. click on the 'credit your wallet button to credit your stash for investment' ">

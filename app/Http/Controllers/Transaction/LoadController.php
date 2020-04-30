@@ -133,7 +133,7 @@ class LoadController extends Controller
                         "transactionId" => $trnXId,
                         "unitsBought" => $units,
                         "amount" => $amountPaid,
-                        "paymentMethod" => "stash",
+                        "paymentMethod" => "bank",
                         "datePurchased" => Carbon::now(),
                     ];
 

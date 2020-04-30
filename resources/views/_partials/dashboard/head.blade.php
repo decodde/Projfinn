@@ -21,11 +21,14 @@
     <link rel="stylesheet" href="{{ asset('assets/assets/vendors/liquid-icon/liquid-icon.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/assets/vendors/font-awesome/css/font-awesome.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/assets/css/themes/opus-2.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/assets/vendors/flickity/flickity.min.css') }}" />
     <script async src="{{ asset('assets/assets/vendors/modernizr.min.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/plugins/forms/wizard.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/plugins/extensions/toastr.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/assets/css/style.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.4/numeral.min.js" ></script>
+    <script src="{{ asset('assets/assets/vendors/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/assets/vendors/flickity/flickity.pkgd.min.js') }}"></script>
 </head>
 <style>
     .nav-item .kt-svg-icon g [fill]{

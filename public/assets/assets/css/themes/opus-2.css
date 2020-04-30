@@ -259,3 +259,12 @@ h6 {
 .f-2{
     font-family: 'Lato', sans-serif;
 }
+
+.flickity-button-icon path {
+    transform-origin: 0px 0px;
+}
+
+.flickity-prev-next-button .flickity-button-icon{
+    width: 47% !important;
+    height: 47% !important;
+}

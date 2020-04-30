@@ -14,6 +14,9 @@
 <script src="{{ asset('assets/app-assets/js/scripts/pages/dashboard-sales.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/app-assets/js/scripts/forms/wizard-steps.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/app-assets/js/scripts/numeral/numeral.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/assets/vendors/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/assets/js/theme.js') }}"></script>
+<script src="{{ asset('assets/assets/js/theme-vendors.js') }}"></script>
 <script type="text/javascript">
 
     $("a[href$='#next']").click(function() {

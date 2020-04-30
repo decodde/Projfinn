@@ -14,6 +14,7 @@ use App\Models\Transaction;
 use App\Models\Referral;
 use App\Models\lenderAccount;
 use App\Models\Portfolio;
+use App\Models\Investment;
 
 use App\Http\Helpers\partials;
 use App\Http\Helpers\Formatter;
@@ -32,8 +33,9 @@ class PageController extends Controller
     private $lenderAccount;
     private $bank;
     private $portfolio;
+    private $investment;
 
-    public function __construct(Auth $auth, User $user, Eligibility $eligible, partials $partials, Transaction $transaction, Stash $stash, Formatter $formatter, Referral $referral, lenderAccount $lenderAccount, Bank $bank, Portfolio $portfolio){
+    public function __construct(Auth $auth, User $user, Eligibility $eligible, partials $partials, Transaction $transaction, Stash $stash, Formatter $formatter, Referral $referral, lenderAccount $lenderAccount, Bank $bank, Portfolio $portfolio, Investment $investment){
         $this->auth = $auth;
         $this->user = $user;
         $this->eligible = $eligible;
@@ -45,6 +47,7 @@ class PageController extends Controller
         $this->lenderAccount = $lenderAccount;
         $this->bank = $bank;
         $this->portfolio = $portfolio;
+        $this->investment = $investment;
     }
 
     public function dashboard(Request $request) {
@@ -276,10 +279,17 @@ class PageController extends Controller
             $user = Auth::user();
             $portfolios = $this->portfolio->get();
 
+            $investments = $this->investment->where('userId', $user->id)->get();
+
+            foreach ($investments as $investment){
+                $investment->transaction = $investment->transaction();
+                $investment->portfolio = $investment->portfolio();
+            }
             $data = [
                 'title' => 'Dashboard',
                 'user' => $user,
                 'portfolios' => $portfolios,
+                'investments' => $investments
             ];
 
             return view('dashboard.investor.investment', $data);

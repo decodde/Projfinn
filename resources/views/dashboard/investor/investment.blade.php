@@ -1,8 +1,26 @@
 @extends('_partials.dashboard.master')
 @section('content')
+    <div class="content-header row">
+        <div class="content-header-left col-md-6 col-12 mb-2">
+            <h5 class="content-header-title">Investments</h5>
+            <div class="row breadcrumbs-top">
+                <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{URL('/dashboard/i')}}">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">Investment
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
+        <div class="col-md-12">
+    <div class="carousel"
+         data-flickity='{ "groupCells": true, "freeScroll": true, "cellAlign": "left", "randomVerOffset":true, "prevNextButtons":true,"buttonsAppendTo":"self","pageDots":false,"pauseAutoPlayOnHover":false}'>
         @foreach($portfolios as $portfolio)
-            <div class="col-md-6">
+            <div class="carousel-cell col-md-6">
                 <div class="card">
                     <div class="card-header pb-0">
                         <h4 class="card-title">
@@ -83,34 +101,51 @@
                 </div>
             </div>
         @endforeach
+        </div>
+    </div>
     </div>
     <div class="row">
         <div class="col-12">
             <div class="card pb-1">
                 <div class="card-header">
-                    <h4 class="card-title">Transactions</h4>
+                    <h4 class="card-title">Investments</h4>
                 </div>
                 <div class="card-content collapse show">
                     <div class="card-body">
-                        @if(count($transactions) !== 0 )
-                            <p class="card-text">The <code>type</code> field shows if the transaction was a credit or debit transaction.<br>
-                                The <code>status</code> field shows if the transaction was successful or failed.
+                        @if(count($investments) !== 0 )
+                            <p class="card-text">The <code>Payment Method</code> field shows the mode of payment that was done.<br>
                             </p>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                     <tr class="borderless">
-                                        <th>Status</th>
-                                        <th>Reference</th>
-                                        <th>Type</th>
+                                        <th>Portfolio Name</th>
                                         <th>Amount</th>
-                                        <th>Message</th>
+                                        <th>Payment Method</th>
+                                        <th>Units Bought</th>
                                         <th>Date</th>
                                     </tr>
                                     </thead>
                                     <tbody class="borderless">
-                                    @foreach($transactions as $transaction)
+                                    @foreach($investments as $investment)
                                         <tr>
+                                            <td>
+                                                {{$investment->portfolio->name}}
+                                            </td>
+                                            <td>
+                                                <p class="font-size-17px success darken-4">₦ {{App\Http\Helpers\Formatter::MoneyConvert($investment->amount, "full")}}</p>
+                                            </td>
+                                            <td>
+                                                @if($investment->paymentMethod === "bank")
+                                                    <button type="button" class="btn mr-1 mb-1 btn-grey-blue btn-lighten-4 btn-sm">Debit</button>
+                                                @else
+                                                    <button type="button" class="btn mr-1 mb-1 btn-outline-success btn-sm">Credit</button>
+                                                @endif
+
+                                            </td>
+                                            <td>{{$investment->unitsBought}}</td>
+
+                                            <td>{{App\Http\Helpers\Formatter::dataTime($investment->transaction->date)}} </td>
 
                                         </tr>
                                     @endforeach
@@ -119,9 +154,7 @@
                             </div>
                         @else
                             <div class="text-center dotted-btn width-550">
-                                You haven't made any transaction Yet
-                                <br>
-                                <a href="javascript:void(0);" data-toggle="modal" data-target="#makePayment" class="btn btn-success mr-1 btn-md mt-2">credit your wallet <i class="fa fa-plus"></i></a>
+                                You haven't Invested in any Portfolio yet
                             </div>
                         @endif
                     </div>
@@ -129,4 +162,5 @@
             </div>
         </div>
     </div>
+
 @stop
