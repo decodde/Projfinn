@@ -95,9 +95,7 @@
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label for="address">Organization Address <span style="color:red;">*</span>:</label>
-                                                                            <textarea name="address" id="address" class="form-control" required="required">
-                                                                                {{ old('address') }}
-                                                                            </textarea>
+                                                                            <textarea name="address" id="address" class="form-control" required="required" value=""></textarea>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">

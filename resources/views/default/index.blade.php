@@ -41,38 +41,41 @@
 
                     </div><!-- /.col-md-7 -->
 
-                    <div class="lqd-column col-md-5 hidden-xs col-xs-12 px-md-4 text-center">
+                    @if(auth()->check())
+                    @else
+                        <div class="lqd-column col-md-5 hidden-xs col-xs-12 px-md-4 text-center">
 
-                        <div class="lqd-column-inner bg-white border-radius-6 px-3 px-md-4 pt-40 pb-40">
+                            <div class="lqd-column-inner bg-white border-radius-6 px-3 px-md-4 pt-40 pb-40">
 
-                            <header class="fancy-title">
-                                <h2 class="mb-2 font-size-30 font-weight-light">Already Have an Account?</h2>
-                                <p class="mt-0">Login to your account.</p>
-                            </header><!-- /.fancy-title -->
+                                <header class="fancy-title">
+                                    <h2 class="mb-2 font-size-30 font-weight-light">Already Have an Account?</h2>
+                                    <p class="mt-0">Login to your account.</p>
+                                </header><!-- /.fancy-title -->
 
-                            <div class="contact-form contact-form-inputs-filled contact-form-button-block font-size-14 mb-3">
-                                <form method="post"  action="{{ URL('login') }}"novalidate="novalidate">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <input class="bg-gray text-dark" type="email" name="email" aria-required="true" aria-invalid="false" placeholder="Your email address" required>
-                                        </div><!-- /.col-md-12 -->
-                                        <div class="col-md-12">
-                                            <input class="bg-gray text-dark" type="password" name="password" aria-required="true" aria-invalid="false" placeholder="Your Password" required>
-                                        </div><!-- /.col-md-12 -->
-                                        <div class="col-md-12 text-md-right">
-                                            <input type="submit" value="Login">
-                                        </div><!-- /.col-md-12 -->
-                                        <div class="col-md-12 py-2 text-left">
-                                            <a class="text-left text-black font-weight-light underlined-onhover cursor-pointer">Don't have an account? <a href="{{URL('/business')}}" class="text text-secondary underlined-onhover cursor-pointer">Register.</a></a>
-                                        </div>
-                                    </div><!-- /.row -->
-                                </form>
-                            </div><!-- /.contact-form -->
+                                <div class="contact-form contact-form-inputs-filled contact-form-button-block font-size-14 mb-3">
+                                    <form method="post"  action="{{ URL('login') }}"novalidate="novalidate">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <input class="bg-gray text-dark" type="email" name="email" aria-required="true" aria-invalid="false" placeholder="Your email address" required>
+                                            </div><!-- /.col-md-12 -->
+                                            <div class="col-md-12">
+                                                <input class="bg-gray text-dark" type="password" name="password" aria-required="true" aria-invalid="false" placeholder="Your Password" required>
+                                            </div><!-- /.col-md-12 -->
+                                            <div class="col-md-12 text-md-right">
+                                                <input type="submit" value="Login">
+                                            </div><!-- /.col-md-12 -->
+                                            <div class="col-md-12 py-2 text-left">
+                                                <a class="text-left text-black font-weight-light underlined-onhover cursor-pointer">Don't have an account? <a href="{{URL('/business')}}" class="text text-secondary underlined-onhover cursor-pointer">Register.</a></a>
+                                            </div>
+                                        </div><!-- /.row -->
+                                    </form>
+                                </div><!-- /.contact-form -->
 
-                        </div><!-- /.lqd-column-inner -->
+                            </div><!-- /.lqd-column-inner -->
 
-                    </div><!-- /.lqd-column col-md-5 -->
+                        </div><!-- /.lqd-column col-md-5 -->
+                    @endif
 
                 </div><!-- /.row -->
             </div><!-- /.container -->
@@ -477,7 +480,7 @@
                                             <input class="bg-athens-gray px-4" type="email" name="email" aria-required="true" aria-invalid="false" placeholder="Your Email address" required>
                                         </div><!-- /.col-md-12 -->
                                         <div class="col-md-12">
-                                            <textarea class="bg-athens-gray px-4" cols="10" rows="4" name="message" aria-required="true" aria-invalid="false" placeholder="Message" required></textarea>
+                                            <textarea class="bg-athens-gray px-4" cols="10" rows="4" name="message" aria-required="true" aria-invalid="false" placeholder="Message" value="" required></textarea>
                                         </div><!-- /.col-md-12 -->
                                         <div class="col-md-12">
                                             <input type="submit" value="SEND MESSAGE" class="font-size-14 ltr-sp-2">

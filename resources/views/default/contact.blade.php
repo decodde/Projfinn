@@ -63,7 +63,7 @@
                                                 <input class="lh-25 mb-30" type="email" name="email" aria-required="true" aria-invalid="false" placeholder="Your email address" required>
                                             </div><!-- /.col-md-6 -->
                                             <div class="lqd-column col-md-6 mb-20">
-                                                <textarea cols="10" rows="6" name="message" aria-required="true" aria-invalid="false" placeholder="Message" required></textarea>
+                                                <textarea cols="10" rows="6" name="message" aria-required="true" aria-invalid="false" placeholder="Message" value="" required></textarea>
                                             </div><!-- /.col-md-12 -->
                                             <div class="lqd-column col-md-6">
                                                 <p class="font-size-16 opacity-07"><em>We all know how important your information is. They are always safe with us.</em></p>
