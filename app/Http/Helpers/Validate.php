@@ -283,4 +283,19 @@ class Validate {
                 break;
         }
     }
+
+    public function contact($data, $type) {
+        switch ($type) {
+            case 'submit':
+                return $this->validator::make($data, [
+                    'email' => 'required',
+                    'name' => 'required',
+                    'message' => 'required',
+                ]);
+                break;
+            default:
+                # code...
+                break;
+        }
+    }
 }

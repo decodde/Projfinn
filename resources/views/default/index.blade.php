@@ -381,7 +381,7 @@
                                 <div class="liquid-img-group-single" data-roundness="6" data-reveal="true" data-reveal-options='{"direction":"tb","bgcolor":"rgb(70, 70, 70)"}'>
                                     <div class="liquid-img-group-img-container">
                                         <div class="liquid-img-group-content content-fixed-left">
-                                            <p>Next-generation courses.</p>
+                                            <p>Next-generation Investment.</p>
                                         </div><!-- /.liquid-img-group-content -->
                                         <div class="liquid-img-container-inner">
                                             <figure>
@@ -465,15 +465,16 @@
 
                             <h2 class="h3 mt-0 mb-1">Send a message</h2>
                             <p class="font-size-15 mb-35">Feel free to reach us if you need any assistance.</p>
-
+                            @include('_partials.errors')
                             <div class="contact-form contact-form-inputs-filled contact-form-button-block">
-                                <form method="post" novalidate="novalidate">
+                                <form action="{{URL('/contact')}}" method="POST">
+                                    <input type="hidden" name="_token" value="{{csrf_token()}}">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <input class="bg-athens-gray px-4" type="text" name="name" aria-required="true" aria-invalid="false" placeholder="First Name" required>
+                                            <input class="bg-athens-gray px-4" type="text" name="name" aria-required="true" aria-invalid="false" placeholder="Name" required>
                                         </div><!-- /.col-md-12 -->
                                         <div class="col-md-12">
-                                            <input class="bg-athens-gray px-4" type="email" name="email" aria-required="true" aria-invalid="false" placeholder="Your email address" required>
+                                            <input class="bg-athens-gray px-4" type="email" name="email" aria-required="true" aria-invalid="false" placeholder="Your Email address" required>
                                         </div><!-- /.col-md-12 -->
                                         <div class="col-md-12">
                                             <textarea class="bg-athens-gray px-4" cols="10" rows="4" name="message" aria-required="true" aria-invalid="false" placeholder="Message" required></textarea>

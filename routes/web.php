@@ -21,6 +21,7 @@ Route::group(['namespace' => 'Index'], function() {
     Route::get('/', 'PageController@index');
     Route::get('/invest', 'PageController@about');
     Route::get('/contact', 'PageController@contact');
+    Route::post('/contact', 'PageController@contactUs');
     Route::get('/faq', 'PageController@faq');
 });
 

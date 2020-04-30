@@ -51,16 +51,16 @@
                         </div><!-- /.row -->
 
                         <div class="row">
-
+                            @include('_partials.errors')
                             <div class="lqd-column col-md-10 col-md-offset-1">
 
                                 <div class="contact-form contact-form-inputs-underlined contact-form-button-circle">
-                                    <form action="../assets/php/mailer.php" method="post" novalidate="novalidate">
+                                    <form action="{{URL('/contact')}}" method="POST">
+                                        <input type="hidden" name="_token" value="{{csrf_token()}}">
                                         <div class="row d-flex flex-wrap">
                                             <div class="lqd-column col-md-6 mb-20">
-                                                <input class="lh-25 mb-30" type="text" name="name" aria-required="true" aria-invalid="false" placeholder="First Name" required>
+                                                <input class="lh-25 mb-30" type="text" name="name" aria-required="true" aria-invalid="false" placeholder="Name" required>
                                                 <input class="lh-25 mb-30" type="email" name="email" aria-required="true" aria-invalid="false" placeholder="Your email address" required>
-                                                <input class="lh-25 mb-30" type="tel" name="mobile" aria-required="true" aria-invalid="false" placeholder="Mobile no" required>
                                             </div><!-- /.col-md-6 -->
                                             <div class="lqd-column col-md-6 mb-20">
                                                 <textarea cols="10" rows="6" name="message" aria-required="true" aria-invalid="false" placeholder="Message" required></textarea>

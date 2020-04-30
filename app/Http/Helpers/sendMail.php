@@ -49,4 +49,17 @@ class sendMail {
         });
     }
 
+    public function Contact($data)
+    {
+        $mail["title"] = "Rouzo: Message From ".$data["name"];
+        $mail["salute"] = "Hello Rouzo";
+        $mail["message"] = $data["message"];
+
+        $this->mail::send('emails.template', ['data' => $mail], function ($m) use ($mail, $data) {
+            $m->from($data["email"], $data["name"]);
+            $m->to(env('SENDER_EMAIL'))->subject($mail['title']);
+            $m->replyTo('no-reply@owoafara.com');
+        });
+    }
+
 }
