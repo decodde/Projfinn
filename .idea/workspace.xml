@@ -3,12 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="a30ba3ff-ce58-4d9a-84f0-7d3f12ce9c36" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/_containers/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/_containers/header.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/_partials/_footer.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/_partials/_footer.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/business.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/business.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/lenders.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/lenders.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/default/contact.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/default/contact.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/default/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/default/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Dashboard/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Dashboard/PageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Investment/LoadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Investment/LoadController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Transaction/LoadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Transaction/LoadController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Investment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Investment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/investor/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/investor/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/investor/investment.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/investor/investment.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,46 +28,43 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/_partials/_footer.blade.php">
+        <entry file="file://$PROJECT_DIR$/app/Models/Investment.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="154">
+              <caret line="11" column="141" selection-start-line="11" selection-start-column="141" selection-end-line="11" selection-end-column="141" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/_partials/home/_head.blade.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/dashboard/investor/investment.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="489">
+              <caret line="153" lean-forward="true" selection-start-line="153" selection-end-line="153" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/_partials/dashboard/header.blade.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Dashboard/PageController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="21" column="44" lean-forward="true" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/default/index.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="28">
-              <caret line="2" column="30" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
+            <state relative-caret-position="1105">
+              <caret line="319" column="9" lean-forward="true" selection-start-line="319" selection-start-column="9" selection-end-line="319" selection-end-column="9" />
+              <folding>
+                <element signature="e#50#86#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/_containers/header.blade.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Transaction/LoadController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="602">
-              <caret line="66" column="82" selection-start-line="66" selection-start-column="82" selection-end-line="66" selection-end-column="82" />
+            <state relative-caret-position="614">
+              <caret line="143" column="20" selection-start-line="143" selection-start-column="20" selection-end-line="143" selection-end-column="20" />
+              <folding>
+                <element signature="e#52#88#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -148,19 +145,13 @@
         <option value="$PROJECT_DIR$/public/assets/app-assets/js/scripts/forms/wizard-steps.js" />
         <option value="$PROJECT_DIR$/database/migrations/2020_04_29_084125_create_investments_table.php" />
         <option value="$PROJECT_DIR$/resources/views/_partials/dashboard/in_sidebar.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Transaction/LoadController.php" />
         <option value="$PROJECT_DIR$/resources/views/dashboard/investor/stash.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/dashboard/investor/settings.blade.php" />
-        <option value="$PROJECT_DIR$/app/Models/Investment.php" />
         <option value="$PROJECT_DIR$/resources/views/_partials/dashboard/foot.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/_partials/dashboard/master.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/_partials/dashboard/head.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Investment/LoadController.php" />
         <option value="$PROJECT_DIR$/resources/views/default/faq.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/dashboard/investor/referral.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/dashboard/investor/index.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Dashboard/PageController.php" />
-        <option value="$PROJECT_DIR$/resources/views/dashboard/investor/investment.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/dashboard/investor/oneInvestment.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/default/about.blade.php" />
         <option value="$PROJECT_DIR$/public/assets/assets/css/themes/opus-2.css" />
@@ -175,6 +166,12 @@
         <option value="$PROJECT_DIR$/resources/views/default/contact.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/_partials/_footer.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/_containers/header.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Investment/LoadController.php" />
+        <option value="$PROJECT_DIR$/resources/views/dashboard/investor/index.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Dashboard/PageController.php" />
+        <option value="$PROJECT_DIR$/resources/views/dashboard/investor/investment.blade.php" />
+        <option value="$PROJECT_DIR$/app/Models/Investment.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Transaction/LoadController.php" />
       </list>
     </option>
   </component>
@@ -290,7 +287,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
@@ -301,6 +297,54 @@
             <path>
               <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="Http" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="Http" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="Controllers" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="Http" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="Controllers" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="Dashboard" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="Http" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="Controllers" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="Investment" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="Http" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="Controllers" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="Transaction" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="Models" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
@@ -314,14 +358,6 @@
               <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="views" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="_partials" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="views" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="_partials" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="dashboard" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
@@ -329,27 +365,27 @@
               <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="views" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="_partials" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="home" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="dashboard" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="business" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="views" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="auth" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="dashboard" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="investor" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="views" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="default" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="routes" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -420,7 +456,9 @@
       <workItem from="1587622568218" duration="3215000" />
       <workItem from="1587667682412" duration="7943000" />
       <workItem from="1587693915106" duration="28913000" />
-      <workItem from="1587825468703" duration="119210000" />
+      <workItem from="1587825468703" duration="120495000" />
+      <workItem from="1588314583066" duration="933000" />
+      <workItem from="1588318902750" duration="4121000" />
     </task>
     <task id="LOCAL-00001" summary="All files">
       <created>1585329900390</created>
@@ -562,17 +600,24 @@
       <option name="project" value="LOCAL" />
       <updated>1588276408390</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Fixed Texarea space and also login bug">
+      <created>1588278714450</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1588278714450</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="315393000" />
+    <option name="totallyTimeSpent" value="321732000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4992785" visible="true" weight="0.2087327" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4992785" visible="true" weight="0.21299255" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.5007215" side_tool="true" weight="0.18423855" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -610,37 +655,10 @@
     <MESSAGE value="Investors: Investments" />
     <MESSAGE value="Contact Up page" />
     <MESSAGE value="Contact us Location" />
-    <option name="LAST_COMMIT_MESSAGE" value="Contact us Location" />
+    <MESSAGE value="Fixed Texarea space and also login bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed Texarea space and also login bug" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/routes/document.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="5" lean-forward="true" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/auth.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/investment.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="3" column="19" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Business/LoadController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="61" column="16" lean-forward="true" selection-start-line="56" selection-start-column="8" selection-end-line="61" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/assets/app-assets/js/scripts/forms/wizard-steps.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
@@ -678,16 +696,6 @@
           <caret line="116" column="28" lean-forward="true" selection-start-line="116" selection-start-column="28" selection-end-line="116" selection-end-column="28" />
           <folding>
             <element signature="e#45#81#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Transaction/LoadController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="135" column="48" selection-start-line="135" selection-start-column="48" selection-end-line="135" selection-end-column="48" />
-          <folding>
-            <element signature="e#52#88#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -756,30 +764,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/Investment.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="18" column="81" lean-forward="true" selection-start-line="18" selection-start-column="81" selection-end-line="18" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/_partials/dashboard/foot.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
           <caret line="16" column="74" selection-start-line="16" selection-start-column="74" selection-end-line="16" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Investment/LoadController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="84" column="26" selection-start-line="84" selection-start-column="26" selection-end-line="84" selection-end-column="26" />
-          <folding>
-            <element signature="e#51#87#0#PHP" expanded="true" />
-            <element signature="e#2036#2705#0#PHP" />
-            <element signature="e#2723#4175#0#PHP" />
-            <element signature="e#3427#4175#0#PHP" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -818,32 +806,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/investor/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="28" column="34" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="34" />
-          <folding>
-            <element signature="e#1338#1404#0#HTML" expanded="true" />
-            <element signature="e#2351#2418#0#HTML" expanded="true" />
-            <element signature="e#7056#8482#0#HTML" />
-            <element signature="e#8501#9993#0#HTML" />
-            <element signature="e#8720#8748#0#HTML" expanded="true" />
-            <element signature="e#8888#8913#0#HTML" expanded="true" />
-            <element signature="e#9182#9205#0#HTML" expanded="true" />
-            <element signature="e#5298#6694#0#HTML" />
-            <element signature="e#6073#6091#0#HTML" expanded="true" />
-            <element signature="e#6148#6166#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/investor/investment.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="92" column="103" selection-start-line="92" selection-start-column="96" selection-end-line="92" selection-end-column="103" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/dashboard/investor/oneInvestment.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="283">
@@ -876,19 +838,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="426">
           <caret line="203" column="38" selection-start-line="203" selection-start-column="38" selection-end-line="203" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Dashboard/PageController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="335" column="9" lean-forward="true" selection-start-line="332" selection-start-column="8" selection-end-line="335" selection-end-column="9" />
-          <folding>
-            <element signature="e#50#86#0#PHP" expanded="true" />
-            <element signature="e#1497#2053#0#PHP" />
-            <element signature="e#2059#2969#0#PHP" />
-            <element signature="e#2975#3987#0#PHP" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1011,6 +960,83 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="602">
           <caret line="66" column="82" selection-start-line="66" selection-start-column="82" selection-end-line="66" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Investment/LoadController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1708">
+          <caret line="150" column="16" selection-start-line="150" selection-start-column="16" selection-end-line="154" selection-end-column="39" />
+          <folding>
+            <element signature="e#51#87#0#PHP" expanded="true" />
+            <element signature="e#2714#4166#0#PHP" />
+            <element signature="e#3418#4166#0#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/Transaction.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/Portfolio.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="11" column="128" selection-start-line="11" selection-start-column="115" selection-end-line="11" selection-end-column="128" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/investor/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1652">
+          <caret line="118" column="18" selection-start-line="118" selection-start-column="18" selection-end-line="118" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/business/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/business/score.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="19" column="40" selection-start-line="17" selection-start-column="36" selection-end-line="19" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/investor/investment.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="489">
+          <caret line="153" lean-forward="true" selection-start-line="153" selection-end-line="153" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Dashboard/PageController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1105">
+          <caret line="319" column="9" lean-forward="true" selection-start-line="319" selection-start-column="9" selection-end-line="319" selection-end-column="9" />
+          <folding>
+            <element signature="e#50#86#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/Investment.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="11" column="141" selection-start-line="11" selection-start-column="141" selection-end-line="11" selection-end-column="141" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Transaction/LoadController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="614">
+          <caret line="143" column="20" selection-start-line="143" selection-start-column="20" selection-end-line="143" selection-end-column="20" />
+          <folding>
+            <element signature="e#52#88#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

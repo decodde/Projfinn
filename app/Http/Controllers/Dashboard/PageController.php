@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as Auth;
+use Carbon\Carbon;
 
 use App\Models\User;
 use App\Models\Bank;
@@ -132,8 +133,10 @@ class PageController extends Controller
             $investments = $this->investment->where('userId', $user->id)->get();
 
             $funds = 0;
+            $roi = 0;
             foreach ($investments as $investment) {
                 $funds += $investment->amount;
+                $roi += $investment->roi;
             }
             if($stash->first() === null){
                 $availableBalance = 0;
@@ -150,6 +153,7 @@ class PageController extends Controller
                 'funds' => $this->formatter->MoneyConvert($funds, 'full'),
                 'balance' => $this->formatter->MoneyConvert($availableBalance, 'full'),
                 'percents' => $percents,
+                'roi' => $this->formatter->MoneyConvert($roi, 'full'),
                 ];
 
             return view('dashboard.investor.index', $data);
@@ -200,7 +204,7 @@ class PageController extends Controller
                 'investor' => $user->investor(),
                 'balance' => $this->formatter->MoneyConvert($availableBalance, 'full'),
                 'tranX' => [ "credit" => $this->formatter->MoneyConvert($creditAmount, "full"), "debit" => $this->formatter->MoneyConvert($debitAmount), "full"],
-                'transactions' => $transactions
+                'transactions' => $transactions,
             ];
 
             return view('dashboard.investor.stash', $data);
@@ -294,12 +298,18 @@ class PageController extends Controller
             foreach ($investments as $investment){
                 $investment->transaction = $investment->transaction();
                 $investment->portfolio = $investment->portfolio();
+                $invTime = Carbon::create($investment->datePurchased)->addMonths(3);
+                if($invTime <= $investment->datePurchased){
+                    $investment->isReady = true;
+                }else{
+                    $investment->isReady = false;
+                }
             }
             $data = [
                 'title' => 'Dashboard',
                 'user' => $user,
                 'portfolios' => $portfolios,
-                'investments' => $investments
+                'investments' => $investments,
             ];
 
             return view('dashboard.investor.investment', $data);

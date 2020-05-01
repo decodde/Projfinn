@@ -148,6 +148,11 @@ class LoadController extends Controller
                     return back()->withErrors('An error has occurred: ');
                 }
 
+                $roiInPer = $getPortfolio['returnInPer'] - $getPortfolio['managementFee'];
+
+                $roi = ($roiInPer / 100) * $data["amount"];
+
+                $invData["roi"] = $roi;
                 $portfolio->decrement('sizeRemaining', $data["amount"]);
                 $this->investment->create($invData);
             }

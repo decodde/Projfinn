@@ -128,7 +128,7 @@
                                 <h6 class="font-weight-normal pt-0 info" style="margin-top: 6px">ROI</h6>
                             </div>
                             <div class="col-6 text-right">
-                                <h6>₦ 0.00</h6>
+                                <h6>₦ {{$roi}}</h6>
                             </div>
                         </div>
                         <div class="float-right bg-transparent position-absolute position-bottom-0">

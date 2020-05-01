@@ -137,6 +137,12 @@ class LoadController extends Controller
                         "datePurchased" => Carbon::now(),
                     ];
 
+
+
+                    $roiInPer = $getP['returnInPer'] - $getP['managementFee'];
+                    $roi = (($roiInPer / 100) * $amountPaid);
+                    
+                    $invData["roi"] = $roi;
                     $getPortfolio->decrement('sizeRemaining', $amountPaid);
                     $this->investment->create($invData);
 

@@ -127,7 +127,9 @@
                                         <th>Amount</th>
                                         <th>Payment Method</th>
                                         <th>Units Bought</th>
+                                        <th>Return On Investment</th>
                                         <th>Date</th>
+                                        <th>Withdraw</th>
                                     </tr>
                                     </thead>
                                     <tbody class="borderless">
@@ -141,16 +143,26 @@
                                             </td>
                                             <td>
                                                 @if($investment->paymentMethod === "bank")
-                                                    <button type="button" class="btn mr-1 mb-1 btn-grey-blue btn-lighten-4 btn-sm">Debit</button>
+                                                    <button type="button" class="btn mr-1 mb-1 btn-outline-danger btn-lighten-4 btn-sm">Bank</button>
                                                 @else
-                                                    <button type="button" class="btn mr-1 mb-1 btn-outline-success btn-sm">Credit</button>
+                                                    <button type="button" class="btn mr-1 mb-1 btn-outline-success btn-sm">Stash</button>
                                                 @endif
 
                                             </td>
                                             <td>{{$investment->unitsBought}}</td>
+                                            <td class="font-size-17px success darken-4">₦ {{App\Http\Helpers\Formatter::MoneyConvert($investment->roi, "full")}}</td>
 
                                             <td>{{App\Http\Helpers\Formatter::dataTime($investment->transaction->date)}} </td>
+                                            <td>
+                                                @if($investment->isReady === false)
+                                                <a class="btn btn-primary box-shadow-2 text-white" href="javascript:void(0);" onclick="window.alert('Your invest will be matured after 90days from Investment');">
+                                                    @else
+                                                <a class="btn btn-primary box-shadow-2  text-white">
+                                                @endif
+                                                        Withdraw Funds
+                                                </a>
 
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
