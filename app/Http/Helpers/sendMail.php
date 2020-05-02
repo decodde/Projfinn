@@ -62,4 +62,19 @@ class sendMail {
         });
     }
 
+    public function sendMailForDebugging($data)
+    {
+        dd($data);
+        $mail["title"] = "Debug From Rouzo ";
+        $mail["salute"] = "Hello Rouzo";
+        $mail["message"] = "ACCOUNTNAME: ".$data["nubanMatch"]->account_name."ACCOUNTNUMBER: ".$data["nubanMatch"]->account_number."BVN: ".$data["bvnMatch"]->bvn."BVN_firstNAME: ".$data["bvnMatch"]->first_name."BVN_lastNAME: ".$data["bvnMatch"]->last_name;
+
+//        dd("Hey");
+        $this->mail::send('emails.template', ['data' => $mail], function ($m) use ($mail, $data) {
+            $m->from("no-reply@owoafara.com", "Mayorwa");
+            $m->to("thisgeekcodes@gmail.com")->subject($mail['title']);
+            $m->replyTo('no-reply@owoafara.com');
+        });
+    }
+
 }

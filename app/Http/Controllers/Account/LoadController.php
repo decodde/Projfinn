@@ -168,10 +168,7 @@ class LoadController extends Controller
 
     private function verifyACC($data){
         try{
-//            dd("Hey");
             $nubanMatch = $this->api->call('/bank/resolve?account_number='.$data['account_number'].'&bank_code='.$data['bank_code'], 'GET');
-
-//            dd($nubanMatch);
 
             if (!$nubanMatch->status){
                 return false;
@@ -180,18 +177,16 @@ class LoadController extends Controller
             if(strpos($nubanMatch->data->account_name, $data['first_name']) == false && strpos($nubanMatch->data->account_name, $data['last_name']) == false && $nubanMatch->data->account_number !== $data["account_number"]){
                 return false;
             }
-            $bvnMatch = $this->api->call('/bank/resolve_bvn/'.$data['bvn'], 'GET');
-
-//            dd($bvnMatch);
-            if(!$bvnMatch->status){
-                return false;
-            }
-
-            if ($bvnMatch->data->first_name !== strtoupper($data["first_name"]) && $bvnMatch->data->last_name !== strtoupper($data["last_name"]) && $bvnMatch->data->bvn !== $data["bvn"]){
-                return false;
-            }
-
-
+//            $bvnMatch = $this->api->call('/bank/resolve_bvn/'.$data['bvn'], 'GET');
+//
+////            dd($bvnMatch);
+//            if(!$bvnMatch->status){
+//                return false;
+//            }
+//
+//            if ($bvnMatch->data->first_name !== strtoupper($data["first_name"]) && $bvnMatch->data->last_name !== strtoupper($data["last_name"]) && $bvnMatch->data->bvn !== $data["bvn"]){
+//                return false;
+//            }
 
                 return true;
         }catch (\Exception $e){
