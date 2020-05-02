@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#3ed2a7">
 
-    <link rel="apple-touch-icon" href="{{ asset('assets/app-assets/images/adobe/logo.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/app-assets/images/adobe/logo.png') }}" />
     <title>{{ isset($title) ? "Projfinn - ".$title : "Projfinn" }}</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto%7cRubik:300,400" rel="stylesheet">

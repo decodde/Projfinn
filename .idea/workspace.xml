@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a30ba3ff-ce58-4d9a-84f0-7d3f12ce9c36" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Account/LoadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Account/LoadController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Helpers/sendMail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Helpers/sendMail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/_partials/_head.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/_partials/_head.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/_partials/home/_head.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/_partials/home/_head.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,20 +21,7 @@
     <favorites_list name="Projfinn" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Account/LoadController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="804">
-              <caret line="196" column="1" selection-start-line="196" selection-start-column="1" selection-end-line="196" selection-end-column="1" />
-              <folding>
-                <element signature="e#48#84#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -87,8 +73,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/routes/account.php" />
-        <option value="$PROJECT_DIR$/resources/views/auth/login.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/auth/password_reset.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/emails/template.blade.php" />
         <option value="$PROJECT_DIR$/config/services.php" />
@@ -138,6 +122,8 @@
         <option value="$PROJECT_DIR$/app/Http/Helpers/sendMail.php" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Account/LoadController.php" />
+        <option value="$PROJECT_DIR$/resources/views/_partials/_head.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/_partials/home/_head.blade.php" />
       </list>
     </option>
   </component>
@@ -278,14 +264,6 @@
               <item name="Http" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="Controllers" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
-            <path>
-              <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Http" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Controllers" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Account" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -363,7 +341,7 @@
       <workItem from="1587693915106" duration="28913000" />
       <workItem from="1587825468703" duration="120495000" />
       <workItem from="1588314583066" duration="933000" />
-      <workItem from="1588318902750" duration="12624000" />
+      <workItem from="1588318902750" duration="13445000" />
     </task>
     <task id="LOCAL-00001" summary="All files">
       <created>1585329900390</created>
@@ -519,15 +497,21 @@
       <option name="project" value="LOCAL" />
       <updated>1588331497048</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Fixed Paystack BVN issue 😉">
+      <created>1588438801181</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1588438801181</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="330235000" />
+    <option name="totallyTimeSpent" value="331056000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4992785" visible="true" weight="0.21299255" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -592,16 +576,10 @@
     <MESSAGE value="Contact us Location" />
     <MESSAGE value="Fixed Texarea space and also login bug" />
     <MESSAGE value="Added ROI feature" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added ROI feature" />
+    <MESSAGE value="Fixed Paystack BVN issue " />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed Paystack BVN issue " />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/views/_partials/dashboard/in_sidebar.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="65" column="20" selection-start-line="65" selection-start-column="20" selection-end-line="76" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/LoadController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="431">
@@ -701,13 +679,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="443">
           <caret line="52" column="22" lean-forward="true" selection-start-line="50" selection-start-column="16" selection-end-line="52" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/_partials/dashboard/head.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="24" column="76" lean-forward="true" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="76" />
         </state>
       </provider>
     </entry>
@@ -823,13 +794,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/_partials/home/_head.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
         </state>
       </provider>
     </entry>
@@ -968,11 +932,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Account/LoadController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="804">
-          <caret line="196" column="1" selection-start-line="196" selection-start-column="1" selection-end-line="196" selection-end-column="1" />
+        <state relative-caret-position="670">
+          <caret line="170" column="12" selection-start-line="170" selection-start-column="12" selection-end-line="178" selection-end-column="13" />
           <folding>
             <element signature="e#48#84#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/_partials/_head.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="8" column="94" selection-start-line="8" selection-start-column="94" selection-end-line="8" selection-end-column="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/_partials/dashboard/head.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="70">
+          <caret line="5" selection-start-line="5" selection-end-line="5" selection-end-column="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/_partials/home/_head.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="10" column="62" lean-forward="true" selection-start-line="10" selection-start-column="62" selection-end-line="10" selection-end-column="62" />
         </state>
       </provider>
     </entry>

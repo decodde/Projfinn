@@ -6,7 +6,7 @@
     <meta name="author" content="Mayorwa">
     <link rel="apple-touch-icon" href="{{ asset('assets/app-assets/images/adobe/logo.png') }}">
     <title>{{ isset($title) ? "Projfinn - ".$title : "Projfinn" }}</title>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/app-assets/images/adobe/logo.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/app-assets/images/adobe/logo.png') }}" />
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Nunito:wght@200;300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://maxcdn.iconsx8.com/fonts/line-awesome/1.1/css/line-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/vendors.css') }}">
