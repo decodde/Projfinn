@@ -108,7 +108,6 @@ class LoadController extends Controller
                     $refStash->increment('availableAmount', 2000);
                     $gr->update(['hasPayed' => true]);
                 }
-
                 \Session::forget('type');
                 \Session::put('success', true);
                 return redirect('dashboard/i/stash')->withErrors('Stash credited successfully');
@@ -149,6 +148,9 @@ class LoadController extends Controller
                     \Session::put('success', true);
                     return redirect('dashboard/i/investments')->withErrors("You have successfully invested into '". $getP->name."'");
                 }
+
+                \Session::put('danger', true);
+                return redirect('dashboard/i')->withErrors('An error has occurred: ');
             }
         } catch(\Exception $e) {
             \Session::put('danger', true);

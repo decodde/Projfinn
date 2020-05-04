@@ -18,4 +18,7 @@ class Investment extends Model
     public function portfolio(){
         return $this->hasOne('App\Models\Portfolio', 'id', 'portfolioId')->first();
     }
+    public function user(){
+        return $this->hasOne('App\Models\User', 'id', 'userId')->first();
+    }
 }

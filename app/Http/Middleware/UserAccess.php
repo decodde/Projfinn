@@ -43,7 +43,6 @@ class UserAccess
     {
         if(Auth::check()) {
             $user = Auth::user();
-
             if($user->business()) {
                 $business = $user->business();
                 $result = $business->score($business->id);
@@ -90,7 +89,8 @@ class UserAccess
             View::share(['user' => $user]);
             View::share(['test' => $test ?? null]);
             View::share(['result' => $result ?? null]);
-        } else {
+        }
+        else {
             \Session::put('red', true);
             return redirect('login')->withErrors('You must be logged in first');
         }

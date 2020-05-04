@@ -42,6 +42,9 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
+        //Admin
+        $this->mapAdminRoutes();
+
         //Api
         $this->mapApiRoutes();
 
@@ -243,5 +246,20 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware(['web', 'user'])
             ->namespace($this->namespace.'\Investment')
             ->group(base_path('routes/investment.php'));
+    }
+
+    /**
+     * Define the "Investment" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapAdminRoutes()
+    {
+        Route::prefix('admin/rouzz')
+            ->middleware(['web', 'admin'])
+            ->namespace($this->namespace.'\Admin')
+            ->group(base_path('routes/admin.php'));
     }
 }
