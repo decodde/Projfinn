@@ -9,3 +9,14 @@
 <script src="{{ asset('assets/admin/vendors/custom/gmaps/gmaps.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/admin/js/demo1/pages/dashboard.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/admin/js/demo1/pages/custom/apps/user/list-datatable.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/assets/vendors/jquery.min.js') }}"></script>
+<script>
+    $('#type').click(function(){
+        $d_val = $('#type').val();
+        if($d_val == "debit"){
+            $('#porfolio').show();
+        }else {
+            $('#porfolio').hide();
+        }
+    })
+</script>

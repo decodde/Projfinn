@@ -21,3 +21,6 @@ Route::get('/user', 'PageController@user');
 Route::get('/investment', 'PageController@investments');
 Route::get('/transaction', 'PageController@transactions');
 Route::get('/portfolio', 'PageController@portfolios');
+
+
+Route::post('/transact', 'LoadController@adminConfirm');

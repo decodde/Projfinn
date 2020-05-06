@@ -1,7 +1,53 @@
 @extends('admin.master')
 @section('content')
     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+        @include('_partials.errors')
         <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content" style="margin-top: -40px;">
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            Record Transaction
+                        </h3>
+                    </div>
+                </div>
+                <!--begin::Form-->
+                <form class="kt-form kt-form--fit kt-form--label-right" method="post" action="{{URL('/admin/rouzz/transact')}}">
+                    <div class="kt-portlet__body">
+                        <div class="form-group row">
+                            <input type="hidden" name="_token" value="{{csrf_token()}}">
+                            <div class="col-lg-3">
+                                <label class="col-form-label">User's Email:</label>
+                                <input type="email" name="email" class="form-control" placeholder="Email Address">
+                                <code class="form-text">eg: <span class="text-muted">Enter Existing user's email</span></code>
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="col-form-label">Reference from Paystack:</label>
+                                <input type="text" name="reference" class="form-control" placeholder="Reference">
+                                <code class="form-text">eg: <span class="text-muted">3Dth4se234</span></code>
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="col-form-label">Transaction type:</label>
+                                <select name="type" id="type" class="form-control">
+                                    <option value="credit">Credit</option>
+                                    <option value="debit">Debit</option>
+                                </select>
+                                <code class="form-text">eg: <span class="text-muted">Credit Or Debit</span></code>
+                            </div>
+                            <div class="col-lg-3" id="porfolio" style="display: none">
+                                <label class="col-form-label">Select Portfolio:</label>
+                                <select name="portfolioId" class="form-control">
+                                    @foreach($portfolios as $portfolio)
+                                        <option value="{{$portfolio->id}}">{{$portfolio->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success" style="width: 100px;margin-left: auto">Record</button>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
             <div class="kt-portlet">
                 <div class="kt-portlet__head">
                     <div class="kt-portlet__head-label">

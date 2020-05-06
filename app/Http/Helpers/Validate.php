@@ -298,4 +298,19 @@ class Validate {
                 break;
         }
     }
+
+    public function transaction($data, $type) {
+        switch ($type) {
+            case 'admin':
+                return $this->validator::make($data, [
+                    'email' => 'required',
+                    'reference' => 'required',
+                    'type' => 'required',
+                ]);
+                break;
+            default:
+                # code...
+                break;
+        }
+    }
 }

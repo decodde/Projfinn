@@ -121,6 +121,7 @@ class PageController extends Controller
             $user = Auth::user();
 
             $transactions = $this->transaction->paginate(10);
+            $portfolios = $this->portfolio->get();
 
             $creditAmount = 0;
             $debitAmount = 0.00;
@@ -138,6 +139,7 @@ class PageController extends Controller
             $data = [
                 'title' => 'Admin',
                 'user' => $user,
+                'portfolios' => $portfolios,
                 'transactions' => $transactions
             ];
 

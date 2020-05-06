@@ -152,7 +152,7 @@
                                             <td>{{$investment->unitsBought}}</td>
                                             <td class="font-size-17px success darken-4">₦ {{App\Http\Helpers\Formatter::MoneyConvert($investment->roi, "full")}}</td>
 
-                                            <td>{{App\Http\Helpers\Formatter::dataTime($investment->transaction->date)}} </td>
+                                            <td>{{App\Http\Helpers\Formatter::dataTime($investment->transaction->created_at)}} </td>
                                             <td>
                                                 @if($investment->isReady === false)
                                                 <a class="btn btn-primary box-shadow-2 text-white" href="javascript:void(0);" onclick="window.alert('Your invest will be matured after 90days from Investment');">
