@@ -18,3 +18,12 @@
 @endforeach
 
 <?php Session::forget('warning'); Session::forget('danger'); Session::forget('info'); Session::forget('success'); ?>
+
+
+@if(isset($user) && $user->type == 'investor')
+    @if($user->account() !== null)
+        <div class="alert alert-warning flat">
+            Please Verify Your Bank Account in your Dashboard <a href="{{'/dashboard/i/settings'}}">Settings</a>
+        </div>
+    @endif
+@endif
