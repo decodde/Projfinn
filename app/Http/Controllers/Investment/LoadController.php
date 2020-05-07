@@ -97,7 +97,7 @@ class LoadController extends Controller
                     \Session::put('danger', true);
                     return back()->withErrors("Insufficient funds in your Stash")->withInput();
                 }
-                elseif ($getStash->availableAmount - $data["amount"] < 5000){
+                elseif ($getStash->availableAmount - $data["amount"] < 1000){
                     $trnxData = [
                         'reference' => str_random(10),
                         'status' => "failure",

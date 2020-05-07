@@ -20,7 +20,7 @@
                         data-custom-animations="true"
                         data-ca-options='{ "triggerHandler":"inview", "animationTarget":"all-childs", "duration":"1200", "delay":"150", "easing":"easeOutQuint", "direction":"forward", "initValues":{"translateY":60, "opacity":0}, "animations":{"translateY":0, "opacity":1} }'>
                         <h2
-                            class="text-white mt-0 mb-30 font-weight-normal">Returns Are Scarce,<br>
+                            class="text-white mt-0 mb-30 font-weight-normal">Returns + Impact,<br>
                             Earn Healthy Returns In These Times
                         </h2>
 
