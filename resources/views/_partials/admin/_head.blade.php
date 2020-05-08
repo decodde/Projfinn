@@ -58,5 +58,8 @@
         body{
             font-weight: 500;
         }
+        .kt-portlet .kt-portlet__body{
+            overflow-x: auto !important;
+        }
     </style>
 </head>

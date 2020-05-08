@@ -1,7 +1,7 @@
 @extends('admin.master')
 @section('content')
     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
-        <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content" style="margin-top: -40px;">
+        <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
             <div class="kt-portlet">
                 <div class="kt-portlet__head">
                     <div class="kt-portlet__head-label">
