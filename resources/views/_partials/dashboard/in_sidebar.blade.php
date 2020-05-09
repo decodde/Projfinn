@@ -38,7 +38,7 @@
                                 </g>
                             </svg>
                         </i>
-                        <span class="menu-title" data-i18n="nav.templates.main">Stash</span>
+                        <span class="menu-title" data-i18n="nav.templates.main">Savings</span>
                     </a>
                 </li>
             @if(Request::is('dashboard/i/investment*'))

@@ -21,11 +21,12 @@
                 <div class="card bg-success bg-lighten-4" title="This is the total money you have in your stash. click on the 'credit your wallet button to credit your stash for investment' ">
                     <div class="card-content" style="border-radius: 10px;">
                         <div class="card-body pb-1 pt-0" style="padding-top: 12px !important;">
-                            <h5 class="card-title" style="font-size: 18px !important; margin-bottom: 10px !important;">Credit Wallet </h5>
+                            <h5 class="card-title" style="font-size: 18px !important; margin-bottom: 10px !important;">Start Saving </h5>
                             <div>
-                                Top up the money in your stash
+                                Don't have enough cash to invest? Let's help you save😉
                                 <br>
-                                <a href="{{URL('dashboard/i/stash')}}" class="btn btn-success mr-1 btn-md mt-2">Credit your wallet <i class="la la-arrow-right"></i></a>
+                                <a href="{{URL('dashboard/i/stash')}}" class="btn btn-success mr-1 btn-md mt-2 border-0">Start Saving <i class="ft-arrow-right position-relative" style="top: 2px;"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -40,14 +41,14 @@
                             <div>
                                 Invest into our existing portfolios
                                 <br>
-                                <a href="{{URL('dashboard/i/investments')}}" class="btn btn-blue mr-1 btn-md mt-2">Invest now <i class="la la-arrow-right"></i></a>
+                                <a href="{{URL('dashboard/i/investments')}}" class="btn btn-blue mr-1 btn-md mt-2 border-0">Invest now <i class="ft-arrow-right position-relative" style="top: 2px;"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        </div>
         <div class="col-md-6">
             <div class="card">
                 <div class="card-content collapse show">
@@ -117,7 +118,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card crypto-card-3 pull-up" title="This is the total return on investment you are to receive from your investments">
+            <div class="card crypto-card-3 pull-up" title="This is the total projected return on investment you are to receive from your investments">
                 <div class="card-content">
                     <div class="card-body position-relative" style="padding-bottom: 5px;">
                         <div class="row">

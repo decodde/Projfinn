@@ -271,6 +271,11 @@ h6 {
 }
 
 .flickity-prev-next-button .flickity-button-icon{
-    width: 47% !important;
-    height: 47% !important;
+    width: 42% !important;
+    height: 42% !important;
+}
+
+.flickity-prev-next-button svg{
+    left: 28% !important;
+    top: 28% !important;
 }

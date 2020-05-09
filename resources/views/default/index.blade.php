@@ -137,7 +137,7 @@
 
                         <header class="fancy-title text-center">
                             <h2 class="font-weight-bold">How it Works</h2>
-                            <p>Here is a simple step-by-step guide explaining how owoafara works.</p>
+                            <p>Here is a simple step-by-step guide explaining how Rouzo works.</p>
                         </header>
 
                     </div><!-- /.lqd-column col-md-12 -->
@@ -179,8 +179,8 @@
 									</span>
                                         </div><!-- /.iconbox-icon-wrap -->
                                         <div class="contents">
-                                            <h3 class="font-weight-normal">Search For Businesses</h3>
-                                            <p>View businesses and lend to your preferred business</p>
+                                            <h3 class="font-weight-normal">Search For Portfolio</h3>
+                                            <p>View available portfolios</p>
                                             <br>
                                         </div><!-- /.contents -->
                                     </div><!-- /.iconbox -->

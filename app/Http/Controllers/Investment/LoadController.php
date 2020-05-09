@@ -110,7 +110,7 @@ class LoadController extends Controller
 
                     $this->getTrnxId($trnxData);
                     \Session::put('danger', true);
-                    return back()->withErrors("Insufficient funds in your Stash, Your Stash balance cannot be lower than ₦ 5,000")->withInput();
+                    return back()->withErrors("Insufficient funds in your Stash, Your Stash balance cannot be lower than ₦ 1,000")->withInput();
                 }
 
                 $trnxData = [

@@ -12,17 +12,18 @@
     </style>
     <div class="content-header row">
         <div class="content-header-left col-md-6 col-12 mb-2">
-            <h5 class="content-header-title">Stash</h5>
+            <h5 class="content-header-title">Savings</h5>
             <div class="row breadcrumbs-top">
                 <div class="breadcrumb-wrapper col-12">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{URL('/dashboard/i')}}">Home</a>
                         </li>
-                        <li class="breadcrumb-item active">Stash
+                        <li class="breadcrumb-item active">Savings
                         </li>
                     </ol>
                 </div>
             </div>
+            <p class="m-0">Save up money for investments.</p> <p class="mb-0"><code>Note</code> Your balance cannot be less than <a class="success darken-4">₦1,000.00</a></p>
         </div>
     </div>
     <div class="row">

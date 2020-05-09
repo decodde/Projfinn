@@ -13,6 +13,7 @@
                     </ol>
                 </div>
             </div>
+            <p class="m-0">Invest into portfolios of your choice.</p>
         </div>
     </div>
     <div class="row">
@@ -98,7 +99,7 @@
                             @if($portfolio->sizeRemaining == 0)
                                 <a class="btn btn-outline-info info" disabled="">Sold Out</a>
                             @else
-                                <a href="{{URL('/dashboard/i/investment/'.encrypt($portfolio->id))}}" class="btn btn-outline-info info ">Invest Now<i class="la la-arrow-right" style="margin-left: 6px; font-size: 15px"></i></a>
+                                <a href="{{URL('/dashboard/i/investment/'.encrypt($portfolio->id))}}" class="btn btn-outline-info info ">Invest Now<i class="ft-arrow-right position-relative" style="top: 2px;margin-left: 6px; font-size: 15px"></i></a>
                             @endif
                         </div>
                     </div>
