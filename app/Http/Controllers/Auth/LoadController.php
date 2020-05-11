@@ -223,7 +223,7 @@ class LoadController extends Controller
                         $newPassword = bcrypt($body["password"]);
 
                         //save the new password
-                        $this->user->where("id", $userId)->update(["password" => $newPassword]);
+                        $this->user->where("id", $userId)->update(["password" => $newPassword, "verified" => true]);
 
                         //mark the token as used
                         $this->reset->where("token", $findToken->token)->update(["used" => true]);
