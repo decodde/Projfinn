@@ -30,7 +30,7 @@ class Investor
             }
         } else {
             \Session::put('red', true);
-            return redirect('login')->withErrors('You must be logged in first');
+            return redirect()->guest('login')->withErrors('You must be logged in first');
         }
     }
 }

@@ -10,8 +10,9 @@ use App\Models\Investment;
 use App\Models\Stash;
 use App\Models\Transaction;
 use App\Models\Portfolio;
-use App\Http\Helpers\apiHelper;
+use App\Models\TranxConfirm;
 
+use App\Http\Helpers\apiHelper;
 use App\Http\Helpers\Validate;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,13 +25,16 @@ class LoadController extends Controller
     private $transaction;
     private $portfolio;
     private $api;
-    public function __construct(Investment $investment, Validate $validate, Stash $stash, Transaction $transaction, Portfolio $portfolio, apiHelper $api){
+    private $tranx;
+
+    public function __construct(Investment $investment, Validate $validate, Stash $stash, Transaction $transaction, Portfolio $portfolio, apiHelper $api, TranxConfirm $tranx){
         $this->investment = $investment;
         $this->validate = $validate;
         $this->stash = $stash;
         $this->transaction = $transaction;
         $this->portfolio = $portfolio;
         $this->api = $api;
+        $this->tranx = $tranx;
     }
 
     public function create(Request $request){
@@ -59,6 +63,14 @@ class LoadController extends Controller
 
                 $response = $this->api->call('/transaction/initialize', 'POST', $body);
 
+                $data = [
+                    "email" => $user->email,
+                    "amount" => $data["amount"],
+                    "type" => "debit",
+                    "portfolioId" => $data["portfolioId"],
+                    "reference" => $response->data->reference
+                ];
+                $this->tranx->create($data);
                 return redirect($response->data->authorization_url);
             }
             else{

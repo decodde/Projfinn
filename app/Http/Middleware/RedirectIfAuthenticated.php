@@ -21,7 +21,7 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
             $user = Auth::user();
             if($user->type == "investor"){
-                return redirect('/dashboard/i');
+                return redirect()->intended('/dashboard/i');
             }
             elseif ($user->type == 'admin'){
 

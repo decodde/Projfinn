@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a30ba3ff-ce58-4d9a-84f0-7d3f12ce9c36" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoadController.php" afterDir="false" />
-    </list>
+    <list default="true" id="a30ba3ff-ce58-4d9a-84f0-7d3f12ce9c36" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -318,7 +315,7 @@
       <workItem from="1588492462564" duration="22959000" />
       <workItem from="1588761479163" duration="13355000" />
       <workItem from="1588868022475" duration="18622000" />
-      <workItem from="1589215324731" duration="4473000" />
+      <workItem from="1589215324731" duration="5141000" />
     </task>
     <task id="LOCAL-00001" summary="All files">
       <created>1585329900390</created>
@@ -523,11 +520,18 @@
       <option name="project" value="LOCAL" />
       <updated>1588930017262</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Fixed verify with password reset😉">
+      <created>1589235133517</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1589235133517</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="396002000" />
+    <option name="totallyTimeSpent" value="396670000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
@@ -601,7 +605,8 @@
     <MESSAGE value="Added prompt for bank verification" />
     <MESSAGE value="Fixed Some things" />
     <MESSAGE value="Fixed UI issues and  Paystack works for real now" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed UI issues and  Paystack works for real now" />
+    <MESSAGE value="Fixed verify with password reset" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed verify with password reset" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/public/assets/webfont.js">

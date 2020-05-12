@@ -27,7 +27,7 @@ class UserAccess
         $user = Auth::user();
         if($user == null) {
             \Session::put('red', true);
-            return redirect('login')->withErrors('You must be logged in first');
+            return redirect()->guest('login')->withErrors('You must be logged in first');
         } else {
             View::share(['user' => $user]);
         }

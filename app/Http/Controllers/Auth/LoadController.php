@@ -50,7 +50,7 @@ class LoadController extends Controller
             \Session::put('warning', true);
             return back()->withErrors($validation->getMessageBag())->withInput();
         }
-//        dd("Hey");
+        
         try {
 
             if(!$this->auth::attempt($data)) {
@@ -68,10 +68,9 @@ class LoadController extends Controller
 
             if($this->auth::user()->type === 'investor') {
 
-                return redirect('/dashboard/i')->withErrors('Welcome back'.$this->auth::user()->name);
+                return redirect()->intended('/dashboard/i');
             } else {
-
-                return redirect('dashboard')->withErrors("Welcome back ".$this->auth::user()->name);
+                return redirect()->intended('/dashboard');
             }
         } catch(\Exception $e) {
             \Session::put('danger', true);

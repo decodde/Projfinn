@@ -27,7 +27,7 @@ class Admin
             View::share(['user' => $user]);
         }else{
             \Session::put('red', true);
-            return redirect('login');
+            return redirect()->guest('login');
         }
         return $next($request);
     }

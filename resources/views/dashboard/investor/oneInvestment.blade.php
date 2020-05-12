@@ -202,12 +202,12 @@
                                             <div class="ml-1">
                                                 <label for="">
                                                     <input type="radio" name="paymentMethod" checked value='bank'>
-                                                    Bank Account
+                                                    Pay Via <a href="https://paystack.com/">Paystack</a> (You don't need an account on Paystack to pay)
                                                 </label>
                                                 <br>
                                                 <label for="">
                                                     <input type="radio" name="paymentMethod" value='stash'>
-                                                    Stash
+                                                    Pay Directly from your <a href="{{URL('/dashboard/i/stash')}}">Savings</a>
                                                 </label>
                                             </div>
                                         </div>
