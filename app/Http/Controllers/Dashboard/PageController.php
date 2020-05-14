@@ -221,7 +221,9 @@ class PageController extends Controller
 
             $p = $this->stash->where('investorId', $user->investor()->id)->first();
 
-            if($p !== null){
+            $i = $this->investment->where('investorId', $user->investor()->id)->first();
+
+            if($p !== null || $i !== null){
                 $payedIn = true;
             }
             else{
