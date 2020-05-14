@@ -85,7 +85,7 @@ class LoadController extends Controller
             $body = [
                 'account_number' => $data['accountNumber'],
                 'bank_code' => $bank->code,
-                'bvn' => $data['bvn'],
+                // 'bvn' => $data['bvn'],
                 'first_name' => $name[0],
                 'last_name' => $name[1]
             ];

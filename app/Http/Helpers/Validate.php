@@ -59,7 +59,7 @@ class Validate {
                 "dd" => "required",
                 "userId" => "required",
                 "bankId" => "required",
-                "bvn" => "required",
+                // "bvn" => "required",
                 "accountNumber" => "required"
             ]);
         }
@@ -67,7 +67,7 @@ class Validate {
             return $this->validator::make($data, [
                 "userId" => "required",
                 "bankId" => "required",
-                "bvn" => "required|unique:lender_accounts",
+                // "bvn" => "required|unique:lender_accounts",
                 "accountNumber" => "required|unique:lender_accounts"
             ]);
         }
