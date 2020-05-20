@@ -3,16 +3,25 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Stash;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use Crypt;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
+use App\Models\TranxConfirm;
+use App\Models\Referral;
+use App\Models\Lender;
+use App\Models\Portfolio;
+use App\Models\Investment;
+use App\Models\Transaction;
 
 use App\Http\Helpers\Validate;
 use App\Http\Helpers\sendMail;
 use App\Http\Helpers\partials as Partials;
+use App\Http\Helpers\apiHelper;
 use App\Models\ResetPassword;
 
 
@@ -26,7 +35,16 @@ class LoadController extends Controller
     private $mail;
     private $reset;
     private $partials;
-    public function __construct(Auth $auth, Validate $validate, User $user, sendMail $mail, ResetPassword $reset, Partials $partials)
+    private $trnx;
+    private $api;
+    private $stash;
+    private $referral;
+    private $investor;
+    private $portfolio;
+    private $investment;
+    private $transaction;
+
+    public function __construct(Auth $auth, Validate $validate, User $user, sendMail $mail, ResetPassword $reset, Partials $partials, TranxConfirm $trnx, apiHelper $api, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Transaction $transaction)
     {
         $this->auth = $auth;
         $this->user = $user;
@@ -34,9 +52,18 @@ class LoadController extends Controller
         $this->validate = $validate;
         $this->reset = $reset;
         $this->partials = $partials;
+        $this->trnx = $trnx;
+        $this->api = $api;
+        $this->stash = $stash;
+        $this->portfolio = $portfolio;
+        $this->referral = $referral;
+        $this->investor = $investor;
+        $this->investment = $investment;
+        $this->transaction = $transaction;
     }
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
 
 
         //get request body
@@ -45,20 +72,19 @@ class LoadController extends Controller
         //validate the input
         $validation = $this->validate->auth($data, "login");
 
-        if($validation->fails())
-        {
+        if ($validation->fails()) {
             \Session::put('warning', true);
             return back()->withErrors($validation->getMessageBag())->withInput();
         }
-        
+
         try {
 
-            if(!$this->auth::attempt($data)) {
+            if (!$this->auth::attempt($data)) {
                 \Session::put('danger', true);
                 return back()->withErrors("Incorrect login details");
             }
 
-            if($this->auth::user()->verified == false) {
+            if ($this->auth::user()->verified == false) {
                 Auth::logout();
                 \Session::flush();
 
@@ -66,19 +92,22 @@ class LoadController extends Controller
                 return back()->withErrors("Your account is not verified. Kindly check your email for a verification link");
             }
 
-            if($this->auth::user()->type === 'investor') {
+            $this->checkTrnx($this->auth::user()->email);
+
+            if ($this->auth::user()->type === 'investor') {
 
                 return redirect()->intended('/dashboard/i');
             } else {
                 return redirect()->intended('/dashboard');
             }
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             \Session::put('danger', true);
-            return back()->withErrors('An error has occurred: '.$e->getMessage())->withInput();
+            return back()->withErrors('An error has occurred: ' . $e->getMessage())->withInput();
         }
     }
 
-    public function createUser(Request $request) {
+    public function createUser(Request $request)
+    {
         try {
             //get request body
             $body = $request->except('_token');
@@ -86,8 +115,7 @@ class LoadController extends Controller
             //validate request body
             $validation = $this->validate->auth($body, null);
 
-            if($validation->fails())
-            {
+            if ($validation->fails()) {
                 //format the error messages
                 $errorMessages = $this->partials->formatErrors($validation->getMessageBag()->messages());
 
@@ -97,7 +125,7 @@ class LoadController extends Controller
                 //encrypt password string
                 $body["password"] = bcrypt($body["password"]);
 
-                $body["name"] = $body["f_name"]." ".$body["l_name"] ;
+                $body["name"] = $body["f_name"] . " " . $body["l_name"];
 
                 $body["referralSlug"] = str_random(10);
                 //store create the user info
@@ -108,7 +136,7 @@ class LoadController extends Controller
                 unset($body["password"]);
                 unset($body["password_confirmation"]);
 
-                $body['url'] = URL('activate-account/'.\Crypt::encrypt($userId));
+                $body['url'] = URL('activate-account/' . \Crypt::encrypt($userId));
                 //You can decide to enable the send confirmation mail feature
                 //by removing the comment below this line
 
@@ -118,17 +146,18 @@ class LoadController extends Controller
                 //it's a beautiful day, don't you think
                 return response()->json(["message" => "User successfully created", "data" => $body], 200);
             }
-        } catch(\Exception $e) {
-            return response()->json(["message" => $e->getMessage()."Error by Mail"], 500);
+        } catch (\Exception $e) {
+            return response()->json(["message" => $e->getMessage() . "Error by Mail"], 500);
         }
     }
 
-    public function activateAccount(Request $request, $id) {
+    public function activateAccount(Request $request, $id)
+    {
         try {
             //query
             $query = $this->user->where("id", decrypt($id));
 
-            if($query->first() !== null) {
+            if ($query->first() !== null) {
                 $query->update(['verified' => true]);
 
                 return redirect('login')->withErrors('Account successfully activated, you can now login to your dashboard');
@@ -136,13 +165,14 @@ class LoadController extends Controller
                 \Session::put('danger', true);
                 return redirect('login')->withErrors('Invalid activation key sent');
             }
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             \Session::put('danger', true);
-            return redirect('login')->withErrors('An error has occurred: '.$e->getMessage());
+            return redirect('login')->withErrors('An error has occurred: ' . $e->getMessage());
         }
     }
 
-    public function forgotPassword(Request $request) {
+    public function forgotPassword(Request $request)
+    {
         try {
             //get request body
             $body = $request->all();
@@ -150,15 +180,14 @@ class LoadController extends Controller
             //validate the input
             $validation = $this->validate->auth($body, "recovery-link");
 
-            if($validation->fails()) {
+            if ($validation->fails()) {
                 \Session::put('warning', true);
                 return back()->withErrors($validation->getMessageBag())->withInput();
             } else {
                 //find the email address
                 $findEmail = $this->user->where("email", $body["email"])->first();
 
-                if($findEmail !== null)
-                {
+                if ($findEmail !== null) {
                     //create a recovery token from the user's ID
                     $token = encrypt($findEmail->id);
 
@@ -166,7 +195,7 @@ class LoadController extends Controller
                     $data = [
                         "email" => $findEmail->email,
                         "name" => $findEmail->name,
-                        "url" => URL('reset-password').'/'.$token,
+                        "url" => URL('reset-password') . '/' . $token,
                     ];
 
                     //create expiry time for password recovery
@@ -187,13 +216,14 @@ class LoadController extends Controller
                     return back()->withErrors("We couldn't find that email in our records, please create an account");
                 }
             }
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             \Session::put('danger', true);
             return back()->withErrors($e->getMessage());
         }
     }
 
-    public function resetPassword(Request $request) {
+    public function resetPassword(Request $request)
+    {
         try {
             //get request body
             $body = $request->all();
@@ -201,20 +231,18 @@ class LoadController extends Controller
             //validate the user's input
             $validation = $this->validate->auth($body, "reset-password");
 
-            if($validation->fails()) {
+            if ($validation->fails()) {
                 \Session::put('warning', true);
                 return back()->withErrors($validation->getMessageBag());
             } else {
                 //find a match for the recovery token
                 $findToken = $this->reset->where("token", $body['token'])->first();
 
-                if($findToken !== null)
-                {
+                if ($findToken !== null) {
                     $currentTime = strtotime(date("H:i"));
 
                     //check if token is expired or not
-                    if(date("H:i", strtotime($findToken->time)) <= $currentTime)
-                    {
+                    if (date("H:i", strtotime($findToken->time)) <= $currentTime) {
                         //decrypt the token
                         $userId = Crypt::decrypt($findToken->token);
 
@@ -237,7 +265,7 @@ class LoadController extends Controller
                     return back()->withErrors("Invalid token provided");
                 }
             }
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             \Session::put('red', true);
             return back()->withErrors($e->getMessage());
         }
@@ -246,16 +274,114 @@ class LoadController extends Controller
         return redirect('login')->withErrors("Password successfully changed, you can now login to your dashboard");
     }
 
-
-    public function logout() {
+    public function logout()
+    {
         try {
             Auth::logout();
             \Session::flush();
 
             return redirect('login')->withErrors('You\'re now logged out');
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             \Session::put('danger', true);
-            return back()->withErrors('An error has occurred: '.$e->getMessage());
+            return back()->withErrors('An error has occurred: ' . $e->getMessage());
+        }
+    }
+
+    public function checkTrnx($userEmail)
+    {
+        $tranxDetail = $this->trnx->where(['email' => $userEmail, 'isCompleted' => false])->latest();
+
+        $tranxDetails = $tranxDetail->first();
+
+        if($tranxDetails !== null){
+
+            $trnxData = $this->api->call('/transaction/verify/' . $tranxDetails->reference, 'GET')->data;
+
+            $trnxType = $tranxDetails->type;
+
+            $amountPaid = $trnxData->amount / 100;
+
+            $user = $this->auth::user();
+            if ($trnxData->status == 'success') {
+
+                $params = [
+                    'reference' => $trnxData->reference,
+                    'status' => $trnxData->status,
+                    'message' => $trnxData->message ?? $trnxData->gateway_response,
+                    'amount' => $amountPaid,
+                    'investorId' => $user->investor()->id,
+                    'userId' => $user->id,
+                    'type' => $trnxType
+                ];
+
+                $trnXId = $this->transaction->create($params)->id;
+
+                //credit the Investor's wallet
+                if ($trnxType == 'credit') {
+                    $stash = $this->stash->where('investorId', $user->investor()->id);
+
+                    if ($stash->first() === null) {
+                        $stashParams = [
+                            'investorId' => $user->investor()->id,
+                            'customerId' => $trnxData->customer->customer_code,
+                            'totalAmount' => $amountPaid,
+                            'availableAmount' => $amountPaid
+                        ];
+                        $stash->create($stashParams);
+                    } else {
+                        $stash->increment('totalAmount', $amountPaid);
+                        $stash->increment('availableAmount', $amountPaid);
+                    }
+
+                    $gr = $this->referral->where(['userId' => $user->id, 'hasPayed' => false]);
+                    $getRef = $gr->first();
+
+                    if ($getRef !== null) {
+                        $refId = $this->investor->where('userId', $getRef->refererId)->first();
+                        $refStash = $this->stash->where('investorId', $refId->id);
+                        $refStash->increment('totalAmount', 2000);
+                        $refStash->increment('availableAmount', 2000);
+                        $gr->update(['hasPayed' => true]);
+                    }
+                    $tranxDetail->update([
+                        "isCompleted" => true
+                    ]);
+                } else {
+                    if ($tranxDetails->portfolioId !== null) {
+                        $portfolioId = $tranxDetails->portfolioId;
+                        $getPortfolio = $this->portfolio->where("id", $portfolioId);
+
+                        $getP = $getPortfolio->first();
+                        if ($getP !== null) {
+
+                            $units = $amountPaid / $getP->amountPerUnit;
+
+                            $invData = [
+                                'userId' => $user->id,
+                                "investorId" => $user->investor()->id,
+                                "portfolioId" => $portfolioId,
+                                "transactionId" => $trnXId,
+                                "unitsBought" => $units,
+                                "amount" => $amountPaid,
+                                "paymentMethod" => "bank",
+                                "datePurchased" => Carbon::now(),
+                            ];
+
+                            $roiInPer = $getP['returnInPer'] - $getP['managementFee'];
+                            $roi = (($roiInPer / 100) * $amountPaid);
+
+                            $invData["roi"] = $roi;
+                            $getPortfolio->decrement('sizeRemaining', $amountPaid);
+                            $this->investment->create($invData);
+                            $tranxDetail->update([
+                                "isCompleted" => true
+                            ]);
+                        }
+                    }
+                }
+
+            }
+
         }
     }
 }

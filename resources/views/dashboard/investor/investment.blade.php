@@ -128,7 +128,7 @@
                                         <th>Amount</th>
                                         <th>Payment Method</th>
                                         <th>Units Bought</th>
-                                        <th>Return On Investment</th>
+                                        <th>Return On Investment(P.A)</th>
                                         <th>Date</th>
                                         <th>Withdraw</th>
                                     </tr>

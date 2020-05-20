@@ -144,9 +144,22 @@ class PageController extends Controller
             else{
                 $availableBalance = $stash->first()->availableAmount;
             }
-
-            $percents["stash"] = ($availableBalance / ($funds+$availableBalance)) * 100;
-            $percents["funds"] = ($funds / ($funds+$availableBalance)) * 100;
+            if($funds == 0 && $availableBalance !== 0){
+                $percents["funds"] = 0;
+                $percents["stash"] = 100;
+            }
+            elseif($funds !== 0 && $availableBalance == 0){
+                $percents["funds"] = 100;
+                $percents["stash"] = 0;
+            }
+            elseif($funds == 0 && $availableBalance == 0){
+                $percents["funds"] = 0;
+                $percents["stash"] = 100;
+            }
+            else{
+                $percents["stash"] = ($availableBalance / ($funds+$availableBalance)) * 100;
+                $percents["funds"] = ($funds / ($funds+$availableBalance)) * 100;
+            }
             $data = [
                 'title' => 'Dashboard',
                 'investor' => $user->investor(),
