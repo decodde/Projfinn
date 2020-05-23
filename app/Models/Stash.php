@@ -9,5 +9,5 @@ class Stash extends Model
     //
     protected $table = 'stashes';
 
-    protected $fillable = ['investorId', 'customerId', 'totalAmount', 'availableAmount'];
+    protected $fillable = ['investorId', 'customerId', 'recipientId', 'totalAmount', 'availableAmount'];
 }

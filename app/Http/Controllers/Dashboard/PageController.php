@@ -198,7 +198,7 @@ class PageController extends Controller
             }
 
 
-            $transactions = $this->transaction->where('investorId', $user->investor()->id)->get();
+            $transactions = $this->transaction->where('investorId', $user->investor()->id)->paginate(10);
 
             $creditAmount = 0;
             $debitAmount = 0.00;
@@ -308,13 +308,17 @@ class PageController extends Controller
             $user = Auth::user();
             $portfolios = $this->portfolio->get();
 
-            $investments = $this->investment->where('userId', $user->id)->get();
+            $investments = $this->investment->where(['userId'=> $user->id, 'isOpen' => "true"])->get();
 
             foreach ($investments as $investment){
                 $investment->transaction = $investment->transaction();
                 $investment->portfolio = $investment->portfolio();
-                $invTime = Carbon::create($investment->datePurchased)->addMonths(3);
-                if($invTime <= $investment->datePurchased){
+
+                $now = Carbon::now();
+
+                $investment->diff = $now->diffInDays($investment->datePurchased);
+
+                if($investment->diff > 90){
                     $investment->isReady = true;
                 }else{
                     $investment->isReady = false;

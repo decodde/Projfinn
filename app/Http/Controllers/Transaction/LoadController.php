@@ -10,9 +10,12 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Referral;
 use App\Models\Lender;
+use App\Models\lenderAccount;
+use App\Models\Bank;
 use App\Models\Portfolio;
 use App\Models\Investment;
 use App\Models\TranxConfirm;
+use App\Http\Helpers\Validate;
 
 class LoadController extends Controller
 {
@@ -25,8 +28,11 @@ class LoadController extends Controller
     private $portfolio;
     private $investment;
     private $tranx;
+    private $validate;
+    private $account;
+    private $bank;
 
-    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, TranxConfirm $tranx){
+    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, TranxConfirm $tranx, Validate $validate, lenderAccount $account, Bank $bank){
         $this->api = $api;
         $this->transaction = $transaction;
         $this->stash = $stash;
@@ -35,6 +41,9 @@ class LoadController extends Controller
         $this->investor = $investor;
         $this->investment = $investment;
         $this->tranx = $tranx;
+        $this->validate = $validate;
+        $this->account = $account;
+        $this->bank = $bank;
     }
 
     public function buy(Request $request){
@@ -171,5 +180,63 @@ class LoadController extends Controller
             \Session::put('danger', true);
             return redirect('dashboard/i')->withErrors('An error has occurred: '.$e->getMessage());
         }
+    }
+
+    public function transfer(Request $request){
+        try{
+            $data = $request->all();
+
+            $validation = $this->validate->transaction($data, 'transfer');
+            if($validation->fails())
+            {
+                return response()->json(["message" => $validation->getMessageBag(), "error" => true, "data" => []], 200);
+            } else {
+                $userAcc = $this->account->where('userId', $data["userId"])->first();
+                $stash = $this->stash->where('investorId', $data["investorId"])->first();
+                $userBank = $this->bank->where('id', $userAcc->bankId)->first();
+
+                if ($stash->recipientId == null){
+                    $body = [
+                        "type" => 'nuban',
+                        "name" => $data["name"],
+                        "description" => "Payout From Rouzo",
+                        "account_number" => $userAcc->accountNumber,
+                        "bank_code" => $userBank->code,
+                        "currency" => "NGN",
+                    ];
+                    $recRes = $this->api->call('/transferrecipient', 'POST', $body)->data;
+                    $this->stash->where('investorId', $data["investorId"])->update([
+                        "recipientId" => $recRes->recipient_code,
+                    ]);
+
+                    $recipient_code = $recRes->recipient_code;
+                }
+                else{
+                    $recipient_code = $stash->recipientId;
+                }
+
+                if(($stash->availableAmount - $data["amount"]) < 1000){
+                    return response()->json(["message" => "An Error Occurred: Insufficient funds", "error" => true, "data" => []], 200);
+                }
+
+                $params = [
+                    "source" => "balance",
+                    "reason" => "Payout From Rouzo",
+                    "amount" => $data["amount"] * 100,
+                    "recipient" => $recipient_code,
+                ];
+
+                $transferRes = $this->api->call('/transfer', 'POST', $params);
+
+                $stash = $this->stash->where('investorId', $data["investorId"]);
+
+                $stash->decrement('totalAmount', $data["amount"]);
+                $stash->decrement('availableAmount', $data["amount"]);
+            }
+        }
+        catch(\Exception $e){
+            return response()->json(["message" => "An Error Occurred ".$e->getMessage(), "error" => true, "data" => []], 200);
+        }
+        return response()->json(["message" => "Transfer Successful", "error" => false, "data" => $transferRes], 200);
     }
 }

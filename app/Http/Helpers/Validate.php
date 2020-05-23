@@ -308,6 +308,14 @@ class Validate {
                     'type' => 'required',
                 ]);
                 break;
+            case 'transfer':
+                return $this->validator::make($data, [
+                    'userId' => 'required',
+                    'investorId' => 'required',
+                    'amount' => 'required',
+                    'name' => 'required',
+                ]);
+                break;
             default:
                 # code...
                 break;

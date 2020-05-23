@@ -158,9 +158,9 @@
                                                 @if($investment->isReady === false)
                                                 <a class="btn btn-primary box-shadow-2 text-white" href="javascript:void(0);" onclick="window.alert('Your invest will be matured after 90days from Investment');">
                                                     @else
-                                                <a class="btn btn-primary box-shadow-2  text-white">
+                                                <a class="btn btn-primary box-shadow-2  text-white" href="javascript:void(0);" onclick="withdrawInv({{$investment}})">
                                                 @endif
-                                                        Withdraw Funds
+                                                    Withdraw Funds
                                                 </a>
 
                                             </td>
@@ -180,4 +180,43 @@
         </div>
     </div>
 
+    <div id="payOut" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="font-size-18px font-weight-bold">Withdrawal Option</h6>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <form action="{{ URL('/investment/transfer') }}" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="hidden" name="_token" value="{{csrf_token()}}">
+                        <input type="hidden" name="investmentId" id="investmentId" value="">
+                        <label for="int" class="mb-2">
+                            <input type="radio" name="withdrawalOption" id="int" class="rads" value="interest">
+                            Withdraw
+                            <a class="text-blue">Interest</a>
+                        </label>
+                        <br>
+                        <label for="int+inv">
+                            <input type="radio" name="withdrawalOption" id="int+inv" class="rads" value="int+inv">
+                            Withdraw
+                            <a class="text-blue">Interest + Investment</a>
+                        </label>
+
+                        <div  class="dotted-btn width-90-per">
+                            <p class="success mb-0 font-size-20px">₦ <a class="success font-size-20px" id="withAmt"> 0</a></p>
+                        </div>
+                    </div>
+                    <p class="mx-1"><code>Note:</code> The money will be transfer to your <a href="{{URL('/dashboard/i/stash')}}">Stash</a> where it can be withdrawn from </p>
+                    <div class="modal-footer">
+                        <a href="javascript:void(0);" class="danger" data-dismiss="modal">Close</a>
+                        <button type="submit" class="btn btn-sm btn-success">Confirm Withdrawal</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @stop

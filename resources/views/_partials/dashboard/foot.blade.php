@@ -17,6 +17,7 @@
 <script src="{{ asset('assets/assets/vendors/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/assets/js/theme.js') }}"></script>
 <script src="{{ asset('assets/assets/js/theme-vendors.js') }}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 <script type="text/javascript">
 
     $("a[href$='#next']").click(function() {
@@ -31,4 +32,64 @@
         $('#unitsS').text(units +" units");
         $('#amount').text(n.format('0,0'));
     });
+</script>
+<script>
+    $('#getAmt').on('submit', function (e) {
+        e.preventDefault();
+
+        var that = $(this), url = that.attr('action'), type = that.attr('method');
+        var csrf = $('#_token');
+        // var amount = $('#amount').val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': csrf.val(),
+            }
+        });
+
+        $('#inactiveBtn').show();
+        $('#activeBtn').hide();
+
+        $.ajax({
+            url: url,
+            type: type,
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+
+            success: function (response) {
+                $('#inactiveBtn').hide();
+                $('#activeBtn').show();
+                if (response.error === false) {
+                    console.log(response);
+                    window.location.href = "{{URL('/investment/success')}}";
+                } else {
+                    console.log(response);
+                    window.location.href = "{{URL('/investment/danger')}}";
+                }
+
+            },
+        });
+    });
+</script>
+<script>
+    function withdrawInv(investment) {
+
+        var interstSofar = ((investment.diff / 365) * investment.roi);
+
+        $('#payOut').modal('show');
+
+        $('#investmentId').val(investment.id);
+
+        var rad = $('.rads');
+        for (var i = 0; i < rad.length; i++) {
+            rad[i].addEventListener('change', function() {
+                if(this.value === "interest"){
+                    $('#withAmt').text(numeral(parseInt(interstSofar)).format('0,0.00'))
+                }else{
+                    $('#withAmt').text(numeral(parseInt(interstSofar)+parseInt(investment.amount)).format('0,0.00'))
+                }
+            });
+        }
+    }
 </script>
