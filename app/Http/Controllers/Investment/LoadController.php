@@ -56,6 +56,10 @@ class LoadController extends Controller
             }
 
             $getPortfolio = $this->portfolio->where("id", $data["portfolioId"])->first();
+            if($getPortfolio->sizeRemaining <= 0){
+                \Session::put('danger', true);
+                return redirect("/dashboard/i/investments")->withErrors("Sorry, this Portfolio has been sold out, You can purchase units from our other Portfolios")->withInput();
+            }
             if ($data["amount"] > $getPortfolio->sizeRemaining){
 
                 $unitsRemaining = $getPortfolio->sizeRemaining / $getPortfolio->amountPerUnit;
@@ -64,6 +68,7 @@ class LoadController extends Controller
                 return back()->withErrors("Sorry Only ".$unitsRemaining." units of the ".$getPortfolio->name." Portfolio is left. Pay ₦". $this->format->MoneyConvert($getPortfolio->sizeRemaining, 'full')." to acquire it")->withInput();
             }
 
+            dd("Yooo");
             if($data["paymentMethod"] == 'bank'){
                 \Session::put('type', 'debit');
                 \Session::put('portfolioId', $data["portfolioId"]);
