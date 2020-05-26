@@ -14,6 +14,7 @@ use App\Models\TranxConfirm;
 
 use App\Http\Helpers\apiHelper;
 use App\Http\Helpers\Validate;
+use App\Http\Helpers\Formatter;
 use Illuminate\Support\Facades\Auth;
 
 class LoadController extends Controller
@@ -26,8 +27,9 @@ class LoadController extends Controller
     private $portfolio;
     private $api;
     private $tranx;
+    private $format;
 
-    public function __construct(Investment $investment, Validate $validate, Stash $stash, Transaction $transaction, Portfolio $portfolio, apiHelper $api, TranxConfirm $tranx){
+    public function __construct(Investment $investment, Validate $validate, Stash $stash, Transaction $transaction, Portfolio $portfolio, apiHelper $api, TranxConfirm $tranx, Formatter $format){
         $this->investment = $investment;
         $this->validate = $validate;
         $this->stash = $stash;
@@ -35,6 +37,7 @@ class LoadController extends Controller
         $this->portfolio = $portfolio;
         $this->api = $api;
         $this->tranx = $tranx;
+        $this->format = $format;
     }
 
     public function create(Request $request){
@@ -52,6 +55,14 @@ class LoadController extends Controller
                 return back()->withErrors($validation->getMessageBag())->withInput();
             }
 
+            $getPortfolio = $this->portfolio->where("id", $data["portfolioId"])->first();
+            if ($data["amount"] > $getPortfolio->sizeRemaining){
+
+                $unitsRemaining = $getPortfolio->sizeRemaining / $getPortfolio->amountPerUnit;
+                \Session::put('danger', true);
+                //return validation error
+                return back()->withErrors("Sorry Only ".$unitsRemaining." units of the ".$getPortfolio->name." Portfolio is left. Pay ₦". $this->format->MoneyConvert($getPortfolio->sizeRemaining, 'full')." to acquire it")->withInput();
+            }
 
             if($data["paymentMethod"] == 'bank'){
                 \Session::put('type', 'debit');
