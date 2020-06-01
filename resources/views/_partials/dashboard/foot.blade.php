@@ -1,5 +1,5 @@
 <script src="{{ asset('assets/app-assets/vendors/js/vendors.min.js') }}" type="text/javascript"></script>
-<<script src="{{ asset('assets/app-assets/vendors/js/extensions/jquery.steps.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/app-assets/vendors/js/extensions/jquery.steps.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/app-assets/vendors/js/forms/validation/jquery.validate.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/app-assets/vendors/js/ui/headroom.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/app-assets/vendors/js/extensions/toastr.min.js') }}" type="text/javascript"></script>

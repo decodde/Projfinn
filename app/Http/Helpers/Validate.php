@@ -52,6 +52,7 @@ class Validate {
                 "userId" => "required",
                 "l_name" => "required",
                 "f_name" => "required",
+                "phone" => "required"
             ]);
         }
         else if($type == "updateDetails"){
@@ -314,6 +315,19 @@ class Validate {
                     'investorId' => 'required',
                     'amount' => 'required',
                     'name' => 'required',
+                ]);
+                break;
+            default:
+                # code...
+                break;
+        }
+    }
+    public function fund($data, $type) {
+        switch ($type) {
+            case 'apply':
+                return $this->validator::make($data, [
+                    'amount' => 'required',
+                    'description' => 'required',
                 ]);
                 break;
             default:

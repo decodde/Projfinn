@@ -43,7 +43,7 @@ class sendMail {
 
 //        dd("Hey");
         $this->mail::send('emails.template', ['data' => $mail], function ($m) use ($mail, $data) {
-            $m->from(env('SENDER_EMAIL'), env('SENDER_NAME'));
+            $m->from(env('SENDER_EMAIL'), );
             $m->to($data['email'])->subject($mail['title']);
             $m->replyTo('no-reply@owoafara.com');
         });
@@ -58,6 +58,34 @@ class sendMail {
         $this->mail::send('emails.template', ['data' => $mail], function ($m) use ($mail, $data) {
             $m->from($data["email"], $data["name"]);
             $m->to(env('SENDER_EMAIL'))->subject($mail['title']);
+            $m->replyTo('no-reply@owoafara.com');
+        });
+    }
+
+    public function sendToAdmin($data, $user)
+    {
+        $mail["title"] = "Rouzo: A Business Applied for Funding ";
+        $mail["salute"] = "Hello Rouzo";
+        $mail["message"] = "A business with the name '". $user->business()->name."' just applied for Funding, Please login and view the application";
+
+        $this->mail::send('emails.template', ['data' => $mail], function ($m) use ($mail, $user) {
+            $m->from($user->email, $user->name);
+            $m->to(env('SENDER_EMAIL'))->subject($mail['title']);
+            $m->replyTo('no-reply@owoafara.com');
+        });
+    }
+
+    public function sendMailForPayment($data)
+    {
+        $mail["title"] = "Rouzo: Funding application Update";
+        $mail["salute"] = "Hello ".$data["name"];
+        $mail["message"] = "Your Funding Application has been Approved . Login into your dashboard to view it'". $data["name"];
+        $mail['buttonTitle'] = 'Login to Your dashboard';
+        $mail['targetUrl'] = $data['url'];
+
+        $this->mail::send('emails.template', ['data' => $mail], function ($m) use ($mail, $data) {
+            $m->from(env('SENDER_EMAIL'), env('SENDER_NAME'));
+            $m->to($data["email"])->subject($mail['title']);
             $m->replyTo('no-reply@owoafara.com');
         });
     }

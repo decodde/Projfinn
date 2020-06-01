@@ -28,7 +28,7 @@
 
             <!-- Header -->
             @include('_partials.admin._header')
-
+            @include('_partials.errors')
             @yield('content')
 
             @include('_partials.admin._footer')

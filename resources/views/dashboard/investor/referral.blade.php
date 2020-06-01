@@ -101,20 +101,22 @@
                                     </tr>
                                     </thead>
                                     <tbody class="borderless">
-                                    @for( $i = 0; $i < count($payedReferrals);$i++)
-                                        <tr>
-                                            <td>{{$i+1}}</td>
-                                            <td>{{$payedReferrals[$i]->user->name}}</td>
-                                            <td>
-                                                <p class="font-size-17px success darken-4">
-                                                    ₦ 2,000
-                                                </p>
-                                            </td>
+                                        <?php $i=1 ?>
+                                        @foreach($payedReferrals as $payedReferral)
+                                            <tr>
+                                                <td>{{$i}}</td>
+                                                <td>{{$payedReferral->user->name}}</td>
+                                                <td>
+                                                    <p class="font-size-17px success darken-4">
+                                                        ₦ 2,000
+                                                    </p>
+                                                </td>
 
-                                            <td>{{App\Http\Helpers\Formatter::dataTime($payedReferrals[$i]->updatedAt)}}</td>
+                                                <td>{{App\Http\Helpers\Formatter::dataTime($payedReferral->updatedAt)}}</td>
 
-                                        </tr>
-                                    @endfor
+                                            </tr>
+                                            <?php $i++ ?>
+                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>

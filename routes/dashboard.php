@@ -3,12 +3,12 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'business'], function() {
-    Route::get('/', 'PageController@dashboard');
-    Route::get('/eligibility/score', 'PageController@score');
-    Route::get('/document', 'PageController@documents');
+    Route::get('/', 'BusController@dashboard');
+    Route::get('/eligibility/score', 'BusController@score');
+    Route::get('/document', 'BusController@documents');
+    Route::get('/funds', 'BusController@funds');
+    Route::get('/settings', 'BusController@settings');
 });
-
-
 
 Route::group(['middleware' => 'investor', 'prefix' => 'i'], function() {
     Route::get('/', 'PageController@i_dashboard');

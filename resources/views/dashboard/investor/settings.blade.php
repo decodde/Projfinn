@@ -39,6 +39,11 @@
                                     <label for="">Last Name :</label>
                                     <input type="text" name="l_name" id="l_name" class="form-control" value="{{ $user->l_name }}" required>
                                 </div>
+
+                                <div class="col-md-6 mt-2">
+                                    <label for="">Phone Number :</label>
+                                    <input type="text" name="phone" id="phone" class="form-control" value="{{ $user->phone }}" required>
+                                </div>
                             </div>
                             <button type="submit" id="BVNBtn" class="btn btn-block btn-success width-150 float-right">Save changes</button>
                         </form>

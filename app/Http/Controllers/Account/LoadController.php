@@ -50,7 +50,11 @@ class LoadController extends Controller
 
             $name = $data["f_name"]." ".$data["l_name"];
 
-            $getUser->update(['name' => $name]);
+            $params = [
+                "phone" => $data["phone"],
+                "name" => $name
+            ];
+            $getUser->update($params);
 
             \Session::put('success', true);
             return back()->withErrors('Profile Updated Successfully');

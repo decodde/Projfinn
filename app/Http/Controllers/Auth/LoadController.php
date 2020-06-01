@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Funds;
 use App\Models\Stash;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -43,8 +44,9 @@ class LoadController extends Controller
     private $portfolio;
     private $investment;
     private $transaction;
+    private $fund;
 
-    public function __construct(Auth $auth, Validate $validate, User $user, sendMail $mail, ResetPassword $reset, Partials $partials, TranxConfirm $trnx, apiHelper $api, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Transaction $transaction)
+    public function __construct(Auth $auth, Validate $validate, User $user, sendMail $mail, ResetPassword $reset, Partials $partials, TranxConfirm $trnx, apiHelper $api, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Transaction $transaction, Funds $fund)
     {
         $this->auth = $auth;
         $this->user = $user;
@@ -60,6 +62,7 @@ class LoadController extends Controller
         $this->investor = $investor;
         $this->investment = $investment;
         $this->transaction = $transaction;
+        $this->fund = $fund;
     }
 
     public function login(Request $request)
@@ -92,7 +95,7 @@ class LoadController extends Controller
                 return back()->withErrors("Your account is not verified. Kindly check your email for a verification link");
             }
 
-            $this->checkTrnx($this->auth::user()->email);
+            $this->checkTrnx($this->auth::user()->email, $this->auth::user()->type);
 
             if ($this->auth::user()->type === 'investor') {
 
@@ -287,101 +290,121 @@ class LoadController extends Controller
         }
     }
 
-    public function checkTrnx($userEmail)
+    public function checkTrnx($userEmail, $type)
     {
         $tranxDetail = $this->trnx->where(['email' => $userEmail, 'isCompleted' => false])->latest();
 
         $tranxDetails = $tranxDetail->first();
+        $trnxData = $this->api->call('/transaction/verify/' . $tranxDetails->reference, 'GET')->data;
 
-        if($tranxDetails !== null){
+        $trnxType = $tranxDetails->type;
 
-            $trnxData = $this->api->call('/transaction/verify/' . $tranxDetails->reference, 'GET')->data;
+        $amountPaid = $trnxData->amount / 100;
 
-            $trnxType = $tranxDetails->type;
+        $user = $this->auth::user();
 
-            $amountPaid = $trnxData->amount / 100;
-
-            $user = $this->auth::user();
-            if ($trnxData->status == 'success') {
-
+        if($tranxDetails !== null) {
+            if ($type === "business") {
                 $params = [
                     'reference' => $trnxData->reference,
                     'status' => $trnxData->status,
                     'message' => $trnxData->message ?? $trnxData->gateway_response,
                     'amount' => $amountPaid,
-                    'investorId' => $user->investor()->id,
+                    'investorId' => $user->business()->id,
                     'userId' => $user->id,
                     'type' => $trnxType
                 ];
 
                 $trnXId = $this->transaction->create($params)->id;
 
-                //credit the Investor's wallet
-                if ($trnxType == 'credit') {
-                    $stash = $this->stash->where('investorId', $user->investor()->id);
+                $getFund = $this->fund->where('userId', $user->id)->update(["progress" => "visitation", "transactionId" => $trnXId, "hasPaidReg" => true]);
+                $tranxDetail->update([
+                    "isCompleted" => true
+                ]);
+                \Session::put('success', true);
+                return redirect('dashboard/funds')->withErrors('Payment successfully');
+            } else {
+                if ($trnxData->status == 'success') {
 
-                    if ($stash->first() === null) {
-                        $stashParams = [
-                            'investorId' => $user->investor()->id,
-                            'customerId' => $trnxData->customer->customer_code,
-                            'totalAmount' => $amountPaid,
-                            'availableAmount' => $amountPaid
-                        ];
-                        $stash->create($stashParams);
-                    } else {
-                        $stash->increment('totalAmount', $amountPaid);
-                        $stash->increment('availableAmount', $amountPaid);
-                    }
+                    $params = [
+                        'reference' => $trnxData->reference,
+                        'status' => $trnxData->status,
+                        'message' => $trnxData->message ?? $trnxData->gateway_response,
+                        'amount' => $amountPaid,
+                        'investorId' => $user->investor()->id,
+                        'userId' => $user->id,
+                        'type' => $trnxType
+                    ];
 
-                    $gr = $this->referral->where(['userId' => $user->id, 'hasPayed' => false]);
-                    $getRef = $gr->first();
+                    $trnXId = $this->transaction->create($params)->id;
 
-                    if ($getRef !== null) {
-                        $refId = $this->investor->where('userId', $getRef->refererId)->first();
-                        $refStash = $this->stash->where('investorId', $refId->id);
-                        $refStash->increment('totalAmount', 2000);
-                        $refStash->increment('availableAmount', 2000);
-                        $gr->update(['hasPayed' => true]);
-                    }
-                    $tranxDetail->update([
-                        "isCompleted" => true
-                    ]);
-                } else {
-                    if ($tranxDetails->portfolioId !== null) {
-                        $portfolioId = $tranxDetails->portfolioId;
-                        $getPortfolio = $this->portfolio->where("id", $portfolioId);
+                    //credit the Investor's wallet
+                    if ($trnxType == 'credit') {
+                        $stash = $this->stash->where('investorId', $user->investor()->id);
 
-                        $getP = $getPortfolio->first();
-                        if ($getP !== null) {
-
-                            $units = $amountPaid / $getP->amountPerUnit;
-
-                            $invData = [
-                                'userId' => $user->id,
-                                "investorId" => $user->investor()->id,
-                                "portfolioId" => $portfolioId,
-                                "transactionId" => $trnXId,
-                                "unitsBought" => $units,
-                                "amount" => $amountPaid,
-                                "paymentMethod" => "bank",
-                                "datePurchased" => Carbon::now(),
+                        if ($stash->first() === null) {
+                            $stashParams = [
+                                'investorId' => $user->investor()->id,
+                                'customerId' => $trnxData->customer->customer_code,
+                                'totalAmount' => $amountPaid,
+                                'availableAmount' => $amountPaid
                             ];
+                            $stash->create($stashParams);
+                        } else {
+                            $stash->increment('totalAmount', $amountPaid);
+                            $stash->increment('availableAmount', $amountPaid);
+                        }
 
-                            $roiInPer = $getP['returnInPer'] - $getP['managementFee'];
-                            $roi = (($roiInPer / 100) * $amountPaid);
+                        $gr = $this->referral->where(['userId' => $user->id, 'hasPayed' => false]);
+                        $getRef = $gr->first();
 
-                            $invData["roi"] = $roi;
-                            $getPortfolio->decrement('sizeRemaining', $amountPaid);
-                            $this->investment->create($invData);
-                            $tranxDetail->update([
-                                "isCompleted" => true
-                            ]);
+                        if ($getRef !== null) {
+                            $refId = $this->investor->where('userId', $getRef->refererId)->first();
+                            $refStash = $this->stash->where('investorId', $refId->id);
+                            $refStash->increment('totalAmount', 2000);
+                            $refStash->increment('availableAmount', 2000);
+                            $gr->update(['hasPayed' => true]);
+                        }
+                        $tranxDetail->update([
+                            "isCompleted" => true
+                        ]);
+                    } else {
+                        if ($tranxDetails->portfolioId !== null) {
+                            $portfolioId = $tranxDetails->portfolioId;
+                            $getPortfolio = $this->portfolio->where("id", $portfolioId);
+
+                            $getP = $getPortfolio->first();
+                            if ($getP !== null) {
+
+                                $units = $amountPaid / $getP->amountPerUnit;
+
+                                $invData = [
+                                    'userId' => $user->id,
+                                    "investorId" => $user->investor()->id,
+                                    "portfolioId" => $portfolioId,
+                                    "transactionId" => $trnXId,
+                                    "unitsBought" => $units,
+                                    "amount" => $amountPaid,
+                                    "paymentMethod" => "bank",
+                                    "datePurchased" => Carbon::now(),
+                                ];
+
+                                $roiInPer = $getP['returnInPer'] - $getP['managementFee'];
+                                $roi = (($roiInPer / 100) * $amountPaid);
+
+                                $invData["roi"] = $roi;
+                                $getPortfolio->decrement('sizeRemaining', $amountPaid);
+                                $this->investment->create($invData);
+                                $tranxDetail->update([
+                                    "isCompleted" => true
+                                ]);
+                            }
                         }
                     }
+
                 }
 
             }
-
         }
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Helpers\sendMail;
+use App\Models\Funds;
 use App\Models\Investment;
 use App\Models\Lender;
 use App\Models\Portfolio;
@@ -27,7 +29,9 @@ class LoadController extends Controller
     private $investor;
     private $portfolio;
     private $investment;
-    public function __construct(User $user, apiHelper $api, Validate $validate, Transaction  $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment){
+    private $funds;
+    private $mail;
+    public function __construct(User $user, apiHelper $api, Validate $validate, Transaction  $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Funds $funds, sendMail $mail){
         $this->user = $user;
         $this->api = $api;
         $this->transaction = $transaction;
@@ -37,6 +41,8 @@ class LoadController extends Controller
         $this->investor = $investor;
         $this->portfolio = $portfolio;
         $this->investment = $investment;
+        $this->funds = $funds;
+        $this->mail = $mail;
     }
 
     public function adminConfirm(Request $request){
@@ -152,6 +158,30 @@ class LoadController extends Controller
                 \Session::put('danger', true);
                 return back()->withErrors('An error has occurred: ');
             }
+        }
+        catch (\Exception $e){
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+
+    public function fundStatus(Request $request)
+    {
+        try{
+            $data = $request->except('_token');
+            $this->funds->where('businessId', $data["businessId"])->update(['progress' => $data["progress"]]);
+
+            if($data["progress"] === "payment") {
+                $params = [
+                    "name" => $data["name"],
+                    "email" => $data["email"],
+                    "url" => URL('/dashboard')
+                ];
+                $this->mail->sendMailForPayment($params);
+            }
+            \Session::put('success', true);
+            return back()->withErrors('Application Status Changed');
         }
         catch (\Exception $e){
             \Session::put('danger', true);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Formatter;
 use App\Models\Bank;
+use App\Models\Funds;
 use App\Models\Investment;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -22,13 +23,15 @@ class PageController extends Controller
     private $transaction;
     private $formatter;
     private $portfolio;
-    public function __construct(User $user, Bank $bank, Investment $investment, Transaction $transaction, Formatter $formatter, Portfolio $portfolio){
+    private $fund;
+    public function __construct(User $user, Bank $bank, Investment $investment, Transaction $transaction, Formatter $formatter, Portfolio $portfolio, Funds $fund){
         $this->user = $user;
         $this->bank = $bank;
         $this->investment = $investment;
         $this->transaction = $transaction;
         $this->formatter = $formatter;
         $this->portfolio = $portfolio;
+        $this->fund = $fund;
     }
 
     public function index(Request $request){
@@ -152,6 +155,55 @@ class PageController extends Controller
         }
     }
 
+    public function funds(Request $request) {
+        try {
+            $getFunds = $this->fund->paginate(10);
+
+            foreach ($getFunds as $getFund){
+                $getFund->user = $getFund->user();
+                $getFund->business = $getFund->business();
+            }
+
+            $data = [
+                'title' => 'Admin',
+                'funds' => $getFunds
+            ];
+
+
+            return view('admin.funds', $data);
+
+        } catch(\Exception $e) {
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function fund(Request $request){
+        try {
+            $id = decrypt($request->id);
+            $getFund = $this->fund->where("id", $id)->first();
+
+            if($getFund === null){
+                \Session::put('danger', true);
+                return back()->withErrors('An error has occurred');
+            }
+            $getFund->user = $getFund->user();
+            $getFund->business = $getFund->business();
+            $getFund->document = $getFund->document();
+
+            $data = [
+                'title' => 'Admin',
+                'fund' => $getFund
+            ];
+
+
+            return view('admin.fund', $data);
+
+        } catch(\Exception $e) {
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
     public function portfolios(Request $request) {
         try {
             $user = Auth::user();

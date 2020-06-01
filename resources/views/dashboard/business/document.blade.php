@@ -1,6 +1,21 @@
 @extends('_partials.dashboard.master')
 @section('content')
 
+    <div class="content-header row">
+        <div class="content-header-left col-md-6 col-12 mb-2">
+            <h5 class="content-header-title">Documents</h5>
+            <div class="row breadcrumbs-top">
+                <div class="breadcrumb-wrapper col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{URL('/dashboard')}}">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">Documents
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
     <section class="row">
         <div class="col-md-12">
             <div class="card px-1">

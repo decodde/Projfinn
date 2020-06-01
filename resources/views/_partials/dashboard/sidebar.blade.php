@@ -32,16 +32,25 @@
                     <i class="la la-paperclip"></i><span class="menu-title" data-i18n="nav.templates.main">Documents</span>
                 </a>
             </li>
-            <li class=" nav-item">
-                <a href="#"><i class="la la-money"></i><span class="menu-title" data-i18n="nav.templates.main">Funds</span></a>
+                @if(Request::is('dashboard/funds*'))
+                    <li class=" nav-item open">
+                        <a href="{{URL('dashboard/funds')}}" class="active">
+                @else
+                    <li class=" nav-item">
+                        <a href="{{URL('dashboard/funds')}}">
+                @endif
+                    <i class="la la-money"></i><span class="menu-title" data-i18n="nav.templates.main">Funds</span>
+                </a>
             </li>
-            <li class=" navigation-header">
-                <span data-i18n="nav.category.layouts">License</span><i class="la la-ellipsis-h ft-minus" data-toggle="tooltip"
-                                                                        data-placement="right" data-original-title="Layouts"></i>
-            </li>
-            <li class=" nav-item"><a href="#"><i class="la la-columns"></i><span class="menu-title" data-i18n="nav.page_layouts.main">Reviews</span></a>
-            </li>
-            <li class=" nav-item"><a href="#"><i class="la la-navicon"></i><span class="menu-title" data-i18n="nav.navbars.main">Notifications</span></a>
+                @if(Request::is('dashboard/settings*'))
+                    <li class=" nav-item open">
+                        <a href="{{URL('dashboard/settings')}}" class="active">
+                @else
+                    <li class=" nav-item">
+                        <a href="{{URL('dashboard/settings')}}">
+                @endif
+                    <i class="la la-cog"></i><span class="menu-title" data-i18n="nav.templates.main">Settings</span>
+                </a>
             </li>
         </ul>
     </div>

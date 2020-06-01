@@ -18,9 +18,12 @@ if (App::environment('production')) {
 
 Route::get('/overview', 'PageController@index');
 Route::get('/user', 'PageController@user');
+Route::get('/funding', 'PageController@funds');
+Route::get('/funding/{id}', 'PageController@fund');
 Route::get('/investment', 'PageController@investments');
 Route::get('/transaction', 'PageController@transactions');
 Route::get('/portfolio', 'PageController@portfolios');
 
 
 Route::post('/transact', 'LoadController@adminConfirm');
+Route::post('/status', 'LoadController@fundStatus');

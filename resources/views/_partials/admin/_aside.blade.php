@@ -106,6 +106,27 @@
                     </a>
                 </li>
 
+                    @if(Request::is('admin/rouzz/funding*'))
+                        <li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover">
+                            <a  href="{{URL('admin/rouzz/funding')}}" class="kt-menu__link kt-menu__toggle">
+                    @else
+                        <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover">
+                            <a  href="{{URL('admin/rouzz/funding')}}" class="kt-menu__link kt-menu__toggle">
+                    @endif
+                        <span class="kt-menu__link-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24"/>
+                                    <rect fill="#000000" opacity="0.3" x="2" y="5" width="20" height="14" rx="2"/>
+                                    <rect fill="#000000" x="2" y="8" width="20" height="3"/>
+                                    <rect fill="#000000" opacity="0.3" x="16" y="14" width="4" height="2" rx="1"/>
+                                </g>
+                            </svg>
+                        </span>
+                        <span class="kt-menu__link-text">Funding</span>
+                    </a>
+                </li>
+
                 @if(Request::is('admin/rouzz/portfolio*'))
                     <li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover">
                         <a  href="{{URL('admin/rouzz/portfolio')}}" class="kt-menu__link kt-menu__toggle">

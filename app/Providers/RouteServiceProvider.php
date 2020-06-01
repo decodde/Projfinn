@@ -57,6 +57,8 @@ class RouteServiceProvider extends ServiceProvider
         //Auth
         $this->mapAuthRoutes();
 
+        //Funds
+        $this->mapFundsRoutes();
 
         //Lender
         $this->mapLenderRoutes();
@@ -121,6 +123,21 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware(['web', 'guest'])
             ->namespace($this->namespace.'\Auth')
             ->group(base_path('routes/auth.php'));
+    }
+
+    /**
+     * Define the "auth" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapFundsRoutes()
+    {
+        Route::prefix('funds')
+            ->middleware(['web', 'user'])
+            ->namespace($this->namespace.'\Funds')
+            ->group(base_path('routes/funds.php'));
     }
 
     /**
