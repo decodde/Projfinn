@@ -1,7 +1,11 @@
 @extends('_containers.default')
 @section('content')
     @include('_containers.header')
-
+    <style>
+        .btn-login:hover{
+            background-color: #fff;
+        }
+    </style>
     <main id="content" class="content">
         <section
             class="vc_row py-5 py-md-0 bg-cover bg-center vh-80 d-flex flex-wrap align-items-center"
@@ -29,6 +33,11 @@
                         <a href="{{URL('/lender')}}" class="btn btn-default btn-sm border-none btn-register box-shadow-3 f-1 font-weight-light">
                             <span>
                                 <span class="btn-txt"> &nbsp; Create A Free Account &nbsp;</span>
+                            </span>
+                        </a>
+                        <a href="{{URL('/business')}}" class="btn btn-white btn-sm border-none btn-login box-shadow-3 f-1 font-weight-light ml-0 mt-1">
+                            <span>
+                                <span class="btn-txt"> &nbsp; Create A Business Account &nbsp;</span>
                             </span>
                         </a>
                         <p class="text-white mb-0 hidden-lg" style="margin-top: 10px !important; margin-bottom: 5px !important;">Or</p>
@@ -450,7 +459,7 @@
                             <div class="lqd-column col-sm-6">
 
                                 <p class="font-size-16 text-primary">Call Us</p>
-                                <p class="font-size-15"> 01-8198515, 01-8140499 <br> hello@rouzo.org</p>
+                                <p class="font-size-15"> 07044152333 <br> hello@rouzo.org</p>
 
                             </div><!-- /.col-sm-6 -->
 
