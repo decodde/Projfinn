@@ -11,8 +11,8 @@
     <div class="alert alert-success alert-dismissable flat">
     @endif
         <div class="container">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
             {!! ucfirst($error) !!}
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
         </div>
     </div>
 @endforeach

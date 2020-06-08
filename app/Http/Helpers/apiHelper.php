@@ -66,7 +66,7 @@ class apiHelper{
                 $response->http_code = 500;
             }
         } else {
-            dd($uri, $verb, $body, $responseInfo['http_code']);
+//            dd($uri, $verb, $body, $responseInfo['http_code']);
         }
 
 //        dd($response);

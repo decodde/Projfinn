@@ -28,7 +28,6 @@ class LoadController extends Controller
     private $api;
     private $tranx;
     private $format;
-
     public function __construct(Investment $investment, Validate $validate, Stash $stash, Transaction $transaction, Portfolio $portfolio, apiHelper $api, TranxConfirm $tranx, Formatter $format){
         $this->investment = $investment;
         $this->validate = $validate;

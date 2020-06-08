@@ -23,6 +23,7 @@ Route::get('/funding/{id}', 'PageController@fund');
 Route::get('/investment', 'PageController@investments');
 Route::get('/transaction', 'PageController@transactions');
 Route::get('/portfolio', 'PageController@portfolios');
+Route::get('/bvn', 'PageController@bvnValidate');
 
 
 Route::post('/transact', 'LoadController@adminConfirm');

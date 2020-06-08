@@ -1,5 +1,18 @@
 @extends('admin.master')
 @section('content')
+    <style>
+        .guarantor{
+            text-align: left;
+        }
+        .guarantor p{
+            margin-bottom: 0;
+            font-size: 15px;
+        }
+        .guarantor span{
+            font-size: 14px;
+            color: #000;
+        }
+    </style>
     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
         <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
             <div class="kt-portlet">
@@ -34,8 +47,32 @@
                         <dl class="row text-black">
                             <dt class="col-md-9">Documents</dt>
                             <dd class="col-md-3 text-right">
-                                <a>{{ ucfirst($fund->document->type) }} :</a>
-                                <a href="{{ $fund->document->file }}" target="_blank" class="btn btn-primary">View file <i class="la la-link"></i></a>
+                                @foreach($fund->documents as $document)
+                                    <p>
+                                        <a>{{ ucfirst($document->type) }} :</a>
+                                        <a href="{{ $document->file }}" target="_blank" class="btn btn-primary">View file <i class="la la-link"></i></a>
+                                    </p>
+                                @endforeach
+                            </dd>
+                        </dl>
+                        <hr>
+                        <dl class="row text-black">
+                            <dt class="col-md-9">Guarantors</dt>
+                            <dd class="col-md-3 text-right">
+                                @foreach($fund->guarantors as $guarantor)
+                                    <div class="guarantor">
+                                        <p>Relationship: <span>{{strtoupper($guarantor->relationship)}}</span></p>
+                                        <br>
+                                        <p>Name: <span>{{$guarantor->name}}</span></p>
+                                        <br>
+                                        <p>Phone Number: <span>{{$guarantor->phone}}</span></p>
+                                        <br>
+                                        <p>Email: <span>{{$guarantor->email}}</span></p>
+                                        <br>
+                                        <p>BVN: <span>{{$guarantor->bvn}}</span></p>
+                                    </div>
+                                    <hr>
+                                @endforeach
                             </dd>
                         </dl>
                         <hr>

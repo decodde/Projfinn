@@ -22,7 +22,11 @@ class Funds extends Model
         return $this->hasOne('App\Models\User', 'id', 'userId')->first();
     }
 
-    public function document(){
-        return $this->hasOne('App\Models\Document', 'businessId', 'businessId')->first();
+    public function documents(){
+        return $this->hasMany('App\Models\Document', 'businessId', 'businessId')->get();
+    }
+
+    public function guarantors(){
+        return $this->hasMany('App\Models\Guarantor', 'businessId', 'businessId')->get();
     }
 }

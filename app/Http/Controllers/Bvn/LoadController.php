@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Bvn;
 
+use App\Http\Helpers\apiHelper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,10 +15,12 @@ class LoadController extends Controller
     private $bvn;
     private $business;
     private $validate;
-    public function __construct(BVN $bvn, Validate $validate, Business $business) {
+    private $api;
+    public function __construct(BVN $bvn, Validate $validate, Business $business, apiHelper $api) {
         $this->bvn = $bvn;
         $this->business = $business;
         $this->validate = $validate;
+        $this->api = $api;
     }
 
     public function create(Request $request) {
@@ -76,6 +79,30 @@ class LoadController extends Controller
         } catch(\Exception $e) {
             \Session::put('danger', true);
             return back()->withErrors($e->getMessage());
+        }
+    }
+
+    public function valid(Request $request){
+        try {
+            $data = $request->except("_token");
+            $bvnMatch = $this->api->call('/bank/resolve_bvn/' . $data['bvn'], 'GET');
+//            dd($bvnMatch);
+            if ($bvnMatch === null) {
+                return response()->json(["message" => "An Error Occurred", "error" => true, "data" => []], 200);
+            }
+
+            if (!$bvnMatch->status) {
+                return response()->json(["message" => $bvnMatch->message, "error" => true, "data" => []], 200);
+            }
+            $data = [
+                "first_name" => $bvnMatch->data->first_name,
+                "last_name" => $bvnMatch->data->last_name,
+                "bvn" => $bvnMatch->data->bvn,
+            ];
+            return response()->json(["message" => "BVN validated", "error" => false, "data" => $data], 200);
+        }
+        catch (\Exception $e){
+            return response()->json(["message" => $e->getMessage(), "error" => true, "data" => []], 200);
         }
     }
 }

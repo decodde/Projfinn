@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Formatter;
+use App\Models\Admin;
 use App\Models\Bank;
 use App\Models\Funds;
 use App\Models\Investment;
@@ -24,7 +25,8 @@ class PageController extends Controller
     private $formatter;
     private $portfolio;
     private $fund;
-    public function __construct(User $user, Bank $bank, Investment $investment, Transaction $transaction, Formatter $formatter, Portfolio $portfolio, Funds $fund){
+    private $admin;
+    public function __construct(User $user, Bank $bank, Investment $investment, Transaction $transaction, Formatter $formatter, Portfolio $portfolio, Funds $fund, Admin $admin){
         $this->user = $user;
         $this->bank = $bank;
         $this->investment = $investment;
@@ -32,6 +34,7 @@ class PageController extends Controller
         $this->formatter = $formatter;
         $this->portfolio = $portfolio;
         $this->fund = $fund;
+        $this->admin = $admin;
     }
 
     public function index(Request $request){
@@ -53,6 +56,7 @@ class PageController extends Controller
             $data = [
                 'title' => 'Admin',
                 'user' => $user,
+                'isSuper' => $this->isSuper(),
                 'users' => $getUsers,
                 'NoOfPortfolios' => $countPortfolio,
                 'NoOfUser' => $countUser,
@@ -67,6 +71,7 @@ class PageController extends Controller
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
+
     public function user(Request $request) {
         try {
             $user = Auth::user();
@@ -82,6 +87,7 @@ class PageController extends Controller
             $data = [
                 'title' => 'Admin',
                 'user' => $user,
+                'isSuper' => $this->isSuper(),
                 'users' => $getUsers
             ];
 
@@ -98,6 +104,10 @@ class PageController extends Controller
         try {
             $user = Auth::user();
 
+            if (!$this->isSuper()){
+                \Session::put('danger', true);
+                return redirect("/admin/rouzz/overview")->withErrors("You are not allowed here");
+            }
             $getInvs = $this->investment->paginate(10);
             foreach ($getInvs as $getInv){
                 $getInv->user = $getInv->user();
@@ -107,6 +117,7 @@ class PageController extends Controller
             $data = [
                 'title' => 'Admin',
                 'user' => $user,
+                'isSuper' => $this->isSuper(),
                 'investments' => $getInvs
             ];
 
@@ -122,7 +133,10 @@ class PageController extends Controller
     public function transactions(Request $request) {
         try {
             $user = Auth::user();
-
+            if (!$this->isSuper()){
+                \Session::put('danger', true);
+                return redirect("/admin/rouzz/overview")->withErrors("You are not allowed here");
+            }
             $transactions = $this->transaction->paginate(10);
             $portfolios = $this->portfolio->get();
 
@@ -142,6 +156,7 @@ class PageController extends Controller
             $data = [
                 'title' => 'Admin',
                 'user' => $user,
+                'isSuper' => $this->isSuper(),
                 'portfolios' => $portfolios,
                 'transactions' => $transactions
             ];
@@ -166,11 +181,33 @@ class PageController extends Controller
 
             $data = [
                 'title' => 'Admin',
+                'isSuper' => $this->isSuper(),
                 'funds' => $getFunds
             ];
 
 
             return view('admin.funds', $data);
+
+        } catch(\Exception $e) {
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function bvnValidate(Request $request) {
+        try {
+            $params = $request->except("_token");
+
+            $data = [
+                'title' => 'Admin',
+                'isSuper' => $this->isSuper(),
+                'bvn' => $params["bvn"] ?? '',
+                'first_name' => $params["first_name"] ?? '',
+                'last_name' => $params["last_name"] ?? '',
+            ];
+
+
+            return view('admin.validateBVN', $data);
 
         } catch(\Exception $e) {
             \Session::put('danger', true);
@@ -189,10 +226,12 @@ class PageController extends Controller
             }
             $getFund->user = $getFund->user();
             $getFund->business = $getFund->business();
-            $getFund->document = $getFund->document();
+            $getFund->documents = $getFund->documents();
+            $getFund->guarantors = $getFund->guarantors();
 
             $data = [
                 'title' => 'Admin',
+                'isSuper' => $this->isSuper(),
                 'fund' => $getFund
             ];
 
@@ -204,10 +243,14 @@ class PageController extends Controller
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
+
     public function portfolios(Request $request) {
         try {
             $user = Auth::user();
-
+            if (!$this->isSuper()){
+                \Session::put('danger', true);
+                return redirect("/admin/rouzz/overview")->withErrors("You are not allowed here");
+            }
             $portfolios = $this->portfolio->paginate(10);
 
             foreach ($portfolios as $portfolio){
@@ -218,6 +261,7 @@ class PageController extends Controller
             $data = [
                 'title' => 'Admin',
                 'user' => $user,
+                'isSuper' => $this->isSuper(),
                 'portfolios' => $portfolios
             ];
 
@@ -227,6 +271,18 @@ class PageController extends Controller
         } catch(\Exception $e) {
             \Session::put('danger', true);
             return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function isSuper(){
+        $user = Auth::user();
+        $getRole = $this->admin->where('userId', $user->id)->first();
+
+        if($getRole->role == "super-admin"){
+            return true;
+        }
+        else{
+            return false;
         }
     }
 }

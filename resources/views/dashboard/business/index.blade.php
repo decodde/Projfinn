@@ -20,7 +20,7 @@
                     <div class="card-body">
                         <div class="media d-flex">
                             <div class="media-body text-left">
-                                <h4 class="blue-grey">{{ $result->score }}</h4>
+                                <h4 style="color:{{ $grade->color }};">{{ $grade->grade }}</h4>
                                 <h6>Eligibility Score</h6>
                             </div>
                             <div>

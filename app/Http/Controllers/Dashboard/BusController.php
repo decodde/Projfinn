@@ -9,6 +9,7 @@ use App\Models\Document;
 use App\Models\Eligibility;
 
 use App\Models\Funds;
+use App\Models\Guarantor;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -25,7 +26,8 @@ class BusController extends Controller{
     private $bvn;
     private $transaction;
     private $formatter;
-    public function __construct(Auth $auth, User $user, Eligibility $eligible, partials $partials, Funds $funds, Document $document, BVN  $bvn, Transaction $transaction,  Formatter $formatter)
+    private $guarantor;
+    public function __construct(Auth $auth, User $user, Eligibility $eligible, partials $partials, Funds $funds, Document $document, BVN  $bvn, Transaction $transaction,  Formatter $formatter, Guarantor $guarantor)
     {
         $this->eligible = $eligible;
         $this->partials = $partials;
@@ -36,18 +38,24 @@ class BusController extends Controller{
         $this->bvn = $bvn;
         $this->transaction = $transaction;
         $this->formatter = $formatter;
+        $this->guarantor = $guarantor;
     }
 
     public function dashboard(Request $request) {
         try {
             $user = Auth::user();
 
+            $businessId = $user->business()->id;
+            $score = $this->eligible->where('businessId', $businessId)->first();
+
+            $grade = $this->partials->gradeScore($score->score);
+
             $transactions = $this->transaction->where("userId", $user->id)->paginate(10);
             foreach ($transactions as $transaction){
                 $transaction->amount = $this->formatter->MoneyConvert($transaction->amount, "full");
                 $transaction->date = $this->formatter->dataTime($transaction->created_at);
             }
-            $data = ['title' => 'Dashboard', 'business' => $user->business(), 'transactions' => $transactions];
+            $data = ['title' => 'Dashboard', 'business' => $user->business(), 'transactions' => $transactions, 'grade' => $grade,];
 
             if($user->type == 'business') {
                 return view('dashboard.business.index', $data);
@@ -91,16 +99,26 @@ class BusController extends Controller{
             $user = Auth::user();
 
             $business = $user->business();
+
+            $docTypes = $this->partials->documentTypes();
+
+            $ListOfDocs = [];
+            $docs = $business->documents;
+            foreach ($docs as $doc){
+                if(!in_array($doc->type, $docTypes)){
+                    array_push($ListOfDocs, $doc->type);
+                };
+            }
             if($business) {
                 $user = $this->auth::user();
                 $data = [
                     'user' => $user,
                     'guarantors' => $business->guarantors,
-                    'documents' => $business->documents,
+                    'documents' => $docs,
                     'title' => 'Credit Assessments',
                     'business' => $business,
                     'relationships' => $this->partials->guarantorsRelationhip(),
-                    'documentTypes' => $this->partials->documentTypes(),
+                    'documentTypes' => $ListOfDocs,
                     'bvn' => $business->bvn,
                 ];
 
@@ -122,7 +140,7 @@ class BusController extends Controller{
 
             if (!$hasDocs){
                 \Session::put('danger', true);
-                return redirect("/dashboard/document")->withErrors('Provide your Bvn and Upload Your Documents to apply for Funds');
+                return redirect("/dashboard/document")->withErrors('Provide your Bvn, Guarantors and Upload Your Documents before applying for Funds');
             }
             $funds = $this->funds->where('businessId', $user->business()->id)->paginate(10);
 
@@ -169,11 +187,13 @@ class BusController extends Controller{
 
     public function checkDocuments($user)
     {
-        $document = $this->document->where("businessId", $user->business()->id)->first();
+        $document = $this->document->where("businessId", $user->business()->id)->get();
+
+        $guarantor = $this->guarantor->where("businessId", $user->business()->id)->get();
 
         $bvn = $this->bvn->where("businessId", $user->business()->id)->first();
 
-        if($document !== null && $bvn !== null){
+        if(count($document) === 3 && count($guarantor) === 2  && $bvn !== null){
             return true;
         }else{
             return false;

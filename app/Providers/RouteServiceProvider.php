@@ -63,6 +63,9 @@ class RouteServiceProvider extends ServiceProvider
         //Lender
         $this->mapLenderRoutes();
 
+        //Guarantor
+        $this->mapGuarantorRoutes();
+
         //Business
         $this->mapBusinessRoutes();
 
@@ -216,6 +219,22 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware(['web', 'user'])
             ->namespace($this->namespace.'\Document')
             ->group(base_path('routes/document.php'));
+    }
+
+
+    /**
+     * Define the "Guarantor" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapGuarantorRoutes()
+    {
+        Route::prefix('guarantors')
+            ->middleware(['web', 'user'])
+            ->namespace($this->namespace.'\Guarantor')
+            ->group(base_path('routes/guarantor.php'));
     }
 
 

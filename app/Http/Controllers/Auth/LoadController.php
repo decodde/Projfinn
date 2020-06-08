@@ -95,13 +95,18 @@ class LoadController extends Controller
                 return back()->withErrors("Your account is not verified. Kindly check your email for a verification link");
             }
 
-            $this->checkTrnx($this->auth::user()->email, $this->auth::user()->type);
+            if ($this->auth::user()->type !== "admin"){
+                $this->checkTrnx($this->auth::user()->email, $this->auth::user()->type);
+            }
 
             if ($this->auth::user()->type === 'investor') {
 
                 return redirect()->intended('/dashboard/i');
-            } else {
+            } else if ($this->auth::user()->type === 'business') {
                 return redirect()->intended('/dashboard');
+            }
+            else{
+                return redirect()->intended('/admin/rouzz/overview');
             }
         } catch (\Exception $e) {
             \Session::put('danger', true);

@@ -20,3 +20,50 @@
         }
     })
 </script>
+<script>
+    $('#getValidation').on('submit', function (e) {
+        e.preventDefault();
+
+        var that = $(this), url = that.attr('action'), type = that.attr('method');
+        var csrf = $('#_token');
+        // var amount = $('#amount').val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': csrf.val(),
+            }
+        });
+
+        $('#inactiveBtn').show();
+        $('#activeBtn').hide();
+
+        $.ajax({
+            url: url,
+            type: type,
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+
+            success: function (response) {
+                $('#inactiveBtn').hide();
+                $('#activeBtn').show();
+                if (response.error === false) {
+                    $('#errorSuccess').show();
+                    $('#errorSuccessMessage').text(response.message);
+                    $('#first_name').val(response.data.first_name);
+                    $('#last_name').val(response.data.last_name);
+                    setTimeout(function() {
+                        $('#errorSuccess').fadeOut('slow');
+                    }, 1000);
+                } else {
+                    $('#errorDanger').show();
+                    $('#errorDangerMessage').text(response.message);
+                    setTimeout(function() {
+                        $('#errorDanger').fadeOut('slow');
+                    }, 1000);
+                }
+
+            }
+        });
+    });
+</script>
