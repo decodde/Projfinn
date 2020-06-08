@@ -147,8 +147,12 @@ class LoadController extends Controller
                 $body['url'] = URL('activate-account/' . \Crypt::encrypt($userId));
                 //You can decide to enable the send confirmation mail feature
                 //by removing the comment below this line
-
-                $this->mail->welcomeMessage($body);
+                if ($body["type"] === 'investor'){
+                    $this->mail->welcomeMessage($body);
+                }
+                else{
+                    $this->mail->welcomeMessageBus($body);
+                }
 //                dd("Hey");
 
                 //it's a beautiful day, don't you think
@@ -374,6 +378,27 @@ class LoadController extends Controller
                             "isCompleted" => true
                         ]);
                     } else {
+                        $stash = $this->stash->where('investorId', $user->investor()->id);
+
+                        if ($stash->first() === null) {
+                            $stashParams = [
+                                'investorId' => $user->investor()->id,
+                                'customerId' => $trnxData->customer->customer_code,
+                                'totalAmount' => 0,
+                                'availableAmount' => 0
+                            ];
+                            $stash->create($stashParams);
+                        }
+                        $gr = $this->referral->where(['userId' => $user->id, 'hasPayed' => false]);
+                        $getRef = $gr->first();
+
+                        if ($getRef !== null) {
+                            $refId = $this->investor->where('userId', $getRef->refererId)->first();
+                            $refStash = $this->stash->where('investorId', $refId->id);
+                            $refStash->increment('totalAmount', 1000);
+                            $refStash->increment('availableAmount', 1000);
+                            $gr->update(['hasPayed' => true]);
+                        }
                         if ($tranxDetails->portfolioId !== null) {
                             $portfolioId = $tranxDetails->portfolioId;
                             $getPortfolio = $this->portfolio->where("id", $portfolioId);

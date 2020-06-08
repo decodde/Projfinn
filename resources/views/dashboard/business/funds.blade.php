@@ -44,6 +44,14 @@
             <div class="card pb-1">
                 <div class="card-header">
                     <h4 class="card-title">Funds</h4>
+                    <p>
+                        Kindly read through the
+                        <a href="{{ asset('assets/docs/Rouzo-Borrowers-Terms-and-Conditions.pdf') }}" target="_blank">Business's Terms of Use</a>
+                    </p>
+                    <p>
+                        <code>Note:</code> By Applying for Funding, It means you have read and agreed to the
+                        <a href="{{ asset('assets/docs/Rouzo-Borrowers-Terms-and-Conditions.pdf') }}" target="_blank">Business's Terms of Use.</a>
+                    </p>
                 </div>
                 <div class="card-content collapse show">
                     <div class="card-body">
@@ -93,7 +101,7 @@
                                                 @elseif($fund->progress === "payment")
                                                     <a class="warning">You are to Pay a sum of ₦2,000.00
                                                 @elseif($fund->progress === "approved" )
-                                                    <a class="success">Your application has been approved
+                                                    <a class="success">Reviewed to proceed
                                                 @elseif($fund->progress === "visitation" )
                                                     <a class="warning">A face to face visitation is required
                                                 @else

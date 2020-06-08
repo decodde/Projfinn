@@ -144,7 +144,7 @@
                             <h5 class="font-weight-bold grey-blue lighten-3">Terms Of Use</h5>
                             <p>
                                 Kindly read through the
-                                <a href="{{ asset('assets/docs/Rouzo-Borrowers-Terms-and-Conditions.pdf') }}" target="_blank">Investor's Terms of Use</a>
+                                <a href="{{ asset('assets/docs/Rouzo-Investors-Terms-and-Conditions.pdf') }}" target="_blank">Investor's Terms of Use</a>
                             </p>
                         </div>
                     </div>

@@ -102,12 +102,20 @@ class BusController extends Controller{
 
             $docTypes = $this->partials->documentTypes();
 
-            $ListOfDocs = [];
             $docs = $business->documents;
-            foreach ($docs as $doc){
-                if(!in_array($doc->type, $docTypes)){
-                    array_push($ListOfDocs, $doc->type);
-                };
+            if (count($docs) === 0){
+                $ListOfDocs = $docTypes;
+            }else{
+                $castDocs = [];
+                $ListOfDocs = [];
+                foreach ($docs as $doc){
+                    array_push($castDocs, $doc->type);
+                }
+                foreach ($docTypes as $type){
+                    if(!in_array($type, $castDocs)){
+                        array_push($ListOfDocs, $type);
+                    };
+                }
             }
             if($business) {
                 $user = $this->auth::user();
