@@ -34,10 +34,35 @@ class LoadController extends Controller
                 return back()->withErrors($validation->getMessageBag())->withInput();
             }
 
+            if($data["existingLoan"] == 'yes'){
+                $isExist = true;
+            }
+            else{
+                $isExist = false;
+            }
+
+            if($data["certifyGuarantor"] == 'yes'){
+                $isGuarant = true;
+            }
+            else{
+                $isGuarant = false;
+            }
+
+            if($data["certifyDocuments"] == 'yes'){
+                $isDocs = true;
+            }
+            else{
+                $isDocs = false;
+            }
             $params = [
                 "userId" => $user->id,
                 "businessId" => $user->business()->id,
                 "amount" => $data["amount"],
+                "address" => $data["address"],
+                "type" => $data["type"],
+                "existingLoan" => $isExist,
+                "certifyGuarantor" => $isGuarant,
+                "certifyDocuments" => $isDocs,
                 "description" => $data["description"],
                 "progress" => "review"
             ];

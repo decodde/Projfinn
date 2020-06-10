@@ -201,7 +201,7 @@ class BusController extends Controller{
 
         $bvn = $this->bvn->where("businessId", $user->business()->id)->first();
 
-        if(count($document) === 3 && count($guarantor) === 2  && $bvn !== null){
+        if(count($document) === 3 && count($guarantor) === 1  && $bvn !== null){
             return true;
         }else{
             return false;

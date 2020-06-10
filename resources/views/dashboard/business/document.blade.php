@@ -52,8 +52,9 @@
                 </div>
                 <div class="card-header">
                     <h2 class="font-weight-normal font-size-22px f-2 m-0">Documents</h2>
-                    <p class="font-size-14px p-0 m-0 pt-1">Bank Statement</p>
-                    <p class="font-size-14px pb-0 mb-0">6 months bank statements from your Major bank account(PDF download is acceptable).</p>
+                    <p class="font-size-14px p-0 m-0 pt-1">Bank Statement <a class="font-size-14px pb-0 mb-0">6 months bank statements from your Major bank account(PDF download is acceptable).</a></p>
+                    <p class="font-size-14px p-0 m-0 pt-1">CAC Document <a class="font-size-14px pb-0 mb-0">Your Official Corporate Affairs Commission Document.</a></p>
+                    <p class="font-size-14px p-0 m-0 pt-1">Utility Bills <a class="font-size-14px pb-0 mb-0">6 months bank statements from your Major bank account(PDF download is acceptable).</a></p>
                 </div>
                 <div class="card-content">
                     <hr class="p-0 m-0">
@@ -120,7 +121,7 @@
 
                     <div class="card-body">
                         @if(count($guarantors) > 0)
-                            @if(count($guarantors) < 2)
+                            @if(count($guarantors) < 1)
                                 <a href="javascript:void(0);" data-toggle="modal" data-target="#addGuarantor" class="pull-right btn btn-sm btn-success">Add a guarantor</a>
                                 <br><br>
                             @endif

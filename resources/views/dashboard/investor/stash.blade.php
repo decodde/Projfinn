@@ -198,7 +198,7 @@
                             <input type="number" name="amount" id="amount" class="form-control" required="required">
                         </div>
                     </div>
-                    <p class="mx-1"><code>Note:</code> The money will be transfer to the <a href="{{URL('/dashboard/i/settings')}}">account set during your bank verification</a></p>
+                    <p class="mx-1"><code>Note:</code> The money will be transferred to the <a href="{{URL('/dashboard/i/settings')}}">account set during your bank verification</a></p>
                     <div class="modal-footer">
                         <a href="javascript:void(0);" class="danger" data-dismiss="modal">Close</a>
                         <button type="submit" id="activeBtn" class="btn btn-sm btn-success text-white font-size-14px">Withdraw</button>

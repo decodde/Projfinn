@@ -10,7 +10,7 @@ class Funds extends Model
     //
     protected $table = 'funds';
 
-    protected $fillable = ['userId', 'businessId', 'amount', 'description', 'hasPaidReg', 'transactionId', 'progress', 'isOpen'];
+    protected $fillable = ['userId', 'businessId', 'amount', 'description', 'address', 'type', 'existingLoan', 'certifyGuarantor', 'certifyDocuments', 'hasPaidReg', 'transactionId', 'progress', 'isOpen'];
 
     public function business(){
         return $this->hasOne('App\Models\Business', 'id', 'businessId')->first();

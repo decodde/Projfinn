@@ -182,6 +182,44 @@
                                 <label for="amount">Amount Needed in Naira(₦)</label>
                                 <input type="number" id="amount" name="amount" value="" class="form-control">
 
+                                <label for="address" class="mt-2">Do you currently reside in Lagos and is your business domiciled in Lagos?</label>
+                                <div>
+                                    <input type="radio" name="address" value="yes" id="">
+                                    <label for="" class="mr-2">Yes</label>
+                                    <input type="radio" name="address" value="no" id="">
+                                    <label for="">No</label>
+                                </div>
+
+                                <label for="type" class="mt-2">What type of loan do you require?</label>
+                                <select name="type" id="type" class="form-control">
+                                    <option value="asset">Asset Finance- (To purchase equipment that can be paid back within 6 months)</option>
+                                    <option value="capital">Working Capital (90 day repayment cycle)</option>
+                                </select>
+
+                                <label for="existingLoan" class="mt-2">Do you currently have an existing loan facility running?</label>
+                                <div>
+                                    <input type="radio" name="existingLoan" value="yes" id="">
+                                    <label for="" class="mr-2">Yes</label>
+                                    <input type="radio" name="existingLoan" value="no" id="">
+                                    <label for="">No</label>
+                                </div>
+
+                                <label for="certifyGuarantor" class="mt-2"> In the event that you as the borrower fail to make repayments and on time, the guarantor stated above takes full responsibility for repayment and liability. Do you accept?</label>
+                                <div>
+                                    <input type="radio" name="certifyGuarantor" value="yes" id="">
+                                    <label for="" class="mr-2">Yes</label>
+                                    <input type="radio" name="certifyGuarantor" value="no" id="">
+                                    <label for="">No</label>
+                                </div>
+
+                                <label for="certifyDocuments" class="mt-2">Do you certify that all information contained in the loan application form and accompanying statements and documents are true?</label>
+                                <div>
+                                    <input type="radio" name="certifyDocuments" value="yes" id="">
+                                    <label for="" class="mr-2">Yes</label>
+                                    <input type="radio" name="certifyDocuments" value="no" id="">
+                                    <label for="">No</label>
+                                </div>
+
                                 <label for="description" class="mt-2">What is this fund needed for? Give a detailed description of why this fund is needed.</label>
                                 <textarea name="description" id="description" cols="30" rows="10" value="" class="form-control"></textarea>
                             </div>
