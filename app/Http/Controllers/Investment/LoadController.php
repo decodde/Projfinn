@@ -242,7 +242,7 @@ class LoadController extends Controller
 
     public function success(){
         \Session::put('success', true);
-        return redirect("/dashboard/i/stash")->withErrors("Your Account Has been credited successfully");
+        return redirect("/dashboard/i/stash")->withErrors("Transfer Initiated, The transaction will be validated in the next 24hours");
     }
     public function danger(){
 

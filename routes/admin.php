@@ -24,7 +24,9 @@ Route::get('/investment', 'PageController@investments');
 Route::get('/transaction', 'PageController@transactions');
 Route::get('/portfolio', 'PageController@portfolios');
 Route::get('/bvn', 'PageController@bvnValidate');
+Route::get('/transfers', 'PageController@transfers');
 
 
 Route::post('/transact', 'LoadController@adminConfirm');
 Route::post('/status', 'LoadController@fundStatus');
+Route::post('/transfer', 'LoadController@verifyTransfer');

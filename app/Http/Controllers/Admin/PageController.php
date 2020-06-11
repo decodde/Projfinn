@@ -9,6 +9,7 @@ use App\Models\Bank;
 use App\Models\Funds;
 use App\Models\Investment;
 use App\Models\Transaction;
+use App\Models\transferRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as Auth;
 
@@ -26,7 +27,8 @@ class PageController extends Controller
     private $portfolio;
     private $fund;
     private $admin;
-    public function __construct(User $user, Bank $bank, Investment $investment, Transaction $transaction, Formatter $formatter, Portfolio $portfolio, Funds $fund, Admin $admin){
+    private $transferRequest;
+    public function __construct(User $user, Bank $bank, Investment $investment, Transaction $transaction, Formatter $formatter, Portfolio $portfolio, Funds $fund, Admin $admin, transferRequest $transferRequest){
         $this->user = $user;
         $this->bank = $bank;
         $this->investment = $investment;
@@ -35,6 +37,7 @@ class PageController extends Controller
         $this->portfolio = $portfolio;
         $this->fund = $fund;
         $this->admin = $admin;
+        $this->transferRequest = $transferRequest;
     }
 
     public function index(Request $request){
@@ -187,6 +190,30 @@ class PageController extends Controller
 
 
             return view('admin.funds', $data);
+
+        } catch(\Exception $e) {
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function transfers(Request $request) {
+        try {
+            $getTransfers = $this->transferRequest->where('otpConfirmed', false)->paginate(10);
+
+            foreach ($getTransfers as $getTransfer){
+                $getTransfer->investor = $getTransfer->investor();
+                $getTransfer->user = $getTransfer->user($getTransfer->investor->userId);
+            }
+
+            $data = [
+                'title' => 'Admin',
+                'isSuper' => $this->isSuper(),
+                'transfers' => $getTransfers
+            ];
+
+
+            return view('admin.validateTransfer', $data);
 
         } catch(\Exception $e) {
             \Session::put('danger', true);

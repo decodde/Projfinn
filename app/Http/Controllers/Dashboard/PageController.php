@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\transferRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as Auth;
 use Carbon\Carbon;
@@ -33,8 +34,9 @@ class PageController extends Controller
     private $bank;
     private $portfolio;
     private $investment;
+    private $transferRequest;
 
-    public function __construct(Auth $auth, User $user, partials $partials, Transaction $transaction, Stash $stash, Formatter $formatter, Referral $referral, lenderAccount $lenderAccount, Bank $bank, Portfolio $portfolio, Investment $investment){
+    public function __construct(Auth $auth, User $user, partials $partials, Transaction $transaction, Stash $stash, Formatter $formatter, Referral $referral, lenderAccount $lenderAccount, Bank $bank, Portfolio $portfolio, Investment $investment, transferRequest $transferRequest){
         $this->auth = $auth;
         $this->user = $user;
         $this->partials = $partials;
@@ -46,6 +48,7 @@ class PageController extends Controller
         $this->bank = $bank;
         $this->portfolio = $portfolio;
         $this->investment = $investment;
+        $this->transferRequest = $transferRequest;
     }
 
 
@@ -138,12 +141,15 @@ class PageController extends Controller
                 $transaction->date = $this->formatter->dataTime($transaction->created_at);
             }
 
+            $transfers = $this->transferRequest->where('investorId', $user->investor()->id)->paginate(10);
+
             $data = [
                 'title' => 'Dashboard',
                 'investor' => $user->investor(),
                 'balance' => $this->formatter->MoneyConvert($availableBalance, 'full'),
                 'tranX' => [ "credit" => $this->formatter->MoneyConvert($creditAmount, "full"), "debit" => $this->formatter->MoneyConvert($debitAmount), "full"],
                 'transactions' => $transactions,
+                'transfers' => $transfers,
             ];
 
             return view('dashboard.investor.stash', $data);

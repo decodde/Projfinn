@@ -76,7 +76,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
+        <div class="col-md-8 col-12">
             <div class="card pb-1">
                 <div class="card-header">
                     <h4 class="card-title">Transactions</h4>
@@ -112,7 +112,7 @@
                                             <td>{{$transaction->reference}}</td>
                                             <td>
                                                 @if($transaction->type === "debit")
-                                                    <button type="button" class="btn mr-1 mb-1 btn-outline-danger btn-sm">Debit</button>
+                                                    <button type="button" class="btn mr-1 mb-1 btn-outline-danger btn-sm">Investment</button>
                                                 @else
                                                     <button type="button" class="btn mr-1 mb-1 btn-outline-success btn-sm">Credit</button>
                                                 @endif
@@ -138,6 +138,67 @@
                                 You haven't made any transaction Yet
                                 <br>
                                 <a href="javascript:void(0);" data-toggle="modal" data-target="#makePayment" class="btn btn-success mr-1 btn-md mt-2">credit your wallet <i class="fa fa-plus"></i></a>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-12">
+            <div class="card pb-1">
+                <div class="card-header">
+                    <h4 class="card-title">Withdrawals</h4>
+                </div>
+                <div class="card-content collapse show">
+                    <div class="card-body px-0">
+                        @if(count($transfers) !== 0 )
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr class="borderless">
+                                        <th>Status</th>
+                                        <th>Amount</th>
+                                        <th>Message</th>
+                                        <th>Date</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="borderless">
+                                    @foreach($transfers as $transfer)
+                                        <tr>
+                                            <td>
+                                                @if($transfer->otpConfirmed === true)
+                                                    <i class="fa fa-check success" title="This transaction has been confirmed"></i>
+                                                @else
+                                                    <i class="fa fa-times warning" title="This transaction is pending"></i>
+                                                @endif
+                                            </td>
+                                            <td class="px-1">
+                                                <p class="font-size-17px success darken-4">
+                                                    ₦ {{App\Http\Helpers\Formatter::MoneyConvert($transfer->amount, "full")}}
+                                                </p>
+                                            </td>
+
+                                            <td class="px-1">
+                                                @if($transfer->otpConfirmed === true)
+                                                    The Money has been disbursed
+                                                @else
+                                                    The Money will be disbursed soon
+                                                @endif
+                                            </td>
+                                            <td class="px-1">{{App\Http\Helpers\Formatter::dataTime($transfer->created_at)}}</td>
+
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                                {{$transfers->links()}}
+                            </div>
+
+                        @else
+                            <div class="text-center dotted-btn width-250">
+                                You haven't made any withdrawal Yet
+                                <br>
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#makeWithdrawal" class="btn btn-primary mr-1 btn-md mb-2">Withdraw savings <i class="fa fa-credit-card"></i></a>
                             </div>
                         @endif
                     </div>

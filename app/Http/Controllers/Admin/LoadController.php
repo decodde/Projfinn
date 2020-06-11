@@ -11,6 +11,7 @@ use App\Models\Portfolio;
 use App\Models\Referral;
 use App\Models\Stash;
 use App\Models\Transaction;
+use App\Models\transferRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -31,7 +32,9 @@ class LoadController extends Controller
     private $investment;
     private $funds;
     private $mail;
-    public function __construct(User $user, apiHelper $api, Validate $validate, Transaction  $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Funds $funds, sendMail $mail){
+    private $transferRequest;
+    public function __construct(User $user, apiHelper $api, Validate $validate, Transaction  $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Funds $funds, sendMail $mail, transferRequest
+    $transferRequest){
         $this->user = $user;
         $this->api = $api;
         $this->transaction = $transaction;
@@ -43,6 +46,7 @@ class LoadController extends Controller
         $this->investment = $investment;
         $this->funds = $funds;
         $this->mail = $mail;
+        $this->transferRequest = $transferRequest;
     }
 
     public function adminConfirm(Request $request){
@@ -165,7 +169,6 @@ class LoadController extends Controller
         }
     }
 
-
     public function fundStatus(Request $request)
     {
         try{
@@ -182,6 +185,38 @@ class LoadController extends Controller
             }
             \Session::put('success', true);
             return back()->withErrors('Application Status Changed');
+        }
+        catch (\Exception $e){
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function verifyTransfer(Request $request)
+    {
+        try{
+            $data = $request->except('_token');
+
+            $params = [
+                'transfer_code' => $data['transfer_code'],
+                'otp' => $data['otp'],
+            ];
+
+            $transferVerify = $this->api->call('/transfer/finalize_transfer', 'POST', $params);
+
+            if ($transferVerify->status == false){
+                \Session::put('danger', true);
+                return back()->withErrors('Invalid Otp');
+            }
+
+            $this->transferRequest->where(['transfer_code' => $data['transfer_code'], 'investorId' => $data['investorId']])->update(['otpConfirmed' => true, 'reference' => $transferVerify->data->reference]);
+            $stash = $this->stash->where('investorId', $data["investorId"]);
+
+            $stash->decrement('totalAmount', $transferVerify->data->amount / 100);
+            $stash->decrement('availableAmount', $transferVerify->data->amount / 100);
+
+            \Session::put('success', true);
+            return back()->withErrors('Transaction Verified');
         }
         catch (\Exception $e){
             \Session::put('danger', true);

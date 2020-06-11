@@ -7,6 +7,7 @@ use App\Http\Helpers\apiHelper;
 use App\Models\Funds;
 use App\Models\Transaction;
 use App\Models\Stash;
+use App\Models\transferRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Referral;
@@ -33,8 +34,9 @@ class LoadController extends Controller
     private $account;
     private $bank;
     private $fund;
+    private $transferRequest;
 
-    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, TranxConfirm $tranx, Validate $validate, lenderAccount $account, Bank $bank, Funds $fund){
+    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, TranxConfirm $tranx, Validate $validate, lenderAccount $account, Bank $bank, Funds $fund, transferRequest $transferRequest){
         $this->api = $api;
         $this->transaction = $transaction;
         $this->stash = $stash;
@@ -47,6 +49,7 @@ class LoadController extends Controller
         $this->account = $account;
         $this->bank = $bank;
         $this->fund = $fund;
+        $this->transferRequest = $transferRequest;
     }
 
     public function buy(Request $request){
@@ -271,16 +274,23 @@ class LoadController extends Controller
 
                 $transferRes = $this->api->call('/transfer', 'POST', $params);
 
-                $stash = $this->stash->where('investorId', $data["investorId"]);
+                if ($transferRes->status == false){
+                    return response()->json(["message" => "An Error Occurred: Transfer Unsuccessful", "error" => true, "data" => []], 200);
+                }
+                $transParams = [
+                    'investorId' => $data["investorId"],
+                    'amount' => $data["amount"],
+                    'message' => $transferRes->message,
+                    'transfer_code' => $transferRes->data->transfer_code,
+                ];
 
-                $stash->decrement('totalAmount', $data["amount"]);
-                $stash->decrement('availableAmount', $data["amount"]);
+                $this->transferRequest->create($transParams);
             }
         }
         catch(\Exception $e){
             return response()->json(["message" => "An Error Occurred ".$e->getMessage(), "error" => true, "data" => []], 200);
         }
-        return response()->json(["message" => "Transfer Successful", "error" => false, "data" => $transferRes], 200);
+        return response()->json(["message" => "Transfer Initiated, The transaction will be validated in the next 24hours", "error" => false, "data" => $transferRes], 200);
     }
 
     public function commissionFee(Request $request){
