@@ -54,7 +54,12 @@
                                 <td>{{$user->account->accountNumber ?? "null"}}</td>
                                 <td>{{$user->account->bvn ?? "null"}}</td>
                                 <td>{{$user->bank->name ?? "null"}}</td>
-                                <td class="row justify-content-between"><a href="#" class="btn btn-success">View</a>
+                                <td class="row justify-content-between">
+                                    @if($user->type == "investor")
+                                        <a href="{{URL('/admin/rouzz/investor/'.encrypt($user->id))}}" class="btn btn-success">View</a>
+                                    @else
+                                        <a href="{{URL('/admin/rouzz/business/'.encrypt($business->user->id))}}" class="btn btn-success">View</a>
+                                    @endif
                                     <a href="{{URL('/admin/rouzz/user/delete/'.encrypt($user->id))}}" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>

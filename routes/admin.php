@@ -18,6 +18,7 @@ if (App::environment('production')) {
 
 Route::get('/overview', 'PageController@index');
 Route::get('/user', 'PageController@user');
+Route::get('/referrals', 'PageController@referrals');
 Route::get('/business', 'PageController@businesses');
 Route::get('/business/{id}', 'PageController@business');
 Route::get('/investor', 'PageController@investors');

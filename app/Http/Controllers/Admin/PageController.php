@@ -11,6 +11,7 @@ use App\Models\Investment;
 use App\Models\Lender as Investor;
 use App\Models\lenderAccount;
 use App\Models\busAccount;
+use App\Models\Referral;
 use App\Models\Stash;
 use App\Models\Eligibility;
 use App\Http\Helpers\partials;
@@ -42,7 +43,8 @@ class PageController extends Controller
     private $baccount;
     private $eligibility;
     private $partials;
-    public function __construct(User $user, Bank $bank, Investment $investment, Transaction $transaction, Formatter $formatter, Portfolio $portfolio, Funds $fund, Admin $admin, transferRequest $transferRequest, Stash $stash, Investor $investor, lenderAccount $account, Business $business, busAccount $baccount, Eligibility $eligibility, partials $partials){
+    private $referral;
+    public function __construct(User $user, Bank $bank, Investment $investment, Transaction $transaction, Formatter $formatter, Portfolio $portfolio, Funds $fund, Admin $admin, transferRequest $transferRequest, Stash $stash, Investor $investor, lenderAccount $account, Business $business, busAccount $baccount, Eligibility $eligibility, partials $partials, Referral $referral){
         $this->user = $user;
         $this->bank = $bank;
         $this->investment = $investment;
@@ -59,6 +61,7 @@ class PageController extends Controller
         $this->baccount = $baccount;
         $this->eligibility = $eligibility;
         $this->partials = $partials;
+        $this->referral = $referral;
     }
 
     public function index(Request $request){
@@ -463,6 +466,30 @@ class PageController extends Controller
         }
     }
 
+    public function referrals(Request $request){
+        try{
+            $user = Auth::user();
+
+            $getReferrals = $this->referral->paginate(10);
+
+            foreach ($getReferrals as $referral){
+                $referral->referrer = $referral->referrer();
+                $referral->user = $referral->user();
+            }
+
+            $data = [
+                'title' => 'Admin',
+                'user' => $user,
+                'isSuper' => $this->isSuper(),
+                'referrals' => $getReferrals,
+            ];
+
+            return view('admin.referrals', $data);
+        }catch(\Exception $e){
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
     public function isSuper(){
         $user = Auth::user();
         $getRole = $this->admin->where('userId', $user->id)->first();

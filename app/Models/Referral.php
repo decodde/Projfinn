@@ -15,4 +15,9 @@ class Referral extends Model
     {
         return $this->hasOne('App\Models\User', 'id', 'userId')->first();
     }
+
+    public function referrer()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'refererId')->first();
+    }
 }
