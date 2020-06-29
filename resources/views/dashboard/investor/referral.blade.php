@@ -88,28 +88,46 @@
                 <div class="card-content collapse show">
                     <div class="card-body">
                         @if(count($payedReferrals) !== 0 )
-                                This is the amount you have gained through referring friends.
+                                This is the list of people you referred
                             </p>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                     <tr class="borderless">
                                         <th>#</th>
-                                        <th>Name</th>
-                                        <th>Amount Gained</th>
+                                        <th>Users name</th>
+                                        <th>Made Payment</th>
+                                        <th>Signed Up</th>
                                         <th>Date</th>
                                     </tr>
                                     </thead>
                                     <tbody class="borderless">
                                         <?php $i=1 ?>
-                                        @foreach($payedReferrals as $payedReferral)
+                                        @foreach($referrals as $payedReferral)
                                             <tr>
                                                 <td>{{$i}}</td>
                                                 <td>{{$payedReferral->user->name}}</td>
                                                 <td>
-                                                    <p class="font-size-17px success darken-4">
-                                                        ₦ 1,000
-                                                    </p>
+                                                    @if(@$payedReferral->hasSignUp)
+                                                        <p class="font-size-17px success darken-4">
+                                                            This user has made a payment
+                                                        </p>
+                                                    @else
+                                                        <p class="font-size-17px danger darken-4">
+                                                            This user hasn't made a payment yet
+                                                        </p>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if(@$payedReferral->hasSignUp)
+                                                        <p class="font-size-17px success darken-4">
+                                                            This user has singed up
+                                                        </p>
+                                                    @else
+                                                        <p class="font-size-17px danger darken-4">
+                                                            This user hasn't singed up
+                                                        </p>
+                                                    @endif
                                                 </td>
 
                                                 <td>{{App\Http\Helpers\Formatter::dataTime($payedReferral->updatedAt)}}</td>
@@ -122,7 +140,7 @@
                             </div>
                         @else
                             <div class="text-center dotted-btn width-550">
-                                None of the people you referred has credited their wallets.
+                                None of the people you referred has created an account.
                             </div>
                         @endif
 

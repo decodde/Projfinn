@@ -185,7 +185,7 @@ class PageController extends Controller
                 return $referral->hasPayed == false;
             });
 
-            foreach ($payedReferrals as $pf){
+            foreach ($referrals as $pf){
                 $pf->user = $pf->user();
             }
 //            dd($payedReferrals);

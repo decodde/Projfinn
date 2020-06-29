@@ -8,8 +8,15 @@ use App\Models\Admin;
 use App\Models\Bank;
 use App\Models\Funds;
 use App\Models\Investment;
+use App\Models\Lender as Investor;
+use App\Models\lenderAccount;
+use App\Models\busAccount;
+use App\Models\Stash;
+use App\Models\Eligibility;
+use App\Http\Helpers\partials;
 use App\Models\Transaction;
 use App\Models\transferRequest;
+use App\Models\Business;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as Auth;
 
@@ -28,7 +35,14 @@ class PageController extends Controller
     private $fund;
     private $admin;
     private $transferRequest;
-    public function __construct(User $user, Bank $bank, Investment $investment, Transaction $transaction, Formatter $formatter, Portfolio $portfolio, Funds $fund, Admin $admin, transferRequest $transferRequest){
+    private $stash;
+    private $investor;
+    private $account;
+    private $business;
+    private $baccount;
+    private $eligibility;
+    private $partials;
+    public function __construct(User $user, Bank $bank, Investment $investment, Transaction $transaction, Formatter $formatter, Portfolio $portfolio, Funds $fund, Admin $admin, transferRequest $transferRequest, Stash $stash, Investor $investor, lenderAccount $account, Business $business, busAccount $baccount, Eligibility $eligibility, partials $partials){
         $this->user = $user;
         $this->bank = $bank;
         $this->investment = $investment;
@@ -38,15 +52,22 @@ class PageController extends Controller
         $this->fund = $fund;
         $this->admin = $admin;
         $this->transferRequest = $transferRequest;
+        $this->stash = $stash;
+        $this->investor = $investor;
+        $this->account = $account;
+        $this->business = $business;
+        $this->baccount = $baccount;
+        $this->eligibility = $eligibility;
+        $this->partials = $partials;
     }
 
     public function index(Request $request){
         try {
             $user = Auth::user();
 
-            $getUsers = $this->user->paginate(10);
+            $getUsers = $this->user->where("isDeleted", false)->paginate(10);
             $countPortfolio = count($this->portfolio->get());
-            $countUser = count($this->user->get());
+            $countUser = count($this->user->where("isDeleted", false)->get());
             $countInvestments = count($this->investment->get());
 
             foreach ($getUsers as $getUser){
@@ -79,7 +100,7 @@ class PageController extends Controller
         try {
             $user = Auth::user();
 
-            $getUsers = $this->user->paginate(10);
+            $getUsers = $this->user->where("isDeleted", false)->paginate(10);
             foreach ($getUsers as $getUser){
                 $getUser->account = $getUser->account() ?? null;
                 if($getUser->account !== null){
@@ -98,6 +119,147 @@ class PageController extends Controller
             return view('admin.user', $data);
 
         } catch(\Exception $e) {
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function investors(Request $request){
+        try{
+            $user = Auth::user();
+
+            $getInvestors = $this->user->where(["type" => "investor", 'isDeleted' => false])->paginate(10);
+            foreach ($getInvestors as $getUser){
+                $getUser->account = $getUser->account() ?? null;
+                if($getUser->account !== null){
+                    $getUser->bank = $this->bank->where('id', $getUser->account->bankId)->first();
+                }
+            }
+
+            $data = [
+                'title' => 'Admin',
+                'user' => $user,
+                'isSuper' => $this->isSuper(),
+                'users' => $getInvestors,
+            ];
+
+
+            return view('admin.investors', $data);
+        }catch(\Exception $e){
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function investor(Request $request){
+        try{
+            $id = decrypt($request->id);
+            $user = Auth::user();
+
+
+            $getUser = $this->user->where(["id" => $id, "type" => "investor", 'isDeleted' => false])->first();
+
+            $getInvestor = $this->investor->where("userId", $getUser->id)->first();
+
+            $getStash = $this->stash->where("investorId", $getInvestor->id)->first();
+
+            $getAccount = $this->account->where("userId", $getUser->id)->first();
+
+            $getAccount->bank = $getAccount->bank();
+
+            $getTransaction = $this->transaction->where("userId", $getUser->id)->get();
+
+            $getInvestments = $this->investment->where("userId", $getUser->id)->paginate(10);
+
+            foreach($getInvestments as $getInvestment){
+                $getInvestment->date = $this->formatter->dataTime($getInvestment->datePurchased);
+                $getInvestment->portfolio = $getInvestment->portfolio();
+            }
+
+            $data = [
+                'title' => 'Admin',
+                'user' => $user,
+                'gUser' => $getUser,
+                'isSuper' => $this->isSuper(),
+                'stash' => $getStash,
+                'investor' => $getInvestor,
+                'account' => $getAccount,
+                'transactions' => $getTransaction,
+                'investments' => $getInvestments
+            ];
+
+
+            return view('admin.investor', $data);
+        }catch(\Exception $e){
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function business(Request $request){
+        try{
+            $id = decrypt($request->id);
+            $user = Auth::user();
+
+            $getUser = $this->user->where(["id" => $id, "type" => "business", 'isDeleted' => false])->first();
+
+            $getBusiness = $this->business->where("userId", $getUser->id)->first();
+
+            $eligibility = $this->eligibility->where("businessId", $getBusiness->id)->first();
+
+            $getFunds = $this->fund->where(["userId" => $getUser->id, "businessId" => $getBusiness->id])->paginate(10);
+
+            $grade = $this->partials->gradeScore($eligibility->score);
+
+            $getAccount = $this->baccount->where("userId", $getUser->id)->first();
+
+            $getAccount->bank = $getAccount->bank();
+
+            $getTransaction = $this->transaction->where("userId", $getUser->id)->get();
+
+            $data = [
+                "title" => 'Admin',
+                "user" => $user,
+                "gUser" => $getUser,
+                "isSuper" => $this->isSuper(),
+                "funds" => $getFunds,
+                "account" => $getAccount,
+                "business" => $getBusiness,
+                "eligibility" => $eligibility,
+                "grade" => $grade,
+                'transactions' => $getTransaction,
+            ];
+
+
+            return view('admin.business', $data);
+        }catch(\Exception $e){
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function businesses(Request $request){
+        try{
+            $user = Auth::user();
+
+            $getBusinesses = $this->business->where(['isDeleted' => false])->paginate(10);
+            foreach ($getBusinesses as $getBusiness){
+                $getBusiness->user = $getBusiness->owner();
+                $getBusiness->account = $getBusiness->account() ?? null;
+                if($getBusiness->account !== null){
+                    $getBusiness->bank = $this->bank->where('id', $getBusiness->account->bankId)->first();
+                }
+            }
+            $data = [
+                'title' => 'Admin',
+                'user' => $user,
+                'isSuper' => $this->isSuper(),
+                'businesses' => $getBusinesses,
+            ];
+
+
+            return view('admin.businesses', $data);
+        }catch(\Exception $e){
             \Session::put('danger', true);
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }

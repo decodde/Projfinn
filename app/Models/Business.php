@@ -10,8 +10,11 @@ class Business extends Model
     //
     protected $table = 'businesses';
 
-    protected $fillable = ['userId', 'categoryId', 'name', 'email', 'phone', 'address', 'website', 'bio', 'logo', 'startDate', 'size', 'country', 'state', 'cac', 'approvedAt', 'slug', 'financialRaise', 'turnoverAmount', 'turnoverPercent', 'score', 'nextOnline', 'matching'];
+    protected $fillable = ['userId', 'categoryId', 'name', 'email', 'phone', 'address', 'website', 'bio', 'logo', 'startDate', 'size', 'country', 'state', 'cac', 'approvedAt', 'slug', 'financialRaise', 'turnoverAmount', 'turnoverPercent', 'score', 'nextOnline', 'matching', 'isDeleted'];
 
+    protected $hidden = [
+        'website', 'bio', 'updated_at', 'startDate', 'state', 'cac', 'approvedAt', 'financialRaise', 'turnoverAmount', 'turnoverPercent', 'nextOnline', 'matching'
+    ];
     public function category() {
         return $this->hasOne('App\Models\Category', 'id', 'categoryId');
     }
@@ -25,7 +28,11 @@ class Business extends Model
     }
 
     public function owner() {
-        return $this->hasOne('App\Models\User', 'id', 'userId');
+        return $this->hasOne('App\Models\User', 'id', 'userId')->first();
+    }
+
+    public function account() {
+        return $this->hasOne('App\Models\busAccount', 'userId', 'userId')->first();
     }
 
     public function guarantors() {

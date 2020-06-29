@@ -18,6 +18,10 @@ if (App::environment('production')) {
 
 Route::get('/overview', 'PageController@index');
 Route::get('/user', 'PageController@user');
+Route::get('/business', 'PageController@businesses');
+Route::get('/business/{id}', 'PageController@business');
+Route::get('/investor', 'PageController@investors');
+Route::get('/investor/{id}', 'PageController@investor');
 Route::get('/funding', 'PageController@funds');
 Route::get('/funding/{id}', 'PageController@fund');
 Route::get('/investment', 'PageController@investments');
@@ -30,3 +34,4 @@ Route::get('/transfers', 'PageController@transfers');
 Route::post('/transact', 'LoadController@adminConfirm');
 Route::post('/status', 'LoadController@fundStatus');
 Route::post('/transfer', 'LoadController@verifyTransfer');
+Route::get('/user/delete/{id}', 'LoadController@deleteUser');

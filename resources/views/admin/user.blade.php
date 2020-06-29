@@ -23,6 +23,7 @@
                             <th>Account Number</th>
                             <th>BVN</th>
                             <th>Bank</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody class="text-grey">
@@ -53,6 +54,9 @@
                                 <td>{{$user->account->accountNumber ?? "null"}}</td>
                                 <td>{{$user->account->bvn ?? "null"}}</td>
                                 <td>{{$user->bank->name ?? "null"}}</td>
+                                <td class="row justify-content-between"><a href="#" class="btn btn-success">View</a>
+                                    <a href="{{URL('/admin/rouzz/user/delete/'.encrypt($user->id))}}" class="btn btn-danger">Delete</a>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

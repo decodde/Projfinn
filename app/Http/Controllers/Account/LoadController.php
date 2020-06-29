@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\lenderAccount;
 use App\Models\User;
 use App\Models\Bank;
+use App\Models\busAccount;
 
 use App\Http\Helpers\Validate;
 use App\Http\Helpers\apiHelper;
@@ -20,14 +21,16 @@ class LoadController extends Controller
     private $validate;
     private $api;
     private $bank;
+    private $busAccount;
 
 
-    public function __construct(User $user, lenderAccount $lenderAccount, Validate $validate, apiHelper $api, Bank $bank){
+    public function __construct(User $user, lenderAccount $lenderAccount, Validate $validate, apiHelper $api, Bank $bank, busAccount $busAccount){
          $this->lenderAccount = $lenderAccount;
          $this->user = $user;
          $this->validate = $validate;
          $this->api = $api;
          $this->bank = $bank;
+         $this->busAccount = $busAccount;
     }
 
     public function editUser(Request $request){
@@ -156,6 +159,108 @@ class LoadController extends Controller
                         "accountNumber" => $data["accountNumber"]
                     ]);
                 }
+            }
+            else{
+                \Session::put('danger', true);
+                return back()->withErrors('Incorrect Account Details');
+            }
+
+            \Session::put('success', true);
+            return back()->withErrors('Account Details Verified');
+        }catch (\Exception $e){
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function updateBusiness(Request $request){
+        try{
+            $data = $request->except('_token');
+
+            $validation = $this->validate->account($data, "updateBus");
+
+            if($validation->fails()){
+                \Session::put('warning', true);
+                return back()->withErrors($validation->getMessageBag())->withInput();
+            }
+
+            $bank = $this->bank->where('id', $data['bankId'])->first();
+
+            if($bank === null){
+                \Session::put('danger', true);
+                return back()->withErrors('An error has occurred');
+            }
+
+            $user = \Auth::user();
+
+            $name = explode(" ", $user->name);
+
+            $body = [
+                'account_number' => $data['accountNumber'],
+                'bank_code' => $bank->code,
+                'first_name' => $name[0],
+                'last_name' => $name[1]
+            ];
+
+            $is_verified = true;
+
+            if($is_verified === true){
+                $lac = $this->busAccount->where('id', decrypt($data["dd"]));
+
+                if($lac->first() !== null){
+                    $lac->update([
+                        "userId" => $data["userId"],
+                        "bankId" => $data["bankId"],
+                        "accountNumber" => $data["accountNumber"]
+                    ]);
+                }
+            }
+            else{
+                \Session::put('danger', true);
+                return back()->withErrors('Incorrect Account Details');
+            }
+
+            \Session::put('success', true);
+            return back()->withErrors('Account Details Verified');
+        }catch (\Exception $e){
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function accountBusiness(Request $request){
+        try{
+            $data = $request->except('_token');
+
+            $validation = $this->validate->account($data, "business");
+
+            if($validation->fails()){
+                \Session::put('warning', true);
+                return back()->withErrors($validation->getMessageBag())->withInput();
+            }
+
+            $bank = $this->bank->where('id', $data['bankId'])->first();
+
+            if($bank === null){
+                \Session::put('danger', true);
+                return back()->withErrors('An error has occurred');
+            }
+
+            $user = \Auth::user();
+
+            $name = explode(" ", $user->name);
+
+            $body = [
+                'account_number' => $data['accountNumber'],
+                'bank_code' => $bank->code,
+                'first_name' => $name[0],
+                'last_name' => $name[1]
+            ];
+
+            $is_verified = true;
+
+            if($is_verified === true){
+                $this->busAccount->create($data);
             }
             else{
                 \Session::put('danger', true);

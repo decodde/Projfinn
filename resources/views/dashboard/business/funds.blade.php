@@ -71,7 +71,7 @@
                                     <tr class="borderless">
                                         <th>Status</th>
                                         <th>Amount</th>
-                                        <th>Description</th>
+                                        <th>Fund Purpose Links</th>
                                         <th>Message</th>
                                         <th>Date</th>
                                         <th>Payment</th>
@@ -94,7 +94,7 @@
                                                     ₦ {{App\Http\Helpers\Formatter::MoneyConvert($fund->amount, "full")}}
                                                 </p>
                                             </td>
-                                            <td><p style="">{{$fund->description}}</p></td>
+                                            <td><a target="_blank" href="{{$fund->description}}">{{$fund->description}}</a></td>
                                             <td>
                                                 @if($fund->progress === "review")
                                                     <a class="warning">Your Application is under review
@@ -175,7 +175,7 @@
                 </div>
                 <div class="card-content">
                     <div class="card-body">
-                        <form action="{{URL('/funds/create')}}" method="post">
+                        <form action="{{URL('/funds/create')}}" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
 
                             <div class="form-group">
@@ -220,8 +220,8 @@
                                     <label for="">No</label>
                                 </div>
 
-                                <label for="description" class="mt-2">What is this fund needed for? Give a detailed description of why this fund is needed.</label>
-                                <textarea name="description" id="description" cols="30" rows="10" value="" class="form-control"></textarea>
+                                <label for="description" class="mt-2">What is this fund needed for? Upload a File stating the use of need for the funding.</label>
+                                <input type="file" name="description" id="" class="form-control" required="required">
                             </div>
                             <div class="text-center">
                                 <button class="btn btn-success text-center">Submit Application</button>

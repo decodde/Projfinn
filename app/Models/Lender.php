@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lender extends Model
 {
-    protected $fillable = ['name', 'email', 'phone', 'address', 'country', 'userId', 'logo'];
+    protected $fillable = ['name', 'email', 'phone', 'address', 'country', 'userId', 'logo', 'isDeleted'];
 
     public function profile() {
         return $this->hasOne('App\Models\User', 'id', 'userId');

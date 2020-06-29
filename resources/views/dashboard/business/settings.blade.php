@@ -50,6 +50,71 @@
                     </div>
                 </div>
             </div>
+            <div class="card px-1  py-1">
+                <div class="card-header">
+                    <h2 class="font-weight-normal font-size-22px f-2 m-0">Business Bank Details</h2>
+                </div>
+                <div class="card-content">
+                    <hr class="m-0 p-0">
+
+                    <div class="card-body">
+                        @if($accountDetails !== null)
+                            <form action="{{ URL('account/updateBusiness') }}" method="POST" onsubmit="return checkNumberLength(event);" id="bvnForm">
+                        @else
+                            <form action="{{ URL('account/accountBusiness') }}" method="POST" onsubmit="return checkNumberLength(event);" id="bvnForm">
+                                @endif
+                                <input type="hidden" name="_token" value="{!! csrf_token() !!}">
+                                <input type="hidden" name="userId" value="{{ $user->id }}">
+                                @if($accountDetails !== null)
+                                    <input type="hidden" name="dd" value="{{ encrypt($accountDetails->id) }}">
+                                @endif
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <label for="">Account Number :</label>
+                                        <input type="number" name="accountNumber" id="number" class="form-control" value="{{ $accountDetails->accountNumber ?? null }}" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="">Bank  :</label>
+                                        <select name="bankId" class="form-control text-uppercase">
+                                            @foreach($banks as $bank)
+                                                @if($accountDetails !== null && $bank->id == $accountDetails["bankId"])
+                                                    <option value="{{$bank->id}}" selected>
+                                                @else
+                                                    <option value="{{$bank->id}}">
+                                                        @endif
+                                                        {{$bank->name}}
+                                                    </option>
+                                                    @endforeach
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" id="BVNBtn" class="btn btn-block btn-primary width-150 float-right"><i class="fa fa-check"></i>&nbsp; Verify</button>
+                            </form>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
+    <script>
+        function checkNumberLength(event) {
+            event.preventDefault();
+            let valid = false;
+
+            const field = document.getElementById('number');
+            // const bv = document.getElementById('bvn');
+            if(field.value.length === 10) {
+                // if(bv.value.length === 11 && field.value.length === 10) {
+                valid = true;
+            }
+            else if ( field.value.length !== 10){
+                valid = false;
+                window.alert('Account Number can\'t be more or less than 10 characters long')
+            }
+            if(valid) {
+                document.getElementById('bvnForm').submit()
+            }
+        }
+    </script>
 @stop

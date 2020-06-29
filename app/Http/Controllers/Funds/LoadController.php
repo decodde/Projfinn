@@ -8,6 +8,8 @@ use App\Http\Helpers\Validate;
 use App\Models\Funds;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Cloudder as Cloudinary;
+
 
 class LoadController extends Controller
 {
@@ -54,6 +56,14 @@ class LoadController extends Controller
             else{
                 $isDocs = false;
             }
+
+            $ext = $request->file('description')->getClientOriginalExtension();
+            $extArr = ['pdf', 'docs', 'docx'];
+
+            if(in_array($ext, $extArr)) {
+                $file = Cloudinary::upload($request->description)->getResult()['url'];
+            }
+
             $params = [
                 "userId" => $user->id,
                 "businessId" => $user->business()->id,
@@ -63,7 +73,7 @@ class LoadController extends Controller
                 "existingLoan" => $isExist,
                 "certifyGuarantor" => $isGuarant,
                 "certifyDocuments" => $isDocs,
-                "description" => $data["description"],
+                "description" => $file,
                 "progress" => "review"
             ];
 

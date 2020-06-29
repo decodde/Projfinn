@@ -13,6 +13,7 @@ use App\Models\Stash;
 use App\Models\Transaction;
 use App\Models\transferRequest;
 use App\Models\User;
+use App\Models\Business;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Helpers\Validate;
@@ -33,8 +34,8 @@ class LoadController extends Controller
     private $funds;
     private $mail;
     private $transferRequest;
-    public function __construct(User $user, apiHelper $api, Validate $validate, Transaction  $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Funds $funds, sendMail $mail, transferRequest
-    $transferRequest){
+    private $business;
+    public function __construct(User $user, apiHelper $api, Validate $validate, Transaction  $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Funds $funds, sendMail $mail, transferRequest $transferRequest, Business $business){
         $this->user = $user;
         $this->api = $api;
         $this->transaction = $transaction;
@@ -47,6 +48,7 @@ class LoadController extends Controller
         $this->funds = $funds;
         $this->mail = $mail;
         $this->transferRequest = $transferRequest;
+        $this->business = $business;
     }
 
     public function adminConfirm(Request $request){
@@ -221,6 +223,85 @@ class LoadController extends Controller
         catch (\Exception $e){
             \Session::put('danger', true);
             return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function deleteUser(Request $request){
+        try{
+            $userId = decrypt($request->id);
+
+            #Get User Details
+            $getUser = $this->user->where(['id' => $userId, 'isDeleted' => false]);
+
+            $user = $getUser->first();
+
+            if($user === null){
+                \Session::put('danger', true);
+                return back()->withErrors('An Error Occurred');
+            }
+            #Check if user is investor or business
+            if ($user->type === "investor"){
+                #investor goes here
+                $response = $this->deleteInvestor($user);
+
+            }
+            else{
+                #business goes here
+                $response = $this->deleteBusiness($user);
+            }
+            #Check Response
+            if(!$response){
+                \Session::put('danger', true);
+                return back()->withErrors('An Error Occurred');
+            }
+
+            #Delete User
+            $getUser->update([
+                'email' => $user->first()->email . "-Deleted",
+                'phone' => $user->first()->phone . "-Deleted",
+                'isDeleted' => true,
+            ]);
+            \Session::put('success', true);
+            return back()->withErrors('User Deleted Successfully');
+        }
+        catch (\Exception $e){
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function deleteInvestor($user){
+        try {
+            #Get investor details
+            $investor = $this->investor->where("userId", $user->id);
+            if ($investor->first() !== null) {
+                $investor->update([
+                    'email' => $investor->first()->email . "-Deleted",
+                    'phone' => $investor->first()->phone . "-Deleted",
+                    'isDeleted' => true,
+                ]);
+            }
+            return true;
+        }
+        catch (\Exception $e){
+            return false;
+        }
+    }
+
+    public function deleteBusiness($user){
+        try{
+            $business = $this->business->where("userId", $user->id);
+            if ($business->first() !== null) {
+                $business->update([
+                    'email' => $business->first()->email . "-Deleted",
+                    'phone' => $business->first()->phone . "-Deleted",
+                    'isDeleted' => true,
+                ]);
+            }
+            return true;
+        }
+        catch (\Exception $e){
+            return false;
         }
     }
 }

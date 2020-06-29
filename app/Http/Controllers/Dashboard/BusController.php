@@ -12,6 +12,8 @@ use App\Models\Funds;
 use App\Models\Guarantor;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\busAccount;
+use App\Models\Bank;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as Auth;
 
@@ -27,7 +29,9 @@ class BusController extends Controller{
     private $transaction;
     private $formatter;
     private $guarantor;
-    public function __construct(Auth $auth, User $user, Eligibility $eligible, partials $partials, Funds $funds, Document $document, BVN  $bvn, Transaction $transaction,  Formatter $formatter, Guarantor $guarantor)
+    private $busAccount;
+    private $bank;
+    public function __construct(Auth $auth, User $user, Eligibility $eligible, partials $partials, Funds $funds, Document $document, BVN  $bvn, Transaction $transaction,  Formatter $formatter, Guarantor $guarantor, busAccount $busAccount, Bank $bank)
     {
         $this->eligible = $eligible;
         $this->partials = $partials;
@@ -39,6 +43,8 @@ class BusController extends Controller{
         $this->transaction = $transaction;
         $this->formatter = $formatter;
         $this->guarantor = $guarantor;
+        $this->busAccount = $busAccount;
+        $this->bank = $bank;
     }
 
     public function dashboard(Request $request) {
@@ -174,6 +180,10 @@ class BusController extends Controller{
         try{
             $user = Auth::user();
 
+            $b_account = $this->busAccount->where('userId', $user->id)->first();
+
+            $banks = $this->bank->get();
+
             $names = explode(" ", $user->name);
 
             $user->f_name = $names[0];
@@ -182,6 +192,8 @@ class BusController extends Controller{
             $data = [
                 'title' => 'Dashboard:Settings',
                 'user' => $user,
+                'banks' => $banks,
+                'accountDetails' => $b_account,
             ];
 
             return view('dashboard.business.settings', $data);

@@ -64,6 +64,21 @@ class Validate {
                 "accountNumber" => "required"
             ]);
         }
+        else if($type == "updateBus"){
+            return $this->validator::make($data, [
+                "dd" => "required",
+                "userId" => "required",
+                "bankId" => "required",
+                "accountNumber" => "required"
+            ]);
+        }
+        else if($type == "business"){
+            return $this->validator::make($data, [
+                "userId" => "required",
+                "bankId" => "required",
+                "accountNumber" => "required|unique:bus_accounts"
+            ]);
+        }
         else {
             return $this->validator::make($data, [
                 "userId" => "required",
