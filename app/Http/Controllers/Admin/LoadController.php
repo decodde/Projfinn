@@ -171,7 +171,7 @@ class LoadController extends Controller
         }
     }
 
-    public function fundStatus(Request $request)
+        public function fundStatus(Request $request)
     {
         try{
             $data = $request->except('_token');

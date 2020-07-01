@@ -108,7 +108,7 @@
                                                 <td>{{$i}}</td>
                                                 <td>{{$payedReferral->user->name}}</td>
                                                 <td>
-                                                    @if(@$payedReferral->hasSignUp)
+                                                    @if(@$payedReferral->hasPayed)
                                                         <p class="font-size-17px success darken-4">
                                                             This user has made a payment
                                                         </p>
