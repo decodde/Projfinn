@@ -277,7 +277,7 @@ class PageController extends Controller
 
             $portfolio = $this->portfolio->where('id', decrypt($id))->first();
 
-            if($portfolio->sizeRemaining == 0){
+            if($portfolio->sizeRemaining == 0 || $portfolio->isOpen == false){
                 \Session::put('danger', true);
                 return back()->withErrors('An error has occurred');
             }

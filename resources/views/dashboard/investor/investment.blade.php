@@ -96,10 +96,14 @@
                                 </dl>
                                 <hr class="pb-1">
                             </div>
-                            @if($portfolio->sizeRemaining == 0)
-                                <a class="btn btn-outline-blue-grey blue-grey" disabled="" style="cursor: not-allowed">Sold Out</a>
+                            @if($portfolio->isOpen == true)
+                                @if($portfolio->sizeRemaining == 0)
+                                    <a class="btn btn-outline-blue-grey blue-grey" disabled="" style="cursor: not-allowed">Sold Out</a>
+                                @else
+                                    <a href="{{URL('/dashboard/i/investment/'.encrypt($portfolio->id))}}" class="btn btn-outline-info info ">Invest Now<i class="ft-arrow-right position-relative" style="top: 2px;margin-left: 6px; font-size: 15px"></i></a>
+                                @endif
                             @else
-                                <a href="{{URL('/dashboard/i/investment/'.encrypt($portfolio->id))}}" class="btn btn-outline-info info ">Invest Now<i class="ft-arrow-right position-relative" style="top: 2px;margin-left: 6px; font-size: 15px"></i></a>
+                                <a class="btn btn-outline-danger danger" disabled="" style="cursor: not-allowed">Closed</a>
                             @endif
                         </div>
                     </div>
