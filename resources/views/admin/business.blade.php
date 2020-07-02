@@ -14,6 +14,11 @@
                     <div class="kt-portlet__body">
                         <div class="card-text">
                             <dl class="row text-black">
+                                <dt class="col-md-9">Business Owner</dt>
+                                <dd class="col-md-3 text-right">{{ $gUser->name }}</dd>
+                            </dl>
+                            <hr>
+                            <dl class="row text-black">
                                 <dt class="col-md-9">Email Address</dt>
                                 <dd class="col-md-3 text-right">{{ $gUser->email }}</dd>
                             </dl>
@@ -26,6 +31,18 @@
                             <dl class="row text-black">
                                 <dt class="col-md-9">Number of Transactions Made</dt>
                                 <dd class="col-md-3 text-right text-success">{{count($transactions)}}</dd>
+                            </dl>
+                            <hr>
+                            <dl class="row text-black">
+                                <dt class="col-md-6">Documents</dt>
+                                <dd class="col-md-6 text-right">
+                                    @foreach($documents as $document)
+                                        <p>
+                                            <a>{{ ucfirst($document->type) }} :</a>
+                                            <a href="{{ $document->file }}" target="_blank" class="btn btn-primary">View file <i class="la la-link"></i></a>
+                                        </p>
+                                    @endforeach
+                                </dd>
                             </dl>
                             <hr>
                             <dl class="row text-black">

@@ -27,40 +27,40 @@
                         </tr>
                         </thead>
                         <tbody class="text-grey">
-                        @foreach($users as $user)
+                        @foreach($users as $gUser)
                             <tr>
                                 <td>
-                                    @if($user->verified === 1)
+                                    @if($gUser->verified === 1)
                                         <i class="la la-check text-success font-weight-bolder"></i>
                                     @else
                                         <i class="la la-times font-weight-bolder"></i>
                                     @endif
                                 </td>
-                                <td>{{$user->name}}</td>
-                                <td>{{$user->email}}</td>
+                                <td>{{$gUser->name}}</td>
+                                <td>{{$gUser->email}}</td>
                                 <td>
-                                    @if($user->type == 'investor')
+                                    @if($gUser->type == 'investor')
                                         <a class="btn btn-label-success text-success">
-                                            @elseif($user->type == 'business')
+                                            @elseif($gUser->type == 'business')
                                                 <a class="btn btn-label-danger text-danger">
                                                     @else
                                                         <a class="btn btn-label-primary text-primary">
                                                             @endif
-                                                            {{$user->type}}
+                                                            {{$gUser->type}}
                                                         </a>
                                 </td>
-                                <td>{{$user->phone}}</td>
-                                <td>{{$user->address}}</td>
-                                <td>{{$user->account->accountNumber ?? "null"}}</td>
-                                <td>{{$user->account->bvn ?? "null"}}</td>
-                                <td>{{$user->bank->name ?? "null"}}</td>
+                                <td>{{$gUser->phone}}</td>
+                                <td>{{$gUser->address}}</td>
+                                <td>{{$gUser->account->accountNumber ?? "null"}}</td>
+                                <td>{{$gUser->account->bvn ?? "null"}}</td>
+                                <td>{{$gUser->bank->name ?? "null"}}</td>
                                 <td class="row justify-content-between">
-                                    @if($user->type == "investor")
-                                        <a href="{{URL('/admin/rouzz/investor/'.encrypt($user->id))}}" class="btn btn-success">View</a>
+                                    @if($gUser->type == "investor")
+                                        <a href="{{URL('/admin/rouzz/investor/'.encrypt($gUser->id))}}" class="btn btn-success">View</a>
                                     @else
-                                        <a href="{{URL('/admin/rouzz/business/'.encrypt($business->user->id))}}" class="btn btn-success">View</a>
+                                        <a href="{{URL('/admin/rouzz/business/'.encrypt($gUser->id))}}" class="btn btn-success">View</a>
                                     @endif
-                                    <a href="{{URL('/admin/rouzz/user/delete/'.encrypt($user->id))}}" class="btn btn-danger">Delete</a>
+                                    <a href="{{URL('/admin/rouzz/user/delete/'.encrypt($gUser->id))}}" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                         @endforeach

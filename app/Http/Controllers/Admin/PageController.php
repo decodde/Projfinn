@@ -220,6 +220,8 @@ class PageController extends Controller
 
             $getTransaction = $this->transaction->where("userId", $getUser->id)->get();
 
+            $documents = $getBusiness->documents();
+
             $data = [
                 "title" => 'Admin',
                 "user" => $user,
@@ -231,6 +233,7 @@ class PageController extends Controller
                 "eligibility" => $eligibility,
                 "grade" => $grade,
                 'transactions' => $getTransaction,
+                'documents' => $documents
             ];
 
 
