@@ -277,7 +277,8 @@
                                     <span class="kt-menu__link-text">Transactions</span>
                                 </a>
                             </li>
-                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" style="position: absolute; bottom: 0; margin-bottom:-7px; margin-left: -20px;"  data-ktmenu-submenu-toggle="hover">
+                            <hr>
+                            <li class="kt-menu__item  kt-menu__item--submenu mt-5" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover">
                                 <a  href="{{URL('/logout')}}" class="kt-menu__link kt-menu__toggle">
                                     <span class="kt-menu__link-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
