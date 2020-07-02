@@ -55,7 +55,7 @@
                     <div class="kt-portlet__head">
                         <div class="kt-portlet__head-label">
                             <h3 class="kt-portlet__head-title">
-                                Investments for <a style="color: #5867dd; font-weight: bold">{{$user->name}}</a>
+                                Investments for <a style="color: #5867dd; font-weight: bold">{{$gUser->name}}</a>
                             </h3>
                         </div>
                     </div>
