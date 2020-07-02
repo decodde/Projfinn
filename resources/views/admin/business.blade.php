@@ -2,7 +2,7 @@
 @section('content')
     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
         <div class="kt-content  kt-grid__item kt-grid__item--fluid row" id="kt_content">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="kt-portlet">
                     <div class="kt-portlet__head">
                         <div class="kt-portlet__head-label">
@@ -72,7 +72,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="kt-portlet">
                     <div class="kt-portlet__head">
                         <div class="kt-portlet__head-label">
