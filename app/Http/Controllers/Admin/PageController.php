@@ -208,6 +208,8 @@ class PageController extends Controller
 
             $getBusiness = $this->business->where("userId", $getUser->id)->first();
 
+            $getBusiness->bvn = $getBusiness->bvn;
+
             $eligibility = $this->eligibility->where("businessId", $getBusiness->id)->first();
 
             $getFunds = $this->fund->where(["userId" => $getUser->id, "businessId" => $getBusiness->id])->paginate(10);
@@ -220,7 +222,7 @@ class PageController extends Controller
 
             $getTransaction = $this->transaction->where("userId", $getUser->id)->get();
 
-            $documents = $getBusiness->documents();
+            $documents = $getBusiness->documents;
 
             $data = [
                 "title" => 'Admin',
@@ -493,6 +495,7 @@ class PageController extends Controller
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
+
     public function isSuper(){
         $user = Auth::user();
         $getRole = $this->admin->where('userId', $user->id)->first();

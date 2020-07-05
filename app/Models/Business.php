@@ -40,7 +40,7 @@ class Business extends Model
     }
 
     public function documents() {
-        return $this->hasMany('App\Models\Document', 'businessId', 'id')->get();
+        return $this->hasMany('App\Models\Document', 'businessId', 'id');
     }
 
     public function bvn() {

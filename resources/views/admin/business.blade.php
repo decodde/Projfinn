@@ -68,6 +68,13 @@
                                     </div>
                                 </dd>
                             </dl>
+                            <hr>
+                            <dl class="row text-black">
+                                <dt class="col-md-9">BVN</dt>
+                                <dd class="col-md-3 text-right">
+                                    {{$business->bvn->number}}
+                                </dd>
+                            </dl>
                         </div>
                     </div>
                 </div>
