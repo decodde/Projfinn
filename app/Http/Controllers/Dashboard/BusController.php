@@ -152,9 +152,16 @@ class BusController extends Controller{
 
             $hasDocs = $this->checkDocuments($user);
 
+            $busAccount = $this->busAccount->where("userId", $user->id)->first();
+
             if (!$hasDocs){
                 \Session::put('danger', true);
                 return redirect("/dashboard/document")->withErrors('Provide your Bvn, Guarantors and Upload Your Documents before applying for Funds');
+            }
+
+            if ($busAccount === null){
+                \Session::put('danger', true);
+                return redirect("/dashboard/settings")->withErrors('Provide your Banks Details before applying for Funds');
             }
             $funds = $this->funds->where('businessId', $user->business()->id)->paginate(10);
 

@@ -52,9 +52,9 @@
                 </div>
                 <div class="card-header">
                     <h2 class="font-weight-normal font-size-22px f-2 m-0">Documents</h2>
-                    <p class="font-size-14px p-0 m-0 pt-1">Bank Statement <a class="font-size-14px pb-0 mb-0">6 months bank statements from your Major bank account(PDF download is acceptable).</a></p>
-                    <p class="font-size-14px p-0 m-0 pt-1">CAC Document <a class="font-size-14px pb-0 mb-0">Your Official Corporate Affairs Commission Document.</a></p>
-                    <p class="font-size-14px p-0 m-0 pt-1">Utility Bills <a class="font-size-14px pb-0 mb-0">6 months bank statements from your Major bank account(PDF download is acceptable).</a></p>
+                    <p class="font-size-14px p-0 m-0 pt-1">- <a class="font-size-14px pb-0 mb-0">6 months bank statements from your Major bank account(PDF download is acceptable).</a></p>
+                    <p class="font-size-14px p-0 m-0 pt-1">- CAC Document <a class="font-size-14px pb-0 mb-0">Your Official Corporate Affairs Commission Document.</a></p>
+                    <p class="font-size-14px p-0 m-0 pt-1">- Utility Bills</p>
                 </div>
                 <div class="card-content">
                     <hr class="p-0 m-0">
@@ -114,7 +114,7 @@
                 </div>
                 <div class="card-header">
                     <h2 class="font-weight-normal font-size-22px f-2 m-0">Guarantors</h2>
-                    <p class="font-size-14px pb-0 mb-0">Please two guarantors</p>
+                    <p class="font-size-14px pb-0 mb-0">Provide your guarantor details below</p>
                 </div>
                 <div class="card-content">
                     <hr class="p-0 m-0">

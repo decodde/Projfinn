@@ -57,6 +57,13 @@ class LoadController extends Controller
                 $isDocs = false;
             }
 
+            if($data["address"] == 'yes'){
+                $resides = true;
+            }
+            else{
+                $resides = false;
+            }
+
             $ext = $request->file('description')->getClientOriginalExtension();
             $extArr = ['pdf', 'docs', 'docx'];
 
@@ -68,7 +75,7 @@ class LoadController extends Controller
                 "userId" => $user->id,
                 "businessId" => $user->business()->id,
                 "amount" => $data["amount"],
-                "address" => $data["address"],
+                "address" => $resides,
                 "type" => $data["type"],
                 "existingLoan" => $isExist,
                 "certifyGuarantor" => $isGuarant,
