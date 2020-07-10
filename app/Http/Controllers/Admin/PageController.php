@@ -64,6 +64,41 @@ class PageController extends Controller
         $this->referral = $referral;
     }
 
+    public function searchDashboard(Request $request)
+    {
+        try {
+            switch ($request->target) {
+                case 'business':
+                    $user = Auth::user();
+
+                    $businesses = $this->business->where(['isDeleted' => false])->where('name', 'LIKE', '%%'.$request->term.'%%')->latest()->paginate(10);
+                    foreach ($businesses as $getBusiness){
+                        $getBusiness->user = $getBusiness->owner();
+                        $getBusiness->account = $getBusiness->account() ?? null;
+                        if($getBusiness->account !== null){
+                            $getBusiness->bank = $this->bank->where('id', $getBusiness->account->bankId)->first();
+                        }
+                    }
+                    $data = [
+                        'title' => 'Search results for '.$request->term,
+                        'user' => $user,
+                        'isSuper' => $this->isSuper(),
+                        'businesses' => $businesses,
+                    ];
+
+                    return view('admin.businesses', $data);
+                    break;
+                default:
+                    \Session::put('blue', true);
+                    return back()->withErrors("Please specify where to look");
+                    break;
+            }
+        } catch(\Exception $e) {
+            \Session::put('red', true);
+            return back()->withErrors($e->getMessage());
+        }
+    }
+
     public function index(Request $request){
         try {
             $user = Auth::user();

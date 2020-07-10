@@ -126,8 +126,22 @@ class PageController extends Controller
                 $availableBalance = $stash->first()->availableAmount;
             }
 
+            $getPortfolios = $this->portfolio->where('isOpen', true)->get();
 
-            $transactions = $this->transaction->where('investorId', $user->investor()->id)->paginate(10);
+            $purchase = [
+                'can' => false,
+                'portfolioName' => '',
+                'pid' => 0
+            ];
+            foreach ($getPortfolios as $getPortfolio){
+                if ($availableBalance >= $getPortfolio->amountPerUnit){
+                    $purchase['can'] = true;
+                    $purchase['portfolioName'] = $getPortfolio->name;
+                    $purchase['pid'] = $getPortfolio->id;
+                }
+            }
+
+            $transactions = $this->transaction->where('investorId', $user->investor()->id)->latest()->paginate(8);
 
             $creditAmount = 0;
             $debitAmount = 0.00;
@@ -141,7 +155,7 @@ class PageController extends Controller
                 $transaction->date = $this->formatter->dataTime($transaction->created_at);
             }
 
-            $transfers = $this->transferRequest->where('investorId', $user->investor()->id)->paginate(10);
+            $transfers = $this->transferRequest->where('investorId', $user->investor()->id)->paginate(8);
 
             $data = [
                 'title' => 'Dashboard',
@@ -150,6 +164,7 @@ class PageController extends Controller
                 'tranX' => [ "credit" => $this->formatter->MoneyConvert($creditAmount, "full"), "debit" => $this->formatter->MoneyConvert($debitAmount), "full"],
                 'transactions' => $transactions,
                 'transfers' => $transfers,
+                'purchase' => $purchase,
             ];
 
             return view('dashboard.investor.stash', $data);
@@ -255,6 +270,8 @@ class PageController extends Controller
                 }else{
                     $investment->isReady = false;
                 }
+
+                $investment->interstSofar = (($investment->diff / 365) * $investment->roi);
             }
             $data = [
                 'title' => 'Dashboard',

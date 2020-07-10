@@ -72,7 +72,11 @@
                             <dl class="row text-black">
                                 <dt class="col-md-9">BVN</dt>
                                 <dd class="col-md-3 text-right">
-                                    {{$business->bvn->number}}
+                                    @if($business->bvn !== null)
+                                        {{$business->bvn->number}}
+                                    @else
+                                        <p>No BVN Found</p>
+                                    @endif
                                 </dd>
                             </dl>
                         </div>

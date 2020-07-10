@@ -10,6 +10,12 @@
         }
 
     </style>
+    @if($purchase['can'] === true)
+        <div class="alert alert-success flat">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            😉 Do you know you can purchase units from the <a class="text-black font-weight-bold underline" href="{{URL('/dashboard/i/investment/'.encrypt($purchase['pid']))}}">{{$purchase['portfolioName']}}</a>
+        </div>
+    @endif
     <div class="content-header row">
         <div class="content-header-left col-md-6 col-12 mb-2">
             <h5 class="content-header-title">Savings</h5>
@@ -76,7 +82,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8 col-12">
+        <div class="col-md-12 col-12">
             <div class="card pb-1">
                 <div class="card-header">
                     <h4 class="card-title">Transactions</h4>
@@ -144,7 +150,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-12">
+        <div class="col-md-12 col-12">
             <div class="card pb-1">
                 <div class="card-header">
                     <h4 class="card-title">Withdrawals</h4>

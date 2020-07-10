@@ -130,9 +130,9 @@
                                     <tr class="borderless">
                                         <th>Portfolio Name</th>
                                         <th>Amount</th>
-                                        <th>Payment Method</th>
                                         <th>Units Bought</th>
                                         <th>Return On Investment(P.A)</th>
+                                        <th>Interest So far</th>
                                         <th>Date</th>
                                         <th>Withdraw</th>
                                     </tr>
@@ -146,17 +146,9 @@
                                             <td>
                                                 <p class="font-size-17px success darken-4">₦ {{App\Http\Helpers\Formatter::MoneyConvert($investment->amount, "full")}}</p>
                                             </td>
-                                            <td>
-                                                @if($investment->paymentMethod === "bank")
-                                                    <button type="button" class="btn mr-1 mb-1 btn-outline-danger btn-lighten-4 btn-sm">Bank</button>
-                                                @else
-                                                    <button type="button" class="btn mr-1 mb-1 btn-outline-success btn-sm">Stash</button>
-                                                @endif
-
-                                            </td>
                                             <td>{{$investment->unitsBought}}</td>
                                             <td class="font-size-17px success darken-4">₦ {{App\Http\Helpers\Formatter::MoneyConvert($investment->roi, "full")}}</td>
-
+                                            <td class="font-size-17px success darken-4">₦ {{App\Http\Helpers\Formatter::MoneyConvert($investment->interstSofar, "full")}}</td>
                                             <td>{{App\Http\Helpers\Formatter::dataTime($investment->transaction->created_at)}} </td>
                                             <td>
                                                 @if($investment->isReady === false)

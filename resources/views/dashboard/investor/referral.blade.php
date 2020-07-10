@@ -34,8 +34,7 @@
 
                         <div class="row">
                             <div class="col-12">
-                                <h5 class="font-weight-bold">{{$user->referralSlug}}</h5>
-                                copy this code and share with your friends to register
+                                Share your Referral Code with friends
                                 <div class="row">
                                     <div class="form-group col-10">
                                         <input type="text" class="form-control" id="copyLink" value="{{$user->referralLink.$user->referralSlug}}" disabled="disabled">
@@ -44,6 +43,8 @@
                                         <button type="button" class="btn btn-icon btn-secondary mr-1" onclick="copyLink()"><i class="fa fa-copy"></i></button>
                                     </div>
                                 </div>
+                                <p>Or Share through social Media</p>
+                                <div class="addthis_inline_share_toolbox" data-url="{{$user->referralLink.$user->referralSlug}}" data-title="Join Rouzo Now and Invest alongside Thousands of Investors" data-description="Hey friend, check out this cool new platform that allows you to invest in portfolios that finance small businesses and get healthy return" data-media="THE IMAGE"></div>
                             </div>
                         </div>
                         @endif
