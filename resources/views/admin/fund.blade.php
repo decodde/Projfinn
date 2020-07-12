@@ -31,8 +31,8 @@
                         </dl>
                         <hr>
                         <dl class="row text-black">
-                            <dt class="col-md-9">Description</dt>
-                            <dd class="col-md-3 text-right">{{ $fund->description }}</dd>
+                            <dt class="col-md-6">Description</dt>
+                            <dd class="col-md-6 text-right"><a href="{{$fund->description}}" target="_blank">{{ $fund->description }}</a></dd>
                         </dl>
                         <hr>
                         <dl class="row text-black">
