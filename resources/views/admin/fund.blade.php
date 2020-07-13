@@ -36,6 +36,50 @@
                         </dl>
                         <hr>
                         <dl class="row text-black">
+                            <dt class="col-md-6">Reside in Lagos?</dt>
+                            <dd class="col-md-6 text-right">
+                                @if($fund->address == true)
+                                    <a class="text-blue">Yes</a>
+                                @else
+                                    <a class="text-blue">No</a>
+                                @endif
+                            </dd>
+                        </dl>
+                        <hr>
+                        <dl class="row text-black">
+                            <dt class="col-md-6">Have Existing Loan?</dt>
+                            <dd class="col-md-6 text-right">
+                                @if($fund->existingLoan == true)
+                                    <a class="text-blue">Yes</a>
+                                @else
+                                    <a class="text-blue">No</a>
+                                @endif
+                            </dd>
+                        </dl>
+                        <hr>
+                        <dl class="row text-black">
+                            <dt class="col-md-6">Accept that your guarantors will take full responsibility of repayment and liability if default?</dt>
+                            <dd class="col-md-6 text-right">
+                                @if($fund->certifyGuarantor == true)
+                                    <a class="text-blue">Yes</a>
+                                @else
+                                    <a class="text-blue">No</a>
+                                @endif
+                            </dd>
+                        </dl>
+                        <hr>
+                        <dl class="row text-black">
+                            <dt class="col-md-6">Accept that your loan application details are correct ?</dt>
+                            <dd class="col-md-6 text-right">
+                                @if($fund->certifyDocuments == true)
+                                    <a class="text-blue">Yes</a>
+                                @else
+                                    <a class="text-blue">No</a>
+                                @endif
+                            </dd>
+                        </dl>
+                        <hr>
+                        <dl class="row text-black">
                             <dt class="col-md-9">Contact Details</dt>
                             <dd class="col-md-3 text-right">
                                 Phone Number: {{ $fund->user->phone }}

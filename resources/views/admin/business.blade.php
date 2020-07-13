@@ -19,6 +19,11 @@
                             </dl>
                             <hr>
                             <dl class="row text-black">
+                                <dt class="col-md-9">Business Address</dt>
+                                <dd class="col-md-3 text-right">{{$business->address}}</dd>
+                            </dl>
+                            <hr>
+                            <dl class="row text-black">
                                 <dt class="col-md-9">Email Address</dt>
                                 <dd class="col-md-3 text-right">{{ $gUser->email }}</dd>
                             </dl>
