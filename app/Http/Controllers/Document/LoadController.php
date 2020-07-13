@@ -39,7 +39,7 @@ class LoadController extends Controller
                 return back()->withErrors($validation->getMessageBag())->withInput();
             } else {
                 $ext = $request->file('file')->getClientOriginalExtension();
-                $extArr = ['pdf', 'docs', 'docx', 'jpeg', 'jpg'];
+                $extArr = ['pdf', 'docs', 'docx',  'doc', 'jpeg', 'jpg'];
 
                 if(in_array($ext, $extArr)) {
                     $body['file'] = Cloudinary::upload($request->file)->getResult()['url'];

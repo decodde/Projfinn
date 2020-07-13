@@ -65,7 +65,7 @@ class LoadController extends Controller
             }
 
             $ext = $request->file('description')->getClientOriginalExtension();
-            $extArr = ['pdf', 'docs', 'docx', 'jpeg', 'jpg'];
+            $extArr = ['pdf', 'docs', 'docx',  'doc', 'jpeg', 'jpg'];
 
             if(in_array($ext, $extArr)) {
                 $file = Cloudinary::upload($request->description)->getResult()['url'];
