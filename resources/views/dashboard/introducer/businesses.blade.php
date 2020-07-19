@@ -82,8 +82,7 @@
             <div class="card px-1">
                 <div class="card-header">
                     <h2 class="font-weight-normal font-size-22px f-2 m-0">Invites</h2>
-                    <p class="font-size-14px p-0 m-0 pt-1">- CAC Document <a class="font-size-14px pb-0 mb-0">Your Official Corporate Affairs Commission Document.</a></p>
-                    <p></p>
+                    <p class="font-size-14px p-0 m-0 pt-1"><a class="font-size-14px pb-0 mb-0">Businesses you have invited</a></p>
                 </div>
                 <div class="card-content">
                     <hr class="p-0 m-0">
@@ -154,6 +153,7 @@
                                     @endforeach
                                     </tbody>
                                 </table>
+                                {{$invites->links()}}
                             </div>
                         @else
                             <div class="text-center dotted-btn width-550">

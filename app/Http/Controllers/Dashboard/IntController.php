@@ -32,7 +32,33 @@ class IntController extends Controller{
     public function dashboard(Request $request) {
         try {
             $user = Auth::user();
-            $data = ['title' => 'Introducer'];
+            $user->introducer = $user->introducer();
+
+            $docs = $user->introducer->documents;
+            $account = $user->introducer->account;
+
+            if(count($docs) === 0){
+                \Session::put('danger', true);
+                return redirect('/dashboard/e/document')->withErrors('Please Provide Your Documents');
+            }
+
+            if($account === null){
+                \Session::put('danger', true);
+                return redirect('/dashboard/e/settings')->withErrors('Please Provide Your Account Details');
+            }
+
+            $invites = $this->invite->where(["introducerId" => $user->introducer->id])->paginate(10);
+            $invitesAccepted = 0;
+            $invitesPending = 0;
+
+            foreach ($invites as $invite){
+                if ($invite->hasSignUp == true){
+                    $invitesAccepted += 1;
+                }else{
+                    $invitesPending += 1;
+                }
+            }
+            $data = ['title' => 'Introducer', 'invites' => $invites, 'introducer' => $user->introducer, 'invitesAccepted' => $invitesAccepted, 'invitesPending' => $invitesPending];
 
             return view('dashboard.introducer.index', $data);
         } catch(\Exception $e) {
@@ -59,7 +85,7 @@ class IntController extends Controller{
                 return redirect('/dashboard/e/settings')->withErrors('Please Provide Your Account Details');
             }
 
-            $invites = $this->invite->where("introducerId", $user->introducer->id)->get();
+            $invites = $this->invite->where("introducerId", $user->introducer->id)->paginate(10);
             $inviteLink = URL('rTD/'.$user->introducer->slug.'/nomail');
             $invitesAccepted = 0;
 
