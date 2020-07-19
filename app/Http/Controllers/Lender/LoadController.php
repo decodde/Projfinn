@@ -65,7 +65,6 @@ class LoadController extends Controller
                     \Session::put('warning', true);
                     return back()->withErrors($register->message)->withInput()->withInput();
                 } else {
-//                    dd("Hey");
                     $user = $register->data;
                     if ($request->has('rCode')){
                         $referrer = $this->user->where('referralSlug', $request->rCode)->first();

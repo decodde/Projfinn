@@ -18,3 +18,10 @@ Route::group(['middleware' => 'investor', 'prefix' => 'i'], function() {
     Route::get('/investments', 'PageController@i_dashboard_investment');
     Route::get('/investment/{id}', 'PageController@i_dashboard_oneInvestment');
 });
+
+Route::group(['middleware' => 'introducer', 'prefix' => 'e'], function() {
+    Route::get('/', 'IntController@dashboard');
+    Route::get('/document', 'IntController@documents');
+    Route::get('/businesses', 'IntController@businesses');
+    Route::get('/settings', 'IntController@settings');
+});

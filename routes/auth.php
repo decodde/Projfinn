@@ -21,6 +21,8 @@ Route::get('/forgot-password', 'PageController@forgotPassword');
 Route::get('/lender', 'PageController@lender');
 Route::get('/r/{referralSlug}', 'PageController@referral');
 Route::get('/business', 'PageController@eligibilityTest');
+Route::get('/introducer', 'PageController@introducer');
+Route::get('/rTD/{slug}/{email}', 'PageController@businessInvite');
 
 Route::get('activate-account/{id}', 'LoadController@activateAccount');
 Route::post('/login', 'LoadController@login');

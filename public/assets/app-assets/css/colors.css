@@ -1845,16 +1845,16 @@ input:focus ~ .bg-info {
         }
       } */
 .btn-info {
-  border-color: #168DEE !important;
-  background-color: #1E9FF2 !important;
+  border-color: #3d22c2 !important;
+  background-color:#3d22c2 !important;
   color: #FFFFFF; }
   .btn-info:hover {
-    border-color: #1A97F0 !important;
-    background-color: #40ADF4 !important;
+    border-color: #3d22c2 !important;
+    background-color: #3d22c2 !important;
     color: #FFF !important; }
   .btn-info:focus, .btn-info:active {
-    border-color: #168DEE !important;
-    background-color: #1283EC !important;
+    border-color: #3d22c2 !important;
+    background-color: #3d22c2 !important;
     color: #FFF !important; }
   .btn-info.btn-glow {
     box-shadow: 0px 1px 20px 1px rgba(30, 159, 242, 0.6); }

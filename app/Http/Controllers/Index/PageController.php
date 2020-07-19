@@ -41,7 +41,6 @@ class PageController extends Controller
 
     public function contactUs(Request $request){
         try{
-//            dd("Hey");
             $data = $request->except('_token');
 
             $validation = $this->validate->contact($data, "submit");
@@ -60,5 +59,9 @@ class PageController extends Controller
             \Session::put('danger', true);
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
+    }
+
+    public function signup(Request $request){
+        return view('default.signup');
     }
 }

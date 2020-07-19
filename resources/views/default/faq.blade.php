@@ -22,7 +22,7 @@
             <div class="container">
                 <div class="row">
 
-                    <div class="lqd-column col-md-8 col-md-offset-2">
+                    <div class="lqd-column col-md-9 col-md-offset-2">
 
                         <header class="fancy-heading mb-5">
                             <h1 class="font-weight-bold">Investors</h1>
@@ -36,9 +36,9 @@
                                         <a class="" data-toggle="collapse" data-parent="#accordion-2" href="#accordion-collapse-panel-1" aria-expanded="true" aria-controls="accordion-collapse-panel-1">
                                             What is Rouzo?
                                             <span class="accordion-expander">
-                                                            <i class="icon-arrows_circle_plus"></i>
-                                                            <i class="icon-arrows_circle_minus"></i>
-                                                        </span>
+                                                <i class="icon-arrows_circle_plus"></i>
+                                                <i class="icon-arrows_circle_minus"></i>
+                                            </span>
                                         </a>
                                     </h4>
                                 </div><!-- /.accordion-heading -->
@@ -96,50 +96,10 @@
                             </div><!-- /.accordion-item -->
 
                             <div class="accordion-item panel">
-                                <div class="accordion-heading" role="tab" id="accordion-collapse-heading-2">
-                                    <h4 class="accordion-title font-size-22 font-weight-bold text-blue">
-                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-2" href="#accordion-collapse-collapse-2" aria-expanded="false" aria-controls="accordion-collapse-collapse-2">
-                                            How secure is my information on the platform?
-                                            <span class="accordion-expander">
-                                                            <i class="icon-arrows_circle_plus"></i>
-                                                            <i class="icon-arrows_circle_minus"></i>
-                                                        </span>
-                                        </a>
-                                    </h4>
-                                </div><!-- /.accordion-heading -->
-                                <div id="accordion-collapse-collapse-2" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-2">
-                                    <div class="accordion-content">
-                                        <p>We ensure the protection of your information through recognized security procedures by the Data Protections Act.
-                                        </p>
-                                    </div><!-- /.accordion-content -->
-                                </div><!-- /.collapse -->
-                            </div><!-- /.accordion-item -->
-
-                            <div class="accordion-item panel">
-                                <div class="accordion-heading" role="tab" id="accordion-collapse-heading-2">
-                                    <h4 class="accordion-title font-size-22 font-weight-bold text-blue">
-                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-2" href="#accordion-collapse-collapse-2" aria-expanded="false" aria-controls="accordion-collapse-collapse-2">
-                                            Can I invest alongside other investors?
-                                            <span class="accordion-expander">
-                                                            <i class="icon-arrows_circle_plus"></i>
-                                                            <i class="icon-arrows_circle_minus"></i>
-                                                        </span>
-                                        </a>
-                                    </h4>
-                                </div><!-- /.accordion-heading -->
-                                <div id="accordion-collapse-collapse-2" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-2">
-                                    <div class="accordion-content">
-                                        <p>Yes you can, you may also invite others to benefit from the investment opportunities offered on Rouzo platform. You can take advantage of our referral program and earn when the people you referred with your code create an account and make their first investment.
-                                        </p>
-                                    </div><!-- /.accordion-content -->
-                                </div><!-- /.collapse -->
-                            </div><!-- /.accordion-item -->
-
-                            <div class="accordion-item panel">
                                 <div class="accordion-heading" role="tab" id="accordion-collapse-heading-3">
                                     <h4 class="accordion-title font-size-22 font-weight-bold text-blue">
-                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-2" href="#accordion-collapse-collapse-3" aria-expanded="false" aria-controls="accordion-collapse-collapse-3">
-                                            How do I monitor businesses I invest into?
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-3" href="#accordion-collapse-collapse-3" aria-expanded="false" aria-controls="accordion-collapse-collapse-3">
+                                            How secure is my information on the platform?
                                             <span class="accordion-expander">
                                                             <i class="icon-arrows_circle_plus"></i>
                                                             <i class="icon-arrows_circle_minus"></i>
@@ -149,6 +109,46 @@
                                 </div><!-- /.accordion-heading -->
                                 <div id="accordion-collapse-collapse-3" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-3">
                                     <div class="accordion-content">
+                                        <p>We ensure the protection of your information through recognized security procedures by the Data Protections Act.
+                                        </p>
+                                    </div><!-- /.accordion-content -->
+                                </div><!-- /.collapse -->
+                            </div><!-- /.accordion-item -->
+
+                            <div class="accordion-item panel">
+                                <div class="accordion-heading" role="tab" id="accordion-collapse-heading-4">
+                                    <h4 class="accordion-title font-size-22 font-weight-bold text-blue">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-4" href="#accordion-collapse-collapse-4" aria-expanded="false" aria-controls="accordion-collapse-collapse-4">
+                                            Can I invest alongside other investors?
+                                            <span class="accordion-expander">
+                                                            <i class="icon-arrows_circle_plus"></i>
+                                                            <i class="icon-arrows_circle_minus"></i>
+                                                        </span>
+                                        </a>
+                                    </h4>
+                                </div><!-- /.accordion-heading -->
+                                <div id="accordion-collapse-collapse-4" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-4">
+                                    <div class="accordion-content">
+                                        <p>Yes you can, you may also invite others to benefit from the investment opportunities offered on Rouzo platform. You can take advantage of our referral program and earn when the people you referred with your code create an account and make their first investment.
+                                        </p>
+                                    </div><!-- /.accordion-content -->
+                                </div><!-- /.collapse -->
+                            </div><!-- /.accordion-item -->
+
+                            <div class="accordion-item panel">
+                                <div class="accordion-heading" role="tab" id="accordion-collapse-heading-5">
+                                    <h4 class="accordion-title font-size-22 font-weight-bold text-blue">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-5" href="#accordion-collapse-collapse-5" aria-expanded="false" aria-controls="accordion-collapse-collapse-5">
+                                            How do I monitor businesses I invest into?
+                                            <span class="accordion-expander">
+                                                            <i class="icon-arrows_circle_plus"></i>
+                                                            <i class="icon-arrows_circle_minus"></i>
+                                                        </span>
+                                        </a>
+                                    </h4>
+                                </div><!-- /.accordion-heading -->
+                                <div id="accordion-collapse-collapse-5" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-5">
+                                    <div class="accordion-content">
                                         <p>You can monitor your investment activities through your personalized dashboard on your registered account.
                                         </p>
                                     </div><!-- /.accordion-content -->
@@ -156,9 +156,9 @@
                             </div><!-- /.accordion-item -->
 
                             <div class="accordion-item panel">
-                                <div class="accordion-heading" role="tab" id="accordion-collapse-heading-3">
+                                <div class="accordion-heading" role="tab" id="accordion-collapse-heading-7">
                                     <h4 class="accordion-title font-size-22 font-weight-bold text-blue">
-                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-2" href="#accordion-collapse-collapse-3" aria-expanded="false" aria-controls="accordion-collapse-collapse-3">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-7" href="#accordion-collapse-collapse-7" aria-expanded="false" aria-controls="accordion-collapse-collapse-7">
                                             How much interest can I earn from an investment?
 
                                             <span class="accordion-expander">
@@ -168,7 +168,7 @@
                                         </a>
                                     </h4>
                                 </div><!-- /.accordion-heading -->
-                                <div id="accordion-collapse-collapse-3" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-3">
+                                <div id="accordion-collapse-collapse-7" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-7">
                                     <div class="accordion-content">
                                         <p>Depending on the portfolio type you’re investing in, you earn between 25% - 40% interest p.a.
                                         </p>
@@ -177,9 +177,9 @@
                             </div><!-- /.accordion-item -->
 
                             <div class="accordion-item panel">
-                                <div class="accordion-heading" role="tab" id="accordion-collapse-heading-3">
+                                <div class="accordion-heading" role="tab" id="accordion-collapse-heading-8">
                                     <h4 class="accordion-title font-size-22 font-weight-bold text-blue">
-                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-2" href="#accordion-collapse-collapse-3" aria-expanded="false" aria-controls="accordion-collapse-collapse-3">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-8" href="#accordion-collapse-collapse-8" aria-expanded="false" aria-controls="accordion-collapse-collapse-8">
                                             How does my interest accrue?
                                             <span class="accordion-expander">
                                                             <i class="icon-arrows_circle_plus"></i>
@@ -188,7 +188,7 @@
                                         </a>
                                     </h4>
                                 </div><!-- /.accordion-heading -->
-                                <div id="accordion-collapse-collapse-3" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-3">
+                                <div id="accordion-collapse-collapse-8" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-8">
                                     <div class="accordion-content">
                                         <p>You accrue interest on a monthly basis on Rouzo platform and you can view the summary of accumulated interest on your dashboard.
                                         </p>
@@ -197,9 +197,9 @@
                             </div><!-- /.accordion-item -->
 
                             <div class="accordion-item panel">
-                                <div class="accordion-heading" role="tab" id="accordion-collapse-heading-3">
+                                <div class="accordion-heading" role="tab" id="accordion-collapse-heading-9">
                                     <h4 class="accordion-title font-size-22 font-weight-bold text-blue">
-                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-2" href="#accordion-collapse-collapse-3" aria-expanded="false" aria-controls="accordion-collapse-collapse-3">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-9" href="#accordion-collapse-collapse-9" aria-expanded="false" aria-controls="accordion-collapse-collapse-9">
                                             When is my interest paid?
                                             <span class="accordion-expander">
                                                             <i class="icon-arrows_circle_plus"></i>
@@ -208,7 +208,7 @@
                                         </a>
                                     </h4>
                                 </div><!-- /.accordion-heading -->
-                                <div id="accordion-collapse-collapse-3" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-3">
+                                <div id="accordion-collapse-collapse-9" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-9">
                                     <div class="accordion-content">
                                         <p>Your accrued return can be seen monthly on your dashboard. You will get a payout of accumulated returns on a quarterly basis.
                                         </p>
@@ -217,9 +217,9 @@
                             </div><!-- /.accordion-item -->
 
                             <div class="accordion-item panel">
-                                <div class="accordion-heading" role="tab" id="accordion-collapse-heading-3">
+                                <div class="accordion-heading" role="tab" id="accordion-collapse-heading-10">
                                     <h4 class="accordion-title font-size-22 font-weight-bold text-blue">
-                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-2" href="#accordion-collapse-collapse-3" aria-expanded="false" aria-controls="accordion-collapse-collapse-3">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-10" href="#accordion-collapse-collapse-10" aria-expanded="false" aria-controls="accordion-collapse-collapse-10">
                                             What is the minimum and maximum investment period?
                                             <span class="accordion-expander">
                                                             <i class="icon-arrows_circle_plus"></i>
@@ -228,7 +228,7 @@
                                         </a>
                                     </h4>
                                 </div><!-- /.accordion-heading -->
-                                <div id="accordion-collapse-collapse-3" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-3">
+                                <div id="accordion-collapse-collapse-10" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-10">
                                     <div class="accordion-content">
                                         <p>The minimum investment period is 90days and the maximum is 360days. The longer your investment period the higher your returns.
                                         </p>
@@ -237,9 +237,9 @@
                             </div><!-- /.accordion-item -->
 
                             <div class="accordion-item panel">
-                                <div class="accordion-heading" role="tab" id="accordion-collapse-heading-3">
+                                <div class="accordion-heading" role="tab" id="accordion-collapse-heading-11">
                                     <h4 class="accordion-title font-size-22 font-weight-bold text-blue">
-                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-2" href="#accordion-collapse-collapse-3" aria-expanded="false" aria-controls="accordion-collapse-collapse-3">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-11" href="#accordion-collapse-collapse-11" aria-expanded="false" aria-controls="accordion-collapse-collapse-11">
                                             What is the minimum and maximum number of units I can invest in?
                                             <span class="accordion-expander">
                                                             <i class="icon-arrows_circle_plus"></i>
@@ -248,7 +248,7 @@
                                         </a>
                                     </h4>
                                 </div><!-- /.accordion-heading -->
-                                <div id="accordion-collapse-collapse-3" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-3">
+                                <div id="accordion-collapse-collapse-11" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-11">
                                     <div class="accordion-content">
                                         <p>The minimum number of units to invest in a portfolio is (1) and you can invest in as many units as you desire as long as there are units available in the portfolio. We usually limit units available for each portfolio per month to enable proper management of the portfolio.
                                         </p>
@@ -257,9 +257,9 @@
                             </div><!-- /.accordion-item -->
 
                             <div class="accordion-item panel">
-                                <div class="accordion-heading" role="tab" id="accordion-collapse-heading-3">
+                                <div class="accordion-heading" role="tab" id="accordion-collapse-heading-12">
                                     <h4 class="accordion-title font-size-22 font-weight-bold text-blue">
-                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-2" href="#accordion-collapse-collapse-3" aria-expanded="false" aria-controls="accordion-collapse-collapse-3">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-12" href="#accordion-collapse-collapse-12" aria-expanded="false" aria-controls="accordion-collapse-collapse-12">
                                             How fast can I invest in a Business?
                                             <span class="accordion-expander">
                                                             <i class="icon-arrows_circle_plus"></i>
@@ -268,7 +268,7 @@
                                         </a>
                                     </h4>
                                 </div><!-- /.accordion-heading -->
-                                <div id="accordion-collapse-collapse-3" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-3">
+                                <div id="accordion-collapse-collapse-12" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-12">
                                     <div class="accordion-content">
                                         <p>You can fund your wallet as soon as you create an account and invest in the portfolio of your choice. You will be notified of investment opportunities as soon as the portal opens monthly. You should always check your dashboard regularly for this information due to high demand.
                                         </p>
@@ -277,9 +277,9 @@
                             </div><!-- /.accordion-item -->
 
                             <div class="accordion-item panel">
-                                <div class="accordion-heading" role="tab" id="accordion-collapse-heading-3">
+                                <div class="accordion-heading" role="tab" id="accordion-collapse-heading-13">
                                     <h4 class="accordion-title font-size-22 font-weight-bold text-blue">
-                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-2" href="#accordion-collapse-collapse-3" aria-expanded="false" aria-controls="accordion-collapse-collapse-3">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-13" href="#accordion-collapse-collapse-13" aria-expanded="false" aria-controls="accordion-collapse-collapse-13">
                                             How safe is my money?
                                             <span class="accordion-expander">
                                                             <i class="icon-arrows_circle_plus"></i>
@@ -288,7 +288,7 @@
                                         </a>
                                     </h4>
                                 </div><!-- /.accordion-heading -->
-                                <div id="accordion-collapse-collapse-3" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-3">
+                                <div id="accordion-collapse-collapse-13" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-13">
                                     <div class="accordion-content">
                                         <p>Rouzo only lends to small businesses that have been in existence for at least 2 years with a good business model and traceable cash flow. We have an active in-house collections and recovery team to chase borrowers that default in repayment.
 
@@ -300,9 +300,9 @@
                             </div><!-- /.accordion-item -->
 
                             <div class="accordion-item panel">
-                                <div class="accordion-heading" role="tab" id="accordion-collapse-heading-3">
+                                <div class="accordion-heading" role="tab" id="accordion-collapse-heading-14">
                                     <h4 class="accordion-title font-size-22 font-weight-bold text-blue">
-                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-2" href="#accordion-collapse-collapse-3" aria-expanded="false" aria-controls="accordion-collapse-collapse-3">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion-14" href="#accordion-collapse-collapse-14" aria-expanded="false" aria-controls="accordion-collapse-collapse-14">
                                             What are the next steps after creating an account on the platform?
                                             <span class="accordion-expander">
                                                             <i class="icon-arrows_circle_plus"></i>
@@ -311,7 +311,7 @@
                                         </a>
                                     </h4>
                                 </div><!-- /.accordion-heading -->
-                                <div id="accordion-collapse-collapse-3" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-3">
+                                <div id="accordion-collapse-collapse-14" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-14">
                                     <div class="accordion-content">
                                         <p>Once you accept our terms and condition, you indicate your preference by purchasing as many units in a portfolio as you require, your investment journey begins immediately.
                                         </p>
@@ -325,82 +325,5 @@
                 </div><!-- /.row -->
             </div><!-- /.container -->
         </section>
-
-{{--        <section class="vc_row pt-50 pb-100">
-    <div class="container">
-        <div class="row">
-
-            <div class="lqd-column col-md-8 col-md-offset-2">
-
-                <header class="fancy-heading mb-5">
-                    <h2>Businesses</h2>
-                </header>
-
-                <div class="accordion accordion-md accordion-title-bordered accordion-expander-right accordion-active-color-primary" id="accordion-6" role="tablist">
-
-                    <div class="accordion-item panel active">
-                        <div class="accordion-heading" role="tab" id="accordion-6-heading-1">
-                            <h4 class="accordion-title font-size-22 font-weight-bold text-blue">
-                                <a class="" data-toggle="collapse" data-parent="#accordion-6" href="#accordion-6-panel-1" aria-expanded="true" aria-controls="accordion-6-panel-1">
-                                    How fast can I get funding for my Business?
-                                    <span class="accordion-expander">
-													<i class="icon-arrows_circle_plus"></i>
-													<i class="icon-arrows_circle_plus"></i>
-												</span>
-                                </a>
-                            </h4>
-                        </div><!-- /.accordion-heading -->
-                        <div id="accordion-6-panel-1" class="accordion-collapse collapse in" role="tabpanel" aria-labelledby="accordion-6-heading-1">
-                            <div class="accordion-content">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris niesi ut aliquip ex ea commodo consequat.sed do eiusmod tempor incididunt ut quis  labore et doliore magna aliqua.</p>
-                            </div><!-- /.accordion-content -->
-                        </div><!-- /.collapse -->
-                    </div><!-- /.accordion-item -->
-
-                    <div class="accordion-item panel">
-                        <div class="accordion-heading" role="tab" id="accordion-6-heading-2">
-                            <h4 class="accordion-title font-size-22 font-weight-bold text-blue">
-                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion-6" href="#accordion-6-collapse-2" aria-expanded="false" aria-controls="accordion-6-collapse-2">
-                                    What next do I do if I am not Eligible on the Platform?
-                                    <span class="accordion-expander">
-													<i class="icon-arrows_circle_plus"></i>
-													<i class="icon-arrows_circle_plus"></i>
-												</span>
-                                </a>
-                            </h4>
-                        </div><!-- /.accordion-heading -->
-                        <div id="accordion-6-collapse-2" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-6-heading-2">
-                            <div class="accordion-content">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris niesi ut aliquip ex ea commodo consequat.sed do eiusmod tempor incididunt ut quis  labore et doliore magna aliqua.</p>
-                            </div><!-- /.accordion-content -->
-                        </div><!-- /.collapse -->
-                    </div><!-- /.accordion-item -->
-
-                    <div class="accordion-item panel">
-                        <div class="accordion-heading" role="tab" id="accordion-6-heading-3">
-                            <h4 class="accordion-title font-size-22 font-weight-bold text-blue">
-                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion-6" href="#accordion-6-collapse-3" aria-expanded="false" aria-controls="accordion-6-collapse-3">
-                                    Can Businesses Outside Nigeria also Invest?
-                                    <span class="accordion-expander">
-													<i class="icon-arrows_circle_plus"></i>
-													<i class="icon-arrows_circle_plus"></i>
-												</span>
-                                </a>
-                            </h4>
-                        </div><!-- /.accordion-heading -->
-                        <div id="accordion-6-collapse-3" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-6-heading-3">
-                            <div class="accordion-content">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris niesi ut aliquip ex ea commodo consequat.sed do eiusmod tempor incididunt ut quis  labore et doliore magna aliqua.</p>
-                            </div><!-- /.accordion-content -->
-                        </div><!-- /.collapse -->
-                    </div><!-- /.accordion-item -->
-
-                </div><!-- /.accordion -->
-
-            </div><!-- /.lqd-column col-md-8 col-md-offset-2 -->
-
-        </div><!-- /.row -->
-    </div><!-- /.container -->
-</section>--}}
     </main><!-- /#content.content -->
 @stop

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
+use App\Models\introducerAccount;
 use Illuminate\Http\Request;
 
 use App\Models\lenderAccount;
@@ -22,15 +23,16 @@ class LoadController extends Controller
     private $api;
     private $bank;
     private $busAccount;
+    private $introducerAccount;
 
-
-    public function __construct(User $user, lenderAccount $lenderAccount, Validate $validate, apiHelper $api, Bank $bank, busAccount $busAccount){
+    public function __construct(User $user, lenderAccount $lenderAccount, Validate $validate, apiHelper $api, Bank $bank, busAccount $busAccount, introducerAccount $introducerAccount){
          $this->lenderAccount = $lenderAccount;
          $this->user = $user;
          $this->validate = $validate;
          $this->api = $api;
          $this->bank = $bank;
          $this->busAccount = $busAccount;
+         $this->introducerAccount = $introducerAccount;
     }
 
     public function editUser(Request $request){
@@ -261,6 +263,111 @@ class LoadController extends Controller
 
             if($is_verified === true){
                 $this->busAccount->create($data);
+            }
+            else{
+                \Session::put('danger', true);
+                return back()->withErrors('Incorrect Account Details');
+            }
+
+            \Session::put('success', true);
+            return back()->withErrors('Account Details Verified');
+        }catch (\Exception $e){
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function updateIntroducer(Request $request){
+        try{
+            $data = $request->except('_token');
+
+            $validation = $this->validate->account($data, "updateDetails");
+
+            if($validation->fails()){
+                \Session::put('warning', true);
+                return back()->withErrors($validation->getMessageBag())->withInput();
+            }
+
+            $bank = $this->bank->where('id', $data['bankId'])->first();
+
+            if($bank === null){
+                \Session::put('danger', true);
+                return back()->withErrors('An error has occurred');
+            }
+
+            $user = \Auth::user();
+
+            $name = explode(" ", $user->name);
+
+            $body = [
+                'account_number' => $data['accountNumber'],
+                'bank_code' => $bank->code,
+                'bvn' => $data['bvn'],
+                'first_name' => $name[0],
+                'last_name' => $name[1]
+            ];
+
+            $is_verified = true;
+
+            if($is_verified === true){
+                $lac = $this->introducerAccount->where('id', decrypt($data["dd"]));
+
+                if($lac->first() !== null){
+                    $lac->update([
+                        "userId" => $data["userId"],
+                        "bankId" => $data["bankId"],
+                        'bvn' => $data['bvn'],
+                        "accountNumber" => $data["accountNumber"]
+                    ]);
+                }
+            }
+            else{
+                \Session::put('danger', true);
+                return back()->withErrors('Incorrect Account Details');
+            }
+
+            \Session::put('success', true);
+            return back()->withErrors('Account Details Verified');
+        }catch (\Exception $e){
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function accountIntroducer(Request $request){
+        try{
+            $data = $request->except('_token');
+
+            $validation = $this->validate->account($data, "introducer");
+
+            if($validation->fails()){
+                \Session::put('warning', true);
+                return back()->withErrors($validation->getMessageBag())->withInput();
+            }
+
+            $bank = $this->bank->where('id', $data['bankId'])->first();
+
+            if($bank === null){
+                \Session::put('danger', true);
+                return back()->withErrors('An error has occurred');
+            }
+
+            $user = \Auth::user();
+
+            $name = explode(" ", $user->name);
+
+            $body = [
+                'account_number' => $data['accountNumber'],
+                'bank_code' => $bank->code,
+                'bvn' => $data['bvn'],
+                'first_name' => $name[0],
+                'last_name' => $name[1]
+            ];
+
+            $is_verified = true;
+
+            if($is_verified === true){
+                $this->introducerAccount->create($data);
             }
             else{
                 \Session::put('danger', true);

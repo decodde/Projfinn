@@ -1,5 +1,7 @@
 @if($user->type === 'business')
     <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-light navbar-hide-on-scroll navbar-border navbar-shadow navbar-brand-center" style="border-bottom: 2px solid #18BE77">
+@elseif($user->type === 'introducer')
+    <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-light navbar-hide-on-scroll navbar-border navbar-shadow navbar-brand-center" style="border-bottom: 2px solid #FF9149">
 @else
     <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-light navbar-hide-on-scroll navbar-border navbar-shadow navbar-brand-center" style="border-bottom: 2px solid #FF4259">
 @endif
@@ -27,6 +29,8 @@
                         <a class="nav-link" href="#">
                             @if($user->type === 'business')
                                 <p class="btn btn-success my-0" style="padding-top: 3px; padding-bottom: 3px;">Business</p>
+                            @elseif($user->type === 'introducer')
+                                <p class="btn btn-warning my-0" style="padding-top: 3px; padding-bottom: 3px;">Introducer</p>
                             @else
                                 <p class="btn btn-danger my-0" style="padding-top: 3px; padding-bottom: 3px;">Investor</p>
                             @endif

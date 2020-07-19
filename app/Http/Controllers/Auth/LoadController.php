@@ -94,16 +94,19 @@ class LoadController extends Controller
                 \Session::put('warning', true);
                 return back()->withErrors("Your account is not verified. Kindly check your email for a verification link");
             }
-
-            if ($this->auth::user()->type !== "admin"){
+            if ($this->auth::user()->type !== "admin" && $this->auth::user()->type !== "introducer"){
                 $this->checkTrnx($this->auth::user()->email, $this->auth::user()->type);
             }
 
             if ($this->auth::user()->type === 'investor') {
 
                 return redirect()->intended('/dashboard/i');
-            } else if ($this->auth::user()->type === 'business') {
+            }
+            else if ($this->auth::user()->type === 'business') {
                 return redirect()->intended('/dashboard');
+            }
+            else if ($this->auth::user()->type === 'introducer') {
+                return redirect()->intended('/dashboard/e');
             }
             else{
                 return redirect()->intended('/admin/rouzz/overview');
@@ -150,10 +153,12 @@ class LoadController extends Controller
                 if ($body["type"] === 'investor'){
                     $this->mail->welcomeMessage($body);
                 }
+                elseif ($body['type'] === 'introducer'){
+                    $this->mail->welcomeMessageInt($body);
+                }
                 else{
                     $this->mail->welcomeMessageBus($body);
                 }
-//                dd("Hey");
 
                 //it's a beautiful day, don't you think
                 return response()->json(["message" => "User successfully created", "data" => $body], 200);

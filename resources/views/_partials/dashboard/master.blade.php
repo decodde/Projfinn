@@ -40,6 +40,8 @@
 
             @if($user->type === 'business')
               @include('_partials.dashboard.sidebar')
+            @elseif($user->type === 'introducer')
+                @include('_partials.dashboard.introducer_sidebar')
             @else
                @include('_partials.dashboard.in_sidebar')
             @endif

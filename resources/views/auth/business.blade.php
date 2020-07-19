@@ -18,8 +18,15 @@
                                                             <img src="{{ asset('assets/app-assets/images/adobe/logo.png') }}" width="150px" alt="branding logo">
                                                         </div>
                                                     </div>
-                                                    <p class="font-size-30px text-black">Let's Get Started</p>
-                                                    <p>Fund your business needs today</p>
+                                                    @if($r_user !== null)
+
+                                                        <p class="font-size-24px text-black f-2"><a class="blue">{{$r_user["name"]}}</a> has invited you to boost your cash flow with Rouzo </p>
+                                                        <p>Help Businesses Thrive</p>
+                                                    @else
+                                                        <p class="font-size-24px text-black">Let's Get Started</p>
+                                                        <p>Fund your business needs today</p>
+                                                    @endif
+
                                                     <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2 mb-0"></h6>
                                                     @include("_partials.errors")
                                                 </div>
@@ -28,6 +35,13 @@
                                                         <form action="{{ URL('/business/createBusiness') }}" class="number-tab-steps wizard-notification" method="POST" enctype="multipart/form-data">
                                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                             <input type="hidden" name="type" value="business">
+                                                            @if($r_user !== null)
+                                                                <input type="hidden" name="rCode" value="{{$r_user["code"]}}">
+                                                            @endif
+
+                                                            @if($r_user["email"] == 'nomail')
+                                                                <input type="hidden" name="nomail" value="true">
+                                                            @endif
                                                             <!-- Step 1 -->
                                                             <h6>&nbsp;Eligibility Test</h6>
                                                             <fieldset class="mt-5">
@@ -87,8 +101,8 @@
                                                                 <div class="row">
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
-                                                                            <label for="address">Organization Name <span style="color:red;">*</span>:</label>
-                                                                            <input name="o_name" id="address" class="form-control" required="required" value="{{ old('o_name') }}">
+                                                                            <label for="o_name">Organization Name <span style="color:red;">*</span>:</label>
+                                                                            <input name="o_name" id="o_name" class="form-control" required="required" value="{{ old('o_name') }}">
                                                                         </div>
                                                                     </div>
 
@@ -100,14 +114,22 @@
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
-                                                                            <label for="firstName1">Email Address <span class="red">*</span> :</label>
-                                                                            <input type="email" class="form-control" name="email" id="firstName1" value="{{ old('email') }}">
+                                                                            <label for="email">Email Address <span class="red">*</span> :</label>
+                                                                            @if($r_user == null)
+                                                                                @if($r_user["email"] !== 'nomail')
+                                                                                    <input type="email" class="form-control" name="email" id="email" value="{{ $r_user['email'] }}" readonly>
+                                                                                @else
+                                                                                    <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}">
+                                                                                @endif
+                                                                            @else
+                                                                                <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}">
+                                                                            @endif
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
-                                                                            <label for="lastName1">Phone Number  <span class="red">*</span> :</label>
-                                                                            <input type="tel" class="form-control" name="phone" id="lastName1" value="{{ old('phone') }}">
+                                                                            <label for="phone">Phone Number  <span class="red">*</span> :</label>
+                                                                            <input type="tel" class="form-control" name="phone" id="phone" value="{{ old('phone') }}">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -117,12 +139,12 @@
                                                                         <div class="row">
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
-                                                                                    <input type="text" id="name" class="form-control" placeholder="First Name" name="f_name" value="{{ old('f_name') }}">
+                                                                                    <input type="text" id="f_name" class="form-control" placeholder="First Name" name="f_name" value="{{ old('f_name') }}">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-6">
                                                                                 <div class="form-group">
-                                                                                    <input type="text" id="name" class="form-control" placeholder="Last Name" name="l_name" value="{{ old('l_name') }}">
+                                                                                    <input type="text" id="l_name" class="form-control" placeholder="Last Name" name="l_name" value="{{ old('l_name') }}">
                                                                                 </div>
                                                                             </div>
                                                                         </div>

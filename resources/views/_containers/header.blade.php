@@ -99,6 +99,8 @@
                                             <a href="{{URL('/dashboard/i')}}" class="btn btn-default btn-sm round border-thin btn-register py-0">
                                         @elseif(auth()->user()->type === "admin")
                                             <a href="{{URL('/admin/rouzz')}}" class="btn btn-default btn-sm round border-thin btn-register py-0">
+                                        @elseif(auth()->user()->type === "introducer")
+                                            <a href="{{URL('/dashboard/e')}}" class="btn btn-default btn-sm round border-thin btn-register py-0">
                                         @else
                                             <a href="{{URL('/dashboard')}}" class="btn btn-default btn-sm round border-thin btn-register py-0">
                                         @endif

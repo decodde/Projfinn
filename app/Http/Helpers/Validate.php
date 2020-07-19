@@ -79,6 +79,13 @@ class Validate {
                 "accountNumber" => "required|unique:bus_accounts"
             ]);
         }
+        else if($type == "introducer"){
+            return $this->validator::make($data, [
+                "userId" => "required",
+                "bankId" => "required",
+                "accountNumber" => "required|unique:introducer_accounts"
+            ]);
+        }
         else {
             return $this->validator::make($data, [
                 "userId" => "required",
@@ -176,6 +183,42 @@ class Validate {
         }
     }
 
+    public function introducer($data, $type)
+    {
+        switch ($type) {
+            case 'create':
+                return $this->validator::make($data, [
+                    'o_name' => 'required',
+                    'f_name' => 'required',
+                    'l_name' => 'required',
+                    'email' => 'required|email|unique:introducers',
+                    'phone' => 'required|unique:introducers',
+                    'address' => 'required',
+                    "password" => "required|min:6|confirmed",
+                ]);
+                break;
+            default:
+                # code...
+                break;
+        }
+    }
+
+    public function invite($data, $type)
+    {
+        switch ($type) {
+            case 'create':
+                return $this->validator::make($data, [
+                    'introducerId' => 'required',
+                    'businessName' => 'required',
+                    'email' => 'required|email|unique:introducers|unique:lenders',
+                ]);
+                break;
+            default:
+                # code...
+                break;
+        }
+    }
+
     public function eligibility($data, $type)
     {
         switch ($type) {
@@ -226,6 +269,13 @@ class Validate {
             case 'create':
                 return $this->validator::make($data, [
                     'businessId' => 'required',
+                    'type' => 'required',
+                    'file' => 'required',
+                ]);
+                break;
+            case 'intCreate':
+                return $this->validator::make($data, [
+                    'introducerId' => 'required',
                     'type' => 'required',
                     'file' => 'required',
                 ]);

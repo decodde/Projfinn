@@ -36,6 +36,10 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\Lender', 'userId', 'id')->first();
     }
+    public function introducer()
+    {
+        return $this->hasOne('App\Models\Introducer', 'userId', 'id')->first();
+    }
     public function account()
     {
         return $this->hasOne('App\Models\lenderAccount', 'userId', 'id')->first();

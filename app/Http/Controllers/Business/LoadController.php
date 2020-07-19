@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Business;
 
 use App\Http\Controllers\Controller;
+use App\Models\Introducer;
+use App\Models\Invite;
 use Illuminate\Http\Request;
 
 use App\Models\Eligibility;
@@ -34,8 +36,10 @@ class LoadController extends Controller
     private $eligibility;
     private $registration;
     private $eli;
+    private $invite;
+    private $introducer;
 
-    public function __construct(Business $business, User $user, Validate $validate, Cloudinary $cloudinary, sendMail $mail, Registration $registration, Partials $partials, Lender $lender, Eligibility $eligibility, Eli $eli) {
+    public function __construct(Business $business, User $user, Validate $validate, Cloudinary $cloudinary, sendMail $mail, Registration $registration, Partials $partials, Lender $lender, Eligibility $eligibility, Eli $eli, Introducer $introducer, Invite $invite) {
         $this->user = $user;
         $this->mail = $mail;
         $this->lender = $lender;
@@ -46,6 +50,8 @@ class LoadController extends Controller
         $this->eligibility = $eligibility;
         $this->registration = $registration;
         $this->eli = $eli;
+        $this->invite = $invite;
+        $this->introducer = $introducer;
     }
 
     public function business(Request $request) {
@@ -76,6 +82,29 @@ class LoadController extends Controller
                 return back()->withErrors($register->message)->withInput();
             } else {
                 $user = $register->data;
+
+                if ($request->has('rCode')){
+                    $referrer = $this->introducer->where('slug', $request->rCode)->first();
+
+                    if($request->has('nomail')){
+                        $params = [
+                            "introducerId" => $referrer->id,
+                            "businessName" => $body['o_name'],
+                            "slug" => str_random(20),
+                            "email" => $body["email"],
+                            "hasSignUp" => true,
+                        ];
+
+                        $this->invite->create($params);
+                    }
+                    else{
+                        $getInvite = $this->invite->where(['email' => $body["email"], 'introducerId' => $referrer->id]);
+
+                        if ($getInvite->first() !== null){
+                            $getInvite->update(['hasSignUp' => true]);
+                        }
+                    }
+                }
 
                 $body['slug'] = str_random(20);
                 $body['userId'] = $user->id;

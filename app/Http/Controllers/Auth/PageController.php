@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Introducer;
 use Illuminate\Http\Request;
 
 use App\Http\Helpers\partials as Partials;
@@ -19,12 +20,14 @@ class PageController extends Controller
     private $category;
     private $l_category;
     private $user;
-    public function __construct(Partials $partials, Category $category, LenderCategory $l_category, User $user)
+    private $introducer;
+    public function __construct(Partials $partials, Category $category, LenderCategory $l_category, User $user, Introducer $introducer)
     {
         $this->partials = $partials;
         $this->category = $category;
         $this->l_category = $l_category;
         $this->user = $user;
+        $this->introducer = $introducer;
     }
 
     public function login(Request $request){
@@ -118,12 +121,26 @@ class PageController extends Controller
         try {
             $eligibilityOptions = $this->partials->eligibilityOptions();
 
-            $data = ['title' => 'Check Eligibility', 'eligibilityOptions' => $eligibilityOptions];
+            if($request->has('rN') && $request->has('rC') && $request->has('ml')){
+                $r_user['name'] = decrypt($request->rN);
+                $r_user['code'] = decrypt($request->rC);
+                if($request->ml === 'nomail'){
+                    $r_user['email'] = $request->ml;
+                }
+                else{
+                    $r_user['email'] = decrypt($request->ml);
+                }
+            }
+            else{
+                $r_user = null;
+            }
+
+            $data = ['title' => 'Check Eligibility', 'eligibilityOptions' => $eligibilityOptions, 'r_user' => $r_user];
 
             return view('auth.business', $data);
         } catch(\Exception $e) {
             \Session::put('danger', true);
-            return back()->withErrors($e->getMessageBag());
+            return redirect('/')->withErrors($e->getMessage());
         }
     }
 
@@ -140,12 +157,31 @@ class PageController extends Controller
         $name = explode(" ", $r_user['name']);
         $r_user["f_name"] = $name[0];
         $r_user["l_name"] = $name[1];
-//        dd("Hey");
         return redirect('lender?rC='.encrypt($referralSlug).'&rN='.encrypt($r_user["f_name"]));
     }
 
-    public function facebookRedirect()
+    public function businessInvite(Request $request, $slug, $email)
     {
-        return Socialite::driver('facebook')->redirect();
+        try {
+
+            $r_user = $this->introducer->where('slug', $slug)->first();
+
+            if ($r_user === null) {
+                \Session::put('danger', true);
+                return redirect('login')->withErrors('Incorrect URL');
+            }
+            return redirect('business?rC=' . encrypt($slug) . '&rN=' . encrypt($r_user->name) . '&ml=' . $email);
+        }
+        catch (\Exception $e){
+            \Session::put('danger', true);
+            return redirect('business')->withErrors('An Error Occurred');
+        }
+    }
+
+    public function introducer(Request $request){
+        $data = [
+            'title' => 'Sign Up : Introducer',
+        ];
+        return view('auth.introducer', $data);
     }
 }

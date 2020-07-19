@@ -63,11 +63,8 @@ class BusController extends Controller{
             }
             $data = ['title' => 'Dashboard', 'business' => $user->business(), 'transactions' => $transactions, 'grade' => $grade,];
 
-            if($user->type == 'business') {
-                return view('dashboard.business.index', $data);
-            } else {
-                return view('dashboard.investor.index', $data);
-            }
+
+            return view('dashboard.business.index', $data);
         } catch(\Exception $e) {
             \Session::put('danger', true);
             return back()->withErrors('An error has occurred: '.$e->getMessage());

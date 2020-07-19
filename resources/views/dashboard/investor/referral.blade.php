@@ -120,7 +120,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if(@$payedReferral->hasSignUp)
+                                                    @if($payedReferral->hasSignUp)
                                                         <p class="font-size-17px success darken-4">
                                                             This user has singed up
                                                         </p>

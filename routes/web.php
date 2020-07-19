@@ -23,6 +23,7 @@ Route::group(['namespace' => 'Index'], function() {
     Route::get('/contact', 'PageController@contact');
     Route::post('/contact', 'PageController@contactUs');
     Route::get('/faq', 'PageController@faq');
+    Route::get('/sign-up', 'PageController@signup');
 });
 
 Route::group(['namespace' => 'Auth'], function() {
