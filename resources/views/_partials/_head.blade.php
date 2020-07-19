@@ -17,6 +17,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/core/colors/palette-gradient.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/pages/login-register.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/plugins/forms/wizard.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/assets/vendors/liquid-icon/liquid-icon.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/assets/css/iconboxes.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/assets/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/chosen.min.css') }}">
     <!-- Global site tag (gtag.js) - Google Analytics -->

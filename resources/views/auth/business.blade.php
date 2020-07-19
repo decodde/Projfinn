@@ -37,11 +37,11 @@
                                                             <input type="hidden" name="type" value="business">
                                                             @if($r_user !== null)
                                                                 <input type="hidden" name="rCode" value="{{$r_user["code"]}}">
+                                                                @if($r_user["email"] == 'nomail')
+                                                                    <input type="hidden" name="nomail" value="true">
+                                                            @endif
                                                             @endif
 
-                                                            @if($r_user["email"] == 'nomail')
-                                                                <input type="hidden" name="nomail" value="true">
-                                                            @endif
                                                             <!-- Step 1 -->
                                                             <h6>&nbsp;Eligibility Test</h6>
                                                             <fieldset class="mt-5">
@@ -115,7 +115,7 @@
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
                                                                             <label for="email">Email Address <span class="red">*</span> :</label>
-                                                                            @if($r_user == null)
+                                                                            @if($r_user !== null)
                                                                                 @if($r_user["email"] !== 'nomail')
                                                                                     <input type="email" class="form-control" name="email" id="email" value="{{ $r_user['email'] }}" readonly>
                                                                                 @else

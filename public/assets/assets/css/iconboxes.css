@@ -1,0 +1,861 @@
+.iconbox {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 2em;
+    position: relative;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    text-align: center;
+    -webkit-transition: background 0.3s ease, -webkit-box-shadow 0.3s ease;
+    transition: background 0.3s ease, -webkit-box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease, background 0.3s ease;
+    transition: box-shadow 0.3s ease, background 0.3s ease, -webkit-box-shadow 0.3s ease;
+}
+.iconbox .iconbox-icon-container,
+.iconbox .contents,
+.iconbox > h3 {
+    position: relative;
+    z-index: 2;
+}
+.iconbox .iconbox-icon-container,
+.iconbox p,
+.iconbox h3 {
+    -webkit-transition-property: color, background;
+    transition-property: color, background;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease;
+    transition-timing-function: ease;
+}
+.iconbox h3 {
+    display: inline-block;
+    margin: 0 0 0.7em;
+    font-size: 24px;
+    line-height: 1.5em;
+}
+.iconbox .iconbox-icon-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 0.5em;
+    border: 0 solid #F2F4F7;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    font-size: 40px;
+    line-height: 1em;
+    color: var(--color-primary);
+    -webkit-transition: border 0.3s, -webkit-box-shadow 0.3s;
+    transition: border 0.3s, -webkit-box-shadow 0.3s;
+    transition: border 0.3s, box-shadow 0.3s;
+    transition: border 0.3s, box-shadow 0.3s, -webkit-box-shadow 0.3s;
+}
+.iconbox .iconbox-icon-container i,
+.iconbox .iconbox-icon-container img,
+.iconbox .iconbox-icon-container object,
+.iconbox .iconbox-icon-container > svg {
+    position: relative;
+    z-index: 2;
+}
+.iconbox .iconbox-icon-container img[src$=".svg"],
+.iconbox .iconbox-icon-container object,
+.iconbox .iconbox-icon-container > svg {
+    display: inline-block;
+    width: 40px;
+    line-height: 0;
+}
+.iconbox .iconbox-icon-container img[src$=".svg"] stop,
+.iconbox .iconbox-icon-container object stop,
+.iconbox .iconbox-icon-container > svg stop {
+    -webkit-transition: stop-color 0.3s ease;
+    transition: stop-color 0.3s ease;
+}
+.iconbox .iconbox-icon-container > svg,
+.iconbox .iconbox-icon-container > svg path,
+.iconbox .iconbox-icon-container > svg rect,
+.iconbox .iconbox-icon-container > svg ellipse,
+.iconbox .iconbox-icon-container > svg circle,
+.iconbox .iconbox-icon-container > svg polygon,
+.iconbox .iconbox-icon-container > svg polyline {
+    -webkit-transition: fill 0.3s, stroke 0.3s;
+    transition: fill 0.3s, stroke 0.3s;
+}
+.iconbox .iconbox-icon-container i {
+    display: inline-block;
+    font-size: 1em;
+}
+.iconbox .iconbox-icon-container[data-plugin-animated-icon] {
+    font-size: 1em;
+    line-height: 1em !important;
+}
+.iconbox .iconbox-icon-container[data-plugin-animated-icon] > svg,
+.iconbox .iconbox-icon-container[data-plugin-animated-icon] object {
+    opacity: 0;
+}
+.iconbox .contents {
+    max-width: 100%;
+}
+.iconbox .iconbox-fill-el,
+.iconbox .iconbox-icon-hover-bg {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: inherit;
+    -webkit-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+    opacity: 0;
+    background-size: cover;
+}
+.iconbox p {
+    margin-bottom: 0;
+}
+.iconbox .btn {
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+.iconbox.text-left {
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+.iconbox.text-right {
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    align-items: flex-end;
+}
+.iconbox:hover .iconbox-fill-el,
+.iconbox:hover .iconbox-icon-hover-bg {
+    opacity: 1;
+}
+
+[data-animate-icon=true] .iconbox-icon-container > svg,
+[data-animate-icon=true] .iconbox-icon-container > object {
+    opacity: 0;
+}
+[data-animate-icon=true].iconbox-icon-animating .iconbox-icon-container > svg,
+[data-animate-icon=true].iconbox-icon-animating .iconbox-icon-container > object {
+    opacity: 1;
+}
+
+.iconbox-square .iconbox-icon-container i,
+.iconbox-square .iconbox-icon-container img[src$=".svg"],
+.iconbox-square .iconbox-icon-container object,
+.iconbox-square .iconbox-icon-container > svg,
+.iconbox-circle .iconbox-icon-container i,
+.iconbox-circle .iconbox-icon-container img[src$=".svg"],
+.iconbox-circle .iconbox-icon-container object,
+.iconbox-circle .iconbox-icon-container > svg,
+.iconbox-lozenge .iconbox-icon-container i,
+.iconbox-lozenge .iconbox-icon-container img[src$=".svg"],
+.iconbox-lozenge .iconbox-icon-container object,
+.iconbox-lozenge .iconbox-icon-container > svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+.iconbox-square[data-shape-border] img, .iconbox-square.iconbox-icon-solid img,
+.iconbox-circle[data-shape-border] img,
+.iconbox-circle.iconbox-icon-solid img,
+.iconbox-lozenge[data-shape-border] img,
+.iconbox-lozenge.iconbox-icon-solid img {
+    max-width: 68%;
+}
+
+.iconbox-label {
+    display: inline-block;
+    padding: 8px 12px;
+    position: absolute;
+    top: 13px;
+    right: 13px;
+    border-radius: 2px;
+    background: #EFEFEF;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #000;
+}
+
+/* Icon Shape*/
+.iconbox-circle .iconbox-icon-container,
+.iconbox-lozenge .iconbox-icon-container,
+.iconbox-hexagon .iconbox-icon-container,
+.iconbox-square .iconbox-icon-container {
+    border-radius: 6px;
+    background: var(--color-primary);
+    font-size: 40px;
+    color: #fff;
+}
+.iconbox-circle .iconbox-icon-container img[src$=".svg"],
+.iconbox-circle .iconbox-icon-container object,
+.iconbox-circle .iconbox-icon-container > svg,
+.iconbox-lozenge .iconbox-icon-container img[src$=".svg"],
+.iconbox-lozenge .iconbox-icon-container object,
+.iconbox-lozenge .iconbox-icon-container > svg,
+.iconbox-hexagon .iconbox-icon-container img[src$=".svg"],
+.iconbox-hexagon .iconbox-icon-container object,
+.iconbox-hexagon .iconbox-icon-container > svg,
+.iconbox-square .iconbox-icon-container img[src$=".svg"],
+.iconbox-square .iconbox-icon-container object,
+.iconbox-square .iconbox-icon-container > svg {
+    width: 50px;
+}
+
+.iconbox-circle .iconbox-icon-container,
+.iconbox-lozenge .iconbox-icon-container,
+.iconbox-square .iconbox-icon-container {
+    width: 80px;
+    height: 80px;
+}
+
+.iconbox-circle .iconbox-icon-container {
+    border-radius: 50em;
+}
+.iconbox-circle .iconbox-icon-container img[src$=".svg"],
+.iconbox-circle .iconbox-icon-container object,
+.iconbox-circle .iconbox-icon-container > svg {
+    width: 44px;
+}
+
+.iconbox-lozenge .iconbox-icon-container {
+    border-radius: 15px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.iconbox-lozenge .iconbox-icon-container i,
+.iconbox-lozenge .iconbox-icon-container img[src$=".svg"],
+.iconbox-lozenge .iconbox-icon-container object,
+.iconbox-lozenge .iconbox-icon-container > svg {
+    -webkit-transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+    transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+}
+
+.iconbox-hexagon .iconbox-icon-container {
+    width: 80px;
+    height: 50px;
+    margin-top: 26.6666666667px;
+    margin-bottom: 26.6666666667px;
+}
+.iconbox-hexagon .iconbox-icon-container:before, .iconbox-hexagon .iconbox-icon-container:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: inherit;
+    height: inherit;
+    background: inherit;
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+    border-radius: inherit;
+    z-index: -1;
+}
+.iconbox-hexagon .iconbox-icon-container:before {
+    -webkit-transform: rotate(60deg);
+    transform: rotate(60deg);
+}
+.iconbox-hexagon .iconbox-icon-container:after {
+    -webkit-transform: rotate(-60deg);
+    transform: rotate(-60deg);
+}
+
+.iconbox-wavebg .iconbox-icon-container {
+    margin-top: 0.6em;
+    margin-bottom: 1em;
+}
+.iconbox-wavebg .iconbox-icon-container .icon-wave-bg {
+    opacity: 0.22;
+}
+.iconbox-wavebg .iconbox-icon-container .icon-wave-bg > img,
+.iconbox-wavebg .iconbox-icon-container .icon-wave-bg > svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 0;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+.iconbox-wavebg .iconbox-icon-container .icon-wave-bg > svg {
+    width: 3.1em;
+    height: auto;
+}
+.iconbox-wavebg .iconbox-icon-container .icon-wave-bg > img {
+    max-width: none;
+}
+.iconbox-wavebg .iconbox-icon-container .icon-wave-bg path {
+    fill: var(--color-primary);
+}
+.iconbox-wavebg .iconbox-icon-container .icon-wave-bg.default-opacity {
+    opacity: 1;
+}
+
+/* Icon Style*/
+.iconbox-inline {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    text-align: left;
+}
+.iconbox-inline .iconbox-icon-container,
+.iconbox-inline h3 {
+    margin-bottom: 0;
+}
+.iconbox-inline .iconbox-icon-wrap {
+    -ms-flex-preferred-size: auto;
+    flex-basis: auto;
+}
+.iconbox-inline .iconbox-icon-container {
+    margin-right: 15px;
+}
+.iconbox-inline h3 {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+}
+.iconbox-inline .contents {
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
+    margin-top: 15px;
+}
+.iconbox-inline.text-right {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+    -ms-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+.iconbox-inline.text-right .iconbox-icon-container {
+    margin-right: 0;
+    margin-left: 15px;
+}
+.iconbox-inline.iconbox-wavebg .iconbox-icon-container {
+    margin-right: 1.5em;
+}
+.iconbox-inline.iconbox-wavebg.text-right {
+    margin-right: 0;
+    margin-left: 1.5em;
+}
+
+.iconbox-side {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-box-align: stretch !important;
+    -ms-flex-align: stretch !important;
+    align-items: stretch !important;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    text-align: left;
+}
+.iconbox-side .iconbox-icon-wrap {
+    margin-right: 30px;
+}
+.iconbox-side .iconbox-icon-container {
+    margin-bottom: 0;
+}
+.iconbox-side .contents {
+    overflow: hidden;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+.iconbox-side.text-right {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+    -ms-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+}
+.iconbox-side.text-right .iconbox-icon-wrap {
+    margin-right: 0;
+    margin-left: 30px;
+}
+.iconbox-side.iconbox-wavebg .iconbox-icon-container {
+    margin-right: 1.5em;
+}
+.iconbox-side.iconbox-wavebg.text-right {
+    margin-right: 0;
+    margin-left: 1.5em;
+}
+
+/* Icon Borders */
+[data-shape-border="1"] .iconbox-icon-container {
+    border-width: 1px;
+}
+
+[data-shape-border="2"] .iconbox-icon-container {
+    border-width: 2px;
+}
+
+[data-shape-border="3"] .iconbox-icon-container {
+    border-width: 3px;
+}
+
+/* Filling Styles */
+.iconbox-shadow,
+.iconbox-shadow-hover,
+.iconbox-bordered,
+.iconbox-filled {
+    padding: 25px 10%;
+    background-color: #fff;
+}
+.iconbox-shadow.iconbox-inline, .iconbox-shadow.iconbox-side,
+.iconbox-shadow-hover.iconbox-inline,
+.iconbox-shadow-hover.iconbox-side,
+.iconbox-bordered.iconbox-inline,
+.iconbox-bordered.iconbox-side,
+.iconbox-filled.iconbox-inline,
+.iconbox-filled.iconbox-side {
+    padding: 45px 5%;
+}
+
+.iconbox-semiround {
+    border-radius: 5px;
+}
+
+.iconbox-round {
+    border-radius: 10px;
+}
+
+.iconbox-shadow {
+    -webkit-box-shadow: 0 25px 70px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.07);
+}
+
+.iconbox-shadow-hover {
+    -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+.iconbox-shadow-hover:hover {
+    -webkit-box-shadow: 0 25px 70px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.07);
+}
+
+.iconbox-bordered {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border: 1px solid #E1E1E1;
+}
+
+.iconbox-filled-hover:before {
+    content: '';
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    opacity: 0;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    border-radius: inherit;
+    background: var(--color-primary);
+    background-size: cover;
+    background-position: center;
+}
+.iconbox-filled-hover:hover {
+    color: #fff;
+}
+.iconbox-filled-hover:hover .iconbox-icon-container,
+.iconbox-filled-hover:hover h3,
+.iconbox-filled-hover:hover p,
+.iconbox-filled-hover:hover p span,
+.iconbox-filled-hover:hover a,
+.iconbox-filled-hover:hover .btn[class*=text-] {
+    color: inherit !important;
+}
+.iconbox-filled-hover:hover .btn-underlined:before, .iconbox-filled-hover:hover .btn-underlined:after {
+    background: currentColor;
+}
+.iconbox-filled-hover:hover:before {
+    opacity: 1;
+}
+.iconbox-filled-hover:hover.iconbox-icon-image .iconbox-icon-container svg path {
+    fill: currentColor;
+    stroke: currentColor;
+    -webkit-filter: none;
+    filter: none;
+}
+.iconbox-filled-hover.iconbox-has-fill-element:before {
+    content: none;
+}
+.backgroundcliptext .iconbox-filled-hover.iconbox-heading-gradient:hover .iconbox-icon-container i,
+.backgroundcliptext .iconbox-filled-hover.iconbox-heading-gradient:hover h3 {
+    background: #fff;
+}
+.iconbox-filled-hover.iconbox-scale-bg:before {
+    -webkit-transition: opacity 0.35s 0.1s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: opacity 0.35s 0.1s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.35s 0.1s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.35s 0.1s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.iconbox-filled-hover.iconbox-scale-bg:hover:before {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    -webkit-transition: opacity 0.1s 0s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: opacity 0.1s 0s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.1s 0s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.1s 0s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.iconbox-filled-hover.iconbox-light-onhover:before {
+    background-color: #fff;
+}
+.iconbox-filled-hover.iconbox-light-onhover:hover {
+    color: rgba(30, 22, 102, 0.55);
+}
+.iconbox-filled-hover.iconbox-light-onhover:hover .iconbox-icon-container {
+    color: var(--color-primary) !important;
+}
+.iconbox-filled-hover.iconbox-light-onhover:hover h3 {
+    color: #1e1666 !important;
+}
+
+.iconbox-icon-shadow .iconbox-icon-container {
+    -webkit-box-shadow: 0 17px 30px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 17px 30px rgba(0, 0, 0, 0.07);
+}
+
+.iconbox-icon-hover-shadow .iconbox-icon-container {
+    -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+.iconbox-icon-hover-shadow:hover .iconbox-icon-container {
+    -webkit-box-shadow: 0 17px 30px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 17px 30px rgba(0, 0, 0, 0.07);
+}
+
+.iconbox-icon-linked .iconbox-icon-wrap {
+    position: relative;
+}
+.iconbox-icon-linked .iconbox-icon-wrap:after {
+    content: '';
+    display: inline-block;
+    width: 1px;
+    height: 200%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    background-color: #E9E9E9;
+}
+.iconbox-icon-linked:last-child .iconbox-icon-wrap:after {
+    display: none;
+}
+
+.iconbox-contents-show-onhover.hide-target .contents > * {
+    opacity: 0;
+}
+
+/* Heading sizes */
+.iconbox-heading-xs h3 {
+    font-size: 18px;
+}
+
+.iconbox-heading-sm h3 {
+    font-size: 20px;
+}
+
+.iconbox-heading-md h3 {
+    font-size: 24px;
+}
+
+.iconbox-heading-lg h3 {
+    font-size: 28px;
+}
+
+/* Heading Gradient */
+.backgroundcliptext .iconbox-heading-gradient h3 {
+    background: -webkit-gradient(linear, left top, right top, from(#1DE1D1), to(#780BEE));
+    background: linear-gradient(to right, #1DE1D1 0%, #780BEE 100%);
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    text-fill-color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+/* Icon Gradient */
+.backgroundcliptext .iconbox-icon-gradient .iconbox-icon-container i {
+    background: -webkit-gradient(linear, left top, right top, from(#1DE1D1), to(#780BEE));
+    background: linear-gradient(to right, #1DE1D1 0%, #780BEE 100%);
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    text-fill-color: transparent !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+/* Sizes*/
+.iconbox-xxs .iconbox-icon-container img {
+    width: 20px;
+}
+.iconbox-xxs.iconbox-circle .iconbox-icon-container, .iconbox-xxs.iconbox-square .iconbox-icon-container, .iconbox-xxs.iconbox-lozenge .iconbox-icon-container {
+    width: 20px;
+    height: 20px;
+}
+.iconbox-xxs.iconbox-hexagon .iconbox-icon-container {
+    width: 20px;
+    height: 12.5px;
+}
+.iconbox-xxs.iconbox-hexagon:not(.iconbox-inline) .iconbox-icon-container {
+    margin-top: 6.6666666667px;
+    margin-bottom: 6.6666666667px;
+}
+
+.iconbox-xs .iconbox-icon-container img {
+    width: 45px;
+}
+.iconbox-xs.iconbox-circle .iconbox-icon-container, .iconbox-xs.iconbox-square .iconbox-icon-container, .iconbox-xs.iconbox-lozenge .iconbox-icon-container {
+    width: 45px;
+    height: 45px;
+}
+.iconbox-xs.iconbox-hexagon .iconbox-icon-container {
+    width: 45px;
+    height: 28.125px;
+}
+.iconbox-xs.iconbox-hexagon:not(.iconbox-inline) .iconbox-icon-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.iconbox-sm .iconbox-icon-container img {
+    width: 60px;
+}
+.iconbox-sm.iconbox-circle .iconbox-icon-container, .iconbox-sm.iconbox-square .iconbox-icon-container, .iconbox-sm.iconbox-lozenge .iconbox-icon-container {
+    width: 60px;
+    height: 60px;
+}
+.iconbox-sm.iconbox-hexagon .iconbox-icon-container {
+    width: 60px;
+    height: 37.5px;
+}
+.iconbox-sm.iconbox-hexagon:not(.iconbox-inline) .iconbox-icon-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.iconbox-md .iconbox-icon-container img {
+    width: 90px;
+}
+.iconbox-md.iconbox-circle .iconbox-icon-container, .iconbox-md.iconbox-square .iconbox-icon-container, .iconbox-md.iconbox-lozenge .iconbox-icon-container {
+    width: 90px;
+    height: 90px;
+}
+.iconbox-md.iconbox-hexagon .iconbox-icon-container {
+    width: 90px;
+    height: 56.25px;
+}
+.iconbox-md.iconbox-hexagon:not(.iconbox-inline) .iconbox-icon-container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.iconbox-lg .iconbox-icon-container img {
+    width: 100px;
+}
+.iconbox-lg.iconbox-circle .iconbox-icon-container, .iconbox-lg.iconbox-square .iconbox-icon-container, .iconbox-lg.iconbox-lozenge .iconbox-icon-container {
+    width: 100px;
+    height: 100px;
+}
+.iconbox-lg.iconbox-hexagon .iconbox-icon-container {
+    width: 100px;
+    height: 62.5px;
+}
+.iconbox-lg.iconbox-hexagon:not(.iconbox-inline) .iconbox-icon-container {
+    margin-top: 33.3333333333px;
+    margin-bottom: 33.3333333333px;
+}
+
+.iconbox-xl .iconbox-icon-container img {
+    width: 125px;
+}
+.iconbox-xl.iconbox-circle .iconbox-icon-container, .iconbox-xl.iconbox-square .iconbox-icon-container, .iconbox-xl.iconbox-lozenge .iconbox-icon-container {
+    width: 125px;
+    height: 125px;
+}
+.iconbox-xl.iconbox-hexagon .iconbox-icon-container {
+    width: 125px;
+    height: 78.125px;
+}
+.iconbox-xl.iconbox-hexagon:not(.iconbox-inline) .iconbox-icon-container {
+    margin-top: 41.6666666667px;
+    margin-bottom: 41.6666666667px;
+}
+
+.iconbox-xxs .iconbox-icon-container {
+    font-size: 20px;
+}
+.iconbox-xxs .iconbox-icon-container img[src$=".svg"],
+.iconbox-xxs .iconbox-icon-container object,
+.iconbox-xxs .iconbox-icon-container > svg {
+    width: 20px;
+}
+
+.iconbox-xs .iconbox-icon-container {
+    font-size: 20px;
+}
+.iconbox-xs .iconbox-icon-container img[src$=".svg"],
+.iconbox-xs .iconbox-icon-container object,
+.iconbox-xs .iconbox-icon-container > svg {
+    width: 20px;
+}
+
+.iconbox-sm .iconbox-icon-container {
+    font-size: 25px;
+}
+.iconbox-sm .iconbox-icon-container img[src$=".svg"],
+.iconbox-sm .iconbox-icon-container object,
+.iconbox-sm .iconbox-icon-container > svg {
+    width: 25px;
+}
+
+.iconbox-md .iconbox-icon-container {
+    font-size: 40px;
+}
+.iconbox-md .iconbox-icon-container img[src$=".svg"],
+.iconbox-md .iconbox-icon-container object,
+.iconbox-md .iconbox-icon-container > svg {
+    width: 40px;
+}
+
+.iconbox-lg .iconbox-icon-container {
+    font-size: 45px;
+}
+.iconbox-lg .iconbox-icon-container img[src$=".svg"],
+.iconbox-lg .iconbox-icon-container object,
+.iconbox-lg .iconbox-icon-container > svg {
+    width: 45px;
+}
+
+.iconbox-xl .iconbox-icon-container {
+    font-size: 50px;
+}
+.iconbox-xl .iconbox-icon-container img[src$=".svg"],
+.iconbox-xl .iconbox-icon-container object,
+.iconbox-xl .iconbox-icon-container > svg {
+    width: 50px;
+}
+
+.iconbox-icon-ripple .iconbox-icon-container:before {
+    content: '';
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: inherit;
+    border: 1px solid var(--color-primary);
+    -webkit-animation: iconRipple 2s cubic-bezier(0.23, 1, 0.32, 1) both infinite;
+    animation: iconRipple 2s cubic-bezier(0.23, 1, 0.32, 1) both infinite;
+}
+
+.iconbox-blue {
+    background-color: #dde1f8;
+}
+.iconbox-blue .contents {
+    color: #3d59e8;
+}
+
+.iconbox-pink {
+    background-color: #fcd7e0;
+}
+.iconbox-pink .contents {
+    color: #fe688b;
+}
+
+.iconbox-green {
+    background-color: #c7f7ea;
+}
+.iconbox-green .contents {
+    color: #28d5a7;
+}
+
+.lqd-parallax-iconboxes {
+    padding: 35px 35px 15px;
+    -webkit-box-shadow: 0px 2px 14px 0px rgba(0, 0, 0, 0.082);
+    box-shadow: 0px 2px 14px 0px rgba(0, 0, 0, 0.082);
+}
+
+.iconbox-color-pippin .iconbox-icon-container {
+    color: #fd623c;
+    background-color: #ffe4df;
+}
+
+.iconbox-color-apple .iconbox-icon-container {
+    color: #46d664;
+    background-color: #cdf2d6;
+}
+
+.compose-mode [data-animate-icon=true] .iconbox-icon-container > svg,
+.compose-mode [data-animate-icon=true] .iconbox-icon-container > object {
+    opacity: 1;
+}
+
+@media screen and (min-width: 992px) {
+    .lqd-parallax-iconboxes {
+        margin-top: -110%;
+    }
+}
+@media screen and (min-width: 768px) {
+    .lqd-iconbox-stack {
+        position: relative;
+        text-align: center;
+    }
+    .lqd-iconbox-stack .iconbox {
+        padding-left: 10px;
+        padding-right: 10px;
+        width: 150px;
+    }
+    .lqd-iconbox-stack .iconbox-icon-container {
+        margin-bottom: 0;
+    }
+    .lqd-iconbox-stack .iconbox-blue,
+    .lqd-iconbox-stack .iconbox-green {
+        position: absolute;
+        top: 26%;
+        z-index: 2;
+    }
+    .lqd-iconbox-stack .iconbox-blue {
+        top: 30%;
+        left: 7%;
+    }
+    .lqd-iconbox-stack .iconbox-pink {
+        margin-top: 12vw;
+    }
+    .lqd-iconbox-stack .iconbox-green {
+        right: 7%;
+    }
+}
+@media screen and (max-width: 767px) {
+    .lqd-iconbox-stack .iconbox {
+        width: 100%;
+    }
+}
