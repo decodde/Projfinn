@@ -30,14 +30,9 @@
 
                         <p class="font-size-14 lh-175 text-fade-white-07 pr-md-9 mr-md-9 mb-50">Support small businesses to grow and contribute to economic development.</p>
 
-                        <a href="{{URL('/lender')}}" class="btn btn-default btn-sm border-none btn-register box-shadow-3 f-1 font-weight-light">
+                        <a href="{{URL('/sign-up')}}" class="btn btn-default btn-sm border-none btn-register box-shadow-3 f-1 font-weight-light">
                             <span>
                                 <span class="btn-txt"> &nbsp; Create A Free Account &nbsp;</span>
-                            </span>
-                        </a>
-                        <a href="{{URL('/business')}}" class="btn btn-white btn-sm border-none btn-login box-shadow-3 f-1 font-weight-light ml-0 mt-1">
-                            <span>
-                                <span class="btn-txt"> &nbsp; Create A Business Account &nbsp;</span>
                             </span>
                         </a>
                         <p class="text-white mb-0 hidden-lg" style="margin-top: 10px !important; margin-bottom: 5px !important;">Or</p>
@@ -216,7 +211,7 @@
                             </div><!-- /.carousel-items row -->
 
                         <div class="col-md-12 text-center">
-                            <a href="#" class="btn btn-default btn-sm border-none btn-register box-shadow-3">
+                            <a href="{{URL('/sign-up')}}" class="btn btn-default btn-sm border-none btn-register box-shadow-3">
                                     <span>
                                         <span class="btn-txt"> &nbsp; Sign Up Today &nbsp;</span>
                                     </span>
@@ -368,7 +363,7 @@
                         </div><!-- /.carousel-items row -->
 
                         <div class="col-md-12 text-center">
-                            <a href="#" class="btn btn-default btn-sm border-none btn-register box-shadow-3">
+                            <a href="{{URL('/sign-up')}}" class="btn btn-default btn-sm border-none btn-register box-shadow-3">
                                     <span>
                                         <span class="btn-txt"> &nbsp; Sign Up Today &nbsp;</span>
                                     </span>

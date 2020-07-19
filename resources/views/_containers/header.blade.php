@@ -128,9 +128,9 @@
 
                                     <div class="header-module">
 
-                                        <a href="{{URL('/lender')}}" class="btn btn-default btn-sm round border-thin btn-register">
+                                        <a href="{{URL('/sign-up')}}" class="btn btn-default btn-sm round border-thin btn-register">
                                             <span>
-                                                <span class="btn-txt">Investor's Sign up</span>
+                                                <span class="btn-txt">Sign up</span>
                                             </span>
                                         </a>
 
