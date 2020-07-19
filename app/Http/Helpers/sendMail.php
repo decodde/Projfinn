@@ -107,7 +107,7 @@ class sendMail {
 
 //        dd("Hey");
         $this->mail::send('emails.template', ['data' => $mail], function ($m) use ($mail, $data) {
-            $m->from(env('SENDER_EMAIL'), );
+            $m->from(env('SENDER_EMAIL'), env('SENDER_NAME'));
             $m->to($data['email'])->subject($mail['title']);
             $m->replyTo('no-reply@owoafara.com');
         });
