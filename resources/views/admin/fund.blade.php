@@ -32,7 +32,16 @@
                         <hr>
                         <dl class="row text-black">
                             <dt class="col-md-6">Description</dt>
-                            <dd class="col-md-6 text-right"><a href="{{$fund->description}}" target="_blank">{{ $fund->description }}</a></dd>
+                            <dd class="col-md-6 text-right">
+                                @php
+                                    $query = "http://"
+                                @endphp
+                                @if(substr($fund->description, 0, strlen($query)) === $query)
+                                    <a target="_blank" href="{{$fund->description}}">{{$fund->description}}</a>
+                                @else
+                                    <p class="blue">{{$fund->description}}</p>
+                                @endif
+                            </dd>
                         </dl>
                         <hr>
                         <dl class="row text-black">
@@ -142,39 +151,41 @@
                             </dl>
                             <hr>
                         @endif
-                        <dl class="row text-black">
-                            <dt class="col-md-8">Actions</dt>
-                            <dd class="col-md-4 d-flex float-right" style="justify-content: space-evenly">
-                                <form action="{{URL('/admin/rouzz/status')}}" method="post">
-                                    <input type="hidden" name="_token" value="{{csrf_token()}}">
-                                    <input type="hidden" name="businessId" value="{{$fund->business->id}}">
-                                    <input type="hidden" name="name" value="{{$fund->user->name}}">
-                                    <input type="hidden" name="email" value="{{$fund->user->email}}">
-                                    @if($fund->progress === "review")
-                                        <input type="hidden" name="progress" value="payment">
-                                        <button type="submit" class="btn btn-success">
-                                            Application Approved
+                        @if($admin->role !== "business-team")
+                            <dl class="row text-black">
+                                <dt class="col-md-8">Actions</dt>
+                                <dd class="col-md-4 d-flex float-right" style="justify-content: space-evenly">
+                                    <form action="{{URL('/admin/rouzz/status')}}" method="post">
+                                        <input type="hidden" name="_token" value="{{csrf_token()}}">
+                                        <input type="hidden" name="businessId" value="{{$fund->business->id}}">
+                                        <input type="hidden" name="name" value="{{$fund->user->name}}">
+                                        <input type="hidden" name="email" value="{{$fund->user->email}}">
+                                        @if($fund->progress === "review")
+                                            <input type="hidden" name="progress" value="payment">
+                                            <button type="submit" class="btn btn-success">
+                                                Application Approved
+                                            </button>
+                                        @elseif($fund->progress === "visitation")
+                                            <input type="hidden" name="progress" value="approved">
+                                            <button type="submit" class="btn btn-success">
+                                                Visitation Completed(Accept Funding)
+                                            </button>
+                                        @elseif($fund->progress === "approved")
+                                            <input type="hidden" name="progress" value="rejected">
+                                            <button type="submit" class="btn btn-success">
+                                                Visitation Completed(Reject Funding)
+                                            </button>
+                                        @endif
+                                    </form>
+                                    <form action="{{URL('/admin/rouzz/status')}}" method="post">
+                                        <button type="submit" class="btn btn-danger">
+                                            <input type="hidden" name="progress" value="rejected">
+                                            Reject Application
                                         </button>
-                                    @elseif($fund->progress === "visitation")
-                                        <input type="hidden" name="progress" value="approved">
-                                        <button type="submit" class="btn btn-success">
-                                            Visitation Completed(Accept Funding)
-                                        </button>
-                                    @elseif($fund->progress === "approved")
-                                        <input type="hidden" name="progress" value="rejected">
-                                        <button type="submit" class="btn btn-success">
-                                            Visitation Completed(Reject Funding)
-                                        </button>
-                                    @endif
-                                </form>
-                                <form action="{{URL('/admin/rouzz/status')}}" method="post">
-                                    <button type="submit" class="btn btn-danger">
-                                        <input type="hidden" name="progress" value="rejected">
-                                        Reject Application
-                                    </button>
-                                </form>
-                            </dd>
-                        </dl>
+                                    </form>
+                                </dd>
+                            </dl>
+                        @endif
                     </div>
                 </div>
             </div>

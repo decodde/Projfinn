@@ -36,7 +36,11 @@
                         <td>{{$user->email}}</td>
                         <td>{{$user->phone}}</td>
                         <td>{{$user->address}}</td>
-                        <td class="row justify-content-between"><a href="{{URL('/admin/rouzz/investor/'.encrypt($user->id))}}" class="btn btn-success">View</a> <a href="{{URL('/admin/rouzz/user/delete/'.encrypt($user->id))}}" class="btn btn-danger">Delete</a></td>
+                        <td class="row justify-content-between">
+                            <a href="{{URL('/admin/rouzz/investor/'.encrypt($user->id))}}" class="btn btn-success">View</a>
+                            @if($admin->role !== "business-team")
+                            <a href="{{URL('/admin/rouzz/user/delete/'.encrypt($user->id))}}" class="btn btn-danger">Delete</a></td>
+                            @endif
                     </tr>
                     @endforeach
                     </tbody>

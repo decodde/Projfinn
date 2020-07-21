@@ -24,7 +24,9 @@ class Admin
                 \Session::put('red', true);
                 return redirect('logout');
             }
+
             View::share(['user' => $user]);
+            View::share(['admin' => $user->admin()]);
         }else{
             \Session::put('red', true);
             return redirect()->guest('login');

@@ -44,4 +44,8 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\lenderAccount', 'userId', 'id')->first();
     }
+    public function admin()
+    {
+        return $this->hasOne('App\Models\Admin', 'userId', 'id')->first();
+    }
 }

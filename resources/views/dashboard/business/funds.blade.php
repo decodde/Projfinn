@@ -45,12 +45,11 @@
                 <div class="card-header">
                     <h4 class="card-title">Funds</h4>
                     <p>
-                        Kindly read through the
-                        <a href="{{ asset('assets/docs/Rouzo-Borrowers-Terms-and-Conditions.pdf') }}" target="_blank">Business's Terms of Use</a>
-                    </p>
-                    <p>
                         <code>Note:</code> By Applying for Funding, It means you have read and agreed to the
                         <a href="{{ asset('assets/docs/Rouzo-Borrowers-Terms-and-Conditions.pdf') }}" target="_blank">Business's Terms of Use.</a>
+                    </p>
+                    <p>
+                        <code>Note</code> You will be contacted via the <a href="{{URL('/dashboard/settings')}}">contact details you set in your profile</a>
                     </p>
                 </div>
                 <div class="card-content collapse show">
@@ -62,9 +61,6 @@
                                 <a href="#" onclick="runThis()" class="btn btn-success mr-1 btn-md mt-2">Apply for Funds <i class="fa fa-plus"></i></a>
                             </div>
                         @else
-                            <p class="card-text">The <code>type</code> field shows if the transaction was a credit or debit transaction.<br>
-                                <code>Note</code> You will be contacted via the <a href="{{URL('/dashboard/settings')}}">contact details you set in your profile</a>
-                            </p>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
@@ -94,7 +90,16 @@
                                                     ₦ {{App\Http\Helpers\Formatter::MoneyConvert($fund->amount, "full")}}
                                                 </p>
                                             </td>
-                                            <td><a target="_blank" href="{{$fund->description}}">{{$fund->description}}</a></td>
+                                            <td>
+                                                @php
+                                                    $query = "http://"
+                                                @endphp
+                                                @if(substr($fund->description, 0, strlen($query)) === $query)
+                                                    <a target="_blank" href="{{$fund->description}}">{{$fund->description}}</a>
+                                                @else
+                                                    <p class="blue">{{$fund->description}}</p>
+                                                @endif
+                                            </td>
                                             <td>
                                                 @if($fund->progress === "review")
                                                     <a class="warning">Your Application is under review
@@ -220,8 +225,8 @@
                                     <label for="">No</label>
                                 </div>
 
-                                <label for="description" class="mt-2">What is this fund needed for? Upload a File stating the use of need for the funding.</label>
-                                <input type="file" name="description" id="" class="form-control" required="required">
+                                <label for="description" class="mt-2">What is this fund needed for?</label>
+                                <textarea name="description" id="description" class="form-control" required="required" cols="30" rows="10"></textarea>
                             </div>
                             <div class="text-center">
                                 <button class="btn btn-success text-center">Submit Application</button>

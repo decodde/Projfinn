@@ -60,7 +60,9 @@
                                     @else
                                         <a href="{{URL('/admin/rouzz/business/'.encrypt($gUser->id))}}" class="btn btn-success">View</a>
                                     @endif
-                                    <a href="{{URL('/admin/rouzz/user/delete/'.encrypt($gUser->id))}}" class="btn btn-danger">Delete</a>
+                                    @if($admin->role !== "business-team")
+                                        <a href="{{URL('/admin/rouzz/user/delete/'.encrypt($gUser->id))}}" class="btn btn-danger">Delete</a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

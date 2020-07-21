@@ -29,7 +29,16 @@
                                     <td>{{$fund->business->name}}</td>
                                     <td>{{$fund->user->email}}</td>
                                     <td class="text-success">₦ {{App\Http\Helpers\Formatter::MoneyConvert($fund->amount, "full")}}</td>
-                                    <td>{{$fund->description}}</td>
+                                    <td>
+                                        @php
+                                            $query = "http://"
+                                        @endphp
+                                        @if(substr($fund->description, 0, strlen($query)) === $query)
+                                            <a target="_blank" href="{{$fund->description}}">{{$fund->description}}</a>
+                                        @else
+                                            <p class="blue">{{$fund->description}}</p>
+                                        @endif
+                                    </td>
                                     <td>{{App\Http\Helpers\Formatter::dataTime($fund->created_at)}} </td>
                                     <td><a class="btn btn-success" href="{{URL('/admin/rouzz/funding/'.encrypt($fund->id))}}">View More Details</a></td>
                                 </tr>

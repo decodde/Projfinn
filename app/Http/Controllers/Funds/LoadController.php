@@ -64,12 +64,12 @@ class LoadController extends Controller
                 $resides = false;
             }
 
-            $ext = $request->file('description')->getClientOriginalExtension();
+            /*$ext = $request->file('description')->getClientOriginalExtension();
             $extArr = ['pdf', 'docs', 'docx',  'doc', 'jpeg', 'jpg'];
 
             if(in_array($ext, $extArr)) {
                 $file = Cloudinary::upload($request->description)->getResult()['url'];
-            }
+            }*/
 
             $params = [
                 "userId" => $user->id,
@@ -80,7 +80,7 @@ class LoadController extends Controller
                 "existingLoan" => $isExist,
                 "certifyGuarantor" => $isGuarant,
                 "certifyDocuments" => $isDocs,
-                "description" => $file,
+                "description" => $data['description'],
                 "progress" => "review"
             ];
 
