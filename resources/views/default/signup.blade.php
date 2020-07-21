@@ -65,7 +65,7 @@
                                 </div><!-- /.iconbox-icon-wrap -->
                                 <div class="contents">
                                     <h3 class="font-weight-normal">Introducer</h3>
-                                    <p>Help businesses get access to financing and earn commissions</p>
+                                    <p>Introduce businesses within your network to get access to financing and earn commission</p>
                                     <a href="{{URL('/introducer')}}" class="border-thin mt-0">
 										<span>
 											<span class="btn btn-outline-info">Sign Up</span>

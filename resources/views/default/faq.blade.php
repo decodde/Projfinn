@@ -170,7 +170,7 @@
                                 </div><!-- /.accordion-heading -->
                                 <div id="accordion-collapse-collapse-7" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-7">
                                     <div class="accordion-content">
-                                        <p>Depending on the portfolio type you’re investing in, you earn between 25% - 40% interest p.a.
+                                        <p>Depending on the portfolio type you’re investing in, you earn between 20% - 30% interest p.a.
                                         </p>
                                     </div><!-- /.accordion-content -->
                                 </div><!-- /.collapse -->
@@ -210,7 +210,7 @@
                                 </div><!-- /.accordion-heading -->
                                 <div id="accordion-collapse-collapse-9" class="accordion-collapse collapse" role="tabpanel" aria-labelledby="accordion-collapse-heading-9">
                                     <div class="accordion-content">
-                                        <p>Your accrued return can be seen monthly on your dashboard. You will get a payout of accumulated returns on a quarterly basis.
+                                        <p>Your accrued return can be seen monthly on your dashboard. You will get a payout of accumulated returns when your chosen investment duration matures.
                                         </p>
                                     </div><!-- /.accordion-content -->
                                 </div><!-- /.collapse -->

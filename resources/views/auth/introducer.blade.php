@@ -111,7 +111,7 @@
             <div class="sidebar sidebar-fixed overflow-hidden" style="height: calc(100vh - 44px);background:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)),url(https://images.unsplash.com/photo-1573164574572-cb89e39749b4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjF9&auto=format&fit=crop&w=1350&q=80);background-size: cover;background-repeat: no-repeat;background-position: center ">
                 <div class="card-title text-left height-100-per">
                     <div class="pt-1 pl-2 mb-3 position-relative height-90-per">
-                        <p class="position-absolute position-bottom-0 text-white font-size-17px">Join thousands of investors earning by Investing into businesses.</p>
+                        <p class="position-absolute position-bottom-0 text-white font-size-17px">Help businesses get access to financing and earn commissions.</p>
                     </div>
                 </div>
             </div>
