@@ -49,4 +49,5 @@
 &noscript=1"/>
     </noscript>
     <!-- End Facebook Pixel Code -->
+    <script data-ad-client="ca-pub-9913184668842151" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
