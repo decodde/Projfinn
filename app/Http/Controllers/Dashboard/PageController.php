@@ -263,15 +263,16 @@ class PageController extends Controller
 
                 $now = Carbon::now();
 
-                $investment->diff = $now->diffInDays($investment->datePurchased);
+                $investment->diff = $now->diffInMonths($investment->datePurchased);
+                $investment->diffDays = $now->diffInDays($investment->datePurchased);
 
-                if($investment->diff > 90){
+                if($investment->diff > $investment->period){
                     $investment->isReady = true;
                 }else{
                     $investment->isReady = false;
                 }
 
-                $investment->interstSofar = (($investment->diff / 365) * $investment->roi);
+                $investment->interstSofar = (($investment->diffDays / 365) * $investment->roi);
             }
             $data = [
                 'title' => 'Dashboard',
