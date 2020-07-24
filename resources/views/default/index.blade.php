@@ -233,10 +233,10 @@
                         <header class="fancy-title mb-20">
                             <h2 class="mt-20 mb-1 font-weight-bold">About Rouzo</h2>
                             <br>
-                            <p class="font-size-16">Rouzo is a portfolio managed platform that allows smart individual and corporate investors invest in portfolios that are you to provide financing for small businesses. Rouzo platform is owned by Owoafara Fintech services a financial technology company that builds platforms and tools to facilitate small business financing, support and growth
+                            <p class="font-size-16">Rouzo is a portfolio managed platform that allows smart individual and corporate investors invest in portfolios that are used to provide financing for small businesses. Rouzo platform is owned by Owoafara Fintech services a financial technology company that builds platforms and tools to facilitate small business financing, support and growth.
                                 By investing on Rouzo, investors generate a healthy return and contribute to economic development by empowering small businesses to grow and expand.
                                 Since Owoafara launched in November 2019, we have curated and verified over 300 small businesses for matching with financial institutions with our signature algorithm which we have further refined in the last 3 months.
-                                With Rouzo, have are providing access to finance to these small businesses in the form of asset finance and working capital finance.
+                                With Rouzo, we are providing access to finance to these small businesses in the form of asset finance and working capital finance.
                                 Our goal is to impact 1 million small businesses in the next 3 years.
                                 <br><br> </p>
 
