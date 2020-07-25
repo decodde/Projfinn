@@ -240,6 +240,27 @@ class LoadController extends Controller
         }
     }
 
+    public function update(Request $request){
+        try{
+            $user = Auth::user();
+            $data = $request->except('_token');
+
+            $investment = $this->investment->where(['userId' => $user->id, 'id' => $data["investmentId"] ]);
+            $inv = $investment->first();
+            if($inv == null){
+                \Session::put('danger', true);
+                return back()->withErrors('Something went wrong');
+            }
+            $investment->update(["isCompleted" => true, "period" => $data["months"]]);
+            \Session::put('success', true);
+            return back()->withErrors("Your Account has been updated");
+
+        }catch(\Exception $e){
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
     public function success(){
         \Session::put('success', true);
         return redirect("/dashboard/i/stash")->withErrors("Transfer Initiated, The transaction will be validated in the next 24hours");
