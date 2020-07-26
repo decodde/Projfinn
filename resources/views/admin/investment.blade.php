@@ -21,6 +21,8 @@
                                 <th>Payment Method</th>
                                 <th>Units Bought</th>
                                 <th>Amount</th>
+                                <th>Lock Period</th>
+                                <th>Has Completed</th>
                                 <th>Projected Return</th>
                                 <th>Date Purchased</th>
                             </tr>
@@ -41,6 +43,14 @@
 
                                     <td>{{$investment->unitsBought}}</td>
                                     <td class="text-success">₦ {{App\Http\Helpers\Formatter::MoneyConvert($investment->amount, "full")}}</td>
+                                    <td>{{$investment->period}} Months</td>
+                                    <td>
+                                        @if($investment->isCompleted == false)
+                                            <a class="btn btn-outline-primary btn-sm text-primary">No</a>
+                                        @else
+                                            <a class="btn btn-outline-success btn-sm text-success">Yes</a>
+                                        @endif
+                                    </td>
                                     <td class="text-success">₦ {{App\Http\Helpers\Formatter::MoneyConvert($investment->roi, "full")}}</td>
                                     <td>{{App\Http\Helpers\Formatter::dataTime($investment->datePurchased)}} </td>
                                 </tr>
