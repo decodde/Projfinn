@@ -120,10 +120,10 @@
                                     </tr>
                                     </thead>
                                     <tbody class="borderless">
-                                    @foreach($investments as $investment)
-                                        @php
+                                    @php
                                         $i = 0;
-                                        @endphp
+                                    @endphp
+                                    @foreach($investments as $investment)
                                         <tr>
                                             <td>
                                                 <a class="grey-blue font-weight-bold lighten-2">{{$investment->portfolio->name}}</a>
@@ -277,7 +277,7 @@
                                             </td>
                                         </tr>
                                         @php
-                                            $i += 1;
+                                            $i++;
                                         @endphp
                                     @endforeach
                                     </tbody>

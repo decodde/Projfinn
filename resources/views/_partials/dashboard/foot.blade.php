@@ -18,21 +18,6 @@
 <script src="{{ asset('assets/assets/js/theme.js') }}"></script>
 <script src="{{ asset('assets/assets/js/theme-vendors.js') }}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
-<script type="text/javascript">
-
-    $("a[href$='#next']").click(function() {
-        let units = $('#units').val();
-        let uA = $('#unitAmount').val();
-        console.log(units);
-
-        let n = numeral(uA * units);
-
-        $('#amountInput').val(uA * units);
-
-        $('#unitsS').text(units +" units");
-        $('#amount').text(n.format('0,0'));
-    });
-</script>
 <script>
     $('#getAmt').on('submit', function (e) {
         e.preventDefault();

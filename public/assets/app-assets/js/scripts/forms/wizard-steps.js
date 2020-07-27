@@ -76,6 +76,26 @@ $(".steps-validation").steps({
         {
             return false;
         }
+
+        if (newIndex === 1){
+            let units = $('#units').val();
+            let uA = $('#unitAmount').val();
+
+            let n = numeral(uA * units);
+
+            $('#amountInput').val(uA * units);
+
+            $('#unitsS').text(units +" units");
+            $('#amount').text(n.format('0,0'));
+        }
+
+        if ( newIndex === 2){
+            let pr = $('#period').val();
+            $('#percentS').text(pr +" %");
+            let month = $('#period option:selected').text();
+            $('#monthsS').text(month);
+            $('#monthInput').val(month.split(" ")[0]);
+        }
         // Needed in some cases if the user went back (clean up)
         if (currentIndex < newIndex)
         {
