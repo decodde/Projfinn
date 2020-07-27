@@ -422,9 +422,11 @@ class LoadController extends Controller
                                     "amount" => $amountPaid,
                                     "paymentMethod" => "bank",
                                     "datePurchased" => Carbon::now(),
+                                    "period" => $tranxDetails->months
                                 ];
 
-                                $roiInPer = $getP['returnInPer'] - $getP['managementFee'];
+                                $getPer = $this->partials->loanTypes(strtolower($getP["name"]));
+                                $roiInPer = $getPer[$tranxDetails->months] - $getP['managementFee'];
                                 $roi = (($roiInPer / 100) * $amountPaid);
 
                                 $invData["roi"] = $roi;

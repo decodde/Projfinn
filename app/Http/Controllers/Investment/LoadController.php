@@ -42,7 +42,6 @@ class LoadController extends Controller
     public function create(Request $request){
         try{
             $user = Auth::user();
-//            dd($request->all());
             $data = $request->except('_token');
 
             $validation = $this->validate->investment($data, 'create');
@@ -82,7 +81,8 @@ class LoadController extends Controller
                     "amount" => $data["amount"],
                     "type" => "debit",
                     "portfolioId" => $data["portfolioId"],
-                    "reference" => $response->data->reference
+                    "reference" => $response->data->reference,
+                    "months" => $data["months"],
                 ];
                 $this->tranx->create($data);
                 return redirect($response->data->authorization_url);
@@ -163,6 +163,7 @@ class LoadController extends Controller
                     "amount" => $data["amount"],
                     "paymentMethod" => "stash",
                     "datePurchased" => Carbon::now(),
+                    "period" => $data["months"]
                 ];
 
                 $portfolio = $this->portfolio->where("id", $data["portfolioId"]);

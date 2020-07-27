@@ -387,4 +387,26 @@ class partials{
 
         return $score;
     }
+
+    public function loanTypes($portfolio){
+        switch ($portfolio) {
+            case 'working capital portfolio':
+                return [
+                    "3" => 5,
+                    "6" => 12,
+                    "9" => 21,
+                    "12" => 30
+                ];
+            case 'asset finance portfolio':
+                return [
+                    "3" => 3.5,
+                    "6" => 8,
+                    "9" => 14,
+                    "12" => 20
+                ];
+            default:
+                # code...
+                break;
+        }
+    }
 }

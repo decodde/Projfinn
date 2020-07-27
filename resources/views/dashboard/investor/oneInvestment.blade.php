@@ -66,7 +66,7 @@
                             <table class="table">
                                 <thead>
                                 <tr class="borderless text-center">
-                                    <th class="grey-blue lighten-1 font-size-16px font-weight-normal">Average Returns</th>
+                                    <th class="grey-blue lighten-1 font-size-16px font-weight-normal">Returns( Per Annum)</th>
                                     <th class="grey-blue lighten-1 font-size-16px font-weight-normal">Amount Per Units</th>
                                     <th class="grey-blue lighten-1 font-size-16px font-weight-normal">Number Of Units</th>
                                 </tr>
@@ -134,7 +134,38 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card px-1" style="border: 1px solid #efefef">
+                            <div class="card-header p-0 pt-2 pb-1">
+                                <h4 class="card-title grey-blue lighten-1">
+                                    Interest Options
+                                </h4>
+                                <p><code>Note</code> If your interest option is 12months you won't be able to withdraw your money till the end of the 12th month</p>
+                            </div>
+                            <hr>
+                            <div class="card-content">
+                                <div class="card-body py-0">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr class="borderless text-center">
+                                                @foreach($loanOptions as $loan => $i)
+                                                <th class="grey-blue lighten-1 font-size-16px font-weight-normal">{{$loan}} Months</th>
+                                                @endforeach
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr class="borderless text-center">
+                                                @foreach($loanOptions as $loan => $i)
+                                                    <td class="success darken-3 font-size-17px font-weight-bold">{{$i}} %</td>
+                                                @endforeach
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                    </div>
                         <div class="card-text px-1">
                             <h5 class="font-weight-bold grey-blue lighten-3">About Portfolio</h5>
                             <p>
@@ -172,11 +203,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="lastName3">
+                                            <label for="units">
                                                 Units :
                                                 <span class="danger">*</span>
                                             </label>
-                                            <input type="number" class="form-control required" max="{{$portfolio->units/2}}" id="units" name="unitsBought">
+                                            <input type="number" class="form-control required" max="{{$portfolio->units}}" id="units" name="unitsBought">
                                         </div>
                                     </div>
                                 </div>
@@ -185,10 +216,37 @@
                             <h6> </h6>
                             <fieldset>
                                 <input type="hidden" name="amount" id="amountInput">
+                                <input type="hidden" name="months" id="monthInput">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <h4>
-                                            Your <a id="unitsS" class="blue darken-3"></a> investment equates to
+                                            How many months will you like to lock your money in for
+                                        </h4>
+                                        <p><code>Note:</code> A higher lock period gives a higher interest</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="period">
+                                                Lock Period :
+                                                <span class="danger">*</span>
+                                            </label>
+                                            <select name="percentage" id="period" class="form-control">
+                                                @foreach($loanOptions as $loan => $i)
+                                                    <option value="{{$i}}">{{$loan}} Months</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <!-- Step 3 -->
+                            <h6> </h6>
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4>
+                                            Your <a id="unitsS" class="blue darken-3"></a> investment equates to <br>
+                                            and a <a id="percentS" class="success darken-3"></a> interest for a Lock Period of <a id="monthsS" class="blue darken-3"></a>
                                         </h4>
                                     </div>
                                     <div class="col-md-5 offset-1">

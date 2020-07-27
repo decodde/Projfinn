@@ -125,7 +125,8 @@
                                 <a href="javascript:void(0);" data-toggle="modal" data-target="#addGuarantor" class="pull-right btn btn-sm btn-success">Add a guarantor</a>
                                 <br><br>
                             @endif
-                            <table class="table table-striped">
+                        <div class="table-responsive">
+                            <table class="table">
                                 <tbody>
                                 @foreach($guarantors as $key => $guarantor)
                                     <tr>
@@ -237,6 +238,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                        </div>
                         @else
                             <div>
                                 <p>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Transaction;
 
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\apiHelper;
+use App\Http\Helpers\partials;
 use App\Models\Funds;
 use App\Models\Transaction;
 use App\Models\Stash;
@@ -35,8 +36,9 @@ class LoadController extends Controller
     private $bank;
     private $fund;
     private $transferRequest;
+    private $partials;
 
-    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, TranxConfirm $tranx, Validate $validate, lenderAccount $account, Bank $bank, Funds $fund, transferRequest $transferRequest){
+    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, TranxConfirm $tranx, Validate $validate, lenderAccount $account, Bank $bank, Funds $fund, transferRequest $transferRequest, partials $partials){
         $this->api = $api;
         $this->transaction = $transaction;
         $this->stash = $stash;
@@ -50,6 +52,7 @@ class LoadController extends Controller
         $this->bank = $bank;
         $this->fund = $fund;
         $this->transferRequest = $transferRequest;
+        $this->partials = $partials;
     }
 
     public function buy(Request $request){
@@ -202,10 +205,11 @@ class LoadController extends Controller
                             "amount" => $amountPaid,
                             "paymentMethod" => "bank",
                             "datePurchased" => Carbon::now(),
+                            "period" => $tranxDetails->months
                         ];
 
-
-                        $roiInPer = $getP['returnInPer'] - $getP['managementFee'];
+                        $getPer = $this->partials->loanTypes(strtolower($getP["name"]));
+                        $roiInPer = $getPer[$tranxDetails->months] - $getP['managementFee'];
                         $roi = (($roiInPer / 100) * $amountPaid);
 
                         $invData["roi"] = $roi;

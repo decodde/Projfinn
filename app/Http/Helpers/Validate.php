@@ -342,6 +342,7 @@ class Validate {
                     'portfolioId' => 'required',
                     'paymentMethod' => 'required',
                     'amount' => 'required',
+                    'months' => 'required'
                 ]);
                 break;
             default:

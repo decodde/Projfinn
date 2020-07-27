@@ -263,6 +263,10 @@ class PageController extends Controller
 
                 $now = Carbon::now();
 
+                $pdate = Carbon::create($investment->datePurchased);
+                $projectedDay = Carbon::create($investment->datePurchased)->addMonths($investment->period);
+
+                $daysS = $pdate->diffInDays($projectedDay);
                 $investment->diff = $now->diffInMonths($investment->datePurchased);
                 $investment->diffDays = $now->diffInDays($investment->datePurchased);
 
@@ -272,7 +276,7 @@ class PageController extends Controller
                     $investment->isReady = false;
                 }
 
-                $investment->interstSofar = (($investment->diffDays / 365) * $investment->roi);
+                $investment->interstSofar = (($investment->diffDays / ($daysS-1)) * $investment->roi);
             }
             $data = [
                 'title' => 'Dashboard',
@@ -299,12 +303,14 @@ class PageController extends Controller
                 \Session::put('danger', true);
                 return back()->withErrors('An error has occurred');
             }
+            $getLoanDetails =  $this->partials->loanTypes(strtolower($portfolio->name));
             $portfolio->units = $portfolio->size / $portfolio->amountPerUnit;
 
             $data = [
                 'title' => 'Dashboard',
                 'user' => $user,
-                'portfolio' => $portfolio
+                'portfolio' => $portfolio,
+                'loanOptions' => $getLoanDetails
             ];
 
             return view('dashboard.investor.oneInvestment', $data);
