@@ -9,7 +9,7 @@ class Investment extends Model
     //
     protected $table = 'investments';
 
-    protected $fillable = ['userId', 'investorId', 'portfolioId', 'unitsBought', 'amount', 'datePurchased', 'paymentMethod', 'transactionId', 'roi', 'isOpen', 'period', 'isCompleted'];
+    protected $fillable = ['userId', 'investorId', 'portfolioId', 'unitsBought', 'amount', 'datePurchased', 'paymentMethod', 'transactionId', 'roi', 'isOpen', 'period', 'isCompleted', 'oldInv'];
 
     public function transaction() {
         return $this->hasOne('App\Models\Transaction', 'id', 'transactionId')->first();

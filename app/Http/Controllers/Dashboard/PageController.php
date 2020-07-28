@@ -276,7 +276,12 @@ class PageController extends Controller
                     $investment->isReady = false;
                 }
 
-                $investment->interstSofar = (($investment->diffDays / ($daysS-1)) * $investment->roi);
+                if($investment->oldInv == true){
+                    $investment->interstSofar = (($investment->diffDays / 365) * $investment->roi);
+                }
+                else{
+                    $investment->interstSofar = (($investment->diffDays / ($daysS-1)) * $investment->roi);
+                }
             }
             $data = [
                 'title' => 'Dashboard',
