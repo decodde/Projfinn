@@ -1,5 +1,11 @@
 @extends('_partials.dashboard.master')
 @section('content')
+    <style>
+        .my--01{
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+    </style>
     <div class="content-header row">
         <div class="content-header-left col-md-6 col-12 mb-2">
             <h5 class="content-header-title">Investments</h5>
@@ -112,10 +118,7 @@
                                 <table class="table">
                                     <thead>
                                     <tr class="borderless">
-                                        <th>Portfolio Name</th>
-                                        <th>Units Bought</th>
-                                        <th>Interest So far</th>
-                                        <th>Date</th>
+                                        <th>Portfolio</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
@@ -127,23 +130,22 @@
                                         <tr>
                                             <td>
                                                 <a class="grey-blue font-weight-bold lighten-2">{{$investment->portfolio->name}}</a>
+                                                <br>
+                                                <a class="info lighten-2">{{App\Http\Helpers\Formatter::dataTime($investment->datePurchased)}}</a>
                                             </td>
-                                            <td>{{$investment->unitsBought}}</td>
-                                            <td class="font-size-16px success darken-4">₦ {{App\Http\Helpers\Formatter::MoneyConvert($investment->interstSofar, "full")}}</td>
-                                            <td>{{App\Http\Helpers\Formatter::dataTime($investment->transaction->created_at)}} </td>
                                             <td>
                                                 @if($investment->isOpen === "true")
                                                     @if($investment->isReady === false)
-                                                    <a class="btn btn-blue border-0 box-shadow-2 text-white" href="javascript:void(0);" onclick="window.alert('Your invest will be matured after {{$investment->period}} months from Investment');">
+                                                    <a class="btn btn-blue border-0 box-shadow-2 text-white mx-1 my--01" href="javascript:void(0);" onclick="window.alert('Your invest will be matured after {{$investment->period}} months from Investment');">
                                                         @else
-                                                    <a class="btn btn-blue border-0 box-shadow-2  text-white" href="javascript:void(0);" onclick="withdrawInv({{$investment}})">
+                                                    <a class="btn btn-blue border-0 box-shadow-2  text-white mx-1 my--01" href="javascript:void(0);" onclick="withdrawInv({{$investment}})">
                                                     @endif
                                                         Withdraw Funds
                                                     </a>
                                                 @else
                                                         Investment Closed
                                                 @endif
-                                                <a class="btn btn-outline-info info ml-2" data-toggle="modal" data-target="#details{{$i}}">
+                                                <a class="btn btn-outline-info info mx-1 my--01" data-toggle="modal" data-target="#details{{$i}}">
                                                     View Full Details
                                                 </a>
                                                 <div id="details{{$i}}" class="modal fade" role="dialog">
@@ -176,7 +178,7 @@
                                                                 </a>
                                                                 <div>
                                                                     <h6 class="font-size-16px grey-blue font-weight-bold lighten-2">{{$investment->portfolio->name}}</h6>
-                                                                    <a class="info">{{App\Http\Helpers\Formatter::dataTime($investment->transaction->created_at)}}</a>
+                                                                    <a class="info">{{App\Http\Helpers\Formatter::dataTime($investment->datePurchased)}}</a>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-body">
@@ -212,7 +214,7 @@
                                                     </div>
                                                 </div>
                                                 @if($investment->isCompleted == false)
-                                                    <a class="btn btn-outline-warning warning ml-2" data-toggle="modal" data-target="#update{{$i}}">
+                                                    <a class="btn btn-outline-warning warning mx-1 my--01" data-toggle="modal" data-target="#update{{$i}}">
                                                         Update Lock Period
                                                     </a>
                                                     <div id="update{{$i}}" class="modal fade" role="dialog">
@@ -245,7 +247,7 @@
                                                                 </a>
                                                                 <div>
                                                                     <h6 class="font-size-16px grey-blue font-weight-bold lighten-2">{{$investment->portfolio->name}}</h6>
-                                                                    <a class="info">{{App\Http\Helpers\Formatter::dataTime($investment->transaction->created_at)}}</a>
+                                                                    <a class="info">{{App\Http\Helpers\Formatter::dataTime($investment->datePurchased)}}</a>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-body">
