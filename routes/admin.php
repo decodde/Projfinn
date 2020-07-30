@@ -20,6 +20,8 @@ Route::get('/overview', 'PageController@index');
 Route::get('/user', 'PageController@user');
 Route::get('/referrals', 'PageController@referrals');
 Route::get('/business', 'PageController@businesses');
+Route::get('/introducer', 'PageController@introducers');
+Route::get('/introducer/{id}', 'PageController@introducer');
 Route::get('/search', 'PageController@searchDashboard');
 Route::get('/business/{id}', 'PageController@business');
 Route::get('/investor', 'PageController@investors');
