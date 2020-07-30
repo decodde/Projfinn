@@ -7,7 +7,11 @@ use App\Http\Helpers\Formatter;
 use App\Models\Admin;
 use App\Models\Bank;
 use App\Models\Funds;
+use App\Models\Introducer;
+use App\Models\introducerAccount;
+use App\Models\introducerDocument;
 use App\Models\Investment;
+use App\Models\Invite;
 use App\Models\Lender as Investor;
 use App\Models\lenderAccount;
 use App\Models\busAccount;
@@ -44,7 +48,11 @@ class PageController extends Controller
     private $eligibility;
     private $partials;
     private $referral;
-    public function __construct(User $user, Bank $bank, Investment $investment, Transaction $transaction, Formatter $formatter, Portfolio $portfolio, Funds $fund, Admin $admin, transferRequest $transferRequest, Stash $stash, Investor $investor, lenderAccount $account, Business $business, busAccount $baccount, Eligibility $eligibility, partials $partials, Referral $referral){
+    private $introducer;
+    private $introducerAccount;
+    private $introducerDocument;
+    private $invite;
+    public function __construct(User $user, Bank $bank, Investment $investment, Transaction $transaction, Formatter $formatter, Portfolio $portfolio, Funds $fund, Admin $admin, transferRequest $transferRequest, Stash $stash, Investor $investor, lenderAccount $account, Business $business, busAccount $baccount, Eligibility $eligibility, partials $partials, Referral $referral, Introducer $introducer, introducerAccount $introducerAccount, introducerDocument $introducerDocument, Invite $invite){
         $this->user = $user;
         $this->bank = $bank;
         $this->investment = $investment;
@@ -62,6 +70,10 @@ class PageController extends Controller
         $this->eligibility = $eligibility;
         $this->partials = $partials;
         $this->referral = $referral;
+        $this->introducer = $introducer;
+        $this->introducerDocument = $introducerDocument;
+        $this->introducerAccount = $introducerAccount;
+        $this->invite = $invite;
     }
 
     public function searchDashboard(Request $request)
@@ -87,6 +99,26 @@ class PageController extends Controller
                     ];
 
                     return view('admin.businesses', $data);
+                    break;
+                case 'introducer':
+                    $user = Auth::user();
+
+                    $introducers = $this->introducer->where('name', 'LIKE', '%%'.$request->term.'%%')->latest()->paginate(10);
+                    foreach ($introducers as $getIntroducer){
+                        $getIntroducer->user = $getIntroducer->owner;
+                        $getIntroducer->account = $getIntroducer->account ?? null;
+                        if($getIntroducer->account !== null){
+                            $getIntroducer->bank = $this->bank->where('id', $getIntroducer->account->bankId)->first();
+                        }
+                    }
+                    $data = [
+                        'title' => 'Search results for '.$request->term,
+                        'user' => $user,
+                        'isSuper' => $this->isSuper(),
+                        'introducers' => $introducers,
+                    ];
+
+                    return view('admin.introducers', $data);
                     break;
                 default:
                     \Session::put('blue', true);
@@ -302,6 +334,76 @@ class PageController extends Controller
 
 
             return view('admin.businesses', $data);
+        }catch(\Exception $e){
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function introducer(Request $request){
+        try{
+            $id = decrypt($request->id);
+            $user = Auth::user();
+
+            $getUser = $this->user->where(["id" => $id, "type" => "introducer", 'isDeleted' => false])->first();
+
+            $getIntroducer = $this->introducer->where("userId", $getUser->id)->first();
+
+            $getInvites = $this->invite->where(["introducerId" => $getIntroducer->id, "hasSignUp" => true])->get();
+
+            $businesses = [];
+            foreach ($getInvites as $invite){
+                $bus = $this->business->where("email", $invite->email)->first();
+                $bus->user = $bus->owner();
+                array_push($businesses, $bus);
+            }
+
+            $getAccount = $this->introducerAccount->where("userId", $getUser->id)->first();
+
+            $getAccount->bank = $getAccount->bank();
+
+            $documents = $getIntroducer->documents;
+
+            $data = [
+                "title" => 'Admin',
+                "user" => $user,
+                "gUser" => $getUser,
+                "isSuper" => $this->isSuper(),
+                "account" => $getAccount,
+                "introducer" => $getIntroducer,
+                'documents' => $documents,
+                'businesses' => $businesses,
+            ];
+
+
+            return view('admin.introducer', $data);
+        }catch(\Exception $e){
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function introducers(Request $request){
+        try{
+            $user = Auth::user();
+
+            $getIntroducers = $this->introducer->paginate(10);
+            foreach ($getIntroducers as $getIntroducer){
+                $getIntroducer->user = $getIntroducer->owner;
+                $getIntroducer->account = $getIntroducer->account ?? null;
+                if($getIntroducer->account !== null){
+                    $getIntroducer->bank = $this->bank->where('id', $getIntroducer->account->bankId)->first();
+                }
+            }
+            $data = [
+                'title' => 'Admin',
+                'user' => $user,
+                'isSuper' => $this->isSuper(),
+                'introducers' => $getIntroducers,
+            ];
+
+
+            return view('admin.introducers', $data);
         }catch(\Exception $e){
             \Session::put('danger', true);
             return back()->withErrors('An error has occurred: '.$e->getMessage());
