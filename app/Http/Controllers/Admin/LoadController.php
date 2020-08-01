@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\sendMail;
+use App\Models\Admin;
 use App\Models\Funds;
+use App\Models\Introducer;
 use App\Models\Investment;
 use App\Models\Lender;
 use App\Models\Portfolio;
@@ -35,7 +37,9 @@ class LoadController extends Controller
     private $mail;
     private $transferRequest;
     private $business;
-    public function __construct(User $user, apiHelper $api, Validate $validate, Transaction  $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Funds $funds, sendMail $mail, transferRequest $transferRequest, Business $business){
+    private $admin;
+    private $introducer;
+    public function __construct(User $user, apiHelper $api, Validate $validate, Transaction  $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Funds $funds, sendMail $mail, transferRequest $transferRequest, Business $business, Introducer $introducer, Admin $admin){
         $this->user = $user;
         $this->api = $api;
         $this->transaction = $transaction;
@@ -49,6 +53,8 @@ class LoadController extends Controller
         $this->mail = $mail;
         $this->transferRequest = $transferRequest;
         $this->business = $business;
+        $this->introducer = $introducer;
+        $this->admin = $admin;
     }
 
     public function adminConfirm(Request $request){
@@ -245,6 +251,12 @@ class LoadController extends Controller
                 $response = $this->deleteInvestor($user);
 
             }
+            elseif ($user->type === "admin"){
+                $response = $this->deleteAdmin($user);
+            }
+            elseif ($user->type === "introducer"){
+                $response = $this->deleteIntroducer($user);
+            }
             else{
                 #business goes here
                 $response = $this->deleteBusiness($user);
@@ -256,11 +268,7 @@ class LoadController extends Controller
             }
 
             #Delete User
-            $getUser->update([
-                'email' => $user->first()->email . "-Deleted",
-                'phone' => $user->first()->phone . "-Deleted",
-                'isDeleted' => true,
-            ]);
+            $getUser->delete();
             \Session::put('success', true);
             return back()->withErrors('User Deleted Successfully');
         }
@@ -275,11 +283,7 @@ class LoadController extends Controller
             #Get investor details
             $investor = $this->investor->where("userId", $user->id);
             if ($investor->first() !== null) {
-                $investor->update([
-                    'email' => $investor->first()->email . "-Deleted",
-                    'phone' => $investor->first()->phone . "-Deleted",
-                    'isDeleted' => true,
-                ]);
+                $investor->delete();
             }
             return true;
         }
@@ -292,11 +296,33 @@ class LoadController extends Controller
         try{
             $business = $this->business->where("userId", $user->id);
             if ($business->first() !== null) {
-                $business->update([
-                    'email' => $business->first()->email . "-Deleted",
-                    'phone' => $business->first()->phone . "-Deleted",
-                    'isDeleted' => true,
-                ]);
+                $business->delete();
+            }
+            return true;
+        }
+        catch (\Exception $e){
+            return false;
+        }
+    }
+
+    public function deleteIntroducer($user){
+        try{
+            $introducer = $this->introducer->where("userId", $user->id);
+            if ($introducer->first() !== null) {
+                $introducer->delete();
+            }
+            return true;
+        }
+        catch (\Exception $e){
+            return false;
+        }
+    }
+
+    public function deleteAdmin($user){
+        try{
+            $admin = $this->admin->where("userId", $user->id);
+            if ($admin->first() !== null) {
+                $admin->delete();
             }
             return true;
         }
