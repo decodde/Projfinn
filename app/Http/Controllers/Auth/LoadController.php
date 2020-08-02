@@ -422,7 +422,9 @@ class LoadController extends Controller
                                     "amount" => $amountPaid,
                                     "paymentMethod" => "bank",
                                     "datePurchased" => Carbon::now(),
-                                    "period" => $tranxDetails->months
+                                    "period" => $tranxDetails->months,
+                                    "oldInv" => false,
+                                    "isCompleted" => true
                                 ];
 
                                 $getPer = $this->partials->loanTypes(strtolower($getP["name"]));

@@ -163,7 +163,9 @@ class LoadController extends Controller
                     "amount" => $data["amount"],
                     "paymentMethod" => "stash",
                     "datePurchased" => Carbon::now(),
-                    "period" => $data["months"]
+                    "period" => $data["months"],
+                    "oldInv" => false,
+                    "isCompleted" => true
                 ];
 
                 $portfolio = $this->portfolio->where("id", $data["portfolioId"]);
