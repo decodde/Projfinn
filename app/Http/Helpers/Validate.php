@@ -371,8 +371,9 @@ class Validate {
             case 'admin':
                 return $this->validator::make($data, [
                     'email' => 'required',
-                    'reference' => 'required',
-                    'type' => 'required',
+                    'amount' => 'required',
+                    'period' => 'required',
+                    'portfolioId' => 'required',
                 ]);
                 break;
             case 'transfer':

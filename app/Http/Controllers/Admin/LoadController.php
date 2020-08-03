@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Helpers\partials;
 use App\Http\Helpers\sendMail;
 use App\Models\Admin;
 use App\Models\Funds;
@@ -14,6 +15,7 @@ use App\Models\Referral;
 use App\Models\Stash;
 use App\Models\Transaction;
 use App\Models\transferRequest;
+use App\Models\TranxConfirm;
 use App\Models\User;
 use App\Models\Business;
 use Carbon\Carbon;
@@ -39,7 +41,9 @@ class LoadController extends Controller
     private $business;
     private $admin;
     private $introducer;
-    public function __construct(User $user, apiHelper $api, Validate $validate, Transaction  $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Funds $funds, sendMail $mail, transferRequest $transferRequest, Business $business, Introducer $introducer, Admin $admin){
+    private $partials;
+    private $confirm;
+    public function __construct(User $user, apiHelper $api, Validate $validate, Transaction  $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Funds $funds, sendMail $mail, transferRequest $transferRequest, Business $business, Introducer $introducer, Admin $admin, partials $partials, TranxConfirm $confirm){
         $this->user = $user;
         $this->api = $api;
         $this->transaction = $transaction;
@@ -55,6 +59,8 @@ class LoadController extends Controller
         $this->business = $business;
         $this->introducer = $introducer;
         $this->admin = $admin;
+        $this->partials = $partials;
+        $this->confirm = $confirm;
     }
 
     public function adminConfirm(Request $request){
@@ -80,96 +86,101 @@ class LoadController extends Controller
                 \Session::put('danger', true);
                 return back()->withErrors('User is not an investor');
             }
+            $ref = '9705'.str_random(10);
 
+            $Cdata = [
+                "email" => $data["email"],
+                "amount" => $data["amount"],
+                "type" => "credit",
+                "reference" => $ref,
+                "portfolioId" => $data['portfolioId'],
+                "months" => $data["period"]
+            ];
+            $trnxConfirmId = $this->confirm->create($Cdata)->id;
 
-            $reference = $data["reference"];
-
-            $trnxData = $this->api->call('/transaction/verify/' . $reference, 'GET')->data;
-
-//            dd($trnxData);
-            $amountPaid = $trnxData->amount / 100;
 
             $params = [
-                'reference' => $trnxData->reference,
-                'status' => $trnxData->status,
-                'message' => $trnxData->message ?? $trnxData->gateway_response,
-                'amount' => $amountPaid,
+                'reference' => $ref,
+                'status' => "success",
+                'message' => "Approved",
+                'amount' => $data["amount"],
                 'investorId' => $user->investor()->id,
                 'userId' => $user->id,
-                'type' => $data['type']
+                'type' => "credit"
             ];
 
             $trnXId = $this->transaction->create($params)->id;
 
             //credit the Investor's wallet
-            if ($data['type'] == 'credit') {
-                $stash = $this->stash->where('investorId', $user->investor()->id);
+            $stash = $this->stash->where('investorId', $user->investor()->id);
+            $customerRaw = $this->api->call('/customer/'.$user->email, 'GET');
 
+            if ($customerRaw->status != false) {
+                $customer = $customerRaw->data;
                 if ($stash->first() === null) {
                     $stashParams = [
                         'investorId' => $user->investor()->id,
-                        'customerId' => $trnxData->customer->customer_code,
-                        'totalAmount' => $amountPaid,
-                        'availableAmount' => $amountPaid
+                        'customerId' => $customer->customer_code,
+                        'totalAmount' => 0,
+                        'availableAmount' => 0
                     ];
                     $stash->create($stashParams);
-                } else {
-                    $stash->increment('totalAmount', $amountPaid);
-                    $stash->increment('availableAmount', $amountPaid);
                 }
-
                 $gr = $this->referral->where(['userId' => $user->id, 'hasPayed' => false]);
                 $getRef = $gr->first();
 
                 if ($getRef !== null) {
                     $refId = $this->investor->where('userId', $getRef->refererId)->first();
                     $refStash = $this->stash->where('investorId', $refId->id);
-                    $refStash->increment('totalAmount', 2000);
-                    $refStash->increment('availableAmount', 2000);
+                    $refStash->increment('totalAmount', 1000);
+                    $refStash->increment('availableAmount', 1000);
                     $gr->update(['hasPayed' => true]);
                 }
+            }
+            if ($data['portfolioId'] !== null) {
+                $portfolioId = $data['portfolioId'];
+                $getPortfolio = $this->portfolio->where("id", $portfolioId);
 
-                \Session::put('success', true);
-                return back()->withErrors('Stash credited successfully');
-            } else {
-                if ($data['portfolioId'] !== null) {
-                    $portfolioId = $data['portfolioId'];
-                    $getPortfolio = $this->portfolio->where("id", $portfolioId);
-
-                    $getP = $getPortfolio->first();
-                    if ($getP === null) {
-                        \Session::put('danger', true);
-                        return back()->withErrors('An error has occurred');
-                    }
-
-                    $units = $amountPaid / $getP->amountPerUnit;
-
-                    $invData = [
-                        'userId' => $user->id,
-                        "investorId" => $user->investor()->id,
-                        "portfolioId" => $portfolioId,
-                        "transactionId" => $trnXId,
-                        "unitsBought" => $units,
-                        "amount" => $amountPaid,
-                        "paymentMethod" => "bank",
-                        "datePurchased" => Carbon::now(),
-                    ];
-
-
-                    $roiInPer = $getP['returnInPer'] - $getP['managementFee'];
-                    $roi = (($roiInPer / 100) * $amountPaid);
-
-                    $invData["roi"] = $roi;
-                    $getPortfolio->decrement('sizeRemaining', $amountPaid);
-                    $this->investment->create($invData);
-
-                    \Session::put('success', true);
-                    return back()->withErrors("User Investment in '" . $getP->name . "' Recorded Successfully");
+                $getP = $getPortfolio->first();
+                if ($getP === null) {
+                    \Session::put('danger', true);
+                    return back()->withErrors('An error has occurred');
                 }
 
-                \Session::put('danger', true);
-                return back()->withErrors('An error has occurred: ');
+                $units = $data["amount"] / $getP->amountPerUnit;
+
+                $invData = [
+                    'userId' => $user->id,
+                    "investorId" => $user->investor()->id,
+                    "portfolioId" => $portfolioId,
+                    "transactionId" => $trnXId,
+                    "unitsBought" => $units,
+                    "amount" => $data["amount"],
+                    "paymentMethod" => "bank",
+                    "datePurchased" => Carbon::now(),
+                    "period" => $data["period"],
+                    "oldInv" => false,
+                    "isCompleted" => true
+                ];
+
+
+                $getPer = $this->partials->loanTypes(strtolower($getP["name"]));
+                $roiInPer = $getPer[$data["period"]] - $getP['managementFee'];
+                $roi = (($roiInPer / 100) * $data["amount"]);
+
+                $invData["roi"] = $roi;
+                $getPortfolio->decrement('sizeRemaining', $data["amount"]);
+                $this->investment->create($invData);
+                $this->confirm->where('id', $trnxConfirmId)->update([
+                    "isCompleted" => true
+                ]);
+
+                \Session::put('success', true);
+                return back()->withErrors("User Investment in '" . $getP->name . "' Recorded Successfully");
             }
+
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: ');
         }
         catch (\Exception $e){
             \Session::put('danger', true);

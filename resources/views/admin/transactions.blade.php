@@ -1,7 +1,6 @@
 @extends('admin.master')
 @section('content')
     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
-        @include('_partials.errors')
         <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
             <div class="kt-portlet">
                 <div class="kt-portlet__head">
@@ -22,19 +21,21 @@
                                 <code class="form-text">eg: <span class="text-muted">Enter Existing user's email</span></code>
                             </div>
                             <div class="col-lg-3">
-                                <label class="col-form-label">Reference from Paystack:</label>
-                                <input type="text" name="reference" class="form-control" placeholder="Reference">
-                                <code class="form-text">eg: <span class="text-muted">3Dth4se234</span></code>
+                                <label class="col-form-label">Amount the User Paid:</label>
+                                <input type="text" name="amount" class="form-control" placeholder="Amount">
+                                <code class="form-text">eg: <span class="text-muted">200000</span></code>
                             </div>
                             <div class="col-lg-3">
-                                <label class="col-form-label">Transaction type:</label>
-                                <select name="type" id="type" class="form-control">
-                                    <option value="credit">Credit</option>
-                                    <option value="debit">Debit</option>
+                                <label class="col-form-label">Lock Period:</label>
+                                <select name="period" id="period" class="form-control">
+                                    <option value="3">3</option>
+                                    <option value="6">6</option>
+                                    <option value="9">9</option>
+                                    <option value="12">12</option>
                                 </select>
                                 <code class="form-text">eg: <span class="text-muted">Credit Or Debit</span></code>
                             </div>
-                            <div class="col-lg-3" id="porfolio" style="display: none">
+                            <div class="col-lg-3">
                                 <label class="col-form-label">Select Portfolio:</label>
                                 <select name="portfolioId" class="form-control">
                                     @foreach($portfolios as $portfolio)
