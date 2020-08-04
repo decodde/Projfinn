@@ -24,6 +24,11 @@
                             </dl>
                             <hr>
                             <dl class="row text-black">
+                                <dt class="col-md-9">Business ID</dt>
+                                <dd class="col-md-3 text-right">{{$business->slug}}</dd>
+                            </dl>
+                            <hr>
+                            <dl class="row text-black">
                                 <dt class="col-md-9">Email Address</dt>
                                 <dd class="col-md-3 text-right">{{ $gUser->email }}</dd>
                             </dl>
