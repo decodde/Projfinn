@@ -112,6 +112,8 @@ class LoadController extends Controller
                 $body['name'] = $body['o_name'];
                 $businessId = $this->business->create($body)->id;
 
+                $this->business->where("id", $businessId)->update(["rID" => "BUS/Rouzo/00".$businessId]);
+
                 if(\Session::has('scoreQuery')) {
                     $scoreQuery = [];
                     parse_str(\Session::get('scoreQuery'), $scoreQuery);
