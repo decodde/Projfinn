@@ -10,7 +10,7 @@ class Business extends Model
     //
     protected $table = 'businesses';
 
-    protected $fillable = ['userId', 'categoryId', 'name', 'email', 'phone', 'address', 'website', 'bio', 'logo', 'startDate', 'size', 'country', 'state', 'cac', 'approvedAt', 'slug', 'financialRaise', 'turnoverAmount', 'turnoverPercent', 'score', 'nextOnline', 'matching', 'isDeleted'];
+    protected $fillable = ['userId', 'categoryId', 'name', 'email', 'phone', 'address', 'website', 'bio', 'logo', 'startDate', 'size', 'country', 'state', 'cac', 'approvedAt', 'slug', 'financialRaise', 'turnoverAmount', 'turnoverPercent', 'score', 'nextOnline', 'matching', 'isDeleted', "rID"];
 
     protected $hidden = [
         'website', 'bio', 'updated_at', 'startDate', 'state', 'cac', 'approvedAt', 'financialRaise', 'turnoverAmount', 'turnoverPercent', 'nextOnline', 'matching'
