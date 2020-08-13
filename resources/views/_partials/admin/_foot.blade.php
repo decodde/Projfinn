@@ -66,4 +66,8 @@
             }
         });
     });
+    $('#rejectSubmit').on('click', function (e) {
+        $('#prog').val("rejected");
+        document.businessForm.submit();
+    });
 </script>

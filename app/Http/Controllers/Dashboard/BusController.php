@@ -172,7 +172,8 @@ class BusController extends Controller{
 
                 return view('dashboard.business.funds', $data);
             } else {
-                abort('404');
+                \Session::put('danger', true);
+                return back()->withErrors('An error has occurred: ');
             }
         }catch(\Exception $e){
             \Session::put('danger', true);
