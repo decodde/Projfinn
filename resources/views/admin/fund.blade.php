@@ -136,7 +136,16 @@
                             </dd>
                         </dl>
                         <hr>
-                        @if($fund->progress !== "review")
+                        @if($fund->progress !== "review" && $fund->progress !== "visitation")
+                            <dl class="row text-black">
+                                <dt class="col-md-9">Reason for Approval or Rejection</dt>
+                                <dd class="col-md-3 text-right">
+                                    {{$fund->message}}
+                                </dd>
+                            </dl>
+                        <hr>
+                        @endif
+                        {{--@if($fund->progress !== "review")
                             <dl class="row text-black">
                                 <dt class="col-md-9">Commission Fee: </dt>
                                 @if($fund->progress === "payment")
@@ -150,36 +159,37 @@
                                 @endif
                             </dl>
                             <hr>
-                        @endif
+                        @endif--}}
                         @if($admin->role !== "business-team")
                             <dl class="row text-black">
                                 <dt class="col-md-8">Actions</dt>
-                                <dd class="col-md-4 d-flex float-right" style="justify-content: space-evenly">
-                                    <form action="{{URL('/admin/rouzz/status')}}" method="post">
+                                <dd class="col-md-4 float-right">
+                                    <form action="{{URL('/admin/rouzz/status')}}" method="post" name="businessForm">
                                         <input type="hidden" name="_token" value="{{csrf_token()}}">
                                         <input type="hidden" name="businessId" value="{{$fund->business->id}}">
                                         <input type="hidden" name="name" value="{{$fund->user->name}}">
                                         <input type="hidden" name="email" value="{{$fund->user->email}}">
+                                        <div class="form-group">
+                                            <label for="message">Message</label>
+                                            <textarea name="message" id="message" class="form-control" required="required" cols="30" rows="5">{{$fund->message}}</textarea>
+                                        </div>
                                         @if($fund->progress === "review")
-                                            <input type="hidden" name="progress" value="payment">
+                                            <input type="hidden" name="progress" value="visitation">
                                             <button type="submit" class="btn btn-success">
                                                 Application Approved
                                             </button>
                                         @elseif($fund->progress === "visitation")
-                                            <input type="hidden" name="progress" value="approved">
+                                            <input type="hidden" name="progress" value="approved" id="prog">
+                                            <div class="form-group">
+                                                <label for="amount">Amount in Naira(₦)</label>
+                                                <input type="number" name="amount" id="amount" class="form-control" placeholder="Amount" value="{{$fund->amount}}">
+                                            </div>
                                             <button type="submit" class="btn btn-success">
                                                 Visitation Completed(Accept Funding)
                                             </button>
-                                        @elseif($fund->progress === "approved")
-                                            <input type="hidden" name="progress" value="rejected">
-                                            <button type="submit" class="btn btn-success">
-                                                Visitation Completed(Reject Funding)
-                                            </button>
                                         @endif
-                                    </form>
-                                    <form action="{{URL('/admin/rouzz/status')}}" method="post">
-                                        <button type="submit" class="btn btn-danger">
-                                            <input type="hidden" name="progress" value="rejected">
+                                        <br>
+                                        <button type="submit" class="btn btn-danger mt-2" id="rejectSubmit">
                                             Reject Application
                                         </button>
                                     </form>

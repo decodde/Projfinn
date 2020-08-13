@@ -202,6 +202,23 @@ class LoadController extends Controller
                 ];
                 $this->mail->sendMailForPayment($params);
             }
+
+            if($data["progress"] === "approved") {
+                $this->funds->where('businessId', $data["businessId"])->update(['amount' => $data["amount"], 'message' => $data["message"]]);
+            }
+
+            if($data["progress"] === "rejected") {
+                $this->funds->where('businessId', $data["businessId"])->update(['message' => $data["message"]]);
+            }
+
+            if($data["progress"] === "payment") {
+                $params = [
+                    "name" => $data["name"],
+                    "email" => $data["email"],
+                    "url" => URL('/dashboard')
+                ];
+                $this->mail->sendMailForPayment($params);
+            }
             \Session::put('success', true);
             return back()->withErrors('Application Status Changed');
         }

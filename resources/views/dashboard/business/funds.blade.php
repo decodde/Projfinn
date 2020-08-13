@@ -70,7 +70,6 @@
                                         <th>Fund Purpose Links</th>
                                         <th>Message</th>
                                         <th>Date</th>
-                                        <th>Payment</th>
                                     </tr>
                                     </thead>
                                     <tbody class="borderless">
@@ -106,7 +105,9 @@
                                                 @elseif($fund->progress === "payment")
                                                     <a class="warning">You are to Pay a sum of ₦2,000.00
                                                 @elseif($fund->progress === "approved" )
-                                                    <a class="success">Reviewed to proceed
+                                                    <a class="success">{{$fund->message}}
+                                                @elseif($fund->progress === "rejected" )
+                                                    <a class="danger">{{$fund->message}}
                                                 @elseif($fund->progress === "visitation" )
                                                     <a class="warning">A face to face visitation is required
                                                 @else
@@ -115,11 +116,6 @@
                                                     </a>
                                             </td>
                                             <td>{{App\Http\Helpers\Formatter::dataTime($fund->created_at)}} </td>
-                                            <td>
-                                                @if($fund->progress === "payment")
-                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#makePayment" class="btn btn-success mr-1 btn-md">Make Payment </a>
-                                                @endif
-                                            </td>
                                         </tr>
                                         <div id="makePayment" class="modal fade" role="dialog">
                                             <div class="modal-dialog modal-sm">
