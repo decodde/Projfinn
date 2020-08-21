@@ -70,6 +70,7 @@
                                         <th>Fund Purpose Links</th>
                                         <th>Message</th>
                                         <th>Date</th>
+                                        <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody class="borderless">
@@ -77,9 +78,9 @@
                                         <tr>
                                             <td>
                                                 @if($fund->progress === "approved")
-                                                    <i class="la la-dot-circle success"></i>
+                                                    <i class="la la-dot-circle-o success"></i>
                                                 @elseif($fund->progress === "rejected")
-                                                    <i class="la la-dot-circle danger"></i>
+                                                    <i class="la la-dot-circle-o danger"></i>
                                                 @else
                                                     <i class="la la-dot-circle-o warning"></i>
                                                 @endif
@@ -116,6 +117,7 @@
                                                     </a>
                                             </td>
                                             <td>{{App\Http\Helpers\Formatter::dataTime($fund->created_at)}} </td>
+                                            <td><a href="{{URL('/dashboard/fund/'.encrypt($fund->id))}}" class="btn btn-outline-info info ">View Full Details<i class="ft-arrow-right position-relative" style="top: 2px;margin-left: 6px; font-size: 15px"></i></a></td>
                                         </tr>
                                         <div id="makePayment" class="modal fade" role="dialog">
                                             <div class="modal-dialog modal-sm">

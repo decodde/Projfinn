@@ -169,6 +169,8 @@
                                         <input type="hidden" name="businessId" value="{{$fund->business->id}}">
                                         <input type="hidden" name="name" value="{{$fund->user->name}}">
                                         <input type="hidden" name="email" value="{{$fund->user->email}}">
+                                        <input type="hidden" name="amountPerMonth" id="amountPerMonth" class="form-control" placeholder="Amount Per Month">
+                                        <input type="hidden" name="months" id="months" class="form-control" value="3">
                                         <div class="form-group">
                                             <label for="message">Message</label>
                                             <textarea name="message" id="message" class="form-control" required="required" cols="30" rows="5">{{$fund->message}}</textarea>
@@ -184,6 +186,14 @@
                                                 <label for="amount">Amount in Naira(₦)</label>
                                                 <input type="number" name="amount" id="amount" class="form-control" placeholder="Amount" value="{{$fund->amount}}">
                                             </div>
+                                            {{--<div class="form-group">
+                                                <label for="amountPerMonth">Amount Per Month in Naira(₦)</label>
+
+                                            </div>--}}
+                                            {{--<div class="form-group">
+                                                <label for="months">Number of Repayment Month</label>
+                                                <input type="number" name="months" id="months" class="form-control" placeholder="eg. 2, 12, 24">
+                                            </div>--}}
                                             <button type="submit" class="btn btn-success">
                                                 Visitation Completed(Accept Funding)
                                             </button>

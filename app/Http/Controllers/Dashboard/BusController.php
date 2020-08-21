@@ -8,6 +8,7 @@ use App\Models\BVN;
 use App\Models\Document;
 use App\Models\Eligibility;
 
+use App\Models\fundPayment;
 use App\Models\Funds;
 use App\Models\Guarantor;
 use App\Models\Transaction;
@@ -31,7 +32,8 @@ class BusController extends Controller{
     private $guarantor;
     private $busAccount;
     private $bank;
-    public function __construct(Auth $auth, User $user, Eligibility $eligible, partials $partials, Funds $funds, Document $document, BVN  $bvn, Transaction $transaction,  Formatter $formatter, Guarantor $guarantor, busAccount $busAccount, Bank $bank)
+    private $payment;
+    public function __construct(Auth $auth, User $user, Eligibility $eligible, partials $partials, Funds $funds, Document $document, BVN  $bvn, Transaction $transaction,  Formatter $formatter, Guarantor $guarantor, busAccount $busAccount, Bank $bank, fundPayment $payment)
     {
         $this->eligible = $eligible;
         $this->partials = $partials;
@@ -45,6 +47,7 @@ class BusController extends Controller{
         $this->guarantor = $guarantor;
         $this->busAccount = $busAccount;
         $this->bank = $bank;
+        $this->payment = $payment;
     }
 
     public function dashboard(Request $request) {
@@ -166,6 +169,7 @@ class BusController extends Controller{
             if($business) {
                 $user = $this->auth::user();
                 $data = [
+                    'title' => 'Dashboard : Funds',
                     'user' => $user,
                     'funds' => $funds
                 ];
@@ -181,6 +185,38 @@ class BusController extends Controller{
         }
     }
 
+    public function funds_one(Request $request, $id){
+        try{
+            $user = Auth::user();
+            $hasDocs = $this->checkDocuments($user);
+
+            $busAccount = $this->busAccount->where("userId", $user->id)->first();
+
+            if (!$hasDocs){
+                \Session::put('danger', true);
+                return redirect("/dashboard/document")->withErrors('Provide your Bvn, Guarantors and Upload Your Documents before applying for Funds');
+            }
+
+            if ($busAccount === null){
+                \Session::put('danger', true);
+                return redirect("/dashboard/settings")->withErrors('Provide your Banks Details before applying for Funds');
+            }
+            $fund = $this->funds->where(['businessId' => $user->business()->id, 'id' => decrypt($id)])->first();
+
+            if($fund->progress == 'approved'){
+                $fund->payment = $this->payment->where("fundId", $fund->id)->first();
+            }
+            $data = [
+                'title' => 'Dashboard : Fund',
+                'fund' => $fund
+            ];
+            return view('dashboard.business.fund', $data);
+        }
+        catch (\Exception $e){
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
     public function settings(Request $request){
         try{
             $user = Auth::user();
