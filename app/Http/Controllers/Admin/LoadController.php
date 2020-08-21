@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Helpers\partials;
 use App\Http\Helpers\sendMail;
 use App\Models\Admin;
+use App\Models\fundPayment;
 use App\Models\Funds;
 use App\Models\Introducer;
 use App\Models\Investment;
@@ -43,7 +44,8 @@ class LoadController extends Controller
     private $introducer;
     private $partials;
     private $confirm;
-    public function __construct(User $user, apiHelper $api, Validate $validate, Transaction  $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Funds $funds, sendMail $mail, transferRequest $transferRequest, Business $business, Introducer $introducer, Admin $admin, partials $partials, TranxConfirm $confirm){
+    private $fundPayment;
+    public function __construct(User $user, apiHelper $api, Validate $validate, Transaction  $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Funds $funds, sendMail $mail, transferRequest $transferRequest, Business $business, Introducer $introducer, Admin $admin, partials $partials, TranxConfirm $confirm, fundPayment $fundPayment){
         $this->user = $user;
         $this->api = $api;
         $this->transaction = $transaction;
@@ -61,6 +63,7 @@ class LoadController extends Controller
         $this->admin = $admin;
         $this->partials = $partials;
         $this->confirm = $confirm;
+        $this->fundPayment = $fundPayment;
     }
 
     public function adminConfirm(Request $request){
@@ -192,7 +195,6 @@ class LoadController extends Controller
     {
         try{
             $data = $request->except('_token');
-            $this->funds->where('businessId', $data["businessId"])->update(['progress' => $data["progress"]]);
 
             if($data["progress"] === "payment") {
                 $params = [
@@ -204,7 +206,27 @@ class LoadController extends Controller
             }
 
             if($data["progress"] === "approved") {
-                $this->funds->where('businessId', $data["businessId"])->update(['amount' => $data["amount"], 'message' => $data["message"]]);
+                $fund_r = $this->funds->where('businessId', $data["businessId"]);
+
+                $funding = $fund_r->first();
+                $nextPayment = Carbon::now()->addMonths(1);
+
+                $amountPerMonth = ($data["amount"] + ($data["amount"] * 0.15))/$data["months"];
+                $paymentData = [
+                  "userId" => $funding->userId,
+                  "businessId" => $funding->businessId,
+                  "fundId" => $funding->id,
+                  "total_amount" => $data["amount"],
+                  "months" => $data["months"],
+                  "months_left" => $data["months"],
+                  "amountPerMonth" => $amountPerMonth,
+                  "nextPayment" => $nextPayment,
+
+                ];
+
+                $this->fundPayment->create($paymentData);
+
+                $fund_r->update(['amount' => $data["amount"], 'message' => $data["message"]]);
             }
 
             if($data["progress"] === "rejected") {
@@ -219,6 +241,8 @@ class LoadController extends Controller
                 ];
                 $this->mail->sendMailForPayment($params);
             }
+
+            $this->funds->where('businessId', $data["businessId"])->update(['progress' => $data["progress"]]);
             \Session::put('success', true);
             return back()->withErrors('Application Status Changed');
         }

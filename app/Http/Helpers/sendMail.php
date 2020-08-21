@@ -156,7 +156,6 @@ class sendMail {
 
     public function sendMailForDebugging($data)
     {
-        dd($data);
         $mail["title"] = "Debug From Rouzo ";
         $mail["salute"] = "Hello Rouzo";
         $mail["message"] = "ACCOUNTNAME: ".$data["nubanMatch"]->account_name."ACCOUNTNUMBER: ".$data["nubanMatch"]->account_number."BVN: ".$data["bvnMatch"]->bvn."BVN_firstNAME: ".$data["bvnMatch"]->first_name."BVN_lastNAME: ".$data["bvnMatch"]->last_name;
@@ -169,4 +168,45 @@ class sendMail {
         });
     }
 
+    public function sendFundingReminder($data){
+        $mail["title"] = "Rouzo: Your Repayment is due Today";
+        $mail["salute"] = "Hello ".$data["name"];
+        $mail["message"] = "Your Fund Repayment for this month is due today, Pay today to avoid negative scoring";
+        $mail['buttonTitle'] = 'Login to Your dashboard to make the payment';
+        $mail['targetUrl'] = $data['url'];
+
+        $this->mail::send('emails.template', ['data' => $mail], function ($m) use ($mail, $data) {
+            $m->from(env('SENDER_EMAIL'), env('SENDER_NAME'));
+            $m->to($data["email"])->subject($mail['title']);
+            $m->replyTo('no-reply@owoafara.com');
+        });
+    }
+
+    public function sendPreFundReminder($data){
+        $mail["title"] = "Rouzo: Your Repayment is going to be due Tomorrow";
+        $mail["salute"] = "Hello ".$data["name"];
+        $mail["message"] = "Your Fund Repayment for ". $data["date"] . " is going to be due tomorrow, Pay on time to avoid negative scoring";
+        $mail['buttonTitle'] = 'Login to Your dashboard to make the payment';
+        $mail['targetUrl'] = $data['url'];
+
+        $this->mail::send('emails.template', ['data' => $mail], function ($m) use ($mail, $data) {
+            $m->from(env('SENDER_EMAIL'), env('SENDER_NAME'));
+            $m->to($data["email"])->subject($mail['title']);
+            $m->replyTo('no-reply@owoafara.com');
+        });
+    }
+
+    public function sendPostFundReminder($data){
+        $mail["title"] = "Rouzo: Your Repayment is overdue";
+        $mail["salute"] = "Hello ".$data["name"];
+        $mail["message"] = "Your Fund Repayment for ". $data["date"] . " is overdue, Pay before the end of today to avoid negative credit scoring";
+        $mail['buttonTitle'] = 'Login to Your dashboard to make the payment';
+        $mail['targetUrl'] = $data['url'];
+
+        $this->mail::send('emails.template', ['data' => $mail], function ($m) use ($mail, $data) {
+            $m->from(env('SENDER_EMAIL'), env('SENDER_NAME'));
+            $m->to($data["email"])->subject($mail['title']);
+            $m->replyTo('no-reply@owoafara.com');
+        });
+    }
 }

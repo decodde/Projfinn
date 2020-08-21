@@ -7,6 +7,7 @@ Route::group(['middleware' => 'business'], function() {
     Route::get('/eligibility/score', 'BusController@score');
     Route::get('/document', 'BusController@documents');
     Route::get('/funds', 'BusController@funds');
+    Route::get('/fund/{id}', 'BusController@funds_one');
     Route::get('/settings', 'BusController@settings');
 });
 
