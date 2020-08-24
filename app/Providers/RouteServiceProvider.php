@@ -87,6 +87,9 @@ class RouteServiceProvider extends ServiceProvider
         //Investment
         $this->mapInvestmentRoutes();
 
+        //Stash
+        $this->mapStashRoutes();
+
         //Transaction
         $this->mapTransactionRoutes();
     }
@@ -273,6 +276,21 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/guarantor.php'));
     }
 
+
+    /**
+     * Define the "Stash" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapStashRoutes()
+    {
+        Route::prefix('stash')
+            ->middleware(['web', 'user'])
+            ->namespace($this->namespace.'\Stash')
+            ->group(base_path('routes/stash.php'));
+    }
 
     /**
      * Define the "Document" routes for the application.

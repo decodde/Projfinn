@@ -9,7 +9,7 @@ class TranxConfirm extends Model
     //
     protected $table = 'tranx_confirms';
 
-    protected $fillable = ['email', 'portfolioId','fundId', 'amount', 'reference', 'isCompleted', 'type', 'months'];
+    protected $fillable = ['email', 'portfolioId','fundId', 'amount', 'reference', 'isCompleted', 'type', 'months', 'plan_code'];
 
     public function user() {
         return $this->hasOne('App\Models\User', 'id', 'userId')->first();

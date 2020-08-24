@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Saving;
 use App\Models\transferRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as Auth;
@@ -35,8 +36,9 @@ class PageController extends Controller
     private $portfolio;
     private $investment;
     private $transferRequest;
+    private $saving;
 
-    public function __construct(Auth $auth, User $user, partials $partials, Transaction $transaction, Stash $stash, Formatter $formatter, Referral $referral, lenderAccount $lenderAccount, Bank $bank, Portfolio $portfolio, Investment $investment, transferRequest $transferRequest){
+    public function __construct(Auth $auth, User $user, partials $partials, Transaction $transaction, Stash $stash, Formatter $formatter, Referral $referral, lenderAccount $lenderAccount, Bank $bank, Portfolio $portfolio, Investment $investment, transferRequest $transferRequest, Saving $saving){
         $this->auth = $auth;
         $this->user = $user;
         $this->partials = $partials;
@@ -49,6 +51,7 @@ class PageController extends Controller
         $this->portfolio = $portfolio;
         $this->investment = $investment;
         $this->transferRequest = $transferRequest;
+        $this->saving = $saving;
     }
 
 
@@ -141,12 +144,12 @@ class PageController extends Controller
                 }
             }
 
-            $transactions = $this->transaction->where('investorId', $user->investor()->id)->latest()->paginate(8);
+            $transactions = $this->transaction->where('investorId', $user->investor()->id)->latest()->paginate(5);
 
             $creditAmount = 0;
             $debitAmount = 0.00;
             foreach ($transactions as $transaction){
-                if ($transaction->type === "credit"){
+                if ($transaction->type === "credit" || $transaction->type === "saving"){
                     $creditAmount += $transaction->amount;
                 } else {
                     $debitAmount += $transaction->amount;
@@ -155,8 +158,8 @@ class PageController extends Controller
                 $transaction->date = $this->formatter->dataTime($transaction->created_at);
             }
 
-            $transfers = $this->transferRequest->where('investorId', $user->investor()->id)->paginate(8);
-
+            $transfers = $this->transferRequest->where('investorId', $user->investor()->id)->paginate(5);
+            $savings = $this->saving->where("email", $user->email)->paginate(5);
             $data = [
                 'title' => 'Dashboard',
                 'investor' => $user->investor(),
@@ -165,6 +168,7 @@ class PageController extends Controller
                 'transactions' => $transactions,
                 'transfers' => $transfers,
                 'purchase' => $purchase,
+                'savings' => $savings
             ];
 
             return view('dashboard.investor.stash', $data);
