@@ -8,6 +8,10 @@
         .table td{
             border-top: none !important;
         }
+        .my--01{
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
 
     </style>
     @if($purchase['can'] === true)
@@ -78,11 +82,12 @@
     <div class="row">
         <div class="col-12">
             <a href="javascript:void(0);" data-toggle="modal" data-target="#makeWithdrawal" class="btn btn-primary mr-1 btn-md mb-2 float-right">Withdraw savings <i class="fa fa-credit-card"></i></a>
-            <a href="javascript:void(0);" data-toggle="modal" data-target="#makePayment" class="btn btn-success mr-1 btn-md mb-2 float-right">credit your wallet <i class="fa fa-plus"></i></a>
+            <a href="javascript:void(0);" data-toggle="modal" data-target="#makePayment" class="btn btn-success mr-1 btn-md mb-2 float-right">Credit your wallet <i class="fa fa-plus"></i></a>
+            <a href="javascript:void(0);" data-toggle="modal" data-target="#saveToInvest" class="btn btn-success mr-1 btn-md mb-2 float-right">Save to Invest <i class="icon-ion-ios-wallet"></i></a>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12 col-12">
+        <div class="col-md-8 col-12">
             <div class="card pb-1">
                 <div class="card-header">
                     <h4 class="card-title">Transactions</h4>
@@ -96,16 +101,16 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
-                                    <tr class="borderless">
-                                        <th>Status</th>
-                                        <th>Reference</th>
-                                        <th>Type</th>
-                                        <th>Amount</th>
-                                        <th>Message</th>
-                                        <th>Date</th>
-                                    </tr>
+                                        <tr class="borderless">
+                                            <th>Status</th>
+                                            <th>Transaction</th>
+                                            <th>Actions</th>
+                                        </tr>
                                     </thead>
                                     <tbody class="borderless">
+                                    @php
+                                        $i = 0;
+                                    @endphp
                                     @foreach($transactions as $transaction)
                                         <tr>
                                             <td>
@@ -115,29 +120,164 @@
                                                     <i class="fa fa-times danger"></i>
                                                 @endif
                                             </td>
-                                            <td>{{$transaction->reference}}</td>
                                             <td>
-                                                @if($transaction->type === "debit")
-                                                    <button type="button" class="btn mr-1 mb-1 btn-outline-danger btn-sm">Investment</button>
-                                                @else
-                                                    <button type="button" class="btn mr-1 mb-1 btn-outline-success btn-sm">Credit</button>
-                                                @endif
-
+                                                <a href="">{{$transaction->reference}}</a>
+                                                <br>
+                                                <a class="font-size-17px success darken-4">₦ {{$transaction->amount}}</a>
+                                                <br>
+                                                <a href="">{{App\Http\Helpers\Formatter::dataTime($transaction->created_at)}}</a>
                                             </td>
                                             <td>
-                                                <p class="font-size-17px success darken-4">
-                                                    ₦ {{$transaction->amount}}
-                                                </p>
+                                                <a class="btn btn-outline-info info mx-1 my--01" data-toggle="modal" data-target="#details{{$i}}">
+                                                    View Full Details
+                                                </a>
+                                                <div id="details{{$i}}" class="modal fade" role="dialog">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <!-- Modal content-->
+                                                        <div class="modal-content px-2" style="border: none">
+                                                            <div class="modal-header px-0" style="justify-content: normal; border-bottom: 1px solid #c6d4df">
+                                                                <div>
+                                                                    <h6 class="font-size-16px grey-blue font-weight-bold lighten-2">{{$transaction->reference}}</h6>
+                                                                    <a class="info">{{App\Http\Helpers\Formatter::dataTime($transaction->created_at)}}</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <dl class="row">
+                                                                    <dt class="blue-grey darken-1">Amount: </dt>
+                                                                    <dd class="success ml-1">₦ {{$transaction->amount}}</dd>
+                                                                </dl>
+                                                                <dl class="row">
+                                                                    <dt class="blue-grey darken-1">Type: </dt>
+                                                                    <dd class="ml-1">
+                                                                        @if($transaction->type === "debit")
+                                                                            <button type="button" class="btn mr-1 mb-1 btn-outline-danger btn-sm">Investment</button>
+                                                                        @else
+                                                                            <button type="button" class="btn mr-1 mb-1 btn-outline-success btn-sm">Credit</button>
+                                                                        @endif
+                                                                    </dd>
+                                                                </dl>
+                                                                <dl class="row">
+                                                                    <dt class="blue-grey darken-1">Reference: </dt>
+                                                                    <dd class="ml-1"> {{$transaction->reference}}</dd>
+                                                                </dl>
+                                                                <dl class="row">
+                                                                    <dt class="blue-grey darken-1">Date: </dt>
+                                                                    <dd class="ml-1">{{App\Http\Helpers\Formatter::dataTime($transaction->created_at)}}</dd>
+                                                                </dl>
+                                                                <dl class="row">
+                                                                    <dt class="blue-grey darken-1">Message: </dt>
+                                                                    <dd class="ml-1"> {{$transaction->message}}</dd>
+                                                                </dl>
+                                                            </div>
+                                                            <div class="modal-footer" style="border-top: 1px solid #c6d4df">
+                                                                <a data-dismiss="modal" class="text-center m-auto info" style="text-decoration: underline">Dismiss</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
-
-                                            <td>{{$transaction->message}}</td>
-                                            <td>{{$transaction->date}} </td>
-
                                         </tr>
+                                        @php
+                                            $i++;
+                                        @endphp
                                     @endforeach
                                     </tbody>
                                 </table>
                                 {{$transactions->links()}}
+                            </div>
+                        @else
+                            <div class="text-center dotted-btn width-550">
+                                You haven't made any transaction Yet
+                                <br>
+                                <a href="javascript:void(0);" data-toggle="modal" data-target="#makePayment" class="btn btn-success mr-1 btn-md mt-2">credit your wallet <i class="fa fa-plus"></i></a>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-12">
+            <div class="card pb-1">
+                <div class="card-header">
+                    <h4 class="card-title">Saving Plans</h4>
+                </div>
+                <div class="card-content collapse show">
+                    <div class="card-body">
+                        @if(count($transactions) !== 0 )
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr class="borderless">
+                                        <th>Name</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="borderless">
+                                    @php
+                                        $i = 0;
+                                    @endphp
+                                    @foreach($savings as $saving)
+                                        <tr>
+                                            <td>
+                                                <a href="">{{$saving->name}}</a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-outline-info info mx-1 my--01" data-toggle="modal" data-target="#detail{{$i}}">
+                                                    View Full Details
+                                                </a>
+                                                <div id="detail{{$i}}" class="modal fade" role="dialog">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <!-- Modal content-->
+                                                        <div class="modal-content px-2" style="border: none">
+                                                            <div class="modal-header px-0" style="justify-content: normal; border-bottom: 1px solid #c6d4df">
+                                                                <div>
+                                                                    <h6 class="font-size-16px grey-blue font-weight-bold lighten-2">{{$saving->name}}</h6>
+                                                                    <a class="info">{{App\Http\Helpers\Formatter::dataTime($saving->created_at)}}</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <dl class="row">
+                                                                    <dt class="blue-grey darken-1">Amount: </dt>
+                                                                    <dd class="success ml-1">₦ {{$saving->amount}}</dd>
+                                                                </dl>
+                                                                <dl class="row">
+                                                                    <dt class="blue-grey darken-1">Interval: </dt>
+                                                                    <dd class="ml-1">
+                                                                        {{$saving->interval}}
+                                                                    </dd>
+                                                                </dl>
+                                                                <dl class="row">
+                                                                    <dt class="blue-grey darken-1">Reference: </dt>
+                                                                    <dd class="ml-1"> {{$saving->reference}}</dd>
+                                                                </dl>
+                                                                <dl class="row">
+                                                                    <dt class="blue-grey darken-1">Savings span: </dt>
+                                                                    <dd class="ml-1"> {{$saving->months}} months</dd>
+                                                                </dl>
+                                                                <dl class="row">
+                                                                    <dt class="blue-grey darken-1">Savings Progress: </dt>
+                                                                    <dd class="ml-1"> {{$saving->monthsPaid}} / {{$saving->months}} months</dd>
+                                                                </dl>
+                                                                <dl class="row">
+                                                                    <dt class="blue-grey darken-1">Next Payment: </dt>
+                                                                    <dd class="ml-1">{{App\Http\Helpers\Formatter::dataTime($saving->nextPayment)}}</dd>
+                                                                </dl>
+                                                            </div>
+                                                            <div class="modal-footer" style="border-top: 1px solid #c6d4df">
+                                                                <a data-dismiss="modal" class="text-center m-auto info" style="text-decoration: underline">Dismiss</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @php
+                                            $i++;
+                                        @endphp
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                                {{$savings->links()}}
                             </div>
                         @else
                             <div class="text-center dotted-btn width-550">
@@ -233,6 +373,60 @@
                             <label for="file">Amount in Naira (₦)</label>
                             <input type="number" name="amount" class="form-control" required="required">
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="javascript:void(0);" class="danger" data-dismiss="modal">Close</a>
+                        <button type="submit" class="btn btn-sm btn-success">Proceed to Payment</button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+    <div id="saveToInvest" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="font-size-18px font-weight-bold">Save To Invest</h6>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <form action="{{ URL('/stash/save') }}" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="email" value="{{ $user->email }}">
+                        <input type="hidden" name="type" value="crd">
+
+                        <div class="form-group d-flex">
+                            <div class="mr-1">
+                                <label for="name">Savings Name</label>
+                                <input type="text" name="name" class="form-control" required="required">
+                            </div>
+                            <div>
+                                <label for="amount">Amount in Naira (₦)</label>
+                                <input type="number" name="amount" class="form-control" required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="file">Saving Interval <i class="fa fa-info-circle" title="how frequent do you want ton save?"></i></label>
+                            <select class="form-control" name="interval">
+                                <option value="daily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="file">Investment span <i class="fa fa-info-circle" title="how long do you want to invest?"></i></label>
+                            <select class="form-control" name="span">
+                                <option value="3">3 months</option>
+                                <option value="6">6 months</option>
+                                <option value="9">9 months</option>
+                            </select>
+                        </div>
+                        <p><code>Note:</code>your will make the first payment now so as to store your details for subsequent payment</p>
                     </div>
                     <div class="modal-footer">
                         <a href="javascript:void(0);" class="danger" data-dismiss="modal">Close</a>

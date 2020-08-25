@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Helpers\apiHelper;
 use App\Http\Helpers\partials;
 use App\Models\Funds;
+use App\Models\Saving;
 use App\Models\Transaction;
 use App\Models\Stash;
 use App\Models\transferRequest;
@@ -37,8 +38,9 @@ class LoadController extends Controller
     private $fund;
     private $transferRequest;
     private $partials;
+    private $saving;
 
-    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, TranxConfirm $tranx, Validate $validate, lenderAccount $account, Bank $bank, Funds $fund, transferRequest $transferRequest, partials $partials){
+    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, TranxConfirm $tranx, Validate $validate, lenderAccount $account, Bank $bank, Funds $fund, transferRequest $transferRequest, partials $partials, Saving $saving){
         $this->api = $api;
         $this->transaction = $transaction;
         $this->stash = $stash;
@@ -53,6 +55,7 @@ class LoadController extends Controller
         $this->fund = $fund;
         $this->transferRequest = $transferRequest;
         $this->partials = $partials;
+        $this->saving = $saving;
     }
 
     public function buy(Request $request){
@@ -131,7 +134,7 @@ class LoadController extends Controller
                 $trnXId = $this->transaction->create($params)->id;
 
                 //credit the Investor's wallet
-                if ($trnxType == 'credit') {
+                if ($trnxType == 'credit' || $trnxType == 'saving') {
                     $stash = $this->stash->where('investorId', $user->investor()->id);
 
                     if ($stash->first() === null) {
@@ -157,6 +160,33 @@ class LoadController extends Controller
                         $refStash->increment('availableAmount', 1000);
                         $gr->update(['hasPayed' => true]);
                     }
+                    if ($trnxType == 'saving'){
+                        $subData = [
+                            "customer" => $user->email,
+                            "plan" => $tranxDetails->plan_code
+                        ];
+                        $result = $this->api->call("/subscription", 'POST', $subData);
+                        if ($result->status != true){
+                            \Session::put('danger', true);
+                            return back()->withErrors("An Error Occurred");
+                        }
+                        $sav = $this->saving->where('plan_code', $tranxDetails->plan_code);
+                        $savD = $sav->first();
+                        if ($savD->interval == "weekly"){
+                            $nextP = Carbon::now()->addWeeks(1);
+                        }
+                        elseif ($savD->interval == "monthly"){
+                            $nextP = Carbon::now()->addMonths(1);
+                        }
+                        else{
+                            $nextP = Carbon::now()->addDays(1);
+                        }
+                        $sav->update(
+                            ["sub_code" => $result->data->subscription_code, "email_token" => $result->data->email_token, 'nextPayment' => $nextP]
+                        );
+                        $sav->increment('monthsPaid', 1);
+                    }
+
                     $tranxDetail->update([
                         "isCompleted" => true
                     ]);
@@ -169,8 +199,8 @@ class LoadController extends Controller
                         $stashParams = [
                             'investorId' => $user->investor()->id,
                             'customerId' => $trnxData->customer->customer_code,
-                            'totalAmount' => 0,
-                            'availableAmount' => 0
+                            'totalAmount' => 1000,
+                            'availableAmount' => 1000
                         ];
                         $stash->create($stashParams);
                     }
