@@ -117,7 +117,11 @@
                                                     </a>
                                             </td>
                                             <td>{{App\Http\Helpers\Formatter::dataTime($fund->created_at)}} </td>
-                                            <td><a href="{{URL('/dashboard/fund/'.encrypt($fund->id))}}" class="btn btn-outline-info info ">View Full Details<i class="ft-arrow-right position-relative" style="top: 2px;margin-left: 6px; font-size: 15px"></i></a></td>
+                                            <td>
+                                                @if($fund->progress == "approved")
+                                                    <a href="{{URL('/dashboard/fund/'.encrypt($fund->id))}}" class="btn btn-outline-info info ">View Full Details<i class="ft-arrow-right position-relative" style="top: 2px;margin-left: 6px; font-size: 15px"></i></a>
+                                                @endif
+                                            </td>
                                         </tr>
                                         <div id="makePayment" class="modal fade" role="dialog">
                                             <div class="modal-dialog modal-sm">

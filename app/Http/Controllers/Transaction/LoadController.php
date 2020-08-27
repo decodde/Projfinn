@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Transaction;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\apiHelper;
 use App\Http\Helpers\partials;
+use App\Models\fundPayment;
 use App\Models\Funds;
 use App\Models\Saving;
 use App\Models\Transaction;
@@ -39,8 +40,9 @@ class LoadController extends Controller
     private $transferRequest;
     private $partials;
     private $saving;
+    private $payment;
 
-    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, TranxConfirm $tranx, Validate $validate, lenderAccount $account, Bank $bank, Funds $fund, transferRequest $transferRequest, partials $partials, Saving $saving){
+    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, TranxConfirm $tranx, Validate $validate, lenderAccount $account, Bank $bank, Funds $fund, transferRequest $transferRequest, partials $partials, Saving $saving, fundPayment $payment){
         $this->api = $api;
         $this->transaction = $transaction;
         $this->stash = $stash;
@@ -56,6 +58,7 @@ class LoadController extends Controller
         $this->transferRequest = $transferRequest;
         $this->partials = $partials;
         $this->saving = $saving;
+        $this->payment = $payment;
     }
 
     public function buy(Request $request){
@@ -79,6 +82,31 @@ class LoadController extends Controller
         catch (\Exception $e){
             \Session::put('danger', true);
             return redirect('dashboard/i')->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function repayFund(Request $request){
+        try{
+            $body = [
+                'amount' => $request->amount * 100,
+                'email' => $request->email
+            ];
+
+            $response = $this->api->call('/transaction/initialize', 'POST', $body);
+
+            $data = [
+                "email" => $request->email,
+                "amount" => $request->amount,
+                "type" => "funding",
+                "fundId" => $request->fundId,
+                "reference" => $response->data->reference
+            ];
+            $this->tranx->create($data);
+            return redirect($response->data->authorization_url);
+        }
+        catch (\Exception $e){
+            \Session::put('danger', true);
+            return redirect('dashboard')->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
 
@@ -107,14 +135,28 @@ class LoadController extends Controller
                     'status' => $trnxData->status,
                     'message' => $trnxData->message ?? $trnxData->gateway_response,
                     'amount' => $amountPaid,
-                    'investorId' => $user->business()->id,
+                    'businessId' => $user->business()->id,
                     'userId' => $user->id,
                     'type' => $trnxType
                 ];
 
                 $trnXId = $this->transaction->create($params)->id;
 
-                $getFund = $this->fund->where('userId', $user->id)->update(["progress" => "visitation", "transactionId" => $trnXId, "hasPaidReg" => true]);
+                $rePay = $this->payment->where(["fundId" => $tranxDetails->fundId, "isCompleted" => false]);
+                $rePayment = $rePay->first();
+
+                if ($rePayment->months_left <= 1){
+                    $rePay->update([
+                        "isCompleted" => true,
+                        "months_left" => 0
+                    ]);
+                }
+
+                $rePay->decrement('months_left', 1);
+
+                $nextPayment = Carbon::now()->addMonths(1);
+
+                $rePay->update(["nextPayment" => $nextPayment]);
                 $tranxDetail->update([
                     "isCompleted" => true
                 ]);
@@ -192,7 +234,7 @@ class LoadController extends Controller
                     ]);
                     \Session::put('success', true);
                     return redirect('dashboard/i/stash')->withErrors('Stash credited successfully');
-                } else {
+                }else {
                     $stash = $this->stash->where('investorId', $user->investor()->id);
 
                     if ($stash->first() === null) {
