@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\fundPayment;
 use App\Models\Funds;
+use App\Models\Saving;
 use App\Models\Stash;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -45,8 +47,10 @@ class LoadController extends Controller
     private $investment;
     private $transaction;
     private $fund;
+    private $saving;
+    private $payment;
 
-    public function __construct(Auth $auth, Validate $validate, User $user, sendMail $mail, ResetPassword $reset, Partials $partials, TranxConfirm $trnx, apiHelper $api, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Transaction $transaction, Funds $fund)
+    public function __construct(Auth $auth, Validate $validate, User $user, sendMail $mail, ResetPassword $reset, Partials $partials, TranxConfirm $trnx, apiHelper $api, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Transaction $transaction, Funds $fund, Saving $saving, fundPayment $payment)
     {
         $this->auth = $auth;
         $this->user = $user;
@@ -63,6 +67,8 @@ class LoadController extends Controller
         $this->investment = $investment;
         $this->transaction = $transaction;
         $this->fund = $fund;
+        $this->saving = $saving;
+        $this->payment = $payment;
     }
 
     public function login(Request $request)
@@ -324,14 +330,31 @@ class LoadController extends Controller
                     'status' => $trnxData->status,
                     'message' => $trnxData->message ?? $trnxData->gateway_response,
                     'amount' => $amountPaid,
-                    'investorId' => $user->business()->id,
+                    'businessId' => $user->business()->id,
                     'userId' => $user->id,
                     'type' => $trnxType
                 ];
 
                 $trnXId = $this->transaction->create($params)->id;
 
-                $getFund = $this->fund->where('userId', $user->id)->update(["progress" => "visitation", "transactionId" => $trnXId, "hasPaidReg" => true]);
+                $rePay = $this->payment->where(["fundId" => $tranxDetails->fundId, "isCompleted" => false]);
+                $rePayment = $rePay->first();
+
+                if ($rePayment->months_left <= 1){
+                    $rePay->update([
+                        "isCompleted" => true,
+                        "months_left" => 0
+                    ]);
+                }
+
+                $rePay->decrement('months_left', 1);
+
+                $nextPayment = Carbon::now()->addMonths(1);
+
+                $rePay->update(["nextPayment" => $nextPayment]);
+                $tranxDetail->update([
+                    "isCompleted" => true
+                ]);
                 $tranxDetail->update([
                     "isCompleted" => true
                 ]);
@@ -410,7 +433,8 @@ class LoadController extends Controller
                         $tranxDetail->update([
                             "isCompleted" => true
                         ]);
-                    } else {
+                    }
+                    else {
                         $stash = $this->stash->where('investorId', $user->investor()->id);
 
                         if ($stash->first() === null) {

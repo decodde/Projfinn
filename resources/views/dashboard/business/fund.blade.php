@@ -91,7 +91,11 @@
                                                 <td class="success darken-3 font-weight-bold font-size-16px font-sm-1 px-sm-02">₦ {{App\Http\Helpers\Formatter::MoneyConvert($fund->payment->amountPerMonth, 'full')}}</td>
                                                 <td class="grey-blue lighten-1 font-size-16px font-weight-normal font-sm-1 px-sm-02">{{$fund->payment->nextPayment}}</td>
                                                 <td class="grey-blue darken-3 font-size-16px font-sm-1 px-sm-02">
-                                                    <button class="btn btn-primary">Pay Now</button>
+                                                    @if($fund->payment->months_left <= 0)
+                                                        <a class="text-success">Payment completed</a>
+                                                    @else
+                                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#makePayment" class="btn btn-primary">Pay Now</a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -109,6 +113,43 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div id="makePayment" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="font-size-18px font-weight-bold">Fund Repayment</h6>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <form action="{{ URL('/transaction/repayFund') }}" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="businessId" value="{{ $user->business()->id }}">
+                        <input type="hidden" name="fundId" value="{{ $fund->id }}">
+                        <input type="hidden" name="email" value="{{ $user->email }}">
+                        <input type="hidden" name="type" value="funding">
+
+                        <div class="form-group text-center">
+                            <label for="file">You are to pay </label>
+                            <p>A</p>
+                            <p>Sum of</p>
+                            <p class="text-success font-size-20px">₦ {{App\Http\Helpers\Formatter::MoneyConvert($fund->payment->amountPerMonth, 'full')}}</p>
+                            <input type="hidden" name="amount" class="form-control" required="required" value="{{$fund->payment->amountPerMonth}}">
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="javascript:void(0);" class="danger" data-dismiss="modal">Close</a>
+                        <button type="submit" class="btn btn-sm btn-success">Proceed to Payment</button>
+                    </div>
+                </form>
+
+            </div>
+
         </div>
     </div>
 @stop
