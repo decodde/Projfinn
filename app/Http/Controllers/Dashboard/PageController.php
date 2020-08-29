@@ -274,7 +274,7 @@ class PageController extends Controller
                 $investment->diff = $now->diffInMonths($investment->datePurchased);
                 $investment->diffDays = $now->diffInDays($investment->datePurchased);
 
-                if($investment->diff > $investment->period){
+                if($investment->diff >= $investment->period){
                     $investment->isReady = true;
                 }else{
                     $investment->isReady = false;
