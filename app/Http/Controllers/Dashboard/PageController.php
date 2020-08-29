@@ -271,10 +271,11 @@ class PageController extends Controller
                 $projectedDay = Carbon::create($investment->datePurchased)->addMonths($investment->period);
 
                 $daysS = $pdate->diffInDays($projectedDay);
+                $investment->daySS = $daysS;
                 $investment->diff = $now->diffInMonths($investment->datePurchased);
                 $investment->diffDays = $now->diffInDays($investment->datePurchased);
 
-                if($investment->diff > $investment->period){
+                if($investment->diff >= $investment->period){
                     $investment->isReady = true;
                 }else{
                     $investment->isReady = false;
