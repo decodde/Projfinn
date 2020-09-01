@@ -409,4 +409,18 @@ class partials{
                 break;
         }
     }
+
+    public function interestSavings($i){
+        switch ($i) {
+            case '3':
+                return 1.5;
+            case '6':
+                return 3.6;
+            case '9':
+                return 5.4;
+            default:
+                # code...
+                break;
+        }
+    }
 }
