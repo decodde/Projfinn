@@ -5,6 +5,10 @@
         .btn-login:hover{
             background-color: #fff;
         }
+        .carousel-nav-light .flickity-button{
+            border-color: #181b30;
+            color: #181b30;
+        }
     </style>
     <main id="content" class="content">
         <section
@@ -278,6 +282,7 @@
                         <header class="fancy-title text-center">
                             <h2 class="font-weight-bold">Our Business loan benefits</h2>
                             <p>If you know which product you would like to apply for, choose one from below:</p>
+
                         </header>
 
                     </div><!-- /.lqd-column col-md-12 -->
@@ -376,7 +381,96 @@
 
         </section>
 
+        <section class="vc_row pt-90 pb-55 mt-60 ">
+            <div class="container">
+                <div class="row">
 
+                    <div class="lqd-column col-md-12 text-center">
+
+                        <header class="fancy-title text-center">
+                            <h2 class="font-weight-bold">Testimonials</h2>
+                            <p>We support undeserved small businesses</p>
+                        </header>
+
+                    </div><!-- /.col-md-12 -->
+
+                    <div class="lqd-column col-md-8 col-md-offset-2">
+
+                        <div class="carousel-container carousel-nav-floated carousel-nav-center carousel-nav-middle carousel-nav-xl carousel-nav-bordered carousel-nav-circle carousel-nav-light carousel-dots-style1">
+
+                            <div class="carousel-items row" data-lqd-flickity='{ "cellAlign":"center","prevNextButtons":true,"buttonsAppendTo":"self","pageDots":false,"groupCells":true,"wrapAround":true,"pauseAutoPlayOnHover":false,"navArrow":{"prev":"<i class=\"fa fa-angle-left\"></i>","next":"<i class=\"fa fa-angle-right\"></i>"},"navOffsets":{"prev":"-100px","next":"-100px"}}'>
+
+                                <div class="carousel-item col-xs-12">
+
+                                    <div class="testimonial testimonial-xl text-center testimonial-details-sm testimonial-avatar-sm">
+                                        <div class="testimonial-quote">
+                                            <blockquote>
+                                                <p><span style="font-size: 20px; line-height: 1.25em;color: #181b30;">“When i was applying for a loan to purchase a delivery vehicle for my small business in a tough situation, my conventional banks said they couldn't help me.Rouzo sat down with me, heard my situation and decided that I was worth taking a chance on. Not many lenders would go to that length.”</span></p>
+                                            </blockquote>
+                                        </div>
+                                        <div class="testimonial-details">
+                                            <figure class="avatar ">
+                                                <img src="{{ asset('assets/assets/img/testimonials/client3.png') }}" alt="Mr Umem Eyo">
+                                            </figure>
+                                            <div class="testimonial-info">
+                                                <h5>Mr Umem Eyo</h5>
+                                                <h6 class="font-weight-normal">Custodian Biz Solutions.</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div><!-- /.carousel-item -->
+                                <div class="carousel-item col-xs-12">
+
+                                    <div class="testimonial testimonial-xl text-center testimonial-details-sm testimonial-avatar-sm">
+                                        <div class="testimonial-quote">
+                                            <blockquote>
+                                                <p><span style="font-size: 20px; line-height: 1.25em;color: #181b30;">“It was a very fast process, Immediately you meet all requirements that's all.”</span></p>
+                                            </blockquote>
+                                        </div>
+                                        <div class="testimonial-details">
+                                            <figure class="avatar ">
+                                                <img src="{{ asset('assets/assets/img/testimonials/client2.jpg') }}" alt="Mr Ebenizer Olushola">
+                                            </figure>
+                                            <div class="testimonial-info">
+                                                <h5>Mr Ebenizer Olushola</h5>
+                                                <h6 class="font-weight-normal">Caris Megale</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div><!-- /.carousel-item -->
+                                <div class="carousel-item col-xs-12">
+
+                                    <div class="testimonial testimonial-xl text-center testimonial-details-sm testimonial-avatar-sm">
+                                        <div class="testimonial-quote">
+                                            <blockquote>
+                                                <p><span style="font-size: 20px; line-height: 1.25em;color: #181b30;">“I got my rouzo loan so fast after meeting all the requirements, i was disbursed the same day my guarantor sent her details.”</span></p>
+                                            </blockquote>
+                                        </div>
+                                        <div class="testimonial-details">
+                                            <figure class="avatar ">
+                                                <img src="{{ asset('assets/assets/img/testimonials/client1.jpg') }}" alt="Mrs Oyibo Yewande">
+                                            </figure>
+                                            <div class="testimonial-info">
+                                                <h5>Mrs Oyibo Yewande</h5>
+                                                <h6 class="font-weight-normal">Famous5 Caterers</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div><!-- /.carousel-item -->
+
+
+                            </div><!-- /.carousel-items -->
+
+                        </div><!-- /.carousel-container -->
+
+                    </div><!-- /.col-md-12 -->
+
+                </div><!-- /.row -->
+            </div><!-- /.container -->
+        </section>
         <section class="vc_row pt-120 pb-90" style="background: rgba(29,30,31, 0.98);">
             <div class="container">
                 <div class="row d-flex flex-wrap align-items-center">

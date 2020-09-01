@@ -159,7 +159,19 @@ class PageController extends Controller
             }
 
             $transfers = $this->transferRequest->where('investorId', $user->investor()->id)->paginate(5);
-            $savings = $this->saving->where("email", $user->email)->paginate(5);
+            $savings = $this->saving->where(["email" => $user->email, "isStarted" => true])->paginate(5);
+            $cred = 0;
+            foreach ($savings as $saving){
+
+                $now = Carbon::now();
+                $dayCreated = Carbon::create($saving->datePurchased);
+                $projectedMonths = Carbon::create($saving->datePurchased)->addMonths(intval($saving->months));
+                $diffToday = $now->diffInDays($dayCreated);
+                $diffProj = $dayCreated->diffInDays($projectedMonths);
+                $roi = $this->partials->interestSavings($saving->months) * $saving->amount;
+                $cred += (($diffToday / $diffProj) * $roi);
+            }
+            $availableBalance += $cred;
             $data = [
                 'title' => 'Dashboard',
                 'investor' => $user->investor(),

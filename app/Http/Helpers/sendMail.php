@@ -209,4 +209,18 @@ class sendMail {
             $m->replyTo('no-reply@owoafara.com');
         });
     }
+
+    public function sendInvestmentMature($data){
+        $mail["title"] = "Rouzo: Your Investment Has Matured";
+        $mail["salute"] = "Hello ".$data["name"];
+        $mail["message"] = "Your Investment of ". $data["amount"] . " in the ". $data["portfolio"] ." has matured and has been transferred to your Stash";
+        $mail['buttonTitle'] = 'Login to Your dashboard to Withdraw it';
+        $mail['targetUrl'] = $data['url'];
+
+        $this->mail::send('emails.template', ['data' => $mail], function ($m) use ($mail, $data) {
+            $m->from(env('SENDER_EMAIL'), env('SENDER_NAME'));
+            $m->to($data["email"])->subject($mail['title']);
+            $m->replyTo('no-reply@owoafara.com');
+        });
+    }
 }

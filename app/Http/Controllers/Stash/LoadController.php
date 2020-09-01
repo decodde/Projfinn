@@ -65,6 +65,7 @@ class LoadController extends Controller
                 'plan_code' => $result->data->plan_code,
                 'reference' => $response->data->reference,
                 'months' => $data["span"],
+                'datePurchased' => Carbon::now()
             ];
             $this->saving->create($savingData);
             return redirect($response->data->authorization_url);

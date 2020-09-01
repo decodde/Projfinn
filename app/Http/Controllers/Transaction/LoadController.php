@@ -224,7 +224,7 @@ class LoadController extends Controller
                             $nextP = Carbon::now()->addDays(1);
                         }
                         $sav->update(
-                            ["sub_code" => $result->data->subscription_code, "email_token" => $result->data->email_token, 'nextPayment' => $nextP]
+                            ["sub_code" => $result->data->subscription_code, "email_token" => $result->data->email_token, 'nextPayment' => $nextP, 'isStarted' => true]
                         );
                         $sav->increment('monthsPaid', 1);
                     }
