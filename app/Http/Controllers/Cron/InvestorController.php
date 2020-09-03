@@ -95,7 +95,7 @@ class InvestorController extends Controller
                     $now = Carbon::now()->isoFormat('YYYY-MM-DD');
                     $now = Carbon::create($now);
 
-                    $nextP = Carbon::create($saving->nextPayment);
+                    $nextP = Carbon::create($saving->nextPayment)->isoFormat('YYYY-MM-DD');;
                     $nextP = Carbon::create($nextP);
 
                     $diff = $now->diffInDays($nextP);
