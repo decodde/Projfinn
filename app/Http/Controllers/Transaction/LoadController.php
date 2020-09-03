@@ -184,16 +184,16 @@ class LoadController extends Controller
                             $stashParams = [
                                 'investorId' => $user->investor()->id,
                                 'customerId' => $trnxData->customer->customer_code,
-                                'totalAmount' => $amountPaid,
-                                'availableAmount' => 0
+                                'totalAmount' => $amountPaid + 1000,
+                                'availableAmount' => 1000
                             ];
                         }
                         else{
                             $stashParams = [
                                 'investorId' => $user->investor()->id,
                                 'customerId' => $trnxData->customer->customer_code,
-                                'totalAmount' => $amountPaid,
-                                'availableAmount' => $amountPaid
+                                'totalAmount' => $amountPaid + 1000,
+                                'availableAmount' => $amountPaid + 1000
                             ];
                         }
                         $stash->create($stashParams);
