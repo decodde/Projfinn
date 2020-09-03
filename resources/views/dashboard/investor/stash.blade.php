@@ -37,33 +37,28 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12 col-md-4">
-            <div class="card" title="This is the total money you have in your stash. click on the 'credit your wallet button to credit your stash for investment' ">
-                <div class="card-content" style="border-radius: 10px;">
-                    <div class="card-body">
+        <div class="col-12 col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title"><i class="fa fa-money success darken-4 font-size-16px" title="Balance"></i> Stash Balance</h4>
+                </div>
+                <div class="card-content collapse show">
+                    <div class="card-body pt-0">
                         <div class="row">
-                            <div class="col-2">
-                                <h1 style="margin-top: -10px;"><i class="fa fa-money success darken-4 font-size-40px" title="ROI"></i></h1>
+                            <div class="col-md-6 col-12 border-right-blue-grey border-right-lighten-5 text-center">
+                                <p class="blue-grey lighten-2 mb-0">Available Balance (Naira) <i class="fa fa-info-circle grey-blue darken-4" data-toggle="tooltip" data-placement="top" title="This is the total amount you have immediate access to in your account."></i></p>
+                                <h6 class="text-bold-400"><a class="success">₦   {{$availableAmt}}</a></h6>
                             </div>
-                            <div class="col-10 row">
-                                <div class="col-md-6 col-12 mb-2 border-right-blue-grey border-right-lighten-5 text-center">
-                                    <h6 class="mb-0 font-size-20px">₦  {{$availableAmt}}</h6>
-                                    <span class="text-muted">Available Balance</span>
-                                </div>
-                                <div class="col-md-6 col-12 text-center">
-                                    <h6 class="mb-0 font-size-20px"> ₦  {{$balance}}</h6>
-                                    <span class="text-muted">Total Balance</span>
-                                </div>
+                            <div class="col-md-6 col-12 text-center">
+                                <p class="blue-grey lighten-2 mb-0">Total Balance (Naira) <i class="fa fa-info-circle grey-blue darken-4" data-toggle="tooltip" data-placement="top" title="This is the total amount held in your account, this includes savings and saving's interests."></i></p>
+                                <h6 class="text-bold-400"><a class="blue-grey">₦ {{$balance}}</a></h6>
                             </div>
-                        </div>
-
-                        <div class="chart-stats mb-2 float-right mt-3">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-8">
+        <div class="col-12 col-md-6">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Transactions</h4>
@@ -87,9 +82,9 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <a href="javascript:void(0);" data-toggle="modal" data-target="#makeWithdrawal" class="btn btn-primary mr-1 btn-md mb-2 float-right">Withdraw savings <i class="fa fa-credit-card"></i></a>
-            <a href="javascript:void(0);" data-toggle="modal" data-target="#makePayment" class="btn btn-success mr-1 btn-md mb-2 float-right">Credit your wallet <i class="fa fa-plus"></i></a>
-            <a href="javascript:void(0);" data-toggle="modal" data-target="#saveToInvest" class="btn btn-blue mr-1 btn-md mb-2 float-right" style="border-color: transparent">Save to Invest <i class="icon-ion-ios-wallet"></i></a>
+            <a href="javascript:void(0);" data-toggle="modal" data-target="#makeWithdrawal" class="btn btn-primary mr-1 btn-md mb-2 float-right border-0">Withdraw savings <i class="fa fa-credit-card"></i></a>
+            <a href="javascript:void(0);" data-toggle="modal" data-target="#makePayment" class="btn btn-success mr-1 btn-md mb-2 float-right border-0">Credit your wallet <i class="fa fa-plus"></i></a>
+            <a href="javascript:void(0);" data-toggle="modal" data-target="#saveToInvest" class="btn btn-blue mr-1 mb-2 float-right font-size-16px border-0 px-2" style="margin-top: -3px">Save to Invest <i class="icon-ion-ios-wallet"></i></a>
         </div>
     </div>
     <div class="row">
