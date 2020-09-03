@@ -124,9 +124,11 @@ class PageController extends Controller
 
             if($stash->first() === null){
                 $availableBalance = 0;
+                $totalAmount = 0;
             }
             else{
                 $availableBalance = $stash->first()->availableAmount;
+                $totalAmount = $stash->first()->totalAmount;
             }
 
             $getPortfolios = $this->portfolio->where('isOpen', true)->get();
@@ -171,11 +173,12 @@ class PageController extends Controller
                 $roi = $this->partials->interestSavings($saving->months) * $saving->amount;
                 $cred += (($diffToday / $diffProj) * $roi);
             }
-            $availableBalance += $cred;
+            $totalAmount += $cred;
             $data = [
                 'title' => 'Dashboard',
                 'investor' => $user->investor(),
-                'balance' => $this->formatter->MoneyConvert($availableBalance, 'full'),
+                'balance' => $this->formatter->MoneyConvert($totalAmount, 'full'),
+                'availableAmt' => $this->formatter->MoneyConvert($availableBalance, 'full'),
                 'tranX' => [ "credit" => $this->formatter->MoneyConvert($creditAmount, "full"), "debit" => $this->formatter->MoneyConvert($debitAmount), "full"],
                 'transactions' => $transactions,
                 'transfers' => $transfers,

@@ -45,9 +45,15 @@
                             <div class="col-2">
                                 <h1 style="margin-top: -10px;"><i class="fa fa-money success darken-4 font-size-40px" title="ROI"></i></h1>
                             </div>
-                            <div class="col-10">
-                                <h6 >₦  {{$balance}}</h6>
-                                <span class="text-muted">Available Balance</span>
+                            <div class="col-10 row">
+                                <div class="col-md-6 col-12 mb-2 border-right-blue-grey border-right-lighten-5 text-center">
+                                    <h6 class="mb-0 font-size-20px">₦  {{$availableAmt}}</h6>
+                                    <span class="text-muted">Available Balance</span>
+                                </div>
+                                <div class="col-md-6 col-12 text-center">
+                                    <h6 class="mb-0 font-size-20px"> ₦  {{$balance}}</h6>
+                                    <span class="text-muted">Total Balance</span>
+                                </div>
                             </div>
                         </div>
 
@@ -83,7 +89,7 @@
         <div class="col-12">
             <a href="javascript:void(0);" data-toggle="modal" data-target="#makeWithdrawal" class="btn btn-primary mr-1 btn-md mb-2 float-right">Withdraw savings <i class="fa fa-credit-card"></i></a>
             <a href="javascript:void(0);" data-toggle="modal" data-target="#makePayment" class="btn btn-success mr-1 btn-md mb-2 float-right">Credit your wallet <i class="fa fa-plus"></i></a>
-            <a href="javascript:void(0);" data-toggle="modal" data-target="#saveToInvest" class="btn btn-success mr-1 btn-md mb-2 float-right">Save to Invest <i class="icon-ion-ios-wallet"></i></a>
+            <a href="javascript:void(0);" data-toggle="modal" data-target="#saveToInvest" class="btn btn-blue mr-1 btn-md mb-2 float-right" style="border-color: transparent">Save to Invest <i class="icon-ion-ios-wallet"></i></a>
         </div>
     </div>
     <div class="row">
@@ -421,9 +427,9 @@
                         <div class="form-group">
                             <label for="file">Investment span <i class="fa fa-info-circle" title="how long do you want to invest?"></i></label>
                             <select class="form-control" name="span">
-                                <option value="3">3 months</option>
-                                <option value="6">6 months</option>
-                                <option value="9">9 months</option>
+                                <option value="3">3 months (1.5% interest)</option>
+                                <option value="6">6 months (3.6% interest)</option>
+                                <option value="9">9 months (5.4% interest)</option>
                             </select>
                         </div>
                         <p><code>Note:</code>your will make the first payment now so as to store your details for subsequent payment</p>

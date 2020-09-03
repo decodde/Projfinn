@@ -380,16 +380,28 @@ class LoadController extends Controller
                         $stash = $this->stash->where('investorId', $user->investor()->id);
 
                         if ($stash->first() === null) {
-                            $stashParams = [
-                                'investorId' => $user->investor()->id,
-                                'customerId' => $trnxData->customer->customer_code,
-                                'totalAmount' => $amountPaid,
-                                'availableAmount' => $amountPaid
-                            ];
+                            if ($trnxType == 'saving'){
+                                $stashParams = [
+                                    'investorId' => $user->investor()->id,
+                                    'customerId' => $trnxData->customer->customer_code,
+                                    'totalAmount' => $amountPaid,
+                                    'availableAmount' => 0
+                                ];
+                            }
+                            else{
+                                $stashParams = [
+                                    'investorId' => $user->investor()->id,
+                                    'customerId' => $trnxData->customer->customer_code,
+                                    'totalAmount' => $amountPaid,
+                                    'availableAmount' => $amountPaid
+                                ];
+                            }
                             $stash->create($stashParams);
                         } else {
                             $stash->increment('totalAmount', $amountPaid);
-                            $stash->increment('availableAmount', $amountPaid);
+                            if ($trnxType != 'saving') {
+                                $stash->increment('availableAmount', $amountPaid);
+                            }
                         }
 
                         $gr = $this->referral->where(['userId' => $user->id, 'hasPayed' => false]);
