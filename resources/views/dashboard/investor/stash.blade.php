@@ -57,7 +57,7 @@
                             </div>
                         </div>
 
-                        <div class="chart-stats mb-2 float-right mt-3">
+                        <div class="chart-stats mb-1 float-right mt-3">
                         </div>
                     </div>
                 </div>
@@ -87,9 +87,9 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <a href="javascript:void(0);" data-toggle="modal" data-target="#makeWithdrawal" class="btn btn-primary mr-1 btn-md mb-2 float-right">Withdraw savings <i class="fa fa-credit-card"></i></a>
-            <a href="javascript:void(0);" data-toggle="modal" data-target="#makePayment" class="btn btn-success mr-1 btn-md mb-2 float-right">Credit your wallet <i class="fa fa-plus"></i></a>
-            <a href="javascript:void(0);" data-toggle="modal" data-target="#saveToInvest" class="btn btn-blue mr-1 btn-md mb-2 float-right" style="border-color: transparent">Save to Invest <i class="icon-ion-ios-wallet"></i></a>
+            <a href="javascript:void(0);" data-toggle="modal" data-target="#makeWithdrawal" class="btn btn-primary mr-1 btn-md mb-2 float-right border-0">Withdraw savings <i class="fa fa-credit-card"></i></a>
+            <a href="javascript:void(0);" data-toggle="modal" data-target="#makePayment" class="btn btn-success mr-1 btn-md mb-2 float-right border-0">Credit your wallet <i class="fa fa-plus"></i></a>
+            <a href="javascript:void(0);" data-toggle="modal" data-target="#saveToInvest" class="btn btn-blue mr-1 mb-2 float-right font-size-16px border-0 px-2" style="margin-top: -3px">Save to Invest <i class="icon-ion-ios-wallet"></i></a>
         </div>
     </div>
     <div class="row">
