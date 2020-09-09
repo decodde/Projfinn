@@ -422,9 +422,10 @@
                         <div class="form-group">
                             <label for="file">Investment span <i class="fa fa-info-circle" title="how long do you want to invest?"></i></label>
                             <select class="form-control" name="span">
-                                <option value="3">3 months (1.5% interest)</option>
-                                <option value="6">6 months (3.6% interest)</option>
-                                <option value="9">9 months (5.4% interest)</option>
+                                <option value="3">3 months (3% interest)</option>
+                                <option value="6">6 months (6.5% interest)</option>
+                                <option value="9">9 months (11% interest)</option>
+                                <option value="12">12 months (15% interest)</option>
                             </select>
                         </div>
                         <p><code>Note:</code>your will make the first payment now so as to store your details for subsequent payment</p>
@@ -470,4 +471,27 @@
             </div>
         </div>
     </div>
+    @if($isStash == false)
+        <div class="modal fade bd-example-modal-sm" id="stashModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md modal-dialog-centered">
+                <div class="modal-content border-0">
+                    <div class="modal-header border-0 p-0 pr-2 pt-1">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body font-size-16 font-weight-bold py-0">
+                        Hi <a class="blue-grey darken-4">{{$user->name}}</a>👋,
+                        <br>
+                        <p class="py-1">
+                            &nbsp;&nbsp;&nbsp;&nbsp;Credit your <a href="{{URL('dashboard/i/stash')}}">Stash</a> or Invest in a <a href="{{URL('/dashboard/i/investments')}}">Portfolio</a> to get <a class="success">₦ 1,000.00</a> credit for signing up.
+                        </p>
+                    </div>
+                    <div class="modal-footer border-0 pt-0">
+                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 @stop

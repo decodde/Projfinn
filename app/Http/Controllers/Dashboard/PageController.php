@@ -72,9 +72,11 @@ class PageController extends Controller
             }
             if($stash->first() === null){
                 $availableBalance = 0;
+                $isStash = false;
             }
             else{
                 $availableBalance = $stash->first()->availableAmount;
+                $isStash = true;
             }
             if($funds == 0 && $availableBalance !== 0){
                 $percents["funds"] = 0;
@@ -99,6 +101,7 @@ class PageController extends Controller
                 'balance' => $this->formatter->MoneyConvert($availableBalance, 'full'),
                 'percents' => $percents,
                 'roi' => $this->formatter->MoneyConvert($roi, 'full'),
+                'isStash' => $isStash
                 ];
 
             return view('dashboard.investor.index', $data);
@@ -125,10 +128,12 @@ class PageController extends Controller
             if($stash->first() === null){
                 $availableBalance = 0;
                 $totalAmount = 0;
+                $isStash = false;
             }
             else{
                 $availableBalance = $stash->first()->availableAmount;
                 $totalAmount = $stash->first()->totalAmount;
+                $isStash = true;
             }
 
             $getPortfolios = $this->portfolio->where('isOpen', true)->get();
@@ -183,7 +188,8 @@ class PageController extends Controller
                 'transactions' => $transactions,
                 'transfers' => $transfers,
                 'purchase' => $purchase,
-                'savings' => $savings
+                'savings' => $savings,
+                'isStash' => $isStash
             ];
 
             return view('dashboard.investor.stash', $data);

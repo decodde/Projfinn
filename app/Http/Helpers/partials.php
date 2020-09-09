@@ -413,11 +413,13 @@ class partials{
     public function interestSavings($i){
         switch ($i) {
             case '3':
-                return 1.5;
+                return 3;
             case '6':
-                return 3.6;
+                return 6.5;
             case '9':
-                return 5.4;
+                return 11;
+            case '12':
+                return 15;
             default:
                 # code...
                 break;
