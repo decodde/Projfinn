@@ -179,7 +179,7 @@
                     </button>
                 </div>
                 <div class="modal-body font-size-16 font-weight-bold py-0">
-                    Hi <a class="blue-grey darken-4">{{$user->name}}</a>,
+                    Hi <a class="blue-grey darken-4">{{$user->name}}</a>👋,
                     <br>
                     <p class="py-1">
                     &nbsp;&nbsp;&nbsp;&nbsp;Credit your <a href="{{URL('dashboard/i/stash')}}">Stash</a> or Invest in a <a href="{{URL('/dashboard/i/investments')}}">Portfolio</a> to get <a class="success">₦ 1,000.00</a> credit for signing up.
