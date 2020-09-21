@@ -325,41 +325,49 @@ class LoadController extends Controller
 
         if($tranxDetails !== null) {
             if ($type === "business") {
-                $params = [
-                    'reference' => $trnxData->reference,
-                    'status' => $trnxData->status,
-                    'message' => $trnxData->message ?? $trnxData->gateway_response,
-                    'amount' => $amountPaid,
-                    'businessId' => $user->business()->id,
-                    'userId' => $user->id,
-                    'type' => $trnxType
-                ];
+                if ($trnxData->status == 'success') {
+                    $params = [
+                        'reference' => $trnxData->reference,
+                        'status' => $trnxData->status,
+                        'message' => $trnxData->message ?? $trnxData->gateway_response,
+                        'amount' => $amountPaid,
+                        'businessId' => $user->business()->id,
+                        'userId' => $user->id,
+                        'type' => $trnxType
+                    ];
 
-                $trnXId = $this->transaction->create($params)->id;
+                    $trnXId = $this->transaction->create($params)->id;
+                    if ($trnxData->status !== 'success') {
+                        $tranxDetail->update([
+                            "isCompleted" => true
+                        ]);
+                        \Session::put('danger', true);
+                        return redirect('dashboard/funds')->withErrors('Payment Failed');
+                    }
+                    $rePay = $this->payment->where(["fundId" => $tranxDetails->fundId, "isCompleted" => false]);
+                    $rePayment = $rePay->first();
 
-                $rePay = $this->payment->where(["fundId" => $tranxDetails->fundId, "isCompleted" => false]);
-                $rePayment = $rePay->first();
+                    if ($rePayment->months_left <= 1) {
+                        $rePay->update([
+                            "isCompleted" => true,
+                            "months_left" => 0
+                        ]);
+                    }
 
-                if ($rePayment->months_left <= 1){
-                    $rePay->update([
-                        "isCompleted" => true,
-                        "months_left" => 0
+                    $rePay->decrement('months_left', 1);
+
+                    $nextPayment = Carbon::now()->addMonths(1);
+
+                    $rePay->update(["nextPayment" => $nextPayment]);
+                    $tranxDetail->update([
+                        "isCompleted" => true
                     ]);
+                    $tranxDetail->update([
+                        "isCompleted" => true
+                    ]);
+                    \Session::put('success', true);
+                    return redirect('dashboard/funds')->withErrors('Payment successfully');
                 }
-
-                $rePay->decrement('months_left', 1);
-
-                $nextPayment = Carbon::now()->addMonths(1);
-
-                $rePay->update(["nextPayment" => $nextPayment]);
-                $tranxDetail->update([
-                    "isCompleted" => true
-                ]);
-                $tranxDetail->update([
-                    "isCompleted" => true
-                ]);
-                \Session::put('success', true);
-                return redirect('dashboard/funds')->withErrors('Payment successfully');
             } else {
                 if ($trnxData->status == 'success') {
 

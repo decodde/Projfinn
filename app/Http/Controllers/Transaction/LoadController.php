@@ -142,6 +142,13 @@ class LoadController extends Controller
 
                 $trnXId = $this->transaction->create($params)->id;
 
+                if ($trnxData->status !== 'success'){
+                    $tranxDetail->update([
+                        "isCompleted" => true
+                    ]);
+                    \Session::put('danger', true);
+                    return redirect('dashboard/funds')->withErrors('Payment Failed');
+                }
                 $rePay = $this->payment->where(["fundId" => $tranxDetails->fundId, "isCompleted" => false]);
                 $rePayment = $rePay->first();
 
@@ -175,6 +182,13 @@ class LoadController extends Controller
 
                 $trnXId = $this->transaction->create($params)->id;
 
+                if ($trnxData->status !== 'success'){
+                    $tranxDetail->update([
+                        "isCompleted" => true
+                    ]);
+                    \Session::put('danger', true);
+                    return redirect('dashboard/i')->withErrors('Transaction Failed');
+                }
                 //credit the Investor's wallet
                 if ($trnxType == 'credit' || $trnxType == 'saving') {
                     $stash = $this->stash->where('investorId', $user->investor()->id);
