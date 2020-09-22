@@ -8,3 +8,11 @@
 <script src="{{ asset('assets/app-assets/js/scripts/forms/wizard-steps.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/app-assets/js/scripts/chosen.jquery.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/app-assets/js/scripts/custom.js') }}" type="text/javascript"></script>
+<script>
+    $(document).ready(function(){
+        $("#businessTerms").modal('show');
+    });
+    $('#riqu').click(function() {
+        $('#rqContinue').prop('disabled', !this.checked)
+    });
+</script>

@@ -188,6 +188,31 @@
                 </div>
             </div>
         </div>
-
+        <div class="modal fade" id="businessTerms" tabindex="-1" role="dialog" aria-labelledby="businessTermsTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="businessTermsTitle">Business Loan Requirements</h5>
+                    </div>
+                    <div class="modal-body text-black">
+                        <p>1. CAC document.</p>
+                        <p>2. Utility bill bearing business address.</p>
+                        <p>3. Current business account statement for the last 6 months.</p>
+                        <p>4. No existing loan facility.</p>
+                        <p>5. 1 Guarantor(including address and Bank Verification Number bearing guarantor's name).</p>
+                        <p>6. Domiciled in Lagos, Nigeria.</p>
+                        <label>
+                            <input type="checkbox" name="riqu" id="riqu">
+                            <a class="blue" style="text-decoration: underline; padding-left: 5px">
+                                I have read the requirements listed above and my business meets all requirements listed above.
+                            </a>
+                        </label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="rqContinue" data-dismiss="modal" disabled="disabled">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @stop
