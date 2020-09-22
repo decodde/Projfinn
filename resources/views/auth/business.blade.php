@@ -195,6 +195,7 @@
                         <h5 class="modal-title" id="businessTermsTitle">Business Loan Requirements</h5>
                     </div>
                     <div class="modal-body text-black">
+                        <p style="font-size: 13px;" class="danger"><code>Note:</code> Please read this before you proceed.</p>
                         <p>1. CAC document.</p>
                         <p>2. Utility bill bearing business address.</p>
                         <p>3. Current business account statement for the last 6 months.</p>
