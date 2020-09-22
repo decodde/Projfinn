@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a30ba3ff-ce58-4d9a-84f0-7d3f12ce9c36" name="Default Changelist" comment="Fixed withdrawal issue">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Cron/InvestorController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/assets/img/testimonials/client1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/assets/img/testimonials/client2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/assets/img/testimonials/client3.png" afterDir="false" />
+    <list default="true" id="a30ba3ff-ce58-4d9a-84f0-7d3f12ce9c36" name="Default Changelist" comment="Added notification for">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoadController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Dashboard/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Dashboard/PageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Stash/LoadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Stash/LoadController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Transaction/LoadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Transaction/LoadController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Helpers/partials.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Helpers/partials.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Helpers/sendMail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Helpers/sendMail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Saving.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Saving.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/default/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/default/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/cron.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/cron.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/business.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/business.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,19 +21,20 @@
     <favorites_list name="Projfinn" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/auth/business.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="502">
+              <caret line="197" column="52" selection-start-line="197" selection-start-column="52" selection-end-line="197" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>$user</find>
-      <find>user</find>
-      <find>address</find>
-      <find>Cloudinary</find>
-      <find>dd</find>
-      <find>$user-&gt;type ===</find>
-      <find>created</find>
-      <find>info</find>
-      <find>666EE8</find>
       <find>cache</find>
       <find>eth-chartjs</find>
       <find>.iconbox-shadow-hover:hover</find>
@@ -67,6 +56,15 @@
       <find>An Error Occurred</find>
       <find>api</find>
       <find>MoneyConvert</find>
+      <find>availableAmount</find>
+      <find>$availableBalance</find>
+      <find>$balance</find>
+      <find>What is the minimum and maximum number of units I can invest in</find>
+      <find>font-weight-bold</find>
+      <find>font-size-22</find>
+      <find>$amountPaid</find>
+      <find>stash-&gt;create</find>
+      <find>recipientId</find>
     </findStrings>
     <replaceStrings>
       <replace>Projfinn</replace>
@@ -75,6 +73,7 @@
       <replace>Rouzo</replace>
       <replace>gUser</replace>
       <replace>3d22c2</replace>
+      <replace>font-size-24</replace>
     </replaceStrings>
     <dirStrings>
       <dir>C:\Users\Dell\Documents\Projfinn\public</dir>
@@ -86,19 +85,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="investor" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/resources/views/_partials/_head.blade.php" />
-        <option value="$PROJECT_DIR$/routes/investment.php" />
-        <option value="$PROJECT_DIR$/resources/views/admin/investor.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/admin/investment.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/dashboard/business/document.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/dashboard/investor/oneInvestment.blade.php" />
         <option value="$PROJECT_DIR$/public/assets/app-assets/js/scripts/forms/wizard-steps.js" />
         <option value="$PROJECT_DIR$/app/Models/Investment.php" />
         <option value="$PROJECT_DIR$/resources/views/_partials/admin/_aside.blade.php" />
@@ -131,19 +124,25 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/PageController.php" />
         <option value="$PROJECT_DIR$/resources/views/dashboard/investor/investment.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/_partials/dashboard/foot.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Investment/LoadController.php" />
         <option value="$PROJECT_DIR$/app/Http/Helpers/sendMail.php" />
-        <option value="$PROJECT_DIR$/routes/cron.php" />
         <option value="$PROJECT_DIR$/resources/views/default/index.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Cron/BusinessController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Helpers/partials.php" />
-        <option value="$PROJECT_DIR$/resources/views/dashboard/investor/stash.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Stash/LoadController.php" />
         <option value="$PROJECT_DIR$/app/Models/Saving.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Auth/LoadController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Transaction/LoadController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Dashboard/PageController.php" />
+        <option value="$PROJECT_DIR$/routes/cron.php" />
+        <option value="$PROJECT_DIR$/app/Http/Helpers/Formatter.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Cron/InvestorController.php" />
+        <option value="$PROJECT_DIR$/resources/views/default/faq.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Helpers/partials.php" />
+        <option value="$PROJECT_DIR$/resources/views/_partials/dashboard/master.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Dashboard/PageController.php" />
+        <option value="$PROJECT_DIR$/resources/views/dashboard/investor/stash.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/dashboard/investor/index.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Investment/LoadController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Transaction/LoadController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Auth/LoadController.php" />
+        <option value="$PROJECT_DIR$/resources/views/_partials/_foot.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/auth/business.blade.php" />
       </list>
     </option>
   </component>
@@ -260,7 +259,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
@@ -268,66 +266,11 @@
               <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
             </path>
-            <path>
-              <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Http" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Http" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Controllers" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Http" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Controllers" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Auth" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Http" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Controllers" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Cron" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Http" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Controllers" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Stash" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Http" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Controllers" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Transaction" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="Projfinn" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\Dell\Documents\Projfinn" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Models" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -469,69 +412,18 @@
       <workItem from="1598125021146" duration="51434000" />
       <workItem from="1598886168522" duration="3515000" />
       <workItem from="1598892276715" duration="25032000" />
-    </task>
-    <task id="LOCAL-00033" summary="Did the guard for investment😉">
-      <created>1590514136949</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1590514136949</updated>
-    </task>
-    <task id="LOCAL-00034" summary="Did another guard for investment😉">
-      <created>1590516036098</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1590516036098</updated>
-    </task>
-    <task id="LOCAL-00035" summary="Added the business Feature 🔥">
-      <created>1591022243696</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1591022243697</updated>
-    </task>
-    <task id="LOCAL-00036" summary="🔥fixed the referral amount and also business button">
-      <created>1591362545860</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1591362545860</updated>
-    </task>
-    <task id="LOCAL-00037" summary="fixed the referral amount and also business button">
-      <created>1591600905770</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1591600905770</updated>
-    </task>
-    <task id="LOCAL-00038" summary="Fixed Referral Iss🔥, Fixed Lender's and Business's Iss😱, Added Business's Custom Mail😏">
-      <created>1591609049851</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1591609049851</updated>
-    </task>
-    <task id="LOCAL-00039" summary="Fixed Funding">
-      <created>1591788704094</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1591788704094</updated>
-    </task>
-    <task id="LOCAL-00040" summary="Fixed Validate Transfer">
-      <created>1591846887652</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1591846887652</updated>
-    </task>
-    <task id="LOCAL-00041" summary="Google Analytics">
-      <created>1591849685897</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1591849685897</updated>
+      <workItem from="1599159337084" duration="1579000" />
+      <workItem from="1599678690370" duration="4750000" />
+      <workItem from="1599685984763" duration="1240000" />
+      <workItem from="1599714574076" duration="1108000" />
+      <workItem from="1599739737646" duration="1588000" />
+      <workItem from="1599749220515" duration="2244000" />
+      <workItem from="1599823602829" duration="1343000" />
+      <workItem from="1599863557072" duration="650000" />
+      <workItem from="1599876058949" duration="7271000" />
+      <workItem from="1600259353931" duration="4136000" />
+      <workItem from="1600714137512" duration="10388000" />
+      <workItem from="1600787747930" duration="436000" />
     </task>
     <task id="LOCAL-00042" summary="Dashboard Changes">
       <created>1593398840022</created>
@@ -813,11 +705,74 @@
       <option name="project" value="LOCAL" />
       <updated>1598728585870</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="Issue with Savings fixed">
+      <created>1599133583199</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1599133583200</updated>
+    </task>
+    <task id="LOCAL-00083" summary="Fixed a cron job issue">
+      <created>1599135173168</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1599135173168</updated>
+    </task>
+    <task id="LOCAL-00084" summary="Fixed a button">
+      <created>1599136952802</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1599136952802</updated>
+    </task>
+    <task id="LOCAL-00085" summary="New changes in the stash">
+      <created>1599139795279</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1599139795279</updated>
+    </task>
+    <task id="LOCAL-00086" summary="FAQ and stash changes">
+      <created>1599146535308</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1599146535308</updated>
+    </task>
+    <task id="LOCAL-00087" summary="Added notification and changed interest on stash page🔥">
+      <created>1599682714745</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1599682714746</updated>
+    </task>
+    <task id="LOCAL-00088" summary="Added and emoji for nicer interaction">
+      <created>1599682826234</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1599682826234</updated>
+    </task>
+    <task id="LOCAL-00089" summary="Fixed Transaction issue">
+      <created>1600719066534</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1600719066535</updated>
+    </task>
+    <task id="LOCAL-00090" summary="Added Modal for Business Registration">
+      <created>1600784372505</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1600784372505</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="995905000" />
+    <option name="totallyTimeSpent" value="1046518000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -830,8 +785,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4992785" visible="true" weight="0.2513312" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4992785" visible="true" weight="0.17305644" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.5007215" side_tool="true" weight="0.18423855" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -853,20 +809,34 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" />
     </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4992785" visible="true" weight="0.171459" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" sideWeight="0.5007215" side_tool="true" weight="0.18423855" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32978722" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32978722" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32978722" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="TypeScript" order="11" />
+      <window_info active="true" anchor="bottom" id="Messages" order="12" visible="true" weight="0.32978722" />
+      <window_info anchor="bottom" id="Terminal" order="13" weight="0.24680851" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fixed issues on the admin dashboard and also the business dashboard " />
-    <MESSAGE value="Introducers Module" />
-    <MESSAGE value="Installed Mailgun Driver" />
-    <MESSAGE value="Introducers Overview" />
-    <MESSAGE value="General SignUp page" />
-    <MESSAGE value="Fixed for text" />
-    <MESSAGE value="Removed file upload for businesses and added a new admin role" />
-    <MESSAGE value="Added the facebook ad tracker and also did some light UI fixes" />
-    <MESSAGE value="Google ad Sense" />
     <MESSAGE value="Typo changes " />
     <MESSAGE value="Added the lock for investors " />
     <MESSAGE value="Did the lock for the admin part " />
@@ -883,89 +853,18 @@
     <MESSAGE value="Savings for Investors" />
     <MESSAGE value="Fixed the funding for businesses" />
     <MESSAGE value="Fixed withdrawal issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed withdrawal issue" />
+    <MESSAGE value="Issue with Savings fixed" />
+    <MESSAGE value="Fixed a cron job issue" />
+    <MESSAGE value="Fixed a button" />
+    <MESSAGE value="New changes in the stash" />
+    <MESSAGE value="FAQ and stash changes" />
+    <MESSAGE value="Added notification and changed interest on stash page" />
+    <MESSAGE value="Added and emoji for nicer interaction" />
+    <MESSAGE value="Fixed Transaction issue" />
+    <MESSAGE value="Added Modal for Business Registration" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Modal for Business Registration" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Models/Business.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="12" column="291" selection-start-line="12" selection-start-column="288" selection-end-line="12" selection-end-column="291" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="48" column="18" lean-forward="true" selection-start-line="48" selection-start-column="18" selection-end-line="48" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/master.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="602">
-          <caret line="42" column="28" lean-forward="true" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/_partials/admin/_foot.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="752">
-          <caret line="68" column="36" selection-start-line="68" selection-start-column="36" selection-end-line="68" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_07_17_021749_create_invites_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="21" column="37" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_08_15_032855_create_fund_payments_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="33" column="6" selection-start-line="33" selection-start-column="6" selection-end-line="33" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/fundPayment.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="11" column="160" selection-start-line="11" selection-start-column="160" selection-end-line="11" selection-end-column="160" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Dashboard/IntController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14">
-          <caret line="33" column="33" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/nesbot/carbon/src/Carbon/Traits/Date.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="55">
-          <caret line="2017" column="20" selection-start-line="2017" selection-start-column="20" selection-end-line="2017" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/nesbot/carbon/src/Carbon/CarbonInterface.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2010">
-          <caret line="987" column="27" selection-start-line="987" selection-start-column="27" selection-end-line="987" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/funds.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/business.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/dashboard/investor/oneInvestment.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2870">
@@ -1029,13 +928,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/stash.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/stash.php" />
     <entry file="file://$PROJECT_DIR$/app/Models/Stash.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
@@ -1064,31 +957,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_08_23_173434_create_savings_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="24" column="39" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_08_23_173434_create_savings_table.php" />
     <entry file="file://$PROJECT_DIR$/routes/transaction.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="70">
           <caret line="5" column="23" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/business/fund.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1090">
-          <caret line="86" column="49" lean-forward="true" selection-start-line="86" selection-start-column="49" selection-end-line="86" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/business/funds.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="117" column="44" selection-start-line="117" selection-start-column="44" selection-end-line="117" selection-end-column="44" />
         </state>
       </provider>
     </entry>
@@ -1116,13 +989,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/_partials/dashboard/master.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="57" column="31" lean-forward="true" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/dashboard/investor/investment.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -1141,27 +1007,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="740">
           <caret line="215" column="96" selection-start-line="215" selection-start-column="87" selection-end-line="215" selection-end-column="96" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/cron.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="56">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Investment/LoadController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="227" column="18" lean-forward="true" selection-start-line="227" selection-start-column="18" selection-end-line="227" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Helpers/Formatter.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="20" column="9" lean-forward="true" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -1184,44 +1029,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Cron/BusinessController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="34" column="12" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="40" />
-          <folding>
-            <element signature="e#45#81#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Helpers/partials.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="740">
-          <caret line="418" column="21" selection-start-line="418" selection-start-column="21" selection-end-line="418" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/investor/stash.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="48" column="50" selection-start-line="48" selection-start-column="50" selection-end-line="48" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Stash/LoadController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="628">
-          <caret line="68" column="14" lean-forward="true" selection-start-line="68" selection-start-column="14" selection-end-line="68" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/Saving.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="11" column="176" lean-forward="true" selection-start-line="11" selection-start-column="176" selection-end-line="11" selection-end-column="185" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/PageController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1512">
@@ -1229,44 +1036,210 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Transaction/LoadController.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Cron/BusinessController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="34" column="12" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="40" />
+          <folding>
+            <element signature="e#45#81#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Helpers/Formatter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="14" column="39" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Cron/InvestorController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="980">
+          <caret line="97" column="70" selection-start-line="97" selection-start-column="70" selection-end-line="97" selection-end-column="70" />
+          <folding>
+            <element signature="e#45#81#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/default/faq.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="343" column="44" lean-forward="true" selection-start-line="343" selection-start-column="44" selection-end-line="343" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="266">
+            <caret line="41" column="38" selection-start-line="41" selection-start-column="38" selection-end-line="41" selection-end-column="38" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/cron.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="70">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/_partials/dashboard/master.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="740">
+          <caret line="60" column="22" selection-start-line="60" selection-start-column="12" selection-end-line="60" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Helpers/partials.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="406" column="20" selection-start-line="406" selection-start-column="20" selection-end-line="406" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/investor/stash.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="466" column="63" selection-start-line="466" selection-start-column="63" selection-end-line="466" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/investor/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="176" column="90" lean-forward="true" selection-start-line="176" selection-start-column="90" selection-end-line="176" selection-end-column="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Dashboard/PageController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3010">
+          <caret line="232" column="21" selection-start-line="232" selection-start-column="21" selection-end-line="232" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/investor/referral.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="686">
+          <caret line="49" column="30" selection-start-line="49" selection-start-column="30" selection-end-line="49" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/auth/lenders.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="518">
+          <caret line="37" column="96" selection-start-line="37" selection-start-column="96" selection-end-line="37" selection-end-column="96" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Lender/LoadController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1050">
+          <caret line="91" column="49" selection-start-line="91" selection-start-column="42" selection-end-line="91" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="574">
+          <caret line="41" column="18" selection-start-line="41" selection-start-column="18" selection-end-line="41" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/Saving.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="11" column="63" selection-start-line="11" selection-start-column="55" selection-end-line="11" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/Investment.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
-          <caret line="226" column="166" selection-start-line="226" selection-start-column="166" selection-end-line="226" selection-end-column="166" />
+          <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Stash/LoadController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="658">
+          <caret line="53" column="22" selection-start-line="53" selection-start-column="22" selection-end-line="53" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/business/funds.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1694">
+          <caret line="121" column="161" selection-start-line="121" selection-start-column="144" selection-end-line="121" selection-end-column="161" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/business/fund.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1358">
+          <caret line="97" column="55" selection-start-line="97" selection-start-column="55" selection-end-line="97" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Investment/LoadController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="32" column="36" lean-forward="true" selection-start-line="32" selection-start-column="36" selection-end-line="32" selection-end-column="36" />
           <folding>
-            <element signature="e#1908#2704#0#PHP" />
-            <element signature="e#2710#3557#0#PHP" />
+            <element signature="e#2452#7458#0#PHP" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/LoadController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="419" column="29" lean-forward="true" selection-start-line="419" selection-start-column="29" selection-end-line="419" selection-end-column="29" />
+        <state relative-caret-position="334">
+          <caret line="327" column="53" lean-forward="true" selection-start-line="327" selection-start-column="53" selection-end-line="327" selection-end-column="53" />
           <folding>
             <element signature="e#45#81#0#PHP" expanded="true" />
+            <element signature="e#12953#20545#0#PHP" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Dashboard/PageController.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Transaction/LoadController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="161" column="84" selection-start-line="161" selection-start-column="84" selection-end-line="161" selection-end-column="84" />
+        <state relative-caret-position="614">
+          <caret line="148" column="41" selection-start-line="148" selection-start-column="41" selection-end-line="148" selection-end-column="41" />
           <folding>
-            <element signature="e#1687#3655#0#PHP" />
+            <element signature="e#1908#2704#0#PHP" />
+            <element signature="e#2710#3557#0#PHP" />
+            <element signature="e#13367#16352#0#PHP" />
+            <element signature="e#16358#17192#0#PHP" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Cron/InvestorController.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/_partials/_footer.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/_containers/master.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="94" column="66" lean-forward="true" selection-start-line="94" selection-start-column="66" selection-end-line="94" selection-end-column="66" />
-          <folding>
-            <element signature="e#45#81#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="168">
+          <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/_partials/_foot.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="17" column="9" lean-forward="true" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/auth/business.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="197" column="52" selection-start-line="197" selection-start-column="52" selection-end-line="197" selection-end-column="52" />
         </state>
       </provider>
     </entry>
