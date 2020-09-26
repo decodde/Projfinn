@@ -2,6 +2,11 @@
 @section('content')
 <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
     <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
+        <form class="form-group row" method="GET" action="{{URL('/admin/rouzz/search')}}">
+            <input type="hidden" name="target" value="investor">
+            <input type="text" placeholder="Search Investors" class="col-md-4 form-control" name="term">
+            <button class="btn btn-primary col-md-1 mx-5 mt-3 mt-md-0" type="submit">Search</button>
+        </form>
         <div class="kt-portlet">
             <div class="kt-portlet__head">
                 <div class="kt-portlet__head-label">
