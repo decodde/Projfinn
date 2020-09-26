@@ -120,6 +120,27 @@ class PageController extends Controller
 
                     return view('admin.introducers', $data);
                     break;
+                case 'investor':
+                    $user = Auth::user();
+
+                    $getInvestors = $this->user->where(["type" => "investor", 'isDeleted' => false])->where('name', 'LIKE', '%%'.$request->term.'%%')->latest()->paginate(10);
+                    foreach ($getInvestors as $getUser){
+                        $getUser->account = $getUser->account() ?? null;
+                        if($getUser->account !== null){
+                            $getUser->bank = $this->bank->where('id', $getUser->account->bankId)->first();
+                        }
+                    }
+
+//                    dd($getInvestors);
+                    $data = [
+                        'title' => 'Admin',
+                        'user' => $user,
+                        'isSuper' => $this->isSuper(),
+                        'users' => $getInvestors,
+                    ];
+
+                    return view('admin.investors', $data);
+                    break;
                 default:
                     \Session::put('blue', true);
                     return back()->withErrors("Please specify where to look");
