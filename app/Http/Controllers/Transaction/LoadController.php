@@ -224,8 +224,8 @@ class LoadController extends Controller
                     if ($getRef !== null) {
                         $refId = $this->investor->where('userId', $getRef->refererId)->first();
                         $refStash = $this->stash->where('investorId', $refId->id);
-                        $refStash->increment('totalAmount', 1000);
-                        $refStash->increment('availableAmount', 1000);
+                        $refStash->increment('totalAmount', 0);
+                        $refStash->increment('availableAmount', 0);
                         $gr->update(['hasPayed' => true]);
                     }
                     if ($trnxType == 'saving'){
@@ -278,8 +278,8 @@ class LoadController extends Controller
                     if ($getRef !== null) {
                         $refId = $this->investor->where('userId', $getRef->refererId)->first();
                         $refStash = $this->stash->where('investorId', $refId->id);
-                        $refStash->increment('totalAmount', 1000);
-                        $refStash->increment('availableAmount', 1000);
+                        $refStash->increment('totalAmount', 0);
+                        $refStash->increment('availableAmount', 0);
                         $gr->update(['hasPayed' => true]);
                     }
                     if ($tranxDetails->portfolioId !== null) {
