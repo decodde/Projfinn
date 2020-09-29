@@ -29,6 +29,11 @@ class PageController extends Controller
         return view('default.about');
     }
     //
+    public function women() {
+
+        return view('default.women');
+    }
+    //
     public function contact() {
 
         return view('default.contact');

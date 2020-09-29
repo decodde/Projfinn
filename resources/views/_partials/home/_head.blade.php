@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('assets/assets/vendors/font-awesome/css/font-awesome.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/assets/css/theme-vendors.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/assets/css/theme.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/assets/css/themes/mobile.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/assets/css/themes/opus-2.css') }}" />
 
     <!-- Head Libs -->
