@@ -159,16 +159,19 @@
                         <div class="testimonial testimonial-quote-filled text-left testimonial-details-lg testimonial-quote-shadowed">
                             <div class="testimonial-quote">
                                 <blockquote>
-                                    <p class="font-size-16 lh-2">“I loved the customer service you guys provided me. That was very nice and patient with questions I had. I would really like definitely come back here”</p>
+                                    <p class="font-size-16 lh-2">“I applied for the loan from Rouzo through an Introducer and I enjoyed the services
+                                        rendered by the Rouzo team as they work tirelessly 24/7 which I observed, finally I got the
+                                        loan after visitation to their office &amp; completing the necessary documentation.
+                                         
+                                        Although the facility provided has enabled us to purchase some medications for our
+                                        pharmacy, more funds are required in the future to boost the business and we are certain
+                                        that Rouzo will be there to cater to our financing needs.”</p>
                                 </blockquote>
                             </div><!-- /.testimonial-quote -->
                             <div class="testimonial-details">
-                                <figure class="avatar ">
-                                    <img src="assets/demo/testimonials/testi-11.jpg" alt="Caleb Cruz">
-                                </figure>
                                 <div class="testimonial-info">
-                                    <h5>Yewande Oyewo</h5>
-                                    <h6 class="font-weight-normal">Famous Five Caterers</h6>
+                                    <h5>Sarah .O</h5>
+                                    <h6 class="font-weight-normal">Pharmacy Owner</h6>
                                 </div><!-- /.testimonial-info -->
                             </div><!-- /.testimonial-details -->
                         </div><!-- /.testimonial -->
@@ -180,13 +183,13 @@
                         <div class="testimonial testimonial-quote-filled text-left testimonial-details-lg testimonial-quote-shadowed">
                             <div class="testimonial-quote">
                                 <blockquote>
-                                    <p class="font-size-16 lh-2">“I had a good experience with Owoafara Services. I am thankful to Owoafara for the help you guys gave my business. My loan was easy and fast. thank you”</p>
+                                    <p class="font-size-16 lh-2">“I got my rouzo loan so fast after meeting all the requirements, i was disbursed the same day my guarantor sent her details.”</p>
                                 </blockquote>
                             </div><!-- /.testimonial-quote -->
                             <div class="testimonial-details">
                                 <div class="testimonial-info">
-                                    <h5>Jide Agbabiaka</h5>
-                                    <h6 class="font-weight-normal">Business Loan</h6>
+                                    <h5>Yewande Oyewo</h5>
+                                    <h6 class="font-weight-normal">Famous Five Caterers</h6>
                                 </div><!-- /.testimonial-info -->
                             </div><!-- /.testimonial-details -->
                         </div><!-- /.testimonial -->
