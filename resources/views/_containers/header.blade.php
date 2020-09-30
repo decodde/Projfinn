@@ -49,6 +49,19 @@
                                             </a>
                                         </li>
 
+
+                                        <li>
+                                            <a href="{{URL('/women')}}">
+                                                <span class="link-icon"></span>
+                                                <span class="link-txt btn-underlined">
+                                                    <span class="link-ext"></span>
+                                                    <span class="txt">
+                                                        Women
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </li>
+
                                         <li>
                                             <a href="{{URL('/faq')}}">
                                                 <span class="link-icon"></span>
