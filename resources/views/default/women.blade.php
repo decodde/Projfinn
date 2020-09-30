@@ -4,6 +4,8 @@
     <style>
         body{
             color: #212529;
+            overflow: hidden;
+            text-justify: auto;
         }
     </style>
     <main id="content" class="content">
@@ -86,7 +88,7 @@
                                     <br>
                                     In Nigeria alone, over 49% of the population are female and there is a rising number of
                                     women who are female bread winners, single parent and single income families. 26% of
-                                    these women are in the service sector and are involved in varying trades which is makes up
+                                    these women are in the service sector and are involved in varying trades which makes up
                                     about 25million woman in Nigeria alone.
                                     <br>
                                     <br>
