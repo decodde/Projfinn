@@ -217,17 +217,6 @@ class LoadController extends Controller
                             $stash->increment('availableAmount', $amountPaid);
                         }
                     }
-
-                    $gr = $this->referral->where(['userId' => $user->id, 'hasPayed' => false]);
-                    $getRef = $gr->first();
-
-                    if ($getRef !== null) {
-                        $refId = $this->investor->where('userId', $getRef->refererId)->first();
-                        $refStash = $this->stash->where('investorId', $refId->id);
-                        $refStash->increment('totalAmount', 0);
-                        $refStash->increment('availableAmount', 0);
-                        $gr->update(['hasPayed' => true]);
-                    }
                     if ($trnxType == 'saving'){
                         $subData = [
                             "customer" => $user->email,
