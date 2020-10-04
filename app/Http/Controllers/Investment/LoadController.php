@@ -264,13 +264,12 @@ class LoadController extends Controller
         }
     }
 
-    public function success(){
+    public function success(Request $request){
         \Session::put('success', true);
         return redirect("/dashboard/i/stash")->withErrors("Transfer Initiated, The transaction will be validated in the next 24hours");
     }
-    public function danger(){
-
+    public function danger(Request $request){
         \Session::put('danger', true);
-        return redirect("/dashboard/i/stash")->withErrors("An Error Occurred");
+        return redirect("/dashboard/i/stash")->withErrors($request->message);
     }
 }
