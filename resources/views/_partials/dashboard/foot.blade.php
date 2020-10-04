@@ -46,11 +46,10 @@
                 $('#inactiveBtn').hide();
                 $('#activeBtn').show();
                 if (response.error === false) {
-                    console.log(response);
-                    window.location.href = "{{URL('/investment/success')}}";
+                    window.location.href = "{{URL('/investment/success')}}?message="+response.message;
                 } else {
                     console.log(response);
-                    window.location.href = "{{URL('/investment/danger')}}";
+                    window.location.href = "{{URL('/investment/danger')}}?message="+response.message;
                 }
 
             },
