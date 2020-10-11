@@ -7,6 +7,7 @@ use App\Http\Helpers\apiHelper;
 use App\Http\Helpers\Formatter;
 use App\Http\Helpers\sendMail;
 use App\Models\Investment;
+use App\Models\Lender;
 use App\Models\Portfolio;
 use App\Models\Saving;
 use App\Models\Stash;
@@ -23,7 +24,8 @@ class InvestorController extends Controller
     private $formatter;
     private $saving;
     private $api;
-    public function __construct(sendMail $mail, Investment $investment, Stash $stash, User $user, Portfolio $portfolio, Formatter $formatter, Saving $saving, apiHelper $api)
+    private $investor;
+    public function __construct(sendMail $mail, Investment $investment, Stash $stash, User $user, Portfolio $portfolio, Formatter $formatter, Saving $saving, apiHelper $api, Lender $investor)
     {
         $this->mail = $mail;
         $this->investment = $investment;
@@ -33,6 +35,7 @@ class InvestorController extends Controller
         $this->formatter = $formatter;
         $this->saving = $saving;
         $this->api = $api;
+        $this->investor = $investor;
     }
 
     public function transferInvestment()
@@ -105,12 +108,30 @@ class InvestorController extends Controller
                         $getSub = $this->api->call("/subscription/".$saving->sub_code, "GET");
                         $lenOfInv = count($getSub->data->invoices);
 
-                        if ($lenOfInv > $saving->monthsPaid){
+                        if ($lenOfInv > $saving->monthsPaid-1){
 
                             $this->saving->where("id", $saving->id)->increment("monthsPaid", 1);
 
                             if ($saving->monthsPaid + 1 >= $saving->months){
                                 $this->saving->where("id", $saving->id)->update(["isCompleted" => true]);
+                                $now = Carbon::now();
+                                $dayCreated = Carbon::create($saving->datePurchased);
+                                $projectedMonths = Carbon::create($saving->datePurchased)->addMonths(intval($saving->months));
+                                $diffToday = $now->diffInDays($dayCreated);
+                                $diffProj = $dayCreated->diffInDays($projectedMonths);
+                                $roi = $this->partials->interestSavings($saving->months) * $saving->amount;
+                                $amt = (($diffToday / $diffProj) * $roi);
+
+                                $investor = $this->investor->where("email", $saving->email)->first();
+                                $stash = $this->stash->where("investorId", $investor->id);
+
+                                $stash->increment('totalAmount', $amt);
+                                $stash->increment('availableAmount', $amt);
+                                $sub_body = [
+                                    "code" => $saving->sub_code,
+                                    "token" => $saving->email_token
+                                ];
+                                $disableSub = $this->api->call("/subscription/disable", "POST", $sub_body);
                             }
                             $counter++;
                         }

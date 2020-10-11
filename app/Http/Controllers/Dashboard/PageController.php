@@ -169,14 +169,16 @@ class PageController extends Controller
             $savings = $this->saving->where(["email" => $user->email, "isStarted" => true])->paginate(5);
             $cred = 0;
             foreach ($savings as $saving){
+                if ($saving->isCompleted == false){
+                    $now = Carbon::now();
+                    $dayCreated = Carbon::create($saving->datePurchased);
+                    $projectedMonths = Carbon::create($saving->datePurchased)->addMonths(intval($saving->months));
+                    $diffToday = $now->diffInDays($dayCreated);
+                    $diffProj = $dayCreated->diffInDays($projectedMonths);
+                    $roi = $this->partials->interestSavings($saving->months) * $saving->amount;
+                    $cred += (($diffToday / $diffProj) * $roi);
+                }
 
-                $now = Carbon::now();
-                $dayCreated = Carbon::create($saving->datePurchased);
-                $projectedMonths = Carbon::create($saving->datePurchased)->addMonths(intval($saving->months));
-                $diffToday = $now->diffInDays($dayCreated);
-                $diffProj = $dayCreated->diffInDays($projectedMonths);
-                $roi = $this->partials->interestSavings($saving->months) * $saving->amount;
-                $cred += (($diffToday / $diffProj) * $roi);
             }
             $totalAmount += $cred;
             $data = [
