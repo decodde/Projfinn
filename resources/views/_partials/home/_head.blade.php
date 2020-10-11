@@ -46,6 +46,16 @@
              src="https://www.facebook.com/tr?id=2794217997524780&ev=PageView
 &noscript=1"/>
     </noscript>
+    <script>
+        var loadCounter = 0;
+        var loaded = function() {
+            loadCounter += 1;
+            if (loadCounter === 2) {
+                $("iframe").attr("height", "500px");
+                $(window).scrollTo(315,0)
+            }
+        }
+    </script>
     <!-- End Facebook Pixel Code -->
     <script data-ad-client="ca-pub-9913184668842151" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>

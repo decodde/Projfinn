@@ -34,6 +34,11 @@ class PageController extends Controller
         return view('default.women');
     }
     //
+    public function wbc() {
+
+        return view('default.wbc');
+    }
+    //
     public function contact() {
 
         return view('default.contact');
