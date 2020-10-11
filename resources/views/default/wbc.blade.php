@@ -18,7 +18,7 @@
 
     </div><!-- /.titlebar -->
     <main id="content" class="content">
-        <section class="vc_row pt-90 pb-90 text-center" style="background: linear-gradient(to bottom,  #f8fbff,  rgba(250, 251, 251, 0))">
+        <section class="vc_row pt-90 pb-20 text-center" style="background: linear-gradient(to bottom,  #f8fbff,  rgba(250, 251, 251, 0))">
             <div class="container">
                 <div class="heading wow fadeInUp">
                     <span class="badge badge-success badge-pill wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">Do you have financial goals?</span>
@@ -35,7 +35,7 @@
                     </a>
                 </div>
 
-                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScidqj2kjzODG7AOFivAMQpxWBnA8Z7an0_6zkuQPWsAADxZQ/viewform?embedded=true" width="100%" height="1280px" frameborder="0" marginheight="0" marginwidth="0" onload="loaded()">Loading…</iframe>
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScidqj2kjzODG7AOFivAMQpxWBnA8Z7an0_6zkuQPWsAADxZQ/viewform?embedded=true" width="100%" height="1450px" frameborder="0" marginheight="0" marginwidth="0" onload="loaded()">Loading…</iframe>
             </div>
         </section>
     </main><!-- /#content.content -->
