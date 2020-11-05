@@ -599,8 +599,37 @@ class PageController extends Controller
         }
     }
 
-    public function portfolios(Request $request) {
+    public function portfolio(Request $request) {
         try {
+            $id = decrypt($request->id);
+            $user = Auth::user();
+            if (!$this->isSuper()){
+                \Session::put('danger', true);
+                return redirect("/admin/rouzz/overview")->withErrors("You are not allowed here");
+            }
+            $portfolio = $this->portfolio->where("id", $id)->first();
+            $portfolio->units = $portfolio->size / $portfolio->amountPerUnit;
+            $portfolio->unitsBought = $portfolio->units - ($portfolio->sizeRemaining / $portfolio->amountPerUnit);
+
+            $data = [
+                'title' => 'Admin',
+                'user' => $user,
+                'isSuper' => $this->isSuper(),
+                'portfolio' => $portfolio
+            ];
+
+
+            return view('admin.onePortfolio', $data);
+
+        } catch(\Exception $e) {
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function portfolios(Request $request){
+        try {
+
             $user = Auth::user();
             if (!$this->isSuper()){
                 \Session::put('danger', true);
@@ -620,9 +649,7 @@ class PageController extends Controller
                 'portfolios' => $portfolios
             ];
 
-
             return view('admin.portfolio', $data);
-
         } catch(\Exception $e) {
             \Session::put('danger', true);
             return back()->withErrors('An error has occurred: '.$e->getMessage());

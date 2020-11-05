@@ -382,4 +382,50 @@ class LoadController extends Controller
             return false;
         }
     }
+
+    public function openPortfolio(Request $request){
+        try {
+            $id = decrypt($request->id);
+
+            $this->portfolio->where("id", $id)->update([
+                "isOpen" => true,
+            ]);
+            \Session::put('success', true);
+            return back()->withErrors('Portfolio Opened Successfully');
+        } catch(\Exception $e) {
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+    public function closePortfolio(Request $request){
+        try {
+            $id = decrypt($request->id);
+
+            $this->portfolio->where("id", $id)->update([
+                "isOpen" => false,
+            ]);
+            \Session::put('success', true);
+            return back()->withErrors('Portfolio Closed Successfully');
+        } catch(\Exception $e) {
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+    public function topUpPortfolio(Request $request){
+        try {
+            $id = decrypt($request->id);
+
+            $portfolio = $this->portfolio->where("id", $id);
+            $result = $portfolio->first();
+            $amount = $request->units * $result->amountPerUnit;
+            $portfolio->increment("size", $amount);
+            $portfolio->increment("sizeRemaining", $amount);
+
+            \Session::put('success', true);
+            return back()->withErrors('Portfolio Top Up Successfully');
+        } catch(\Exception $e) {
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
 }

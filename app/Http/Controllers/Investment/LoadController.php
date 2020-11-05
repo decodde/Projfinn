@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Investment;
 
 use App\Http\Controllers\Controller;
+use App\Http\Helpers\partials;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,8 @@ class LoadController extends Controller
     private $api;
     private $tranx;
     private $format;
-    public function __construct(Investment $investment, Validate $validate, Stash $stash, Transaction $transaction, Portfolio $portfolio, apiHelper $api, TranxConfirm $tranx, Formatter $format){
+    private $partials;
+    public function __construct(Investment $investment, Validate $validate, Stash $stash, Transaction $transaction, Portfolio $portfolio, apiHelper $api, TranxConfirm $tranx, Formatter $format, partials $partials){
         $this->investment = $investment;
         $this->validate = $validate;
         $this->stash = $stash;
@@ -37,6 +39,7 @@ class LoadController extends Controller
         $this->api = $api;
         $this->tranx = $tranx;
         $this->format = $format;
+        $this->partials = $partials;
     }
 
     public function create(Request $request){
@@ -177,7 +180,8 @@ class LoadController extends Controller
                     return back()->withErrors('An error has occurred: ');
                 }
 
-                $roiInPer = $getPortfolio['returnInPer'] - $getPortfolio['managementFee'];
+                $getPer = $this->partials->loanTypes(strtolower($getPortfolio["name"]));
+                $roiInPer = $getPer[$data['months']] - $getPortfolio['managementFee'];
 
                 $roi = ($roiInPer / 100) * $data["amount"];
 

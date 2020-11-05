@@ -28,7 +28,7 @@
                             @foreach($portfolios as $portfolio)
                                 <tr>
                                     <td>{{$portfolio->name}}</td>
-                                    <td>{{$portfolio->description}}</td>
+                                    <td style="width: 30%">{{$portfolio->description}}</td>
                                     <td>{{$portfolio->returnInPer}}</td>
                                     <td>
                                         @if($portfolio->riskLevel == "low")
@@ -61,6 +61,9 @@
 
                                     <td>{{$portfolio->units}}</td>
                                     <td>{{$portfolio->unitsBought}} </td>
+                                    <td>
+                                        <a href="{{URL('/admin/rouzz/portfolio/'.encrypt($portfolio->id))}}" class="btn btn-primary">View</a>
+                                    </td>
 
                                 </tr>
                             @endforeach
