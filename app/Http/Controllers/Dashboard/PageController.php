@@ -170,13 +170,17 @@ class PageController extends Controller
             $cred = 0;
             foreach ($savings as $saving){
                 if ($saving->isCompleted == false){
-                    $now = Carbon::now();
-                    $dayCreated = Carbon::create($saving->datePurchased);
-                    $projectedMonths = Carbon::create($saving->datePurchased)->addMonths(intval($saving->months));
-                    $diffToday = $now->diffInDays($dayCreated);
-                    $diffProj = $dayCreated->diffInDays($projectedMonths);
-                    $roi = $this->partials->interestSavings($saving->months) * $saving->amount;
-                    $cred += (($diffToday / $diffProj) * $roi);
+                    $roi = ($this->partials->interestSavings($saving->months)/100) * ($saving->months * $saving->amount);
+                    if ($saving->interval == 'weekly'){
+                        $monthsPaid = ($roi/$saving->months)/4;
+                    }
+                    elseif ($saving->interval == 'monthly'){
+                        $monthsPaid = ($roi/$saving->months);
+                    }
+                    else{
+                        $monthsPaid = ($roi/$saving->months)/30;
+                    }
+                    $cred += ($monthsPaid * $saving->monthsPaid) + ($saving->amount * $saving->monthsPaid);
                 }
 
             }

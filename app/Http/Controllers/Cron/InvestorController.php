@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Cron;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\apiHelper;
 use App\Http\Helpers\Formatter;
+use App\Http\Helpers\partials;
 use App\Http\Helpers\sendMail;
 use App\Models\Investment;
 use App\Models\Lender;
@@ -25,7 +26,8 @@ class InvestorController extends Controller
     private $saving;
     private $api;
     private $investor;
-    public function __construct(sendMail $mail, Investment $investment, Stash $stash, User $user, Portfolio $portfolio, Formatter $formatter, Saving $saving, apiHelper $api, Lender $investor)
+    private $partials;
+    public function __construct(sendMail $mail, Investment $investment, Stash $stash, User $user, Portfolio $portfolio, Formatter $formatter, Saving $saving, apiHelper $api, Lender $investor, partials $partials)
     {
         $this->mail = $mail;
         $this->investment = $investment;
@@ -36,6 +38,7 @@ class InvestorController extends Controller
         $this->saving = $saving;
         $this->api = $api;
         $this->investor = $investor;
+        $this->partials = $partials;
     }
 
     public function transferInvestment()
@@ -111,8 +114,16 @@ class InvestorController extends Controller
                         if ($lenOfInv > $saving->monthsPaid-1){
 
                             $this->saving->where("id", $saving->id)->increment("monthsPaid", 1);
-
-                            if ($saving->monthsPaid + 1 >= $saving->months){
+                            if ($saving->interval == "monthly"){
+                                $x = $saving->months;
+                            }
+                            elseif($saving->interval == "weekly"){
+                                $x = $saving->months * 4;
+                            }
+                            else{
+                                $x = $saving->months * 30;
+                            }
+                            if ($saving->monthsPaid + 1 >= $x){
                                 $this->saving->where("id", $saving->id)->update(["isCompleted" => true]);
                                 $now = Carbon::now();
                                 $dayCreated = Carbon::create($saving->datePurchased);
