@@ -166,6 +166,11 @@ class PageController extends Controller
             }
 
             $transfers = $this->transferRequest->where('investorId', $user->investor()->id)->paginate(5);
+            $getTransfers = $this->transferRequest->where(['investorId' => $user->investor()->id, 'otpConfirmed' => false])->get();
+            $isAllowed = true;
+            if (count($getTransfers) > 0){
+                $isAllowed = false;
+            }
             $savings = $this->saving->where(["email" => $user->email, "isStarted" => true])->paginate(5);
             $cred = 0;
             foreach ($savings as $saving){
@@ -195,7 +200,8 @@ class PageController extends Controller
                 'transfers' => $transfers,
                 'purchase' => $purchase,
                 'savings' => $savings,
-                'isStash' => $isStash
+                'isStash' => $isStash,
+                'isAllowed' => $isAllowed
             ];
 
             return view('dashboard.investor.stash', $data);

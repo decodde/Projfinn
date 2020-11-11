@@ -500,6 +500,28 @@ class PageController extends Controller
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
+    public function payOut(Request $request) {
+        try {
+            $user = Auth::user();
+            if (!$this->isSuper()){
+                \Session::put('danger', true);
+                return redirect("/admin/rouzz/overview")->withErrors("You are not allowed here");
+            }
+
+            $data = [
+                'title' => 'Admin',
+                'user' => $user,
+                'isSuper' => $this->isSuper(),
+            ];
+
+
+            return view('admin.payout', $data);
+
+        } catch(\Exception $e) {
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
 
     public function funds(Request $request) {
         try {
@@ -509,7 +531,7 @@ class PageController extends Controller
                 $getFund->user = $getFund->user();
                 $getFund->business = $getFund->business();
             }
-
+//            dd($getFunds);
             $data = [
                 'title' => 'Admin',
                 'isSuper' => $this->isSuper(),
@@ -532,6 +554,8 @@ class PageController extends Controller
             foreach ($getTransfers as $getTransfer){
                 $getTransfer->investor = $getTransfer->investor();
                 $getTransfer->user = $getTransfer->user($getTransfer->investor->userId);
+                $getTransfer->account = $this->account->where('userId', $getTransfer->user->id)->first();
+                $getTransfer->bank = $getTransfer->account->bank();
             }
 
             $data = [

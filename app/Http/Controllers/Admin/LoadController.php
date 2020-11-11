@@ -255,26 +255,16 @@ class LoadController extends Controller
     public function verifyTransfer(Request $request)
     {
         try{
-            $data = $request->except('_token');
+            $investorId = $request->investorId;
+            $transferId = decrypt($request->id);
+            $transfer = $this->transferRequest->where(['id' => $transferId, 'investorId' => $investorId]);
 
-            $params = [
-                'transfer_code' => $data['transfer_code'],
-                'otp' => $data['otp'],
-            ];
+            $stash = $this->stash->where('investorId', $investorId);
 
-            $transferVerify = $this->api->call('/transfer/finalize_transfer', 'POST', $params);
+            $stash->decrement('totalAmount', $transfer->first()->amount);
+            $stash->decrement('availableAmount', $transfer->first()->amount);
 
-            if ($transferVerify->status == false){
-                \Session::put('danger', true);
-                return back()->withErrors('Invalid Otp');
-            }
-
-            $this->transferRequest->where(['transfer_code' => $data['transfer_code'], 'investorId' => $data['investorId']])->update(['otpConfirmed' => true, 'reference' => $transferVerify->data->reference]);
-            $stash = $this->stash->where('investorId', $data["investorId"]);
-
-            $stash->decrement('totalAmount', $transferVerify->data->amount / 100);
-            $stash->decrement('availableAmount', $transferVerify->data->amount / 100);
-
+            $transfer->update(['otpConfirmed' => true]);
             \Session::put('success', true);
             return back()->withErrors('Transaction Verified');
         }
