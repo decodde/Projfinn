@@ -18,25 +18,24 @@
                                 <th>Investor</th>
                                 <th>Email</th>
                                 <th>Amount Requested</th>
+                                <th>Bank Name</th>
+                                <th>Account Number</th>
                                 <th>Date Requested</th>
-                                <th>OTP Code</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody class="text-grey">
                             @foreach($transfers as $transfer)
                                 <tr>
-                                    <form action="{{URL('/admin/rouzz/transfer')}}" method="post">
-                                        <input type="hidden" name="_token" value="{{csrf_token()}}">
-                                        <input type="hidden" name="transfer_code" value="{{$transfer->transfer_code}}">
-                                        <input type="hidden" name="investorId" value="{{$transfer->investor->id}}">
-                                        <td>{{$transfer->investor->name}}</td>
-                                        <td>{{$transfer->user->email}}</td>
-                                        <td class="text-success" style="font-size: 16px">₦ {{App\Http\Helpers\Formatter::MoneyConvert($transfer->amount, "full")}}</td>
-                                        <td>{{App\Http\Helpers\Formatter::dataTime($transfer->created_at)}} </td>
-                                        <td><input type="text" class="form-control" name="otp" placeholder="OTP Code" required></td>
-                                        <td><button class="btn btn-success" >View More Details</button></td>
-                                    </form>
+                                    <td>{{$transfer->investor->name}}</td>
+                                    <td>{{$transfer->user->email}}</td>
+                                    <td class="text-success" style="font-size: 16px">₦ {{App\Http\Helpers\Formatter::MoneyConvert($transfer->amount, "full")}}</td>
+                                    <td>{{$transfer->bank->name}}</td>
+                                    <td>{{$transfer->account->accountNumber}}</td>
+                                    <td>{{App\Http\Helpers\Formatter::dataTime($transfer->created_at)}} </td>
+                                    <td>
+                                        <a class="btn btn-success" href="{{URL('/admin/rouzz/transfer/'.encrypt($transfer->id).'/'.$transfer->investor->id)}}">Close Transfer</a>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

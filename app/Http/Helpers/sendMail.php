@@ -223,4 +223,17 @@ class sendMail {
             $m->replyTo('no-reply@owoafara.com');
         });
     }
+
+    public function sendTransferReminder($user)
+    {
+        $mail["title"] = "Rouzo: An Investor Has Requested for a Transfer";
+        $mail["salute"] = "Hello Rouzo";
+        $mail["message"] = "An Investor with the name '". $user->investor()->name."' just requested for a transfer, Please login and view the request";
+
+        $this->mail::send('emails.template', ['data' => $mail], function ($m) use ($mail, $user) {
+            $m->from('no-reply@owoafara.com', env('SENDER_NAME'));
+            $m->to(env('SENDER_EMAIL'))->subject($mail['title']);
+            $m->replyTo('no-reply@owoafara.com');
+        });
+    }
 }

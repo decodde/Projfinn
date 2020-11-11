@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Transaction;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\apiHelper;
 use App\Http\Helpers\partials;
+use App\Http\Helpers\sendMail;
 use App\Models\fundPayment;
 use App\Models\Funds;
 use App\Models\Saving;
@@ -21,6 +22,7 @@ use App\Models\Portfolio;
 use App\Models\Investment;
 use App\Models\TranxConfirm;
 use App\Http\Helpers\Validate;
+use Illuminate\Support\Facades\Auth;
 
 class LoadController extends Controller
 {
@@ -41,8 +43,9 @@ class LoadController extends Controller
     private $partials;
     private $saving;
     private $payment;
+    private $mail;
 
-    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, TranxConfirm $tranx, Validate $validate, lenderAccount $account, Bank $bank, Funds $fund, transferRequest $transferRequest, partials $partials, Saving $saving, fundPayment $payment){
+    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, TranxConfirm $tranx, Validate $validate, lenderAccount $account, Bank $bank, Funds $fund, transferRequest $transferRequest, partials $partials, Saving $saving, fundPayment $payment, sendMail $mail){
         $this->api = $api;
         $this->transaction = $transaction;
         $this->stash = $stash;
@@ -59,6 +62,7 @@ class LoadController extends Controller
         $this->partials = $partials;
         $this->saving = $saving;
         $this->payment = $payment;
+        $this->mail = $mail;
     }
 
     public function buy(Request $request){
@@ -325,65 +329,33 @@ class LoadController extends Controller
         try{
             $data = $request->all();
 
+            $user = Auth::user();
+
             $validation = $this->validate->transaction($data, 'transfer');
             if($validation->fails())
             {
                 return response()->json(["message" => $validation->getMessageBag(), "error" => true, "data" => []], 200);
             } else {
-                $userAcc = $this->account->where('userId', $data["userId"])->first();
                 $stash = $this->stash->where('investorId', $data["investorId"])->first();
-                $userBank = $this->bank->where('id', $userAcc->bankId)->first();
-
-                if ($stash->recipientId == null){
-                    $body = [
-                        "type" => 'nuban',
-                        "name" => $data["name"],
-                        "description" => "Payout From Rouzo",
-                        "account_number" => $userAcc->accountNumber,
-                        "bank_code" => $userBank->code,
-                        "currency" => "NGN",
-                    ];
-                    $recRes = $this->api->call('/transferrecipient', 'POST', $body)->data;
-                    $this->stash->where('investorId', $data["investorId"])->update([
-                        "recipientId" => $recRes->recipient_code,
-                    ]);
-
-                    $recipient_code = $recRes->recipient_code;
-                }
-                else{
-                    $recipient_code = $stash->recipientId;
-                }
 
                 if(($stash->availableAmount - $data["amount"]) < 1000){
                     return response()->json(["message" => "An Error Occurred: Insufficient funds", "error" => true, "data" => []], 200);
                 }
 
-                $params = [
-                    "source" => "balance",
-                    "reason" => "Payout From Rouzo",
-                    "amount" => $data["amount"] * 100,
-                    "recipient" => $recipient_code,
-                ];
-
-                $transferRes = $this->api->call('/transfer', 'POST', $params);
-
-                if ($transferRes->status == false){
-                    return response()->json(["message" => "An Error Occurred: Transfer Unsuccessful", "error" => true, "data" => []], 200);
-                }
                 $transParams = [
                     'investorId' => $data["investorId"],
                     'amount' => $data["amount"],
-                    'message' => $transferRes->message,
-                    'transfer_code' => $transferRes->data->transfer_code,
+                    'message' => "The Money will be disbursed soon",
+                    'transfer_code' => "unknown",
                 ];
-
+                $this->mail->sendTransferReminder($user);
                 $this->transferRequest->create($transParams);
             }
         }
         catch(\Exception $e){
             return response()->json(["message" => "An Error Occurred ".$e->getMessage(), "error" => true, "data" => []], 200);
         }
-        return response()->json(["message" => "Transfer Initiated, The transaction will be validated in the next 24hours", "error" => false, "data" => $transferRes], 200);
+        return response()->json(["message" => "Transfer Initiated, The transaction will be validated in the next 24hours", "error" => false, "data" => $transParams], 200);
     }
 
     public function commissionFee(Request $request){

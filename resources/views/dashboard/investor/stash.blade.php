@@ -82,7 +82,11 @@
     </div>
     <div class="row">
         <div class="col-12">
+            @if($isAllowed)
             <a href="javascript:void(0);" data-toggle="modal" data-target="#makeWithdrawal" class="btn btn-primary mr-1 btn-md mb-2 float-right border-0">Withdraw savings <i class="fa fa-credit-card"></i></a>
+            @else
+            <a href="javascript:void(0);" data-toggle="modal" data-target="#withModal" class="btn btn-primary mr-1 btn-md mb-2 float-right border-0">Withdraw savings <i class="fa fa-credit-card"></i></a>
+            @endif
             <a href="javascript:void(0);" data-toggle="modal" data-target="#makePayment" class="btn btn-success mr-1 btn-md mb-2 float-right border-0">Credit your wallet <i class="fa fa-plus"></i></a>
             <a href="javascript:void(0);" data-toggle="modal" data-target="#saveToInvest" class="btn btn-blue mr-1 mb-2 float-right font-size-16px border-0 px-2" style="margin-top: -3px">Save to Invest <i class="icon-ion-ios-wallet"></i></a>
         </div>
@@ -326,7 +330,7 @@
                                             </td>
 
                                             <td class="px-1">
-                                                @if($transfer->otpConfirmed === true)
+                                                @if($transfer->otpConfirmed == true)
                                                     The Money has been disbursed
                                                 @else
                                                     The Money will be disbursed soon
@@ -468,6 +472,26 @@
                         <button type="submit" id="inactiveBtn" class="btn btn-sm btn-success text-white font-size-14px" style="display: none" disabled>Processing Withdrawal ... <i class="fa fa-spinner fa-spin"></i></button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="withModal" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content border-0">
+                <div class="modal-header border-0 p-0 pr-2 pt-1">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body font-size-16 font-weight-bold py-0">
+                    <br>
+                    <p class="py-1">
+                        Please Try again later, Your Previous Withdrawal Request is being processed
+                    </p>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
