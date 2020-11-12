@@ -38,9 +38,11 @@ Route::get('/payout', 'PageController@payOut');
 
 
 Route::post('/transact', 'LoadController@adminConfirm');
+Route::post('/credit', 'LoadController@creditStash');
 Route::post('/status', 'LoadController@fundStatus');
 Route::get('/transfer/{id}/{investorId}', 'LoadController@verifyTransfer');
 Route::get('/user/delete/{id}', 'LoadController@deleteUser');
 Route::get('/portf/close/{id}', 'LoadController@closePortfolio');
 Route::get('/portf/open/{id}', 'LoadController@openPortfolio');
+Route::get('/confirmFund/{id}/{email}', 'LoadController@confirmFund');
 Route::post('/portf/topup/{id}', 'LoadController@topUpPortfolio');

@@ -376,6 +376,12 @@ class Validate {
                     'portfolioId' => 'required',
                 ]);
                 break;
+            case 'credit':
+                return $this->validator::make($data, [
+                    'email' => 'required',
+                    'amount' => 'required',
+                ]);
+                break;
             case 'transfer':
                 return $this->validator::make($data, [
                     'userId' => 'required',
