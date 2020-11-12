@@ -191,7 +191,7 @@ class LoadController extends Controller
         }
     }
 
-        public function fundStatus(Request $request)
+    public function fundStatus(Request $request)
     {
         try{
             $data = $request->except('_token');
@@ -387,6 +387,7 @@ class LoadController extends Controller
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
+
     public function closePortfolio(Request $request){
         try {
             $id = decrypt($request->id);
@@ -401,6 +402,7 @@ class LoadController extends Controller
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
+
     public function topUpPortfolio(Request $request){
         try {
             $id = decrypt($request->id);
@@ -414,6 +416,153 @@ class LoadController extends Controller
             \Session::put('success', true);
             return back()->withErrors('Portfolio Top Up Successfully');
         } catch(\Exception $e) {
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function creditStash(Request $request){
+        try {
+            $data = $request->except('_token');
+
+            $validation = $this->validate->transaction($data, "credit");
+            if($validation->fails())
+            {
+                \Session::put('warning', true);
+                //return validation error
+                return back()->withErrors($validation->getMessageBag())->withInput();
+            }
+
+            $user = $this->user->where('email', $data["email"])->first();
+
+            if ($user == null){
+                \Session::put('danger', true);
+                return back()->withErrors('Email does not exist');
+            }
+
+            if ($user->investor() == null){
+                \Session::put('danger', true);
+                return back()->withErrors('User is not an investor');
+            }
+            $ref = '9285'.str_random(10);
+
+            $Cdata = [
+                "email" => $data["email"],
+                "amount" => $data["amount"],
+                "type" => "credit",
+                "reference" => $ref,
+            ];
+            $trnxConfirmId = $this->confirm->create($Cdata)->id;
+
+
+            $params = [
+                'reference' => $ref,
+                'status' => "success",
+                'message' => "Approved",
+                'amount' => $data["amount"],
+                'investorId' => $user->investor()->id,
+                'userId' => $user->id,
+                'type' => "credit"
+            ];
+
+            $trnXId = $this->transaction->create($params)->id;
+
+            //credit the Investor's wallet
+            $stash = $this->stash->where('investorId', $user->investor()->id);
+            $customerRaw = $this->api->call('/customer/'.$user->email, 'GET');
+
+            if ($customerRaw->status != false) {
+                $customer = $customerRaw->data;
+                if ($stash->first() == null) {
+                    $stashParams = [
+                        'investorId' => $user->investor()->id,
+                        'customerId' => $customer->customer_code,
+                        'totalAmount' => $data['amount'] + 1000,
+                        'availableAmount' => $data['amount'] + 1000
+                    ];
+                    $stash->create($stashParams);
+                }
+                else{
+                    $stash->increment('totalAmount', $data['amount']);
+                    $stash->increment('availableAmount', $data['amount']);
+                }
+                $gr = $this->referral->where(['userId' => $user->id, 'hasPayed' => false]);
+                $getRef = $gr->first();
+
+                if ($getRef !== null) {
+                    $refId = $this->investor->where('userId', $getRef->refererId)->first();
+                    $refStash = $this->stash->where('investorId', $refId->id);
+                    $refStash->increment('totalAmount', 1000);
+                    $refStash->increment('availableAmount', 1000);
+                    $gr->update(['hasPayed' => true]);
+                }
+                $this->confirm->where('id', $trnxConfirmId)->update([
+                    "isCompleted" => true
+                ]);
+            }else{
+                \Session::put('danger', true);
+                return back()->withErrors('An error has occurred: ');
+            }
+            \Session::put('success', true);
+            return back()->withErrors("Stash of '" . $user->name . "' Recorded Successfully");
+        }
+        catch (\Exception $e){
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+    public function confirmFund(Request $request){
+        try{
+            $data = $request->except('_token');
+            $fund = $this->funds->where('id', $request->id);
+            $getFunds = $fund->first();
+            $payment = $this->fundPayment->where(["fundId" => $request->id, "isCompleted" => false]);
+            $getPayment = $payment->first();
+
+            $ref = '9285'.str_random(10);
+
+            $Cdata = [
+                "email" => $request->email,
+                "amount" => $getPayment->amountPerMonth,
+                "type" => "funding",
+                "reference" => $ref,
+            ];
+            $trnxConfirmId = $this->confirm->create($Cdata)->id;
+
+            $tranxDetail = $this->confirm->where('id', $trnxConfirmId);
+            $params = [
+                'reference' => $ref,
+                'status' => 'success',
+                'message' => 'Approved',
+                'amount' => $getPayment->amountPerMonth,
+                'businessId' => $getPayment->businessId,
+                'userId' => $getPayment->userId,
+                'type' => 'funding'
+            ];
+
+            $trnXId = $this->transaction->create($params)->id;
+            $rePay = $this->fundPayment->where(["fundId" => $request->id, "isCompleted" => false]);
+            $rePayment = $rePay->first();
+
+            if ($rePayment->months_left <= 1){
+                $rePay->update([
+                    "isCompleted" => true,
+                    "months_left" => 0
+                ]);
+            }
+
+            $rePay->decrement('months_left', 1);
+
+            $nextPayment = Carbon::now()->addMonths(1);
+
+            $rePay->update(["nextPayment" => $nextPayment]);
+            $tranxDetail->update([
+                "isCompleted" => true
+            ]);
+            \Session::put('success', true);
+            return back()->withErrors('Fund Repayment recorded successfully');
+        }
+        catch (\Exception $e){
             \Session::put('danger', true);
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }

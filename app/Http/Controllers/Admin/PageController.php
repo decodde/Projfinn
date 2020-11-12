@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Helpers\Formatter;
 use App\Models\Admin;
 use App\Models\Bank;
+use App\Models\fundPayment;
 use App\Models\Funds;
 use App\Models\Introducer;
 use App\Models\introducerAccount;
@@ -52,7 +53,8 @@ class PageController extends Controller
     private $introducerAccount;
     private $introducerDocument;
     private $invite;
-    public function __construct(User $user, Bank $bank, Investment $investment, Transaction $transaction, Formatter $formatter, Portfolio $portfolio, Funds $fund, Admin $admin, transferRequest $transferRequest, Stash $stash, Investor $investor, lenderAccount $account, Business $business, busAccount $baccount, Eligibility $eligibility, partials $partials, Referral $referral, Introducer $introducer, introducerAccount $introducerAccount, introducerDocument $introducerDocument, Invite $invite){
+    private $payment;
+    public function __construct(User $user, Bank $bank, Investment $investment, Transaction $transaction, Formatter $formatter, Portfolio $portfolio, Funds $fund, Admin $admin, transferRequest $transferRequest, Stash $stash, Investor $investor, lenderAccount $account, Business $business, busAccount $baccount, Eligibility $eligibility, partials $partials, Referral $referral, Introducer $introducer, introducerAccount $introducerAccount, introducerDocument $introducerDocument, Invite $invite, fundPayment $payment){
         $this->user = $user;
         $this->bank = $bank;
         $this->investment = $investment;
@@ -74,6 +76,7 @@ class PageController extends Controller
         $this->introducerDocument = $introducerDocument;
         $this->introducerAccount = $introducerAccount;
         $this->invite = $invite;
+        $this->payment = $payment;
     }
 
     public function searchDashboard(Request $request)
@@ -607,7 +610,9 @@ class PageController extends Controller
             $getFund->business = $getFund->business();
             $getFund->documents = $getFund->documents();
             $getFund->guarantors = $getFund->guarantors();
-
+            if($getFund->progress == 'approved'){
+                $getFund->payment = $this->payment->where("fundId", $getFund->id)->first();
+            }
             $data = [
                 'title' => 'Admin',
                 'isSuper' => $this->isSuper(),
