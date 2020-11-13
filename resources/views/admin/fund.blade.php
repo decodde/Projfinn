@@ -136,18 +136,20 @@
                             </dd>
                         </dl>
                         <hr>
-                        <dl class="row text-black">
-                            <dt class="col-md-9">Fund Repayment</dt>
-                            <dd class="col-md-3 text-right">
-                                <p>Fund Repayment(Month {{$fund->payment->months - $fund->payment->months_left }} of {{$fund->payment->months}})</p>
-                                @if($fund->payment->months_left <= 0)
-                                    Payment Completed
-                                @else
-                                    <a href="{{URL('/admin/rouzz/confirmFund/'.$fund->business->id.'/'.$fund->business->email)}}" class="btn btn-primary">Confirm Payment</a>
-                                @endif
-                            </dd>
-                        </dl>
-                        <hr>
+                        @if($fund->progress == 'approved')
+                            <dl class="row text-black">
+                                <dt class="col-md-9">Fund Repayment</dt>
+                                <dd class="col-md-3 text-right">
+                                    <p>Fund Repayment(Month {{$fund->payment->months - $fund->payment->months_left }} of {{$fund->payment->months}})</p>
+                                    @if($fund->payment->months_left <= 0)
+                                        Payment Completed
+                                    @else
+                                        <a href="{{URL('/admin/rouzz/confirmFund/'.$fund->business->id.'/'.$fund->business->email)}}" class="btn btn-primary">Confirm Payment</a>
+                                    @endif
+                                </dd>
+                            </dl>
+                            <hr>
+                        @endif
                         @if($fund->progress !== "review" && $fund->progress !== "visitation")
                             <dl class="row text-black">
                                 <dt class="col-md-9">Reason for Approval or Rejection</dt>
