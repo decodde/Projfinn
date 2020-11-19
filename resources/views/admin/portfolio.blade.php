@@ -9,6 +9,9 @@
                             Portfolios
                         </h3>
                     </div>
+                    <div class="mt-2">
+                        <a href="javascript:void(0);" data-toggle="modal" data-target="#openModal" class="btn btn-success">Create Portfolio <i class="la la-plus"></i></a>
+                    </div>
                 </div>
                 <div class="kt-portlet__body">
                     @if(count($portfolios) !== 0 )
@@ -77,6 +80,71 @@
                     @endif
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="modal fade" id="openModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-lg">
+            <form method="POST" action="{{URL('admin/rouzz/portf/create')}}" class="modal-content border-0">
+                <input type="hidden" name="_token" value="{{csrf_token()}}">
+                <div class="modal-header border-0 p-0 pr-2 pt-1">
+                    <h5 class="font-weight-bold mt-3 ml-3">Create Portfolio</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <hr/>
+                <div class="modal-body font-size-16 font-weight-bold py-0">
+                    <div class="form-group">
+                        <label for="name" class="font-size-16 font-weight-bold">Portfolio Name:</label>
+                        <input type="text" class="form-control" id="name" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="font-size-16 font-weight-bold">Portfolio Description:</label>
+                        <textarea name="description" id="description" class="form-control" cols="30" rows="5"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="amountPerUnit" class="font-size-16 font-weight-bold">Amount Per Unit:</label>
+                            <input type="number" name="amountPerUnit" id="amountPerUnit" class="form-control" placeholder="How much it cost for a unit, e.g 50000 = 50000 for 1 unit">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="size" class="font-size-16 font-weight-bold">Portfolio Size (Number Of Units):</label>
+                            <input type="number" name="size" id="size" class="form-control" placeholder="How many units do you want in the portfolio initially e.g 200 units">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="risk" class="font-size-16 font-weight-bold">Risk Level:</label>
+                            <select name="risk" id="risk" class="form-control">
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <p>Interest Rates per month</p>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="three" class="font-size-16 font-weight-bold">3 months (%):</label>
+                            <input type="number" name="three" id="three" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="six" class="font-size-16 font-weight-bold">6 months (%):</label>
+                            <input type="number" name="six" id="six" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="nine" class="font-size-16 font-weight-bold">9 months (%):</label>
+                            <input type="number" name="nine" id="nine" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="twelve" class="font-size-16 font-weight-bold">12 months (%):</label>
+                            <input type="number" name="twelve" id="twelve" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
         </div>
     </div>
 @stop

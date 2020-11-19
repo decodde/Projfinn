@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Investment;
 
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\partials;
+use App\Models\loanRates;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,8 @@ class LoadController extends Controller
     private $tranx;
     private $format;
     private $partials;
-    public function __construct(Investment $investment, Validate $validate, Stash $stash, Transaction $transaction, Portfolio $portfolio, apiHelper $api, TranxConfirm $tranx, Formatter $format, partials $partials){
+    private $rates;
+    public function __construct(Investment $investment, Validate $validate, Stash $stash, Transaction $transaction, Portfolio $portfolio, apiHelper $api, TranxConfirm $tranx, Formatter $format, partials $partials, loanRates $rates){
         $this->investment = $investment;
         $this->validate = $validate;
         $this->stash = $stash;
@@ -40,6 +42,7 @@ class LoadController extends Controller
         $this->tranx = $tranx;
         $this->format = $format;
         $this->partials = $partials;
+        $this->rates = $rates;
     }
 
     public function create(Request $request){
@@ -180,8 +183,20 @@ class LoadController extends Controller
                     return back()->withErrors('An error has occurred: ');
                 }
 
-                $getPer = $this->partials->loanTypes(strtolower($getPortfolio["name"]));
-                $roiInPer = $getPer[$data['months']] - $getPortfolio['managementFee'];
+                $getPer = $this->rates->where("id", $data["portfolioId"])->first();
+
+                if ($data["period"] == "3"){
+                    $roiInPer = $getPer->three - $getPortfolio['managementFee'];
+                }
+                elseif ($data["period"] == "6"){
+                    $roiInPer = $getPer->six - $getPortfolio['managementFee'];
+                }
+                elseif ($data["period"] == "9"){
+                    $roiInPer = $getPer->nine - $getPortfolio['managementFee'];
+                }
+                else{
+                    $roiInPer = $getPer->twelve - $getPortfolio['managementFee'];
+                }
 
                 $roi = ($roiInPer / 100) * $data["amount"];
 

@@ -11,6 +11,7 @@ use App\Models\Funds;
 use App\Models\Introducer;
 use App\Models\Investment;
 use App\Models\Lender;
+use App\Models\loanRates;
 use App\Models\Portfolio;
 use App\Models\Referral;
 use App\Models\Stash;
@@ -45,7 +46,8 @@ class LoadController extends Controller
     private $partials;
     private $confirm;
     private $fundPayment;
-    public function __construct(User $user, apiHelper $api, Validate $validate, Transaction  $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Funds $funds, sendMail $mail, transferRequest $transferRequest, Business $business, Introducer $introducer, Admin $admin, partials $partials, TranxConfirm $confirm, fundPayment $fundPayment){
+    private $rates;
+    public function __construct(User $user, apiHelper $api, Validate $validate, Transaction  $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Funds $funds, sendMail $mail, transferRequest $transferRequest, Business $business, Introducer $introducer, Admin $admin, partials $partials, TranxConfirm $confirm, fundPayment $fundPayment, loanRates $rates){
         $this->user = $user;
         $this->api = $api;
         $this->transaction = $transaction;
@@ -64,6 +66,7 @@ class LoadController extends Controller
         $this->partials = $partials;
         $this->confirm = $confirm;
         $this->fundPayment = $fundPayment;
+        $this->rates = $rates;
     }
 
     public function adminConfirm(Request $request){
@@ -167,8 +170,21 @@ class LoadController extends Controller
                 ];
 
 
-                $getPer = $this->partials->loanTypes(strtolower($getP["name"]));
-                $roiInPer = $getPer[$data["period"]] - $getP['managementFee'];
+                $getPer = $this->rates->where("id", $portfolioId)->first();
+
+                if ($data["period"] == "3"){
+                    $roiInPer = $getPer->three - $getP['managementFee'];
+                }
+                elseif ($data["period"] == "6"){
+                    $roiInPer = $getPer->six - $getP['managementFee'];
+                }
+                elseif ($data["period"] == "9"){
+                    $roiInPer = $getPer->nine - $getP['managementFee'];
+                }
+                else{
+                    $roiInPer = $getPer->twelve - $getP['managementFee'];
+                }
+
                 $roi = (($roiInPer / 100) * $data["amount"]);
 
                 $invData["roi"] = $roi;
@@ -421,6 +437,45 @@ class LoadController extends Controller
         }
     }
 
+    public function createPortfolio(Request $request){
+        try {
+
+            $data = $request->except("_token");
+
+            $portfolio_data = [
+                "name" => $data["name"],
+                "description" => $data["description"],
+                "returnInPer" => $data["twelve"],
+                "trustee" => "ARM Trusteeship",
+                "riskLevel" => $data["risk"],
+                "size" => $data["size"] * $data["amountPerUnit"],
+                "uniqueCode" => "port". str_random(20),
+                "sizeRemaining" => $data["size"] * $data["amountPerUnit"],
+                "amountPerUnit" => $data["amountPerUnit"],
+                "managementFee" => 0.5,
+                "isOpen" => true,
+            ];
+
+            $portfolioId = $this->portfolio->create($portfolio_data)->id;
+
+            $rates_data = [
+                "portfolioId" => $portfolioId,
+                "three" => $data["three"],
+                "six" => $data["six"],
+                "nine" => $data["nine"],
+                "twelve" => $data["twelve"],
+            ];
+
+            $this->rates->create($rates_data);
+
+            \Session::put('success', true);
+            return back()->withErrors('Portfolio Created Successfully');
+        } catch(\Exception $e) {
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
     public function creditStash(Request $request){
         try {
             $data = $request->except('_token');
@@ -511,6 +566,7 @@ class LoadController extends Controller
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
+
     public function confirmFund(Request $request){
         try{
             $data = $request->except('_token');
@@ -565,6 +621,54 @@ class LoadController extends Controller
         catch (\Exception $e){
             \Session::put('danger', true);
             return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function liquidate(Request $request)
+    {
+        try {
+            $investments = $this->investment->where(["" => $request->id, "isOpen" => true])->get();
+
+            $counter = 0;
+            foreach ($investments as $investment) {
+                $now = Carbon::now();
+
+                $pdate = Carbon::create($investment->datePurchased);
+                $projectedDay = Carbon::create($investment->datePurchased)->addMonths($investment->period);
+
+                $investment->diff = $now->diffInMonths($investment->datePurchased);
+
+                $stash = $this->stash->where("investorId", $investment->investorId);
+
+                if($investment->diff >= $investment->period){
+                    $daysS = $pdate->diffInDays($projectedDay);
+                    if($investment->oldInv == true){
+                        $amt = (($daysS / 365) * $investment->roi) + $investment->amount;
+                    }
+                    else{
+                        $amt = ($investment->roi + $investment->amount);
+                    }
+                    $stash->increment('totalAmount', $amt);
+                    $stash->increment('availableAmount', $amt);
+
+                    $this->investment->where("id", $investment->id)->update(["isOpen" => "false"]);
+                    $getUser = $this->user->where("id", $investment->userId)->first();
+                    $getPortfolio = $this->portfolio->where("id", $investment->portfolioId)->first();
+                    $data = [
+                        "email" => $getUser->email,
+                        "name" => $getUser->name,
+                        "amount" => ''.$this->formatter->MoneyConvert($investment->amount, 'full'),
+                        "portfolio" => $getPortfolio->name,
+                        "url" => URL('/dashboard/i/stash')
+                    ];
+                    $this->mail->sendInvestmentMature($data);
+                    $counter++;
+                }
+            }
+
+            return response()->json(['message' => $counter . ' investment found today'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'An error has occurred: ' . $e->getMessage()], 500);
         }
     }
 }

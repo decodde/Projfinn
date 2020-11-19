@@ -46,3 +46,4 @@ Route::get('/portf/close/{id}', 'LoadController@closePortfolio');
 Route::get('/portf/open/{id}', 'LoadController@openPortfolio');
 Route::get('/confirmFund/{id}/{email}', 'LoadController@confirmFund');
 Route::post('/portf/topup/{id}', 'LoadController@topUpPortfolio');
+Route::post('/portf/create', 'LoadController@createPortfolio');

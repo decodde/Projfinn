@@ -16,7 +16,6 @@
                             <thead class="font-weight-bolder">
                             <tr>
                                 <th>User</th>
-                                <th>Email</th>
                                 <th>Portfolio</th>
                                 <th>Payment Method</th>
                                 <th>Units Bought</th>
@@ -25,13 +24,13 @@
                                 <th>Has Completed</th>
                                 <th>Projected Return</th>
                                 <th>Date Purchased</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody class="text-grey">
                             @foreach($investments as $investment)
                                 <tr>
-                                    <td>{{$investment->user->name}}</td>
-                                    <td>{{$investment->user->email}}</td>
+                                    <td><p class="mb-0">{{$investment->user->name}}</p> <a class="text-primary">{{$investment->user->email}}</a></td>
                                     <td>{{$investment->portfolio->name}}</td>
                                     <td>
                                         @if($investment->paymentMethod == "stash")
@@ -53,6 +52,7 @@
                                     </td>
                                     <td class="text-success">₦ {{App\Http\Helpers\Formatter::MoneyConvert($investment->roi, "full")}}</td>
                                     <td>{{App\Http\Helpers\Formatter::dataTime($investment->datePurchased)}} </td>
+                                    <td><a class="btn btn-primary text-white">Liquidate</a> </td>
                                 </tr>
                             @endforeach
                             </tbody>

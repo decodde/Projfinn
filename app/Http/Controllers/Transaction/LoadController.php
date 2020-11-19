@@ -8,6 +8,7 @@ use App\Http\Helpers\partials;
 use App\Http\Helpers\sendMail;
 use App\Models\fundPayment;
 use App\Models\Funds;
+use App\Models\loanRates;
 use App\Models\Saving;
 use App\Models\Transaction;
 use App\Models\Stash;
@@ -44,8 +45,9 @@ class LoadController extends Controller
     private $saving;
     private $payment;
     private $mail;
+    private $rates;
 
-    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, TranxConfirm $tranx, Validate $validate, lenderAccount $account, Bank $bank, Funds $fund, transferRequest $transferRequest, partials $partials, Saving $saving, fundPayment $payment, sendMail $mail){
+    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, TranxConfirm $tranx, Validate $validate, lenderAccount $account, Bank $bank, Funds $fund, transferRequest $transferRequest, partials $partials, Saving $saving, fundPayment $payment, sendMail $mail, loanRates $rates){
         $this->api = $api;
         $this->transaction = $transaction;
         $this->stash = $stash;
@@ -63,6 +65,7 @@ class LoadController extends Controller
         $this->saving = $saving;
         $this->payment = $payment;
         $this->mail = $mail;
+        $this->rates = $rates;
     }
 
     public function buy(Request $request){
@@ -301,8 +304,19 @@ class LoadController extends Controller
                             "isCompleted" => true
                         ];
 
-                        $getPer = $this->partials->loanTypes(strtolower($getP["name"]));
-                        $roiInPer = $getPer[$tranxDetails->months] - $getP['managementFee'];
+                        $getPer = $this->rates->where("id", $portfolioId)->first();
+                        if ($tranxDetails->months == "3"){
+                            $roiInPer = $getPer->three - $getP['managementFee'];
+                        }
+                        elseif ($tranxDetails->months == "6"){
+                            $roiInPer = $getPer->six - $getP['managementFee'];
+                        }
+                        elseif ($tranxDetails->months == "9"){
+                            $roiInPer = $getPer->nine - $getP['managementFee'];
+                        }
+                        else{
+                            $roiInPer = $getPer->twelve - $getP['managementFee'];
+                        }
                         $roi = (($roiInPer / 100) * $amountPaid);
 
                         $invData["roi"] = $roi;
