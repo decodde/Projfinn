@@ -503,6 +503,7 @@ class PageController extends Controller
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
+
     public function payOut(Request $request) {
         try {
             $user = Auth::user();

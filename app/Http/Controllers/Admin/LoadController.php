@@ -627,48 +627,42 @@ class LoadController extends Controller
     public function liquidate(Request $request)
     {
         try {
-            $investments = $this->investment->where(["" => $request->id, "isOpen" => true])->get();
+            $investment = $this->investment->where(["id" => $request->id, "isOpen" => true])->first();
+            $now = Carbon::now();
 
-            $counter = 0;
-            foreach ($investments as $investment) {
-                $now = Carbon::now();
+            $pdate = Carbon::create($investment->datePurchased);
+            $projectedDay = Carbon::create($investment->datePurchased)->addMonths($investment->period);
 
-                $pdate = Carbon::create($investment->datePurchased);
-                $projectedDay = Carbon::create($investment->datePurchased)->addMonths($investment->period);
+            $investment->diff = $now->diffInMonths($investment->datePurchased);
 
-                $investment->diff = $now->diffInMonths($investment->datePurchased);
+            $stash = $this->stash->where("investorId", $investment->investorId);
 
-                $stash = $this->stash->where("investorId", $investment->investorId);
+            $getPortfolio = $this->portfolio->where('id', $investment->portfolioId)->first();
+            $getPer = $this->rates->where("id", $investment->portfolioId)->first();
 
-                if($investment->diff >= $investment->period){
-                    $daysS = $pdate->diffInDays($projectedDay);
-                    if($investment->oldInv == true){
-                        $amt = (($daysS / 365) * $investment->roi) + $investment->amount;
-                    }
-                    else{
-                        $amt = ($investment->roi + $investment->amount);
-                    }
-                    $stash->increment('totalAmount', $amt);
-                    $stash->increment('availableAmount', $amt);
-
-                    $this->investment->where("id", $investment->id)->update(["isOpen" => "false"]);
-                    $getUser = $this->user->where("id", $investment->userId)->first();
-                    $getPortfolio = $this->portfolio->where("id", $investment->portfolioId)->first();
-                    $data = [
-                        "email" => $getUser->email,
-                        "name" => $getUser->name,
-                        "amount" => ''.$this->formatter->MoneyConvert($investment->amount, 'full'),
-                        "portfolio" => $getPortfolio->name,
-                        "url" => URL('/dashboard/i/stash')
-                    ];
-                    $this->mail->sendInvestmentMature($data);
-                    $counter++;
-                }
+            if($investment->diff <= 3){
+                $amt = $investment->amount;
+            }
+            elseif ($investment->diff > 3 && $investment->diff <= 6){
+                $amt = $investment->amount + (($getPer->three - $getPortfolio['managementFee']) / 100) * $investment->amount;
+            }
+            elseif ($investment->diff > 6 && $investment->diff <= 9){
+                $amt = $investment->amount + (($getPer->six - $getPortfolio['managementFee']) / 100) * $investment->amount;
+            }
+            elseif ($investment->diff > 9){
+                $amt = $investment->amount + (($getPer->nine - $getPortfolio['managementFee']) / 100) * $investment->amount;
             }
 
-            return response()->json(['message' => $counter . ' investment found today'], 200);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'An error has occurred: ' . $e->getMessage()], 500);
+            $stash->increment('totalAmount', $amt);
+            $stash->increment('availableAmount', $amt);
+            $this->investment->where("id", $investment->id)->update(["isOpen" => "false"]);
+
+            \Session::put('success', true);
+            return back()->withErrors('Investment Liquidated successfully');
+        }
+        catch (\Exception $e){
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
 }
