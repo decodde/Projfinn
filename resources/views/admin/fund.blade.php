@@ -144,7 +144,7 @@
                                     @if($fund->payment->months_left <= 0)
                                         Payment Completed
                                     @else
-                                        <a href="{{URL('/admin/rouzz/confirmFund/'.$fund->business->id.'/'.$fund->business->email)}}" class="btn btn-primary">Confirm Payment</a>
+                                        <a href="{{URL('/admin/rouzz/confirmFund/'.$fund->id.'/'.$fund->business->email)}}" class="btn btn-primary">Confirm Payment</a>
                                     @endif
                                 </dd>
                             </dl>

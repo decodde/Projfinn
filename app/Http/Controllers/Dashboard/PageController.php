@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\loanRates;
 use App\Models\Saving;
 use App\Models\transferRequest;
 use Illuminate\Http\Request;
@@ -37,8 +38,9 @@ class PageController extends Controller
     private $investment;
     private $transferRequest;
     private $saving;
+    private $rates;
 
-    public function __construct(Auth $auth, User $user, partials $partials, Transaction $transaction, Stash $stash, Formatter $formatter, Referral $referral, lenderAccount $lenderAccount, Bank $bank, Portfolio $portfolio, Investment $investment, transferRequest $transferRequest, Saving $saving){
+    public function __construct(Auth $auth, User $user, partials $partials, Transaction $transaction, Stash $stash, Formatter $formatter, Referral $referral, lenderAccount $lenderAccount, Bank $bank, Portfolio $portfolio, Investment $investment, transferRequest $transferRequest, Saving $saving, loanRates $rates){
         $this->auth = $auth;
         $this->user = $user;
         $this->partials = $partials;
@@ -52,6 +54,7 @@ class PageController extends Controller
         $this->investment = $investment;
         $this->transferRequest = $transferRequest;
         $this->saving = $saving;
+        $this->rates = $rates;
     }
 
 
@@ -346,7 +349,13 @@ class PageController extends Controller
                 \Session::put('danger', true);
                 return back()->withErrors('An error has occurred');
             }
-            $getLoanDetails =  $this->partials->loanTypes(strtolower($portfolio->name));
+            $getLoanDetail = $this->rates->where("id", $portfolio->id)->first();
+            $getLoanDetails = [
+                '3' => $getLoanDetail->three,
+                '6' => $getLoanDetail->six,
+                '9' => $getLoanDetail->nine,
+                '12' => $getLoanDetail->twelve,
+            ];
             $portfolio->units = $portfolio->size / $portfolio->amountPerUnit;
 
             $data = [
