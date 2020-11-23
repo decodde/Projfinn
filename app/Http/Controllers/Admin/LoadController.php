@@ -630,9 +630,6 @@ class LoadController extends Controller
             $investment = $this->investment->where(["id" => $request->id, "isOpen" => true])->first();
             $now = Carbon::now();
 
-            $pdate = Carbon::create($investment->datePurchased);
-            $projectedDay = Carbon::create($investment->datePurchased)->addMonths($investment->period);
-
             $investment->diff = $now->diffInMonths($investment->datePurchased);
 
             $stash = $this->stash->where("investorId", $investment->investorId);
