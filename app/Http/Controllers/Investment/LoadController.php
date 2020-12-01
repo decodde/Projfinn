@@ -178,7 +178,7 @@ class LoadController extends Controller
 
                 $getPortfolio = $portfolio->first();
 
-                if($getPortfolio === null){
+                if($getPortfolio == null){
                     \Session::put('danger', true);
                     return back()->withErrors('An error has occurred: ');
                 }
@@ -238,14 +238,14 @@ class LoadController extends Controller
             $stash = $this->stash->where("investorId", $user->investor()->id);
 
             if ($data["withdrawalOption"] == "int+inv"){
-                $amt = (($inv->diff / 365) * $inv->roi) + $inv->amount;
+                $amt = $inv->roi + $inv->amount;
 
                 $stash->increment('totalAmount', $amt);
                 $stash->increment('availableAmount', $amt);
 
                 $investment->update(["isOpen" => "false"]);
             }else{
-                $amt = (($inv->diff / 365) * $inv->roi);
+                $amt = $inv->roi;
 
                 $stash->increment('totalAmount', $amt);
                 $stash->increment('availableAmount', $amt);
