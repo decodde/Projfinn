@@ -60,7 +60,7 @@ class InvestorController extends Controller
                 if($investment->diff >= $investment->period){
                     $daysS = $pdate->diffInDays($projectedDay);
                     if($investment->oldInv == true){
-                        $amt = (($daysS / 365) * $investment->roi) + $investment->amount;
+                        $amt = ($investment->roi + $investment->amount);
                     }
                     else{
                         $amt = ($investment->roi + $investment->amount);

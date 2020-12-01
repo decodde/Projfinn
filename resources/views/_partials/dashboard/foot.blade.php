@@ -59,8 +59,8 @@
 <script>
     function withdrawInv(investment) {
         var interstSofar;
-        if(investment.oldInv === 1){
-            interstSofar = ((investment.diffDays / 365) * investment.roi);
+        if(investment.oldInv == 1){
+            interstSofar = investment.roi;
         }
         else{
             interstSofar = ((investment.diffDays / (investment.daySS-1)) * investment.roi);

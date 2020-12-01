@@ -313,15 +313,10 @@ class PageController extends Controller
 
                 if($investment->diff >= $investment->period){
                     $investment->isReady = true;
+                    $investment->interstSofar = $investment->roi;
                 }else{
                     $investment->isReady = false;
-                }
-
-                if($investment->oldInv == true){
-                    $investment->interstSofar = (($investment->diffDays / 365) * $investment->roi);
-                }
-                else{
-                    $investment->interstSofar = (($investment->diffDays / ($daysS-1)) * $investment->roi);
+                    $investment->interstSofar = (($investment->diffDays / ($daysS)) * $investment->roi);
                 }
             }
             $data = [
