@@ -98,6 +98,7 @@ class PageController extends Controller
                         'title' => 'Search results for '.$request->term,
                         'user' => $user,
                         'isSuper' => $this->isSuper(),
+                        'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                         'businesses' => $businesses,
                     ];
 
@@ -118,6 +119,7 @@ class PageController extends Controller
                         'title' => 'Search results for '.$request->term,
                         'user' => $user,
                         'isSuper' => $this->isSuper(),
+                        'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                         'introducers' => $introducers,
                     ];
 
@@ -139,6 +141,7 @@ class PageController extends Controller
                         'title' => 'Admin',
                         'user' => $user,
                         'isSuper' => $this->isSuper(),
+                        'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                         'users' => $getInvestors,
                     ];
 
@@ -175,6 +178,7 @@ class PageController extends Controller
                 'title' => 'Admin',
                 'user' => $user,
                 'isSuper' => $this->isSuper(),
+                'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                 'users' => $getUsers,
                 'NoOfPortfolios' => $countPortfolio,
                 'NoOfUser' => $countUser,
@@ -206,6 +210,7 @@ class PageController extends Controller
                 'title' => 'Admin',
                 'user' => $user,
                 'isSuper' => $this->isSuper(),
+                'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                 'users' => $getUsers
             ];
 
@@ -234,6 +239,7 @@ class PageController extends Controller
                 'title' => 'Admin',
                 'user' => $user,
                 'isSuper' => $this->isSuper(),
+                'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                 'users' => $getInvestors,
             ];
 
@@ -275,6 +281,7 @@ class PageController extends Controller
                 'user' => $user,
                 'gUser' => $getUser,
                 'isSuper' => $this->isSuper(),
+                'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                 'stash' => $getStash,
                 'investor' => $getInvestor,
                 'account' => $getAccount,
@@ -353,6 +360,7 @@ class PageController extends Controller
                 'title' => 'Admin',
                 'user' => $user,
                 'isSuper' => $this->isSuper(),
+                'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                 'businesses' => $getBusinesses,
             ];
 
@@ -423,6 +431,7 @@ class PageController extends Controller
                 'title' => 'Admin',
                 'user' => $user,
                 'isSuper' => $this->isSuper(),
+                'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                 'introducers' => $getIntroducers,
             ];
 
@@ -452,6 +461,7 @@ class PageController extends Controller
                 'title' => 'Admin',
                 'user' => $user,
                 'isSuper' => $this->isSuper(),
+                'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                 'investments' => $getInvs
             ];
 
@@ -491,6 +501,7 @@ class PageController extends Controller
                 'title' => 'Admin',
                 'user' => $user,
                 'isSuper' => $this->isSuper(),
+                'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                 'portfolios' => $portfolios,
                 'transactions' => $transactions
             ];
@@ -516,6 +527,7 @@ class PageController extends Controller
                 'title' => 'Admin',
                 'user' => $user,
                 'isSuper' => $this->isSuper(),
+                'isIntroducerAdmin' => $this->isIntroducerAdmin(),
             ];
 
 
@@ -539,6 +551,7 @@ class PageController extends Controller
             $data = [
                 'title' => 'Admin',
                 'isSuper' => $this->isSuper(),
+                'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                 'funds' => $getFunds
             ];
 
@@ -565,6 +578,7 @@ class PageController extends Controller
             $data = [
                 'title' => 'Admin',
                 'isSuper' => $this->isSuper(),
+                'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                 'transfers' => $getTransfers
             ];
 
@@ -584,6 +598,7 @@ class PageController extends Controller
             $data = [
                 'title' => 'Admin',
                 'isSuper' => $this->isSuper(),
+                'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                 'bvn' => $params["bvn"] ?? '',
                 'first_name' => $params["first_name"] ?? '',
                 'last_name' => $params["last_name"] ?? '',
@@ -617,6 +632,7 @@ class PageController extends Controller
             $data = [
                 'title' => 'Admin',
                 'isSuper' => $this->isSuper(),
+                'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                 'fund' => $getFund
             ];
 
@@ -645,6 +661,7 @@ class PageController extends Controller
                 'title' => 'Admin',
                 'user' => $user,
                 'isSuper' => $this->isSuper(),
+                'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                 'portfolio' => $portfolio
             ];
 
@@ -676,6 +693,7 @@ class PageController extends Controller
                 'title' => 'Admin',
                 'user' => $user,
                 'isSuper' => $this->isSuper(),
+                'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                 'portfolios' => $portfolios
             ];
 
@@ -701,6 +719,7 @@ class PageController extends Controller
                 'title' => 'Admin',
                 'user' => $user,
                 'isSuper' => $this->isSuper(),
+                'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                 'referrals' => $getReferrals,
             ];
 
@@ -716,6 +735,18 @@ class PageController extends Controller
         $getRole = $this->admin->where('userId', $user->id)->first();
 
         if($getRole->role == "super-admin"){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function isIntroducerAdmin(){
+        $user = Auth::user();
+        $getRole = $this->admin->where('userId', $user->id)->first();
+
+        if($getRole->role == "introducer-admin"){
             return true;
         }
         else{
