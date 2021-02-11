@@ -33,6 +33,7 @@
                                 <dd class="col-md-3 text-right"> {{ $gUser->phone }}</dd>
                             </dl>
                             <hr>
+                            @if($adminType !== "marketing-admin")
                             <dl class="row text-black">
                                 <dt class="col-md-6">Documents</dt>
                                 <dd class="col-md-6 text-right">
@@ -44,6 +45,7 @@
                                     @endforeach
                                 </dd>
                             </dl>
+                            @endif
                             <dl class="row text-black">
                                 <dt class="col-md-9">Account Details</dt>
                                 <dd class="col-md-3 text-right">
@@ -110,7 +112,7 @@
                                     <td>{{$business->address}}</td>
                                     <td class="row justify-content-between">
                                         <a href="{{URL('/admin/rouzz/business/'.encrypt($business->user->id))}}" class="btn btn-success">View</a>
-                                        @if($admin->role !== "business-team")
+                                        @if($admin->role !== "business-team" && $adminType !== "introducer-admin" && $adminType !== "operations-admin" && $adminType !== "marketing-admin")
                                             <a href="{{URL('/admin/rouzz/user/delete/'.encrypt($business->user->id))}}" class="btn btn-danger">Delete</a>
                                         @endif
                                     </td>

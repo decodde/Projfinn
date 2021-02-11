@@ -43,7 +43,7 @@
                                 <td>{{$business->address}}</td>
                                 <td class="row justify-content-between">
                                     <a href="{{URL('/admin/rouzz/business/'.encrypt($business->user->id))}}" class="btn btn-success">View</a>
-                                    @if($admin->role !== "business-team")
+                                    @if($admin->role !== "business-team" && $adminType !== "businessOnly-admin" && $adminType !== "operations-admin" && $adminType !== "marketing-admin")
                                     <a href="{{URL('/admin/rouzz/user/delete/'.encrypt($business->user->id))}}" class="btn btn-danger">Delete</a>
                                     @endif
                                 </td>

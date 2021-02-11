@@ -43,6 +43,8 @@
                                 <dd class="col-md-3 text-right text-success">{{count($transactions)}}</dd>
                             </dl>
                             <hr>
+                            @if($adminType !== "marketing-admin")
+
                             <dl class="row text-black">
                                 <dt class="col-md-6">Documents</dt>
                                 <dd class="col-md-6 text-right">
@@ -55,6 +57,7 @@
                                 </dd>
                             </dl>
                             <hr>
+                            @endif
                             <dl class="row text-black">
                                 <dt class="col-md-9">Eligibility Details</dt>
                                 <dd class="col-md-3 text-right">
@@ -109,7 +112,9 @@
                                 <th>Amount Requested</th>
                                 <th>Description</th>
                                 <th>Date Requested</th>
+                                @if($adminType !== "businessOnly-admin")
                                 <th>Action</th>
+                                @endif
                             </tr>
                             </thead>
                             <tbody class="text-grey">
@@ -127,7 +132,9 @@
                                         @endif
                                     </td>
                                     <td>{{App\Http\Helpers\Formatter::dataTime($fund->created_at)}} </td>
-                                    <td><a class="btn btn-success" href="{{URL('/admin/rouzz/funding/'.encrypt($fund->id))}}">View More Details</a></td>
+                                    @if($adminType !== "businessOnly-admin")
+                                        <td><a class="btn btn-success" href="{{URL('/admin/rouzz/funding/'.encrypt($fund->id))}}">View More Details</a></td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>
