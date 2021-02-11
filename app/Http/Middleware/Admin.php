@@ -27,6 +27,7 @@ class Admin
 
             View::share(['user' => $user]);
             View::share(['admin' => $user->admin()]);
+            View::share(['adminType' => $user->admin()->role]);
         }else{
             \Session::put('red', true);
             return redirect()->guest('login');

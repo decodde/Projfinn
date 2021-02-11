@@ -48,9 +48,10 @@
                             </dl>
                         </div>
                     </div>
+                </div>
             </div>
-            </div>
-            <div class="col-md-12">
+            @if($adminType !== "clientservice-admin")
+                <div class="col-md-12">
                 <div class="kt-portlet">
                     <div class="kt-portlet__head">
                         <div class="kt-portlet__head-label">
@@ -105,6 +106,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 @stop
