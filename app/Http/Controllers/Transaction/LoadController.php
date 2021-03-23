@@ -205,7 +205,7 @@ class LoadController extends Controller
                             $stashParams = [
                                 'investorId' => $user->investor()->id,
                                 'customerId' => $trnxData->customer->customer_code,
-                                'totalAmount' => $amountPaid + 1000,
+                                'totalAmount' =>  1000,
                                 'availableAmount' => 1000
                             ];
                         }
@@ -219,7 +219,6 @@ class LoadController extends Controller
                         }
                         $stash->create($stashParams);
                     } else {
-                        $stash->increment('totalAmount', $amountPaid);
                         if ($trnxType != 'saving') {
                             $stash->increment('availableAmount', $amountPaid);
                         }
