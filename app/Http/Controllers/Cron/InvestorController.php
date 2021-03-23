@@ -109,7 +109,14 @@ class InvestorController extends Controller
                     if ($nextP->isPast() == true || $diff == 0){
 
                         $getSub = $this->api->call("/subscription/".$saving->sub_code, "GET");
-                        $lenOfInv = count($getSub->data->invoices);
+                        $allSubs = $getSub->data->invoices;
+
+                        $lenOfInv = 0;
+                        foreach ($allSubs as $sub_val){
+                            if($sub_val->status == "success"){
+                                $lenOfInv += 1;
+                            }
+                        }
 
                         if ($lenOfInv > $saving->monthsPaid-1){
 
