@@ -9,6 +9,14 @@
             border-color: #181b30;
             color: #181b30;
         }
+        @media (min-width: 1200px){
+            .xl-h-32 {
+                height: 2rem !important;
+            }
+        }
+        .h-24 {
+            height: 1.5rem;
+        }
     </style>
     <main id="content" class="content">
         <section
@@ -27,10 +35,9 @@
                         class="lqd-column col-md-7 col-xs-12 mb-7 mb-md-0"
                         data-custom-animations="true"
                         data-ca-options='{ "triggerHandler":"inview", "animationTarget":"all-childs", "duration":"1200", "delay":"150", "easing":"easeOutQuint", "direction":"forward", "initValues":{"translateY":60, "opacity":0}, "animations":{"translateY":0, "opacity":1} }'>
-                        <h2
-                            class="text-white mt-0 mb-30 font-weight-normal">Returns + Impact,<br>
-                            Earn Healthy Returns In These Times
-                        </h2>
+                        <h1
+                            class="text-white mt-0 mb-30 font-weight-normal">Peer to peer financial services for the under banked
+                        </h1>
 
                         <p class="font-size-14 lh-175 text-fade-white-07 pr-md-9 mr-md-9 mb-50">Support small businesses to grow and contribute to economic development.</p>
 
@@ -46,6 +53,16 @@
                                 <span class="icon-ion-ios-arrow-forward"></span>
                             </span>
                         </a>
+                        <div class="d-flex mt-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24"/>
+                                    <path d="M4,4 L11.6314229,2.5691082 C11.8750185,2.52343403 12.1249815,2.52343403 12.3685771,2.5691082 L20,4 L20,13.2830094 C20,16.2173861 18.4883464,18.9447835 16,20.5 L12.5299989,22.6687507 C12.2057287,22.8714196 11.7942713,22.8714196 11.4700011,22.6687507 L8,20.5 C5.51165358,18.9447835 4,16.2173861 4,13.2830094 L4,4 Z" fill="#fff" opacity="0.3"/>
+                                    <path d="M14.5,11 C15.0522847,11 15.5,11.4477153 15.5,12 L15.5,15 C15.5,15.5522847 15.0522847,16 14.5,16 L9.5,16 C8.94771525,16 8.5,15.5522847 8.5,15 L8.5,12 C8.5,11.4477153 8.94771525,11 9.5,11 L9.5,10.5 C9.5,9.11928813 10.6192881,8 12,8 C13.3807119,8 14.5,9.11928813 14.5,10.5 L14.5,11 Z M12,9 C11.1715729,9 10.5,9.67157288 10.5,10.5 L10.5,11 L13.5,11 L13.5,10.5 C13.5,9.67157288 12.8284271,9 12,9 Z" fill="#fff"/>
+                                </g>
+                            </svg>
+                             <span style="color: #fff; margin-left: 10px"> The site is secure by SSID security</span>
+                        </div>
 
                     </div><!-- /.col-md-7 -->
 
@@ -405,6 +422,26 @@
                                     <div class="testimonial testimonial-xl text-center testimonial-details-sm testimonial-avatar-sm">
                                         <div class="testimonial-quote">
                                             <blockquote>
+                                                <p><span style="font-size: 20px; line-height: 1.25em;color: #181b30;">“My investment with Rouzo has not been difficult, although I've had difficult times navigating through the platform where I had to make calls and I got a response and these issues were solved immediately. So far so good for me investing in Rouzo has been a very good one.
+I only encourage them to keep up the good work but there is still room for improvement. Especially on the site i.e doing something that makes investors have the privilege to see their due date On-The-Go, maybe a form of coloration or mails to tell investors that your investment time is almost due
+I look forward to continuing investing with Rouzo and I will keep encouraging people to invest with them
+”</span></p>
+                                            </blockquote>
+                                        </div>
+                                        <div class="testimonial-details">
+                                            <div class="testimonial-info">
+                                                <h5>Isioma Okolo</h5>
+                                                <h6 class="font-weight-normal">Investor</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div><!-- /.carousel-item -->
+                                <div class="carousel-item col-xs-12">
+
+                                    <div class="testimonial testimonial-xl text-center testimonial-details-sm testimonial-avatar-sm">
+                                        <div class="testimonial-quote">
+                                            <blockquote>
                                                 <p><span style="font-size: 20px; line-height: 1.25em;color: #181b30;">“When i was applying for a loan to purchase a delivery vehicle for my small business in a tough situation, my conventional banks said they couldn't help me.Rouzo sat down with me, heard my situation and decided that I was worth taking a chance on. Not many lenders would go to that length.”</span></p>
                                             </blockquote>
                                         </div>
@@ -415,6 +452,27 @@
                                             <div class="testimonial-info">
                                                 <h5>Mr Umem Eyo</h5>
                                                 <h6 class="font-weight-normal">Custodian Biz Solutions.</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div><!-- /.carousel-item -->
+                                <div class="carousel-item col-xs-12">
+
+                                    <div class="testimonial testimonial-xl text-center testimonial-details-sm testimonial-avatar-sm">
+                                        <div class="testimonial-quote">
+                                            <blockquote>
+                                                <p><span style="font-size: 20px; line-height: 1.25em;color: #181b30;">“At first, I was skeptical about joining the platform but since I have joined I have not had a reason to regret it.
+Over the years of investing with Rouzo, has been eventful and wonderful although there have been times when there were disappointments but one thing I like about the Rouzo team is their quick response to client’s needs.
+There was this one time where I was having issues with my stash balance it was annoying but upon putting a call to Tale the CEO, the issue was resolved immediately.
+I encourage others to invest.
+”</span></p>
+                                            </blockquote>
+                                        </div>
+                                        <div class="testimonial-details">
+                                            <div class="testimonial-info">
+                                                <h5>Miss Sarah Ikekhua</h5>
+                                                <h6 class="font-weight-normal">Investor</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -460,6 +518,24 @@
                                     </div>
 
                                 </div><!-- /.carousel-item -->
+                                <div class="carousel-item col-xs-12">
+
+                                    <div class="testimonial testimonial-xl text-center testimonial-details-sm testimonial-avatar-sm">
+                                        <div class="testimonial-quote">
+                                            <blockquote>
+                                                <p><span style="font-size: 20px; line-height: 1.25em;color: #181b30;">“I am impressed with the services Owoafara is providing I have not had any difficulties, challenges, or disappointments using the platform or investing in Rouzo.
+I will continue investing with Rouzo and I encourage people to invest with them.”</span></p>
+                                            </blockquote>
+                                        </div>
+                                        <div class="testimonial-details">
+                                            <div class="testimonial-info">
+                                                <h5>Mrs. Abiodun Tukuru</h5>
+                                                <h6 class="font-weight-normal">Investor</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div><!-- /.carousel-item -->
 
 
                             </div><!-- /.carousel-items -->
@@ -470,6 +546,31 @@
 
                 </div><!-- /.row -->
             </div><!-- /.container -->
+        </section>
+        <section id="sponsor" class="vc_row pt-50 pb-70">
+            <div class="container">
+                <div class="row">
+                    <div class="lqd-column col-md-12 text-center">
+
+                        <header class="fancy-title text-center">
+                            <h2 class="font-weight-bold">You are in good hands</h2>
+                            <p>Some companies we partner with</p>
+                        </header>
+
+                    </div><!-- /.col-md-12 -->
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12">
+                        <ul class="list-unstyled d-flex flex-wrap xl-flex-no-wrap align-items-center justify-content-around">
+                            <li class="w-50p xl-w-auto text-center mb-24 xl-mb-0 wow fadeInUp">
+                                <a href="https://paystack.com/" target="_blank" title="Paystack">
+                                    <img src="{{ asset('assets/assets/img/paystack.svg') }}" alt="Paystack" class="h-24 xl-h-32">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </section>
         <section class="vc_row pt-120 pb-90" style="background: rgba(29,30,31, 0.98);">
             <div class="container">
