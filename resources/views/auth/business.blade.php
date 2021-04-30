@@ -201,7 +201,8 @@
                         <p>3. Current business account statement for the last 6 months.</p>
                         <p>4. No existing loan facility.</p>
                         <p>5. 1 Guarantor(including address and Bank Verification Number bearing guarantor's name).</p>
-                        <p>6. Domiciled in Lagos, Nigeria.</p>
+                        <p>6. Guarantor's Statement</p>
+                        <p>7. Domiciled in Lagos, Nigeria.</p>
                         <label>
                             <input type="checkbox" name="riqu" id="riqu">
                             <a class="blue" style="text-decoration: underline; padding-left: 5px">
