@@ -7,3 +7,4 @@ if (App::environment('production')) {
 }
 
 Route::post('/createBusiness', 'LoadController@business');
+Route::post('/save', 'LoadController@create_reserve');
