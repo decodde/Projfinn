@@ -182,6 +182,17 @@ class LoadController extends Controller
                         return redirect('dashboard/funds')->withErrors('Payment successfully');
                     }
                     else{
+                        $stash = $this->stash->where('investorId', $user->investor()->id);
+
+                        if ($stash->first() === null) {
+                            $stashParams = [
+                                'userId' => $user->id,
+                                'customerId' => $trnxData->customer->customer_code,
+                                'totalAmount' =>  0,
+                                'availableAmount' => 0
+                            ];
+                            $stash->create($stashParams);
+                        }
                         $preserve = $this->reserve->where(["reference" => $reference, "isCompleted" => false]);
                         $getPreserve = $preserve->first();
 
