@@ -17,6 +17,7 @@ use App\Models\Lender as Investor;
 use App\Models\lenderAccount;
 use App\Models\busAccount;
 use App\Models\Referral;
+use App\Models\Reserve;
 use App\Models\Stash;
 use App\Models\Eligibility;
 use App\Http\Helpers\partials;
@@ -54,7 +55,8 @@ class PageController extends Controller
     private $introducerDocument;
     private $invite;
     private $payment;
-    public function __construct(User $user, Bank $bank, Investment $investment, Transaction $transaction, Formatter $formatter, Portfolio $portfolio, Funds $fund, Admin $admin, transferRequest $transferRequest, Stash $stash, Investor $investor, lenderAccount $account, Business $business, busAccount $baccount, Eligibility $eligibility, partials $partials, Referral $referral, Introducer $introducer, introducerAccount $introducerAccount, introducerDocument $introducerDocument, Invite $invite, fundPayment $payment){
+    private $reserve;
+    public function __construct(User $user, Bank $bank, Investment $investment, Transaction $transaction, Formatter $formatter, Portfolio $portfolio, Funds $fund, Admin $admin, transferRequest $transferRequest, Stash $stash, Investor $investor, lenderAccount $account, Business $business, busAccount $baccount, Eligibility $eligibility, partials $partials, Referral $referral, Introducer $introducer, introducerAccount $introducerAccount, introducerDocument $introducerDocument, Invite $invite, fundPayment $payment, Reserve $reserve){
         $this->user = $user;
         $this->bank = $bank;
         $this->investment = $investment;
@@ -77,6 +79,7 @@ class PageController extends Controller
         $this->introducerAccount = $introducerAccount;
         $this->invite = $invite;
         $this->payment = $payment;
+        $this->reserve = $reserve;
     }
 
     public function searchDashboard(Request $request)
@@ -730,6 +733,34 @@ class PageController extends Controller
         }
     }
 
+    public function reserves(Request $request){
+        try {
+
+            $user = Auth::user();
+            if (!$this->isSuper()){
+                \Session::put('danger', true);
+                return redirect("/admin/rouzz/overview")->withErrors("You are not allowed here");
+            }
+            $reserves = $this->reserve->paginate(10);
+
+            foreach ($reserves as $reserve){
+                $reserve->user = $reserve->user();
+                $reserve->expectedLoanAmount = 1.5 * ($reserve->amount * ($reserve->duration - ($reserve->durationPassed - $reserve->durationPaid)));
+            }
+
+            $data = [
+                'title' => 'Admin',
+                'user' => $user,
+                'isSuper' => $this->isSuper(),
+                'reserves' => $reserves
+            ];
+
+            return view('admin.reserves', $data);
+        } catch(\Exception $e) {
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
     public function isSuper(){
         $user = Auth::user();
         $getRole = $this->admin->where('userId', $user->id)->first();
