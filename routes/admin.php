@@ -19,6 +19,7 @@ if (App::environment('production')) {
 Route::get('/overview', 'PageController@index');
 Route::get('/user', 'PageController@user');
 Route::get('/referrals', 'PageController@referrals');
+Route::get('/savings', 'PageController@reserves');
 Route::get('/business', 'PageController@businesses');
 Route::get('/introducer', 'PageController@introducers');
 Route::get('/introducer/{id}', 'PageController@introducer');

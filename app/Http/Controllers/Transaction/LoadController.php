@@ -22,6 +22,7 @@ use App\Models\Bank;
 use App\Models\Portfolio;
 use App\Models\Investment;
 use App\Models\TranxConfirm;
+use App\Models\Reserve;
 use App\Http\Helpers\Validate;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,8 +47,9 @@ class LoadController extends Controller
     private $payment;
     private $mail;
     private $rates;
+    private $reserve;
 
-    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, TranxConfirm $tranx, Validate $validate, lenderAccount $account, Bank $bank, Funds $fund, transferRequest $transferRequest, partials $partials, Saving $saving, fundPayment $payment, sendMail $mail, loanRates $rates){
+    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, TranxConfirm $tranx, Validate $validate, lenderAccount $account, Bank $bank, Funds $fund, transferRequest $transferRequest, partials $partials, Saving $saving, fundPayment $payment, sendMail $mail, loanRates $rates, Reserve $reserve){
         $this->api = $api;
         $this->transaction = $transaction;
         $this->stash = $stash;
@@ -66,6 +68,7 @@ class LoadController extends Controller
         $this->payment = $payment;
         $this->mail = $mail;
         $this->rates = $rates;
+        $this->reserve = $reserve;
     }
 
     public function buy(Request $request){
@@ -156,26 +159,64 @@ class LoadController extends Controller
                     \Session::put('danger', true);
                     return redirect('dashboard/funds')->withErrors('Payment Failed');
                 }
-                $rePay = $this->payment->where(["fundId" => $tranxDetails->fundId, "isCompleted" => false]);
-                $rePayment = $rePay->first();
+                    if ($trnxType == 'funding'){
+                        $rePay = $this->payment->where(["fundId" => $tranxDetails->fundId, "isCompleted" => false]);
+                        $rePayment = $rePay->first();
 
-                if ($rePayment->months_left <= 1){
-                    $rePay->update([
-                        "isCompleted" => true,
-                        "months_left" => 0
-                    ]);
-                }
+                        if ($rePayment->months_left <= 1){
+                            $rePay->update([
+                                "isCompleted" => true,
+                                "months_left" => 0
+                            ]);
+                        }
 
-                $rePay->decrement('months_left', 1);
+                        $rePay->decrement('months_left', 1);
 
-                $nextPayment = Carbon::now()->addMonths(1);
+                        $nextPayment = Carbon::now()->addMonths(1);
 
-                $rePay->update(["nextPayment" => $nextPayment]);
-                $tranxDetail->update([
-                    "isCompleted" => true
-                ]);
-                \Session::put('success', true);
-                return redirect('dashboard/funds')->withErrors('Payment successfully');
+                        $rePay->update(["nextPayment" => $nextPayment]);
+                        $tranxDetail->update([
+                            "isCompleted" => true
+                        ]);
+                        \Session::put('success', true);
+                        return redirect('dashboard/funds')->withErrors('Payment successfully');
+                    }
+                    else{
+                        $stash = $this->stash->where('investorId', $user->investor()->id);
+
+                        if ($stash->first() === null) {
+                            $stashParams = [
+                                'userId' => $user->id,
+                                'customerId' => $trnxData->customer->customer_code,
+                                'totalAmount' =>  0,
+                                'availableAmount' => 0
+                            ];
+                            $stash->create($stashParams);
+                        }
+                        $preserve = $this->reserve->where(["reference" => $reference, "isCompleted" => false]);
+                        $getPreserve = $preserve->first();
+
+                        if ($getPreserve->interval == "weekly"){
+                            $nextP = Carbon::now()->addWeeks(1);
+                        }
+                        elseif ($getPreserve->interval == "monthly"){
+                            $nextP = Carbon::now()->addMonths(1);
+                        }
+                        else{
+                            $nextP = Carbon::now()->addDays(1);
+                        }
+
+                        $preserve->update(
+                            ['nextPayment' => $nextP, "auth_code" => $trnxData->authorization->authorization_code, 'isStarted' => true]
+                        );
+                        $preserve->increment('durationPaid', 1);
+                        $preserve->increment('durationPassed', 1);
+                        $tranxDetail->update([
+                            "isCompleted" => true
+                        ]);
+                        \Session::put('success', true);
+                        return redirect('dashboard/save')->withErrors('Transaction successful');
+                    }
             } else {
                 $params = [
                     'reference' => $trnxData->reference,

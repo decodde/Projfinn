@@ -1,4 +1,3 @@
-
 <footer class="main-footer bg-cape-cod pt-0" style="background-color: #3d22c2!important;" data-sticky-footer="true">
 
     <section class="bt-fade-white-015 pt-20 pb-20">

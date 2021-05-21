@@ -11,6 +11,8 @@ use App\Models\Eligibility;
 use App\Models\fundPayment;
 use App\Models\Funds;
 use App\Models\Guarantor;
+use App\Models\Reserve;
+use App\Models\Safe;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\busAccount;
@@ -33,7 +35,10 @@ class BusController extends Controller{
     private $busAccount;
     private $bank;
     private $payment;
-    public function __construct(Auth $auth, User $user, Eligibility $eligible, partials $partials, Funds $funds, Document $document, BVN  $bvn, Transaction $transaction,  Formatter $formatter, Guarantor $guarantor, busAccount $busAccount, Bank $bank, fundPayment $payment)
+    private $reserve;
+    private $safe;
+
+    public function __construct(Auth $auth, User $user, Eligibility $eligible, partials $partials, Funds $funds, Document $document, BVN  $bvn, Transaction $transaction,  Formatter $formatter, Guarantor $guarantor, busAccount $busAccount, Bank $bank, fundPayment $payment, Reserve $reserve, Safe $safe)
     {
         $this->eligible = $eligible;
         $this->partials = $partials;
@@ -48,6 +53,8 @@ class BusController extends Controller{
         $this->busAccount = $busAccount;
         $this->bank = $bank;
         $this->payment = $payment;
+        $this->reserve = $reserve;
+        $this->safe = $safe;
     }
 
     public function dashboard(Request $request) {
@@ -217,6 +224,7 @@ class BusController extends Controller{
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
+
     public function settings(Request $request){
         try{
             $user = Auth::user();
@@ -243,6 +251,87 @@ class BusController extends Controller{
         }catch (\Exception $e){
             \Session::put('danger', true);
             return back()->withErrors('An error has occurred: '.$e->getMessage());
+        }
+    }
+
+    public function save(){
+        try{
+            $user = $this->auth::user();
+
+            $stash = $this->safe->where('userId', $user->id);
+
+            if($stash->first() === null){
+                $availableBalance = 0;
+                $totalAmount = 0;
+                $isStash = false;
+            }
+            else{
+                $availableBalance = $stash->first()->availableAmount;
+                $totalAmount = $stash->first()->totalAmount;
+                $isStash = true;
+            }
+
+            $business = $user->business();
+            if($business) {
+
+                $getSav = $this->reserve->where(["email" => $user->email, "isStarted" => true]);
+
+                $getSavings = $getSav->paginate(10);
+
+                $getAllSavings = $getSav->get();
+
+                $cred = 0;
+
+                foreach ($getAllSavings as $save){
+                    $save->expectedLoanAmount = 1.5 * ($save->amount * ($save->duration - ($save->durationPassed - $save->durationPaid)));
+                }
+
+                foreach ($getSavings as $save){
+                    $cred += $save->amount * $save->durationPaid;
+                }
+
+
+
+                $transactions = $this->transaction->where('businessId', $user->business()->id)->latest()->paginate(5);
+                $allTransactions = $this->transaction->where('businessId', $user->business()->id)->get();
+
+                $creditAmount = 0;
+                $debitAmount = 0.00;
+                foreach ($allTransactions as $transaction){
+                    if($transaction->status === "success"){
+                        if ($transaction->type === "reserve" || $transaction->type === "funding"){
+                            $creditAmount += $transaction->amount;
+                        } else {
+                            $debitAmount += $transaction->amount;
+                        }
+                    }
+                }
+
+                foreach($transactions as $transaction){
+                    $transaction->amount = $this->formatter->MoneyConvert($transaction->amount, "full");
+                    $transaction->date = $this->formatter->dataTime($transaction->created_at);
+                }
+                $totalAmount += $cred;
+                $data = [
+                    'title' => 'Dashboard : Save to Borrow',
+                    'user' => $user,
+                    'balance' => $this->formatter->MoneyConvert($totalAmount, 'full'),
+                    'availableAmt' => $this->formatter->MoneyConvert($availableBalance, 'full'),
+                    'tranX' => [ "credit" => $this->formatter->MoneyConvert($creditAmount, "full"), "debit" => $this->formatter->MoneyConvert($debitAmount), "full"],
+                    'transactions' => $transactions,
+                    'savings' => $getSavings,
+                    'isStash' => $isStash,
+                ];
+
+                return view('dashboard.business.save', $data);
+            } else {
+                \Session::put('danger', true);
+                return redirect('dashboard')->withErrors('An error has occurred: ');
+            }
+
+        }catch (\Exception $e){
+            \Session::put('danger', true);
+            return redirect('dashboard')->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
 
