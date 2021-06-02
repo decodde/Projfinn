@@ -390,6 +390,14 @@ class Validate {
                     'name' => 'required',
                 ]);
                 break;
+            case 'transferBusiness':
+                return $this->validator::make($data, [
+                    'userId' => 'required',
+                    'type' => 'required',
+                    'amount' => 'required',
+                    'name' => 'required',
+                ]);
+                break;
             default:
                 # code...
                 break;

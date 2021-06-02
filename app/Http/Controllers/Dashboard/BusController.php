@@ -14,6 +14,7 @@ use App\Models\Guarantor;
 use App\Models\Reserve;
 use App\Models\Safe;
 use App\Models\Transaction;
+use App\Models\transferBRequest;
 use App\Models\User;
 use App\Models\busAccount;
 use App\Models\Bank;
@@ -37,8 +38,9 @@ class BusController extends Controller{
     private $payment;
     private $reserve;
     private $safe;
+    private $transferRequest;
 
-    public function __construct(Auth $auth, User $user, Eligibility $eligible, partials $partials, Funds $funds, Document $document, BVN  $bvn, Transaction $transaction,  Formatter $formatter, Guarantor $guarantor, busAccount $busAccount, Bank $bank, fundPayment $payment, Reserve $reserve, Safe $safe)
+    public function __construct(Auth $auth, User $user, Eligibility $eligible, partials $partials, Funds $funds, Document $document, BVN  $bvn, Transaction $transaction,  Formatter $formatter, Guarantor $guarantor, busAccount $busAccount, Bank $bank, fundPayment $payment, Reserve $reserve, Safe $safe, transferBRequest $transferRequest)
     {
         $this->eligible = $eligible;
         $this->partials = $partials;
@@ -55,6 +57,7 @@ class BusController extends Controller{
         $this->payment = $payment;
         $this->reserve = $reserve;
         $this->safe = $safe;
+        $this->transferRequest = $transferRequest;
     }
 
     public function dashboard(Request $request) {
@@ -263,12 +266,10 @@ class BusController extends Controller{
             if($stash->first() === null){
                 $availableBalance = 0;
                 $totalAmount = 0;
-                $isStash = false;
             }
             else{
                 $availableBalance = $stash->first()->availableAmount;
                 $totalAmount = $stash->first()->totalAmount;
-                $isStash = true;
             }
 
             $business = $user->business();
@@ -282,18 +283,26 @@ class BusController extends Controller{
 
                 $cred = 0;
 
-                foreach ($getAllSavings as $save){
+                $totalExpectedLoan = 0;
+                $isStash = false;
+                foreach ($getSavings as $save){
+                    $isStash = true;
                     $save->expectedLoanAmount = 1.5 * ($save->amount * ($save->duration - ($save->durationPassed - $save->durationPaid)));
+                    $totalExpectedLoan += $save->expectedLoanAmount;
                 }
 
                 foreach ($getSavings as $save){
                     $cred += $save->amount * $save->durationPaid;
                 }
 
-
-
                 $transactions = $this->transaction->where('businessId', $user->business()->id)->latest()->paginate(5);
                 $allTransactions = $this->transaction->where('businessId', $user->business()->id)->get();
+
+                $isAllowed = true;
+                $getTransfers = $this->transferRequest->where(['userId' => $user->id, 'otpConfirmed' => false])->get();
+                if (count($getTransfers) > 0){
+                    $isAllowed = false;
+                }
 
                 $creditAmount = 0;
                 $debitAmount = 0.00;
@@ -319,8 +328,10 @@ class BusController extends Controller{
                     'availableAmt' => $this->formatter->MoneyConvert($availableBalance, 'full'),
                     'tranX' => [ "credit" => $this->formatter->MoneyConvert($creditAmount, "full"), "debit" => $this->formatter->MoneyConvert($debitAmount), "full"],
                     'transactions' => $transactions,
+                    'totalExpectedLoan' => $totalExpectedLoan,
                     'savings' => $getSavings,
                     'isStash' => $isStash,
+                    'isAllowed' => $isAllowed
                 ];
 
                 return view('dashboard.business.save', $data);

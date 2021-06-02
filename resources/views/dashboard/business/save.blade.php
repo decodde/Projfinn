@@ -89,6 +89,11 @@
     <div class="row">
         <div class="col-md-12">
             <a href="javascript:void(0);" data-toggle="modal" data-target="#saveToInvest" class="btn btn-blue mr-1 mb-2 float-right font-size-16px border-0 px-2" style="margin-top: -3px">create savings plan <i class="icon-ion-ios-cash"></i></a>
+            @if($isAllowed)
+                <a href="javascript:void(0);" data-toggle="modal" data-target="#makeWithdrawal" class="btn btn-primary mr-1 btn-md mb-2 float-right border-0">Withdraw savings <i class="fa fa-credit-card"></i></a>
+            @else
+                <a href="javascript:void(0);" data-toggle="modal" data-target="#withModal" class="btn btn-primary mr-1 btn-md mb-2 float-right border-0">Withdraw savings <i class="fa fa-credit-card"></i></a>
+            @endif
         </div>
     </div>
     <div class="row">
@@ -256,4 +261,78 @@
 
         </div>
     </div>
+    <div id="makeWithdrawal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="font-size-18px font-weight-bold">Withdraw from savings</h6>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <form action="{{ URL('/transaction/transferBusiness') }}" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="userId" value="{{ $user->id }}">
+                        <input type="hidden" name="type" value="business">
+                        <input type="hidden" name="name" value="{{ $user->name }}">
+                        <div class="form-group">
+                            <label for="amount">Amount in Naira (₦)</label>
+                            <input type="number" name="amount" id="amount" class="form-control" required="required">
+                        </div>
+                    </div>
+                    <p class="mx-1"><code>Note:</code> The money will be transferred to the <a href="{{URL('/dashboard/i/settings')}}">account set during your bank verification</a></p>
+                    <div class="modal-footer">
+                        <a href="javascript:void(0);" class="danger" data-dismiss="modal">Close</a>
+                        <button type="submit" id="activeBtn" class="btn btn-sm btn-success text-white font-size-14px">Withdraw</button>
+                        <button type="submit" id="inactiveBtn" class="btn btn-sm btn-success text-white font-size-14px" style="display: none" disabled>Processing Withdrawal ... <i class="fa fa-spinner fa-spin"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="withModal" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content border-0">
+                <div class="modal-header border-0 p-0 pr-2 pt-1">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body font-size-16 font-weight-bold py-0">
+                    <br>
+                    <p class="py-1">
+                        Please Try again later, Your Previous Withdrawal Request is being processed
+                    </p>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if($isStash == true)
+        <div class="modal fade bd-example-modal-sm" id="stashModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md modal-dialog-centered">
+                <div class="modal-content border-0">
+                    <div class="modal-header border-0 p-0 pr-2 pt-1">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body font-size-16 font-weight-bold py-0">
+                        Hi <a class="blue-grey darken-4">{{$user->name}}</a>👋,
+                        <br>
+                        <p class="py-1">
+                            &nbsp;&nbsp;&nbsp;&nbsp;You are eligible for a loan of <a class="success">₦ {{App\Http\Helpers\Formatter::MoneyConvert($totalExpectedLoan, 'full')}}</a> at the end of your savings.
+                        </p>
+                    </div>
+                    <div class="modal-footer border-0 pt-0">
+                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 @stop

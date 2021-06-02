@@ -9,9 +9,11 @@ use App\Http\Helpers\sendMail;
 use App\Models\fundPayment;
 use App\Models\Funds;
 use App\Models\loanRates;
+use App\Models\Safe;
 use App\Models\Saving;
 use App\Models\Transaction;
 use App\Models\Stash;
+use App\Models\transferBRequest;
 use App\Models\transferRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -48,8 +50,10 @@ class LoadController extends Controller
     private $mail;
     private $rates;
     private $reserve;
+    private $safe;
+    private $transferBRequest;
 
-    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, TranxConfirm $tranx, Validate $validate, lenderAccount $account, Bank $bank, Funds $fund, transferRequest $transferRequest, partials $partials, Saving $saving, fundPayment $payment, sendMail $mail, loanRates $rates, Reserve $reserve){
+    public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, TranxConfirm $tranx, Validate $validate, lenderAccount $account, Bank $bank, Funds $fund, transferRequest $transferRequest, partials $partials, Saving $saving, fundPayment $payment, sendMail $mail, loanRates $rates, Reserve $reserve, Safe $safe, transferBRequest $transferBRequest){
         $this->api = $api;
         $this->transaction = $transaction;
         $this->stash = $stash;
@@ -69,6 +73,8 @@ class LoadController extends Controller
         $this->mail = $mail;
         $this->rates = $rates;
         $this->reserve = $reserve;
+        $this->safe = $safe;
+        $this->transferBRequest = $transferBRequest;
     }
 
     public function buy(Request $request){
@@ -145,10 +151,16 @@ class LoadController extends Controller
                     'status' => $trnxData->status,
                     'message' => $trnxData->message ?? $trnxData->gateway_response,
                     'amount' => $amountPaid,
-                    'businessId' => $user->business()->id,
                     'userId' => $user->id,
                     'type' => $trnxType
                 ];
+
+                if ($user->type == "business"){
+                    $params['businessId'] = $user->business()->id;
+                }
+                else{
+                    $params['introducerId'] = $user->introducer()->id;
+                }
 
                 $trnXId = $this->transaction->create($params)->id;
 
@@ -410,6 +422,47 @@ class LoadController extends Controller
             return response()->json(["message" => "An Error Occurred ".$e->getMessage(), "error" => true, "data" => []], 200);
         }
         return response()->json(["message" => "Transfer Initiated, The transaction will be validated in the next 24hours", "error" => false, "data" => $transParams], 200);
+    }
+
+    public function transferBusiness(Request $request){
+        try{
+            $data = $request->all();
+
+            $user = Auth::user();
+
+            $validation = $this->validate->transaction($data, 'transferBusiness');
+            if($validation->fails())
+            {
+                \Session::put('danger', true);
+                return back()->withErrors($validation->getMessageBag());
+            } else {
+                $wallet = $this->safe->where('userId', $data["userId"])->first();
+
+                if($wallet == null){
+                    \Session::put('danger', true);
+                    return back()->withErrors("An Error Occurred: Insufficient funds");
+                }
+                if(($wallet->availableAmount - $data["amount"]) < 1000){
+                    \Session::put('danger', true);
+                    return back()->withErrors("An Error Occurred: Insufficient funds");
+                }
+
+                $transParams = [
+                    'userId' => $data["userId"],
+                    'amount' => $data["amount"],
+                    'message' => "The Money will be disbursed soon",
+                    'transfer_code' => "unknown",
+                ];
+                $this->mail->sendTransferBReminder($user);
+                $this->transferBRequest->create($transParams);
+            }
+        }
+        catch(\Exception $e){
+            \Session::put('danger', true);
+            return back()->withErrors("An Error Occurred ".$e->getMessage());
+        }
+        \Session::put('success', true);
+        return back()->withErrors("Transfer Initiated, The transaction will be validated in the next 24hours");
     }
 
     public function commissionFee(Request $request){
