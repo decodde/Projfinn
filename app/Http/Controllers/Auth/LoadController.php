@@ -330,17 +330,22 @@ class LoadController extends Controller
         $user = $this->auth::user();
 
         if($tranxDetails !== null) {
-            if ($type === "business") {
+            if ($type == "business" || $type == "introducer") {
                 if ($trnxData->status == 'success') {
                     $params = [
                         'reference' => $trnxData->reference,
                         'status' => $trnxData->status,
                         'message' => $trnxData->message ?? $trnxData->gateway_response,
                         'amount' => $amountPaid,
-                        'businessId' => $user->business()->id,
                         'userId' => $user->id,
                         'type' => $trnxType
                     ];
+                    if ($type == "business"){
+                        $params['businessId'] = $user->business()->id;
+                    }
+                    else{
+                        $params['introducerId'] = $user->introducer()->id;
+                    }
 
                     $trnXId = $this->transaction->create($params)->id;
                     if ($trnxData->status !== 'success') {
