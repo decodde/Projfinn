@@ -127,6 +127,7 @@ class LoadController extends Controller
     }
 
     public function confirm(Request $request) {
+        $user = \Auth::user();
         try {
             $reference = $request->reference;
 
@@ -134,7 +135,7 @@ class LoadController extends Controller
 
             $amountPaid = $trnxData->amount / 100;
 
-            $user = \Auth::user();
+
             $tranxDetail = $this->tranx->where(['reference' => $reference, 'isCompleted' => false, 'email' => $user->email]);
             $tranxDetails = $tranxDetail->first();
             if($tranxDetails == null){
@@ -145,7 +146,7 @@ class LoadController extends Controller
             $trnxType = $tranxDetails->type;
 
 
-            if($user->type == "business"){
+            if($user->type == "business" || $user->type == "introducer"){
                 $params = [
                     'reference' => $trnxData->reference,
                     'status' => $trnxData->status,
@@ -157,9 +158,6 @@ class LoadController extends Controller
 
                 if ($user->type == "business"){
                     $params['businessId'] = $user->business()->id;
-                }
-                else{
-                    $params['introducerId'] = $user->introducer()->id;
                 }
 
                 $trnXId = $this->transaction->create($params)->id;
@@ -191,10 +189,15 @@ class LoadController extends Controller
                             "isCompleted" => true
                         ]);
                         \Session::put('success', true);
-                        return redirect('dashboard/funds')->withErrors('Payment successfully');
+                        if ($user->type == "business"){
+                            return redirect('dashboard/funds')->withErrors('Payment successfully');
+                        }
+                        else{
+                            return redirect('dashboard/e/funds')->withErrors('Payment successfully');
+                        }
                     }
                     else{
-                        $stash = $this->stash->where('investorId', $user->investor()->id);
+                        $stash = $this->safe->where('userId', $user->id);
 
                         if ($stash->first() === null) {
                             $stashParams = [
@@ -227,9 +230,15 @@ class LoadController extends Controller
                             "isCompleted" => true
                         ]);
                         \Session::put('success', true);
-                        return redirect('dashboard/save')->withErrors('Transaction successful');
+                        if ($user->type == "business"){
+                            return redirect('dashboard/save')->withErrors('Transaction successful');
+                        }
+                        else{
+                            return redirect('dashboard/e/save')->withErrors('Transaction successful');
+                        }
                     }
-            } else {
+            }
+            else {
                 $params = [
                     'reference' => $trnxData->reference,
                     'status' => $trnxData->status,
@@ -387,7 +396,15 @@ class LoadController extends Controller
             }
         } catch(\Exception $e) {
             \Session::put('danger', true);
-            return redirect('dashboard/i')->withErrors('An error has occurred: '.$e->getMessage());
+            if ($user->type == "business"){
+                return redirect('dashboard/')->withErrors('An error has occurred: '.$e->getMessage());
+            }
+            elseif($user->type == "introducer"){
+                return redirect('dashboard/e')->withErrors('An error has occurred: '.$e->getMessage());
+            }
+            else{
+                return redirect('dashboard/i')->withErrors('An error has occurred: '.$e->getMessage());
+            }
         }
     }
 
@@ -453,7 +470,13 @@ class LoadController extends Controller
                     'message' => "The Money will be disbursed soon",
                     'transfer_code' => "unknown",
                 ];
-                $this->mail->sendTransferBReminder($user);
+                if ($data['type'] == 'introducer'){
+                    $this->mail->sendTransferIReminder($user);
+                }
+                else{
+                    $this->mail->sendTransferBReminder($user);
+                }
+
                 $this->transferBRequest->create($transParams);
             }
         }

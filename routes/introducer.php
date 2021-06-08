@@ -8,3 +8,5 @@ if (App::environment('production')) {
 Route::post('/', 'LoadController@create');
 Route::post('/invite', 'LoadController@createInvite');
 Route::get('/invite/delete/{inviteId}', 'LoadController@deleteInvite');
+
+Route::post('/save', 'LoadController@create_reserve');
