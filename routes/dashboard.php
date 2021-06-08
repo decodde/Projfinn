@@ -25,5 +25,6 @@ Route::group(['middleware' => 'introducer', 'prefix' => 'e'], function() {
     Route::get('/', 'IntController@dashboard');
     Route::get('/document', 'IntController@documents');
     Route::get('/businesses', 'IntController@businesses');
+    Route::get('/save', 'IntController@save');
     Route::get('/settings', 'IntController@settings');
 });

@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Introducer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Helpers\apiHelper;
 use App\Models\Introducer;
 use App\Models\Invite;
+use App\Models\Reserve;
+use App\Models\TranxConfirm;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\LoadController as Registration;
 
@@ -22,7 +26,11 @@ class LoadController extends Controller
     private $introducer;
     private $invite;
     private $user;
-    public function __construct(sendMail $mail, Validate $validate, Registration $registration, Introducer $introducer, Invite $invite, User $user)
+    private $reserve;
+    private $api;
+    private $tranx;
+
+    public function __construct(sendMail $mail, Validate $validate, Registration $registration, Introducer $introducer, Invite $invite, User $user, Reserve $reserve, apiHelper $api, TranxConfirm $tranx)
     {
         $this->mail = $mail;
         $this->validate = $validate;
@@ -30,6 +38,9 @@ class LoadController extends Controller
         $this->introducer = $introducer;
         $this->invite = $invite;
         $this->user = $user;
+        $this->reserve = $reserve;
+        $this->api = $api;
+        $this->tranx = $tranx;
     }
 
     public function create(Request $request) {
@@ -120,6 +131,57 @@ class LoadController extends Controller
         } catch(\Exception $e) {
             \Session::put('danger', true);
             return back()->withErrors('An error has occurred: '.$e->getMessage())->withInput();
+        }
+    }
+
+    public function create_reserve(Request $request){
+        try{
+            $data = $request->except('_token');
+
+            $body = [
+                'amount' => $data["amount"] * 100,
+                'email' => $data["email"]
+            ];
+
+            $response = $this->api->call('/transaction/initialize', 'POST', $body);
+
+            $Tranxdata = [
+                "email" => $data['email'],
+                "amount" => $data['amount'],
+                "type" => "reserve",
+                "reference" => $response->data->reference,
+            ];
+
+            $this->tranx->create($Tranxdata);
+
+            $now = Carbon::now();
+            $now = Carbon::create($now->isoFormat('YYYY-MM-DD'));
+
+            $expectedDay = Carbon::create(Carbon::now()->isoFormat('YYYY-MM-DD'))->addMonths(3);
+
+            if($data["interval"] == 'daily'){
+                $duration = $now->diffInDays($expectedDay);
+            }
+            elseif ($data["interval"] == 'weekly'){
+                $duration = $now->diffInWeeks($expectedDay);
+            }
+            else{
+                $duration = 3;
+            }
+            $reserveData = [
+                'email' => $data['email'],
+                'name' => $data["name"],
+                'amount' => $data["amount"],
+                'interval' => $data["interval"],
+                'reference' => $response->data->reference,
+                'duration' => $duration,
+            ];
+            $this->reserve->create($reserveData);
+            return redirect($response->data->authorization_url);
+        }
+        catch (\Exception $e){
+            \Session::put('danger', true);
+            return redirect('dashboard/e')->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
 }
