@@ -167,7 +167,12 @@ class LoadController extends Controller
                         "isCompleted" => true
                     ]);
                     \Session::put('danger', true);
-                    return redirect('dashboard/funds')->withErrors('Payment Failed');
+                    if ($user->type == "business"){
+                        return redirect('dashboard/funds')->withErrors('Payment Failed');
+                    }
+                    else{
+                        return redirect('dashboard/e/funds')->withErrors('Payment Failed');
+                    }
                 }
                     if ($trnxType == 'funding'){
                         $rePay = $this->payment->where(["fundId" => $tranxDetails->fundId, "isCompleted" => false]);

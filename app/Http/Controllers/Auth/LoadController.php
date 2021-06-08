@@ -7,6 +7,7 @@ use App\Models\fundPayment;
 use App\Models\Funds;
 use App\Models\loanRates;
 use App\Models\Reserve;
+use App\Models\Safe;
 use App\Models\Saving;
 use App\Models\Stash;
 use Carbon\Carbon;
@@ -53,8 +54,9 @@ class LoadController extends Controller
     private $payment;
     private $rates;
     private $reserve;
+    private $safe;
 
-    public function __construct(Auth $auth, Validate $validate, User $user, sendMail $mail, ResetPassword $reset, Partials $partials, TranxConfirm $trnx, apiHelper $api, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Transaction $transaction, Funds $fund, Saving $saving, fundPayment $payment, loanRates $rates, Reserve $reserve)
+    public function __construct(Auth $auth, Validate $validate, User $user, sendMail $mail, ResetPassword $reset, Partials $partials, TranxConfirm $trnx, apiHelper $api, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Transaction $transaction, Funds $fund, Saving $saving, fundPayment $payment, loanRates $rates, Reserve $reserve, Safe $safe)
     {
         $this->auth = $auth;
         $this->user = $user;
@@ -75,6 +77,7 @@ class LoadController extends Controller
         $this->payment = $payment;
         $this->rates = $rates;
         $this->reserve = $reserve;
+        $this->safe = $safe;
     }
 
     public function login(Request $request)
@@ -343,9 +346,6 @@ class LoadController extends Controller
                     if ($type == "business"){
                         $params['businessId'] = $user->business()->id;
                     }
-                    else{
-                        $params['introducerId'] = $user->introducer()->id;
-                    }
 
                     $trnXId = $this->transaction->create($params)->id;
                     if ($trnxData->status !== 'success') {
@@ -353,7 +353,12 @@ class LoadController extends Controller
                             "isCompleted" => true
                         ]);
                         \Session::put('danger', true);
-                        return redirect('dashboard/funds')->withErrors('Payment Failed');
+                        if ($type == "business"){
+                            return redirect('dashboard/funds')->withErrors('Payment Failed');
+                        }
+                        else{
+                            return redirect('dashboard/e/funds')->withErrors('Payment Failed');
+                        }
                     }
                     if($trnxType == 'funding'){
                         $rePay = $this->payment->where(["fundId" => $tranxDetails->fundId, "isCompleted" => false]);
@@ -378,9 +383,25 @@ class LoadController extends Controller
                             "isCompleted" => true
                         ]);
                         \Session::put('success', true);
-                        return redirect('dashboard/funds')->withErrors('Payment successfully');
+                        if ($type == "business"){
+                            return redirect('dashboard/funds')->withErrors('Payment successfully');
+                        }
+                        else{
+                            return redirect('dashboard/e/funds')->withErrors('Payment successfully');
+                        }
                     }
                     else{
+                        $stash = $this->safe->where('userId', $user->id);
+
+                        if ($stash->first() === null) {
+                            $stashParams = [
+                                'userId' => $user->id,
+                                'customerId' => $trnxData->customer->customer_code,
+                                'totalAmount' =>  0,
+                                'availableAmount' => 0
+                            ];
+                            $stash->create($stashParams);
+                        }
                         $preserve = $this->reserve->where(["reference" => $tranxDetails->reference, "isCompleted" => false]);
                         $getPreserve = $preserve->first();
 
@@ -403,7 +424,12 @@ class LoadController extends Controller
                             "isCompleted" => true
                         ]);
                         \Session::put('success', true);
-                        return redirect('dashboard/save')->withErrors('Transaction successful');
+                        if ($type == "business"){
+                            return redirect('dashboard/save')->withErrors('Transaction successful');
+                        }
+                        else{
+                            return redirect('dashboard/e/save')->withErrors('Transaction successful');
+                        }
                     }
                 }
             } else {
