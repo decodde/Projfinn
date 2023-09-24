@@ -99,7 +99,7 @@
                                 <h2 class="font-size-24 font-weight-bold"><small><i class="icon-liquid_map_pin mr-2 fa-1x"></i></small> Lagos</h2>
                                 <p class="font-size-14"> 7a, Milverton road, Ikoyi, <br>Lagos, Nigeria</p>
                                 <hr class="w-30 ml-0 border-color-primary">
-                                <p class="font-size-14"> 07044152333 <br> hello@rouzo.org</p>
+                                 <p class="font-size-14"> 07044152333 <br> hello@rouzo.org</p>
 
                                 <div class="ld-gmap-container" style="height: 450px;">
                                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.5615666835174!2d3.4425954153390905!3d6.450289425798251!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf4e8b32cd023%3A0x7f3cfa141ea66fc7!2s7a%20Milverton%20Rd%2C%20Ikoyi%2C%20Lagos!5e0!3m2!1sen!2sng!4v1588276225326!5m2!1sen!2sng" height="450" frameborder="0" style="border:0; width: 100%" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>

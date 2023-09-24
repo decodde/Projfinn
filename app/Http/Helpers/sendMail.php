@@ -53,7 +53,7 @@ class sendMail {
             $m->replyTo('no-reply@owoafara.com');
         });
     }
-
+    
     public function welcomeMessageInt($data)
     {
         $mail["title"] = "Welcome to ".env('APP_NAME');
@@ -105,7 +105,6 @@ class sendMail {
         $mail["buttonTitle"] = "Recover Password";
         $mail["targetUrl"] = $data["url"];
 
-//        dd("Hey");
         $this->mail::send('emails.template', ['data' => $mail], function ($m) use ($mail, $data) {
             $m->from(env('SENDER_EMAIL'), env('SENDER_NAME'));
             $m->to($data['email'])->subject($mail['title']);
@@ -125,8 +124,8 @@ class sendMail {
             $m->replyTo('no-reply@owoafara.com');
         });
     }
-
-    public function sendToAdmin($data, $user)
+    
+        public function sendToAdmin($data, $user)
     {
         $mail["title"] = "Rouzo: A Business Applied for Funding ";
         $mail["salute"] = "Hello Rouzo";
@@ -134,7 +133,7 @@ class sendMail {
 
         $this->mail::send('emails.template', ['data' => $mail], function ($m) use ($mail, $user) {
             $m->from($user->email, $user->name);
-            $m->to(env('SENDER_EMAIL'))->subject($mail['title']);
+            $m->to(env('BUSINESS_EMAIL'))->subject($mail['title']);
             $m->replyTo('no-reply@owoafara.com');
         });
     }
@@ -154,20 +153,20 @@ class sendMail {
         });
     }
 
+
     public function sendMailForDebugging($data)
     {
         $mail["title"] = "Debug From Rouzo ";
         $mail["salute"] = "Hello Rouzo";
         $mail["message"] = "ACCOUNTNAME: ".$data["nubanMatch"]->account_name."ACCOUNTNUMBER: ".$data["nubanMatch"]->account_number."BVN: ".$data["bvnMatch"]->bvn."BVN_firstNAME: ".$data["bvnMatch"]->first_name."BVN_lastNAME: ".$data["bvnMatch"]->last_name;
 
-//        dd("Hey");
         $this->mail::send('emails.template', ['data' => $mail], function ($m) use ($mail, $data) {
             $m->from("no-reply@owoafara.com", "Mayorwa");
             $m->to("thisgeekcodes@gmail.com")->subject($mail['title']);
             $m->replyTo('no-reply@owoafara.com');
         });
     }
-
+    
     public function sendFundingReminder($data){
         $mail["title"] = "Rouzo: Your Repayment is due Today";
         $mail["salute"] = "Hello ".$data["name"];
@@ -209,7 +208,8 @@ class sendMail {
             $m->replyTo('no-reply@owoafara.com');
         });
     }
-
+    
+    
     public function sendInvestmentMature($data){
         $mail["title"] = "Rouzo: Your Investment Has Matured";
         $mail["salute"] = "Hello ".$data["name"];
@@ -223,7 +223,7 @@ class sendMail {
             $m->replyTo('no-reply@owoafara.com');
         });
     }
-
+    
     public function sendTransferReminder($user)
     {
         $mail["title"] = "Rouzo: An Investor Has Requested for a Transfer";
@@ -236,7 +236,7 @@ class sendMail {
             $m->replyTo('no-reply@owoafara.com');
         });
     }
-
+    
     public function sendTransferBReminder($user)
     {
         $mail["title"] = "Rouzo: A Business Has Requested for a Transfer";
@@ -249,7 +249,7 @@ class sendMail {
             $m->replyTo('no-reply@owoafara.com');
         });
     }
-
+    
     public function sendTransferIReminder($user)
     {
         $mail["title"] = "Rouzo: An Introducer Has Requested for a Transfer";

@@ -31,13 +31,13 @@
     <script src="{{ asset('assets/assets/vendors/flickity/flickity.pkgd.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-169217379-1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-71302918-3"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-169217379-1');
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-71302918-3');
     </script>
     <!-- Facebook Pixel Code -->
     <script>

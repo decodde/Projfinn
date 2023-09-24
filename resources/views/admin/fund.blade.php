@@ -1,6 +1,6 @@
 @extends('admin.master')
 @section('content')
-    <style>
+ <style>
         .guarantor{
             text-align: left;
         }
@@ -100,7 +100,7 @@
                         <dl class="row text-black">
                             <dt class="col-md-9">Documents</dt>
                             <dd class="col-md-3 text-right">
-                                @foreach($fund->documents as $document)
+                               @foreach($fund->documents as $document)
                                     <p>
                                         <a>{{ ucfirst($document->type) }} :</a>
                                         <a href="{{ $document->file }}" target="_blank" class="btn btn-primary">View file <i class="la la-link"></i></a>
@@ -173,14 +173,15 @@
                                 @endif
                             </dl>
                             <hr>
-                        @endif--}}
-                        @if($admin->role !== "business-team")
+                        @endif --}}
+                         @if($admin->role !== "business-team")
                             <dl class="row text-black">
                                 <dt class="col-md-8">Actions</dt>
                                 <dd class="col-md-4 float-right">
                                     <form action="{{URL('/admin/rouzz/status')}}" method="post" name="businessForm">
                                         <input type="hidden" name="_token" value="{{csrf_token()}}">
                                         <input type="hidden" name="businessId" value="{{$fund->business->id}}">
+                                        <input type="hidden" name="fundId" value="{{$fund->id}}">
                                         <input type="hidden" name="name" value="{{$fund->user->name}}">
                                         <input type="hidden" name="email" value="{{$fund->user->email}}">
                                         <input type="hidden" name="amountPerMonth" id="amountPerMonth" class="form-control" placeholder="Amount Per Month">

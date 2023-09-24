@@ -101,7 +101,7 @@ class InvestorController extends Controller
                     $now = Carbon::now()->isoFormat('YYYY-MM-DD');
                     $now = Carbon::create($now);
 
-                    $nextP = Carbon::create($saving->nextPayment)->isoFormat('YYYY-MM-DD');;
+                    $nextP = Carbon::create($saving->nextPayment)->isoFormat('YYYY-MM-DD');
                     $nextP = Carbon::create($nextP);
 
                     $diff = $now->diffInDays($nextP);
@@ -121,6 +121,7 @@ class InvestorController extends Controller
                         if ($lenOfInv > $saving->monthsPaid-1){
 
                             $this->saving->where("id", $saving->id)->increment("monthsPaid", 1);
+
                             if ($saving->interval == "monthly"){
                                 $x = $saving->months;
                             }
@@ -138,13 +139,13 @@ class InvestorController extends Controller
                                 $diffToday = $now->diffInDays($dayCreated);
                                 $diffProj = $dayCreated->diffInDays($projectedMonths);
                                 $roi = $this->partials->interestSavings($saving->months) * $saving->amount;
-                                $amt = (($diffToday / $diffProj) * $roi);
+                                $amt = (($diffToday / $diffProj) * $roi) + ($saving->amount * ($saving->monthsPaid-1));
 
                                 $investor = $this->investor->where("email", $saving->email)->first();
                                 $stash = $this->stash->where("investorId", $investor->id);
 
                                 $stash->increment('totalAmount', $amt);
-                                $stash->increment('availableAmount', $amt);
+                                $stash->increment('availableAmount', $amt+$saving->amount);
                                 $sub_body = [
                                     "code" => $saving->sub_code,
                                     "token" => $saving->email_token

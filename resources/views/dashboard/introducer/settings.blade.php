@@ -107,7 +107,6 @@
         function checkNumberLength(event) {
             event.preventDefault();
             let valid = false;
-
             const field = document.getElementById('number');
             // const bv = document.getElementById('bvn');
             if(field.value.length === 10) {
@@ -118,7 +117,6 @@
                 valid = false;
                 window.alert('Account Number can\'t be more or less than 10 characters long')
             }
-
             if(valid) {
                 document.getElementById('bvnForm').submit()
             }

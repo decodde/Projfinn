@@ -29,6 +29,7 @@ use App\Http\Helpers\sendMail;
 use App\Http\Helpers\partials as Partials;
 use App\Http\Helpers\apiHelper;
 use App\Models\ResetPassword;
+use Illuminate\Support\Facades\Cookie;
 
 
 
@@ -55,7 +56,7 @@ class LoadController extends Controller
     private $rates;
     private $reserve;
     private $safe;
-
+    
     public function __construct(Auth $auth, Validate $validate, User $user, sendMail $mail, ResetPassword $reset, Partials $partials, TranxConfirm $trnx, apiHelper $api, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, Transaction $transaction, Funds $fund, Saving $saving, fundPayment $payment, loanRates $rates, Reserve $reserve, Safe $safe)
     {
         $this->auth = $auth;
@@ -80,8 +81,12 @@ class LoadController extends Controller
         $this->safe = $safe;
     }
 
-    public function login(Request $request)
-    {
+    public function sendCsrfToken (Request $request){
+
+        $csrfToken = Cookie::get('XSRF-TOKEN');
+        return response()->json(["msg" => "Retrieved", "csrf" => $csrfToken], 200);
+    }
+    public function login(Request $request){
 
 
         //get request body
@@ -90,19 +95,20 @@ class LoadController extends Controller
         //validate the input
         $validation = $this->validate->auth($data, "login");
 
-        if ($validation->fails()) {
+        if($validation->fails())
+        {
             \Session::put('warning', true);
             return back()->withErrors($validation->getMessageBag())->withInput();
         }
-
+        
         try {
 
-            if (!$this->auth::attempt($data)) {
+            if(!$this->auth::attempt($data)) {
                 \Session::put('danger', true);
                 return back()->withErrors("Incorrect login details");
             }
 
-            if ($this->auth::user()->verified == false) {
+            if($this->auth::user()->verified == false) {
                 Auth::logout();
                 \Session::flush();
 
@@ -112,7 +118,7 @@ class LoadController extends Controller
             if ($this->auth::user()->type !== "admin" && $this->auth::user()->type !== "introducer"){
                 $this->checkTrnx($this->auth::user()->email, $this->auth::user()->type);
             }
-
+            
             if ($this->auth::user()->type === 'investor') {
 
                 return redirect()->intended('/dashboard/i');
@@ -126,14 +132,13 @@ class LoadController extends Controller
             else{
                 return redirect()->intended('/admin/rouzz/overview');
             }
-        } catch (\Exception $e) {
+        } catch(\Exception $e) {
             \Session::put('danger', true);
-            return back()->withErrors('An error has occurred: ' . $e->getMessage())->withInput();
+            return back()->withErrors('An error has occurred: '.$e->getMessage())->withInput();
         }
     }
 
-    public function createUser(Request $request)
-    {
+    public function createUser(Request $request) {
         try {
             //get request body
             $body = $request->except('_token');
@@ -141,7 +146,8 @@ class LoadController extends Controller
             //validate request body
             $validation = $this->validate->auth($body, null);
 
-            if ($validation->fails()) {
+            if($validation->fails())
+            {
                 //format the error messages
                 $errorMessages = $this->partials->formatErrors($validation->getMessageBag()->messages());
 
@@ -151,7 +157,7 @@ class LoadController extends Controller
                 //encrypt password string
                 $body["password"] = bcrypt($body["password"]);
 
-                $body["name"] = $body["f_name"] . " " . $body["l_name"];
+                $body["name"] = $body["f_name"]." ".$body["l_name"] ;
 
                 $body["referralSlug"] = str_random(10);
                 //store create the user info
@@ -162,7 +168,7 @@ class LoadController extends Controller
                 unset($body["password"]);
                 unset($body["password_confirmation"]);
 
-                $body['url'] = URL('activate-account/' . \Crypt::encrypt($userId));
+                $body['url'] = URL('activate-account/'.\Crypt::encrypt($userId));
                 //You can decide to enable the send confirmation mail feature
                 //by removing the comment below this line
                 if ($body["type"] === 'investor'){
@@ -178,18 +184,17 @@ class LoadController extends Controller
                 //it's a beautiful day, don't you think
                 return response()->json(["message" => "User successfully created", "data" => $body], 200);
             }
-        } catch (\Exception $e) {
-            return response()->json(["message" => $e->getMessage() . "Error by Mail"], 500);
+        } catch(\Exception $e) {
+            return response()->json(["message" => $e->getMessage()."Error by Mail"], 500);
         }
     }
 
-    public function activateAccount(Request $request, $id)
-    {
+    public function activateAccount(Request $request, $id) {
         try {
             //query
             $query = $this->user->where("id", decrypt($id));
 
-            if ($query->first() !== null) {
+            if($query->first() !== null) {
                 $query->update(['verified' => true]);
 
                 return redirect('login')->withErrors('Account successfully activated, you can now login to your dashboard');
@@ -197,14 +202,13 @@ class LoadController extends Controller
                 \Session::put('danger', true);
                 return redirect('login')->withErrors('Invalid activation key sent');
             }
-        } catch (\Exception $e) {
+        } catch(\Exception $e) {
             \Session::put('danger', true);
-            return redirect('login')->withErrors('An error has occurred: ' . $e->getMessage());
+            return redirect('login')->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
 
-    public function forgotPassword(Request $request)
-    {
+    public function forgotPassword(Request $request) {
         try {
             //get request body
             $body = $request->all();
@@ -212,14 +216,15 @@ class LoadController extends Controller
             //validate the input
             $validation = $this->validate->auth($body, "recovery-link");
 
-            if ($validation->fails()) {
+            if($validation->fails()) {
                 \Session::put('warning', true);
                 return back()->withErrors($validation->getMessageBag())->withInput();
             } else {
                 //find the email address
                 $findEmail = $this->user->where("email", $body["email"])->first();
 
-                if ($findEmail !== null) {
+                if($findEmail !== null)
+                {
                     //create a recovery token from the user's ID
                     $token = encrypt($findEmail->id);
 
@@ -227,7 +232,7 @@ class LoadController extends Controller
                     $data = [
                         "email" => $findEmail->email,
                         "name" => $findEmail->name,
-                        "url" => URL('reset-password') . '/' . $token,
+                        "url" => URL('reset-password').'/'.$token,
                     ];
 
                     //create expiry time for password recovery
@@ -248,14 +253,13 @@ class LoadController extends Controller
                     return back()->withErrors("We couldn't find that email in our records, please create an account");
                 }
             }
-        } catch (\Exception $e) {
+        } catch(\Exception $e) {
             \Session::put('danger', true);
             return back()->withErrors($e->getMessage());
         }
     }
 
-    public function resetPassword(Request $request)
-    {
+    public function resetPassword(Request $request) {
         try {
             //get request body
             $body = $request->all();
@@ -263,18 +267,20 @@ class LoadController extends Controller
             //validate the user's input
             $validation = $this->validate->auth($body, "reset-password");
 
-            if ($validation->fails()) {
+            if($validation->fails()) {
                 \Session::put('warning', true);
                 return back()->withErrors($validation->getMessageBag());
             } else {
                 //find a match for the recovery token
                 $findToken = $this->reset->where("token", $body['token'])->first();
 
-                if ($findToken !== null) {
+                if($findToken !== null)
+                {
                     $currentTime = strtotime(date("H:i"));
 
                     //check if token is expired or not
-                    if (date("H:i", strtotime($findToken->time)) <= $currentTime) {
+                    if(date("H:i", strtotime($findToken->time)) <= $currentTime)
+                    {
                         //decrypt the token
                         $userId = Crypt::decrypt($findToken->token);
 
@@ -297,26 +303,13 @@ class LoadController extends Controller
                     return back()->withErrors("Invalid token provided");
                 }
             }
-        } catch (\Exception $e) {
+        } catch(\Exception $e) {
             \Session::put('red', true);
             return back()->withErrors($e->getMessage());
         }
 
         //don't be unsociable, connect with friends and family more often
         return redirect('login')->withErrors("Password successfully changed, you can now login to your dashboard");
-    }
-
-    public function logout()
-    {
-        try {
-            Auth::logout();
-            \Session::flush();
-
-            return redirect('login')->withErrors('You\'re now logged out');
-        } catch (\Exception $e) {
-            \Session::put('danger', true);
-            return back()->withErrors('An error has occurred: ' . $e->getMessage());
-        }
     }
 
     public function checkTrnx($userEmail, $type)
@@ -333,7 +326,7 @@ class LoadController extends Controller
         $user = $this->auth::user();
 
         if($tranxDetails !== null) {
-            if ($type == "business" || $type == "introducer") {
+             if ($type == "business" || $type == "introducer") {
                 if ($trnxData->status == 'success') {
                     $params = [
                         'reference' => $trnxData->reference,
@@ -343,10 +336,11 @@ class LoadController extends Controller
                         'userId' => $user->id,
                         'type' => $trnxType
                     ];
-                    if ($type == "business"){
+                    
+                     if ($type == "business"){
                         $params['businessId'] = $user->business()->id;
                     }
-
+                    
                     $trnXId = $this->transaction->create($params)->id;
                     if ($trnxData->status !== 'success') {
                         $tranxDetail->update([
@@ -580,6 +574,18 @@ class LoadController extends Controller
 
                 }
             }
+        }
+    }
+
+    public function logout() {
+        try {
+            Auth::logout();
+            \Session::flush();
+
+            return redirect('login')->withErrors('You\'re now logged out');
+        } catch(\Exception $e) {
+            \Session::put('danger', true);
+            return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
 }

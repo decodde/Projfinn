@@ -13,10 +13,10 @@
                                 <div class="navbar-header py-2">
                                     <a class="navbar-brand p-2" href="{{URL('/')}}" rel="home">
                                             <span class="navbar-brand-inner">
-                                                <img class="logo-dark" src="{{ asset('assets/app-assets/images/adobe/logo.png') }}" width="120" alt="Projfinn">
-                                                <img class="logo-sticky" src="{{ asset('assets/app-assets/images/adobe/logo.png') }}" width="120" alt="Projfinn">
-                                                <img class="mobile-logo-default" src="{{ asset('assets/app-assets/images/adobe/logo.png') }}" width="120" alt="Projfinn">
-                                                <img class="logo-default" src="{{ asset('assets/app-assets/images/adobe/logo.png') }}" width="100" alt="Projfinn">
+                                                <img class="logo-dark" src="{{ asset('assets/app-assets/images/adobe/logo.png') }}" width="120" alt="Rouzo">
+                                                <img class="logo-sticky" src="{{ asset('assets/app-assets/images/adobe/logo.png') }}" width="120" alt="Rouzo">
+                                                <img class="mobile-logo-default" src="{{ asset('assets/app-assets/images/adobe/logo.png') }}" width="120" alt="Rouzo">
+                                                <img class="logo-default" src="{{ asset('assets/app-assets/images/adobe/logo.png') }}" width="100" alt="Rouzo">
                                             </span>
                                     </a>
                                     <button type="button" class="navbar-toggle collapsed nav-trigger style-mobile" data-toggle="collapse" data-target="#main-header-collapse" aria-expanded="false" data-changeclassnames='{ "html": "mobile-nav-activated overflow-hidden" }'>
@@ -48,8 +48,7 @@
                                                     </span>
                                             </a>
                                         </li>
-
-
+                                        
                                         <li>
                                             <a href="{{URL('/women')}}">
                                                 <span class="link-icon"></span>
@@ -58,6 +57,20 @@
                                                     <span class="txt">
                                                         Women
                                                     </span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        
+                                        
+                                        <li>
+                                            <a href="{{URL('/autokash')}}">
+                                                <span class="link-icon"></span>
+                                                <span class="link-txt btn-underlined">
+                                                    <span class="link-ext"></span>
+                                                    <span class="txt">
+                                                        AutoKash
+                                                    </span>
+                                                    <span class="badge bg-primary badge-pill " style="line-height: 1; height: fit-content; padding: 1px 4px; font-size: 12px; vertical-align: middlel">new</span>
                                                 </span>
                                             </a>
                                         </li>
@@ -77,7 +90,7 @@
                                         </li>
 
                                         <li class="menu-item-has-children megamenu megamenu-fullwidth">
-                                            <a href="https://suppotr.owoafara.com/">
+                                            <a href="https://suppotr.owoafara.com/" target="_blank">
                                                 <span class="link-icon"></span>
                                                 <span class="link-txt btn-underlined">
                                                         <span class="link-ext"></span>
@@ -109,9 +122,9 @@
 
                                     <div class="header-module">
                                         @if(auth()->user()->type === "investor")
-                                            <a href="{{URL('/dashboard/i')}}" class="btn btn-default btn-sm round border-thin btn-register py-0">
+                                         <a href="{{URL('/dashboard/i')}}" class="btn btn-default btn-sm round border-thin btn-register py-0">
                                         @elseif(auth()->user()->type === "admin")
-                                            <a href="{{URL('/admin/rouzz')}}" class="btn btn-default btn-sm round border-thin btn-register py-0">
+                                            <a href="{{URL('/admin/rouzz/overview')}}" class="btn btn-default btn-sm round border-thin btn-register py-0">
                                         @elseif(auth()->user()->type === "introducer")
                                             <a href="{{URL('/dashboard/e')}}" class="btn btn-default btn-sm round border-thin btn-register py-0">
                                         @else

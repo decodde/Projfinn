@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Preference extends Model
 {
     //
-    protected $table = 'lendersPreferences';
+    protected $table = 'lenderspreferences';
 
     protected $fillable = ['lenderId', 'lenderCategoryId'];
 

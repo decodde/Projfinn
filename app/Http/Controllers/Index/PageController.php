@@ -28,16 +28,21 @@ class PageController extends Controller
 
         return view('default.about');
     }
-    //
     public function women() {
 
         return view('default.women');
+    }
+     //
+    public function autokash() {
+
+        return view('default.autokash');
     }
     //
     public function wbc() {
 
         return view('default.wbc');
     }
+    //
     //
     public function contact() {
 
@@ -70,7 +75,7 @@ class PageController extends Controller
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
-
+    
     public function signup(Request $request){
         return view('default.signup');
     }

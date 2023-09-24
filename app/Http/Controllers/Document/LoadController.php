@@ -76,7 +76,7 @@ class LoadController extends Controller
             $this->business->reduceProfilePercentage($query->value('businessId'), 5);
 
             $query->delete();
-
+            
             return back()->withErrors('Document deleted successfully.');
         } catch(\Excpetion $e) {
             \Session::put('red', true);
@@ -122,7 +122,7 @@ class LoadController extends Controller
             $query = $this->introducerDocument->where('id', \Crypt::decrypt($documentId));
 
             $query->delete();
-
+            
             return back()->withErrors('Document deleted successfully.');
         } catch(\Excpetion $e) {
             \Session::put('red', true);

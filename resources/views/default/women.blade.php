@@ -5,7 +5,7 @@
         body{
             color: #212529;
             overflow: hidden;
-            text-justify: auto;
+            text-justify: auto
         }
     </style>
     <main id="content" class="content">
@@ -162,7 +162,7 @@
                                     <p class="font-size-16 lh-2">“I applied for the loan from Rouzo through an Introducer and I enjoyed the services
                                         rendered by the Rouzo team as they work tirelessly 24/7 which I observed, finally I got the
                                         loan after visitation to their office &amp; completing the necessary documentation.
-                                         
+
                                         Although the facility provided has enabled us to purchase some medications for our
                                         pharmacy, more funds are required in the future to boost the business and we are certain
                                         that Rouzo will be there to cater to our financing needs.”</p>
@@ -172,6 +172,23 @@
                                 <div class="testimonial-info">
                                     <h5>Sarah .O</h5>
                                     <h6 class="font-weight-normal">Pharmacy Owner</h6>
+                                </div><!-- /.testimonial-info -->
+                            </div><!-- /.testimonial-details -->
+                        </div><!-- /.testimonial -->
+
+                    </div><!-- /.lqd-column col-md-6 -->
+                    <div class="lqd-column col-md-6">
+
+                        <div class="testimonial testimonial-quote-filled text-left testimonial-details-lg testimonial-quote-shadowed">
+                            <div class="testimonial-quote">
+                                <blockquote>
+                                    <p class="font-size-16 lh-2">“I run a fishry and along the line, could not meet up with feeding them because they were too many. I didn't know what to do. running to the bank will take a long time for them to approve a loan and disburse. This will jeopardize my business. Fishes cannot stay a few days without some of them will die.Then I remembered Owoafara and gave them a call. In a few days, I have the money I applied for, just online to help feed my fishes. It was so quick and easy. If you think quick loans, think Rouzo Owoafara. ”</p>
+                                </blockquote>
+                            </div><!-- /.testimonial-quote -->
+                            <div class="testimonial-details">
+                                <div class="testimonial-info">
+                                    <h5>Vivian Arazu</h5>
+                                    <h6 class="font-weight-normal">KAOSISO VENTURES</h6>
                                 </div><!-- /.testimonial-info -->
                             </div><!-- /.testimonial-details -->
                         </div><!-- /.testimonial -->
@@ -188,7 +205,7 @@
                             </div><!-- /.testimonial-quote -->
                             <div class="testimonial-details">
                                 <div class="testimonial-info">
-                                    <h5>Yewande Oyewo</h5>
+                                     <h5>Yewande Oyewo</h5>
                                     <h6 class="font-weight-normal">Famous Five Caterers</h6>
                                 </div><!-- /.testimonial-info -->
                             </div><!-- /.testimonial-details -->

@@ -50,15 +50,13 @@
         }
         .yellow {
             color: #FFEB3B !important; }
-
-
         .info {
             color: #1E9FF2 !important; }
-
         body{
             font-weight: 500;
         }
-        .kt-portlet .kt-portlet__body{
+        
+         .kt-portlet .kt-portlet__body{
             overflow-x: auto !important;
         }
     </style>

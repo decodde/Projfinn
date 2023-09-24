@@ -52,7 +52,7 @@ class LoadController extends Controller
     private $reserve;
     private $safe;
     private $transferBRequest;
-
+    
     public function __construct(apiHelper $api, Transaction $transaction, Stash $stash, Referral $referral, Lender $investor, Portfolio $portfolio, Investment $investment, TranxConfirm $tranx, Validate $validate, lenderAccount $account, Bank $bank, Funds $fund, transferRequest $transferRequest, partials $partials, Saving $saving, fundPayment $payment, sendMail $mail, loanRates $rates, Reserve $reserve, Safe $safe, transferBRequest $transferBRequest){
         $this->api = $api;
         $this->transaction = $transaction;
@@ -135,7 +135,7 @@ class LoadController extends Controller
 
             $amountPaid = $trnxData->amount / 100;
 
-
+            
             $tranxDetail = $this->tranx->where(['reference' => $reference, 'isCompleted' => false, 'email' => $user->email]);
             $tranxDetails = $tranxDetail->first();
             if($tranxDetails == null){
@@ -168,7 +168,7 @@ class LoadController extends Controller
                     ]);
                     \Session::put('danger', true);
                     if ($user->type == "business"){
-                        return redirect('dashboard/funds')->withErrors('Payment Failed');
+                            return redirect('dashboard/funds')->withErrors('Payment Failed');
                     }
                     else{
                         return redirect('dashboard/e/funds')->withErrors('Payment Failed');
@@ -445,7 +445,7 @@ class LoadController extends Controller
         }
         return response()->json(["message" => "Transfer Initiated, The transaction will be validated in the next 24hours", "error" => false, "data" => $transParams], 200);
     }
-
+    
     public function transferBusiness(Request $request){
         try{
             $data = $request->all();
@@ -481,7 +481,6 @@ class LoadController extends Controller
                 else{
                     $this->mail->sendTransferBReminder($user);
                 }
-
                 $this->transferBRequest->create($transParams);
             }
         }
@@ -492,6 +491,7 @@ class LoadController extends Controller
         \Session::put('success', true);
         return back()->withErrors("Transfer Initiated, The transaction will be validated in the next 24hours");
     }
+
 
     public function commissionFee(Request $request){
         try{

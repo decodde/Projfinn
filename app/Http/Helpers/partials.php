@@ -357,7 +357,7 @@ class partials{
     }
 
     public function documentTypes() {
-        return ['bank statements', 'cac', 'utility bills'];
+         return ['bank statements', 'cac', 'utility bills'];
     }
 
     public function profilePercentage($bvn, $guarantors, $documents, $test) {
@@ -387,7 +387,7 @@ class partials{
 
         return $score;
     }
-
+    
     public function loanTypes($portfolio){
         switch ($portfolio) {
             case 'working capital portfolio':
@@ -404,12 +404,19 @@ class partials{
                     "9" => 14,
                     "12" => 20
                 ];
+            case 'women traders portfolio':
+                return [
+                    "3" => 7,
+                    "6" => 15,
+                    "12" => 31
+                ];
+
             default:
                 # code...
                 break;
         }
     }
-
+    
     public function interestSavings($i){
         switch ($i) {
             case '3':

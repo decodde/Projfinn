@@ -21,37 +21,30 @@
 <script>
     $('#getAmt').on('submit', function (e) {
         e.preventDefault();
-
         var that = $(this), url = that.attr('action'), type = that.attr('method');
         var csrf = $('#_token');
         // var amount = $('#amount').val();
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': csrf.val(),
             }
         });
-
         $('#inactiveBtn').show();
         $('#activeBtn').hide();
-
         $.ajax({
             url: url,
             type: type,
             data: new FormData(this),
             contentType: false,
             processData: false,
-
             success: function (response) {
                 $('#inactiveBtn').hide();
                 $('#activeBtn').show();
                 if (response.error === false) {
                     window.location.href = "{{URL('/investment/success')}}?message="+response.message;
                 } else {
-                    console.log(response);
                     window.location.href = "{{URL('/investment/danger')}}?message="+response.message;
                 }
-
             },
         });
     });
@@ -65,11 +58,8 @@
         else{
             interstSofar = ((investment.diffDays / (investment.daySS-1)) * investment.roi);
         }
-
         $('#payOut').modal('show');
-
         $('#investmentId').val(investment.id);
-
         var rad = $('.rads');
         for (var i = 0; i < rad.length; i++) {
             rad[i].addEventListener('change', function() {

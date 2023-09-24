@@ -81,12 +81,11 @@ class LoadController extends Controller
             return back()->withErrors($e->getMessage());
         }
     }
-
+    
     public function valid(Request $request){
         try {
             $data = $request->except("_token");
             $bvnMatch = $this->api->call('/bank/resolve_bvn/' . $data['bvn'], 'GET');
-//            dd($bvnMatch);
             if ($bvnMatch === null) {
                 return response()->json(["message" => "An Error Occurred", "error" => true, "data" => []], 200);
             }

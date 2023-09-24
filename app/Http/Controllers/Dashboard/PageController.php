@@ -74,8 +74,8 @@ class PageController extends Controller
                 $roi += $investment->roi;
             }
             if($stash->first() === null){
-                $availableBalance = 0;
                 $isStash = false;
+                $availableBalance = 0;
             }
             else{
                 $availableBalance = $stash->first()->availableAmount;
@@ -129,7 +129,7 @@ class PageController extends Controller
             $stash = $this->stash->where('investorId', $user->investor()->id);
 
             if($stash->first() === null){
-                $availableBalance = 0;
+                $availableBalance = 0; 
                 $totalAmount = 0;
                 $isStash = false;
             }
@@ -138,9 +138,9 @@ class PageController extends Controller
                 $totalAmount = $stash->first()->totalAmount;
                 $isStash = true;
             }
-
+            
             $getPortfolios = $this->portfolio->where('isOpen', true)->get();
-
+            
             $purchase = [
                 'can' => false,
                 'portfolioName' => '',
@@ -174,23 +174,24 @@ class PageController extends Controller
             if (count($getTransfers) > 0){
                 $isAllowed = false;
             }
-            $savings = $this->saving->where(["email" => $user->email, "isStarted" => true])->paginate(5);
+            $sav = $this->saving->where("email", $user->email)->paginate(5);
+            $savings = $this->saving->where(["email" => $user->email, "isStarted" => true])->get();
             $cred = 0;
             foreach ($savings as $saving){
+
                 if ($saving->isCompleted == false){
-                    $roi = ($this->partials->interestSavings($saving->months)/100) * ($saving->months * $saving->amount);
+                    $roi = ($this->partials->interestSavings($saving->months)/100);
                     if ($saving->interval == 'weekly'){
-                        $monthsPaid = ($roi/$saving->months)/4;
+                        $monthsPaid = (($roi * ($saving->months * 4 * $saving->amount))/$saving->months)/4;
                     }
                     elseif ($saving->interval == 'monthly'){
-                        $monthsPaid = ($roi/$saving->months);
+                        $monthsPaid = (($roi * ($saving->months * $saving->amount))/$saving->months);
                     }
                     else{
-                        $monthsPaid = ($roi/$saving->months)/30;
+                        $monthsPaid = (($roi * ($saving->months * 30 * $saving->amount))/$saving->months)/30;
                     }
                     $cred += ($monthsPaid * $saving->monthsPaid) + ($saving->amount * $saving->monthsPaid);
                 }
-
             }
             $totalAmount += $cred;
             $data = [
@@ -202,7 +203,7 @@ class PageController extends Controller
                 'transactions' => $transactions,
                 'transfers' => $transfers,
                 'purchase' => $purchase,
-                'savings' => $savings,
+                'savings' => $sav,
                 'isStash' => $isStash,
                 'isAllowed' => $isAllowed
             ];
@@ -352,6 +353,7 @@ class PageController extends Controller
                 '12' => $getLoanDetail->twelve,
             ];
             $portfolio->units = $portfolio->size / $portfolio->amountPerUnit;
+            $portfolio->unitsLeft = $portfolio->sizeRemaining / $portfolio->amountPerUnit;
 
             $data = [
                 'title' => 'Dashboard',

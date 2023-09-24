@@ -359,9 +359,9 @@
                                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion-14" href="#accordion-collapse-collapse-14" aria-expanded="false" aria-controls="accordion-collapse-collapse-14">
                                             What are the next steps after creating an account on the platform as an Investor?
                                             <span class="accordion-expander">
-                                                <i class="icon-arrows_circle_plus"></i>
-                                                <i class="icon-arrows_circle_minus"></i>
-                                            </span>
+                                                            <i class="icon-arrows_circle_plus"></i>
+                                                            <i class="icon-arrows_circle_minus"></i>
+                                                        </span>
                                         </a>
                                     </h4>
                                 </div><!-- /.accordion-heading -->

@@ -90,7 +90,7 @@
                                                     ₦ {{App\Http\Helpers\Formatter::MoneyConvert($fund->amount, "full")}}
                                                 </p>
                                             </td>
-                                            <td>
+                                             <td>
                                                 @php
                                                     $query = "http://"
                                                 @endphp

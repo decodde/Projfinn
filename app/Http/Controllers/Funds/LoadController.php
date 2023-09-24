@@ -56,7 +56,7 @@ class LoadController extends Controller
             else{
                 $isDocs = false;
             }
-
+            
             if($data["address"] == 'yes'){
                 $resides = true;
             }

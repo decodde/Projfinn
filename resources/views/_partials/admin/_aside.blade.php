@@ -387,7 +387,8 @@
                                     <span class="kt-menu__link-text">Investors</span>
                                 </a>
                             </li>
-                                @if(Request::is('admin/rouzz/introducer*'))
+                            
+                            @if(Request::is('admin/rouzz/introducer*'))
                                     <li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover">
                                         <a  href="{{URL('admin/rouzz/introducer')}}" class="kt-menu__link kt-menu__toggle">
                                 @else
@@ -407,6 +408,7 @@
                                             <span class="kt-menu__link-text">Introducers</span>
                                         </a>
                                     </li>
+                                    
                             <hr>
                             <li class="kt-menu__item  kt-menu__item--submenu mt-5" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover">
                                 <a  href="{{URL('/logout')}}" class="kt-menu__link kt-menu__toggle">
@@ -700,6 +702,7 @@
                                     <span class="kt-menu__link-text">Validate Bvn</span>
                                 </a>
                             </li>
+                        
                         @if(Request::is('admin/rouzz/saving*'))
                             <li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover">
                                 <a  href="{{URL('admin/rouzz/savings')}}" class="kt-menu__link kt-menu__toggle">
@@ -719,7 +722,6 @@
                                     <span class="kt-menu__link-text">Savings</span>
                                 </a>
                             </li>
-
                         @if($isSuper === true)
                             @if(Request::is('admin/rouzz/transfers*'))
                                 <li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"  data-ktmenu-submenu-toggle="hover">

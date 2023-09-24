@@ -35,7 +35,6 @@ Route::get('/portfolio', 'PageController@portfolios');
 Route::get('/portfolio/{id}', 'PageController@portfolio');
 Route::get('/bvn', 'PageController@bvnValidate');
 Route::get('/transfers', 'PageController@transfers');
-Route::get('/payout', 'PageController@payOut');
 
 
 Route::post('/transact', 'LoadController@adminConfirm');
@@ -43,9 +42,9 @@ Route::post('/credit', 'LoadController@creditStash');
 Route::post('/status', 'LoadController@fundStatus');
 Route::get('/transfer/{id}/{investorId}', 'LoadController@verifyTransfer');
 Route::get('/user/delete/{id}', 'LoadController@deleteUser');
-Route::get('/liquidate/{id}', 'LoadController@liquidate');
 Route::get('/portf/close/{id}', 'LoadController@closePortfolio');
 Route::get('/portf/open/{id}', 'LoadController@openPortfolio');
+Route::post('/portf/create', 'LoadController@createPortfolio');
 Route::get('/confirmFund/{id}/{email}', 'LoadController@confirmFund');
 Route::post('/portf/topup/{id}', 'LoadController@topUpPortfolio');
-Route::post('/portf/create', 'LoadController@createPortfolio');
+Route::get('/liquidate/{id}', 'LoadController@liquidate');

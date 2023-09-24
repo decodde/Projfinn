@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="author" content="Mayorwa">
     <link rel="apple-touch-icon" href="{{ asset('assets/app-assets/images/adobe/logo.png') }}">
-    <title>{{ isset($title) ? "Projfinn - ".$title : "Projfinn" }}</title>
+    <title>{{ isset($title) ? "Rouzo - ".$title : "Rouzo" }}</title>
     <link rel="shortcut icon" href="{{ asset('assets/app-assets/images/adobe/logo.png') }}" />
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Nunito:wght@200;300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://maxcdn.iconsx8.com/fonts/line-awesome/1.1/css/line-awesome.min.css" rel="stylesheet">
@@ -22,13 +22,13 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/assets/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app-assets/css/chosen.min.css') }}">
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-169217379-1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-71302918-3"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-169217379-1');
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-71302918-3');
     </script>
     <!-- Facebook Pixel Code -->
     <script>

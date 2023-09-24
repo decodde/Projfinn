@@ -39,7 +39,7 @@
                                     <label for="">Last Name :</label>
                                     <input type="text" name="l_name" id="l_name" class="form-control" value="{{ $user->l_name }}" required>
                                 </div>
-
+                                
                                 <div class="col-md-6 mt-2">
                                     <label for="">Phone Number :</label>
                                     <input type="text" name="phone" id="phone" class="form-control" value="{{ $user->phone }}" required>
@@ -53,7 +53,7 @@
             <div class="card px-1  py-1">
                 <div class="card-header">
                     <h2 class="font-weight-normal font-size-22px f-2 m-0">Bank Verification</h2>
-                    <p class="font-size-14px pt-1 pb-0 mb-0"><code>Note:</code> Your profile name should be match the name connected to your account .</p>
+                    <p class="font-size-14px pt-1 pb-0 mb-0"><code>Note:</code> Your profile name should match the name connected to your account .</p>
                 </div>
                 <div class="card-content">
                     <hr class="m-0 p-0">

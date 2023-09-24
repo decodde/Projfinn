@@ -1,3 +1,4 @@
+
 <footer class="main-footer bg-cape-cod pt-0" style="background-color: #3d22c2!important;" data-sticky-footer="true">
 
     <section class="bt-fade-white-015 pt-20 pb-20">
@@ -7,10 +8,10 @@
                 <div class="lqd-column col-md-5">
 
                     <ul class="lqd-custom-menu reset-ul inline-nav">
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a >About</a></li>
-                        <li><a href="#">Blog</a></li>
+                        <li><a href="{{ URL('/faq') }}">FAQ</a></li>
+                        <li><a href="{{ URL('/dashboard/i') }}">Dashboard</a></li>
+                        <li><a href="{{ URL('/invest') }}">About</a></li>
+                        <li><a href="{{ URL('/contact') }}">Contact Us</a></li>
                     </ul>
 
                 </div><!-- /.col-md-6 -->

@@ -23,10 +23,9 @@
                         <div class="card-body pb-1 pt-0" style="padding-top: 12px !important;">
                             <h5 class="card-title" style="font-size: 18px !important; margin-bottom: 10px !important;">Start Saving </h5>
                             <div>
-                                Don't have enough cash to invest? Let's help you save😉
+                               Don't have enough cash to invest? Let's help you save
                                 <br>
-                                <a href="{{URL('dashboard/i/stash')}}" class="btn btn-success mr-1 btn-md mt-2 border-0">Start Saving <i class="ft-arrow-right position-relative" style="top: 2px;"></i>
-                                </a>
+                                <a href="{{URL('dashboard/i/stash')}}" class="btn btn-success mr-1 btn-md mt-2 border-0">Start Saving <i class="ft-arrow-right position-relative" style="top: 2px;"></i></a>
                             </div>
                         </div>
                     </div>
@@ -41,14 +40,14 @@
                             <div>
                                 Invest into our existing portfolios
                                 <br>
-                                <a href="{{URL('dashboard/i/investments')}}" class="btn btn-blue mr-1 btn-md mt-2 border-0">Invest now <i class="ft-arrow-right position-relative" style="top: 2px;"></i></a>
+                               <a href="{{URL('dashboard/i/investments')}}" class="btn btn-blue mr-1 btn-md mt-2 border-0">Invest now <i class="ft-arrow-right position-relative" style="top: 2px;"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
+    </div>
         <div class="col-md-6">
             <div class="card">
                 <div class="card-content collapse show">
@@ -118,52 +117,30 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-            <div class="col-md-6">
-                <div class="card crypto-card-3 pull-up" title="This is the total projected return on investment you are to receive from your investments">
-                    <div class="card-content pb-4">
-                        <div class="card-body position-relative" style="padding-bottom: 5px;">
-                            <div class="row">
-                                <div class="col-2">
-                                    <h1 style="margin-top: -10px"><i class="fa fa-money info lighten-1 font-size-40px" title="ROI"></i></h1>
-                                </div>
-                                <div class="col-4 pl-1">
-                                    <h6 class="font-weight-normal pt-0 info" style="margin-top: 6px">Total ROI</h6>
-                                </div>
-                                <div class="col-6 text-right">
-                                    <h6>₦ {{$roi}}</h6>
-                                </div>
+             <div class="card crypto-card-3 pull-up" title="This is the total projected return on investment you are to receive from your investments">
+                <div class="card-content">
+                    <div class="card-body position-relative" style="padding-bottom: 5px;">
+                        <div class="row">
+                            <div class="col-2">
+                                <h1 style="margin-top: -10px"><i class="fa fa-money info lighten-1 font-size-40px" title="ROI"></i></h1>
                             </div>
-                            <div class="float-right bg-transparent position-absolute position-bottom-0">
-                                <h7 class="text-muted mt-2">Return on Investment</h7>
+                            <div class="col-4 pl-1">
+                                <h6 class="font-weight-normal pt-0 info" style="margin-top: 6px">ROI</h6>
                             </div>
+                            <div class="col-6 text-right">
+                                <h6>₦ {{$roi}}</h6>
+                            </div>
+                        </div>
+                        <div class="float-right bg-transparent position-absolute position-bottom-0">
+                            <h7 class="text-muted mt-2">Return on Investment</h7>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <canvas id="xrp-chartjs" class="height-75"></canvas>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card crypto-card-3 pull-up" title="This is the total projected return on investment you are to receive from your investments">
-                    <div class="card-content pb-4">
-                        <div class="card-body position-relative" style="padding-bottom: 5px;">
-                            <div class="row">
-                                <div class="col-2">
-                                    <h1 style="margin-top: -10px"><i class="fa fa-money info lighten-1 font-size-40px" title="ROI"></i></h1>
-                                </div>
-                                <div class="col-4 pl-1">
-                                    <h6 class="font-weight-normal pt-0 info" style="margin-top: 6px">ROI</h6>
-                                </div>
-                                <div class="col-6 text-right">
-                                    <h6>₦ {{$roi}}</h6>
-                                </div>
-                            </div>
-                            <div class="float-right bg-transparent position-absolute position-bottom-0">
-                                <h7 class="text-muted mt-2">Return on Investment (So far)</h7>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             </div>
         </div>
         <p style="opacity: 0" id="percentStash">{{$percents["stash"]}}</p>
@@ -192,7 +169,6 @@
         </div>
     </div>
     @endif
-
     <script>
 
         var percentFunds = document.getElementById('percentFunds').innerHTML;

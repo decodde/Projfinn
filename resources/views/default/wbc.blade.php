@@ -18,14 +18,14 @@
 
     </div><!-- /.titlebar -->
     <main id="content" class="content">
-        <section class="vc_row pt-90 pb-20 text-center" style="background: linear-gradient(to bottom,  #f8fbff,  rgba(250, 251, 251, 0))">
+        <section class="vc_row pt-90 pb-90 text-center" style="background: linear-gradient(to bottom,  #f8fbff,  rgba(250, 251, 251, 0))">
             <div class="container">
                 <div class="heading wow fadeInUp">
                     <span class="badge badge-success badge-pill wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">Do you have financial goals?</span>
                     <h3 class="mt-0 font-weight-bold">We can help you achieve them!</h3>
                 </div>
                 <div class="text-center pb-30">
-                    <p class="font-size-16">For most young people, Building wealth is usually not at the top of their mind because of the feeling that they have their entire lives ahead of them, therefore they still have plenty of time. However, this is the wrong kind of thinking, when it comes to building wealth, it’s never too early to start. In fact, the earlier you start the higher your chances of being really great at it.
+                    <p class="font-size-16">For most young people, Building wealth is usually not at the top of their mind because of the feeling that they have their entire lives ahead of them, therefore they still have plenty of time. However, this is the wrong kind of thinking, when it comes to building wealth, it’s never too early to start. In fact, the earlier you start the higher your chances of being really great at it.
                     </p>
                     <a href="{{URL('/r/cSpOpdArrT')}}" class="btn btn-default btn-sm round border-thin btn-register">
                                     <span>

@@ -76,7 +76,7 @@ $(".steps-validation").steps({
         {
             return false;
         }
-
+        
         if (newIndex === 1){
             let units = $('#units').val();
             let uA = $('#unitAmount').val();

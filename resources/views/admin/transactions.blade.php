@@ -26,7 +26,7 @@
                                 <code class="form-text">eg: <span class="text-muted">200000</span></code>
                             </div>
                             <div class="col-lg-3">
-                                <label class="col-form-label">Lock Period:</label>
+                               <label class="col-form-label">Lock Period:</label>
                                 <select name="period" id="period" class="form-control">
                                     <option value="3">3</option>
                                     <option value="6">6</option>

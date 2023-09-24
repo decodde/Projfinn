@@ -62,7 +62,7 @@
                     <span class="menu-title" data-i18n="nav.navbars.main">Documents</span>
                 </a>
             </li>
-
+            
             @if(Request::is('dashboard/e/save*'))
                 <li class=" nav-item open">
                     <a href="{{URL('dashboard/e/save')}}" class="active">

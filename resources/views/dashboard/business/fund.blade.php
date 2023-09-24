@@ -91,7 +91,7 @@
                                                 <td class="success darken-3 font-weight-bold font-size-16px font-sm-1 px-sm-02">₦ {{App\Http\Helpers\Formatter::MoneyConvert($fund->payment->amountPerMonth, 'full')}}</td>
                                                 <td class="grey-blue lighten-1 font-size-16px font-weight-normal font-sm-1 px-sm-02">{{$fund->payment->nextPayment}}</td>
                                                 <td class="grey-blue darken-3 font-size-16px font-sm-1 px-sm-02">
-                                                    @if($fund->payment->months_left <= 0)
+                                                     @if($fund->payment->months_left <= 0)
                                                         <a class="text-success">Payment completed</a>
                                                     @else
                                                         <a href="javascript:void(0);" data-toggle="modal" data-target="#makePayment" class="btn btn-primary">Pay Now</a>

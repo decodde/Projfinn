@@ -23,27 +23,22 @@
 <script>
     $('#getValidation').on('submit', function (e) {
         e.preventDefault();
-
         var that = $(this), url = that.attr('action'), type = that.attr('method');
         var csrf = $('#_token');
         // var amount = $('#amount').val();
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': csrf.val(),
             }
         });
-
         $('#inactiveBtn').show();
         $('#activeBtn').hide();
-
         $.ajax({
             url: url,
             type: type,
             data: new FormData(this),
             contentType: false,
             processData: false,
-
             success: function (response) {
                 $('#inactiveBtn').hide();
                 $('#activeBtn').show();
@@ -62,12 +57,11 @@
                         $('#errorDanger').fadeOut('slow');
                     }, 1000);
                 }
-
             }
         });
     });
     $('#rejectSubmit').on('click', function (e) {
         $('#prog').val("rejected");
         document.businessForm.submit();
-    });
+    }); 
 </script>

@@ -17,7 +17,7 @@
     @if($purchase['can'] === true)
         <div class="alert alert-success flat">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            😉 Do you know you can purchase units from the <a class="text-black font-weight-bold underline" href="{{URL('/dashboard/i/investment/'.encrypt($purchase['pid']))}}">{{$purchase['portfolioName']}}</a>
+            Do you know you can purchase units from the <a class="text-black font-weight-bold underline" href="{{URL('/dashboard/i/investment/'.encrypt($purchase['pid']))}}">{{$purchase['portfolioName']}}</a>
         </div>
     @endif
     <div class="content-header row">
@@ -33,7 +33,7 @@
                     </ol>
                 </div>
             </div>
-            <p class="m-0">Save up money for investments.</p> <p class="mb-0"><code>Note</code> Your balance cannot be less than <a class="success darken-4">₦1,000.00</a></p>
+            <p class="m-0">Save up money for investments.</p> <p class="mb-0"><code>Note</code> Your balance cannot be less than <a class="success darken-4">₦ 1,000.00</a></p>
         </div>
     </div>
     <div class="row">
@@ -113,9 +113,9 @@
                                         </tr>
                                     </thead>
                                     <tbody class="borderless">
-                                    @php
-                                        $i = 0;
-                                    @endphp
+                                        @php
+                                            $i = 0;
+                                        @endphp
                                     @foreach($transactions as $transaction)
                                         <tr>
                                             <td>

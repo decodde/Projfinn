@@ -13,6 +13,7 @@ use App\Models\busAccount;
 
 use App\Http\Helpers\Validate;
 use App\Http\Helpers\apiHelper;
+use App\Http\Helpers\sendMail;
 
 class LoadController extends Controller
 {
@@ -24,7 +25,7 @@ class LoadController extends Controller
     private $bank;
     private $busAccount;
     private $introducerAccount;
-
+    
     public function __construct(User $user, lenderAccount $lenderAccount, Validate $validate, apiHelper $api, Bank $bank, busAccount $busAccount, introducerAccount $introducerAccount){
          $this->lenderAccount = $lenderAccount;
          $this->user = $user;
@@ -54,7 +55,7 @@ class LoadController extends Controller
             }
 
             $name = $data["f_name"]." ".$data["l_name"];
-
+            
             $params = [
                 "phone" => $data["phone"],
                 "name" => $name
@@ -381,10 +382,11 @@ class LoadController extends Controller
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
-
+    
     private function verifyACC($data){
         try{
             $nubanMatch = $this->api->call('/bank/resolve?account_number='.$data['account_number'].'&bank_code='.$data['bank_code'], 'GET');
+
 
             if (!$nubanMatch->status){
                 return false;
@@ -396,7 +398,7 @@ class LoadController extends Controller
 
                 return true;
         }catch (\Exception $e){
-            dd($e->getMessage());
+            return false;
         }
         return false;
     }

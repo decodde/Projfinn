@@ -24,7 +24,7 @@ class RedirectIfAuthenticated
                 return redirect()->intended('/dashboard/i');
             }
             elseif ($user->type == 'admin'){
-
+                return redirect('/admin/rouzz/overview');
             }
             else{
                 return redirect("/dashboard");

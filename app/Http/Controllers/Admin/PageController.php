@@ -79,7 +79,7 @@ class PageController extends Controller
         $this->introducerAccount = $introducerAccount;
         $this->invite = $invite;
         $this->payment = $payment;
-        $this->reserve = $reserve;
+         $this->reserve = $reserve;
     }
 
     public function searchDashboard(Request $request)
@@ -163,8 +163,9 @@ class PageController extends Controller
 
     public function index(Request $request){
         try {
+            
             $user = Auth::user();
-
+            
             $getUsers = $this->user->where("isDeleted", false)->paginate(10);
             $countPortfolio = count($this->portfolio->get());
             $countUser = count($this->user->where("isDeleted", false)->get());
@@ -267,9 +268,11 @@ class PageController extends Controller
             $getStash = $this->stash->where("investorId", $getInvestor->id)->first();
 
             $getAccount = $this->account->where("userId", $getUser->id)->first();
-
-            $getAccount->bank = $getAccount->bank();
-
+            
+            if($getAccount !== null){
+                $getAccount->bank = $getAccount->bank();   
+            }
+            
             $getTransaction = $this->transaction->where("userId", $getUser->id)->get();
 
             $getInvestments = $this->investment->where("userId", $getUser->id)->paginate(10);
@@ -292,7 +295,6 @@ class PageController extends Controller
                 'investments' => $getInvestments
             ];
 
-
             return view('admin.investor', $data);
         }catch(\Exception $e){
             \Session::put('danger', true);
@@ -308,7 +310,7 @@ class PageController extends Controller
             $getUser = $this->user->where(["id" => $id, "type" => "business", 'isDeleted' => false])->first();
 
             $getBusiness = $this->business->where("userId", $getUser->id)->first();
-
+            
             $getBusiness->bvn = $getBusiness->bvn;
 
             $eligibility = $this->eligibility->where("businessId", $getBusiness->id)->first();
@@ -318,18 +320,21 @@ class PageController extends Controller
             $grade = $this->partials->gradeScore($eligibility->score);
 
             $getAccount = $this->baccount->where("userId", $getUser->id)->first();
-
-            $getAccount->bank = $getAccount->bank();
+            
+            if($getAccount !== null){
+               $getAccount->bank = $getAccount->bank();   
+            }
 
             $getTransaction = $this->transaction->where("userId", $getUser->id)->get();
-
+            
             $documents = $getBusiness->documents;
 
             $data = [
                 "title" => 'Admin',
                 "user" => $user,
                 "gUser" => $getUser,
-                "isSuper" => $this->isSuper(),
+                'isSuper' => $this->isSuper(),
+                'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                 "funds" => $getFunds,
                 "account" => $getAccount,
                 "business" => $getBusiness,
@@ -394,8 +399,10 @@ class PageController extends Controller
             }
 
             $getAccount = $this->introducerAccount->where("userId", $getUser->id)->first();
-
-            $getAccount->bank = $getAccount->bank();
+            
+            if($getAccount !== null){
+                $getAccount->bank = $getAccount->bank();   
+            }
 
             $documents = $getIntroducer->documents;
 
@@ -403,7 +410,8 @@ class PageController extends Controller
                 "title" => 'Admin',
                 "user" => $user,
                 "gUser" => $getUser,
-                "isSuper" => $this->isSuper(),
+                'isSuper' => $this->isSuper(),
+                'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                 "account" => $getAccount,
                 "introducer" => $getIntroducer,
                 'documents' => $documents,
@@ -518,30 +526,6 @@ class PageController extends Controller
         }
     }
 
-    public function payOut(Request $request) {
-        try {
-            $user = Auth::user();
-            if (!$this->isSuper()){
-                \Session::put('danger', true);
-                return redirect("/admin/rouzz/overview")->withErrors("You are not allowed here");
-            }
-
-            $data = [
-                'title' => 'Admin',
-                'user' => $user,
-                'isSuper' => $this->isSuper(),
-                'isIntroducerAdmin' => $this->isIntroducerAdmin(),
-            ];
-
-
-            return view('admin.payout', $data);
-
-        } catch(\Exception $e) {
-            \Session::put('danger', true);
-            return back()->withErrors('An error has occurred: '.$e->getMessage());
-        }
-    }
-
     public function funds(Request $request) {
         try {
             $getFunds = $this->fund->paginate(10);
@@ -550,7 +534,7 @@ class PageController extends Controller
                 $getFund->user = $getFund->user();
                 $getFund->business = $getFund->business();
             }
-//            dd($getFunds);
+
             $data = [
                 'title' => 'Admin',
                 'isSuper' => $this->isSuper(),
@@ -600,8 +584,7 @@ class PageController extends Controller
 
             $data = [
                 'title' => 'Admin',
-                'isSuper' => $this->isSuper(),
-                'isIntroducerAdmin' => $this->isIntroducerAdmin(),
+                'isSuper' => $this->isSuper(),'isIntroducerAdmin' => $this->isIntroducerAdmin(),
                 'bvn' => $params["bvn"] ?? '',
                 'first_name' => $params["first_name"] ?? '',
                 'last_name' => $params["last_name"] ?? '',
@@ -629,9 +612,11 @@ class PageController extends Controller
             $getFund->business = $getFund->business();
             $getFund->documents = $getFund->documents();
             $getFund->guarantors = $getFund->guarantors();
+            
             if($getFund->progress == 'approved'){
                 $getFund->payment = $this->payment->where("fundId", $getFund->id)->first();
             }
+
             $data = [
                 'title' => 'Admin',
                 'isSuper' => $this->isSuper(),
@@ -647,7 +632,7 @@ class PageController extends Controller
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
-
+    
     public function portfolio(Request $request) {
         try {
             $id = decrypt($request->id);
@@ -677,9 +662,8 @@ class PageController extends Controller
         }
     }
 
-    public function portfolios(Request $request){
+    public function portfolios(Request $request) {
         try {
-
             $user = Auth::user();
             if (!$this->isSuper()){
                 \Session::put('danger', true);
@@ -700,7 +684,9 @@ class PageController extends Controller
                 'portfolios' => $portfolios
             ];
 
+
             return view('admin.portfolio', $data);
+
         } catch(\Exception $e) {
             \Session::put('danger', true);
             return back()->withErrors('An error has occurred: '.$e->getMessage());
@@ -732,8 +718,8 @@ class PageController extends Controller
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
-
-    public function reserves(Request $request){
+    
+     public function reserves(Request $request){
         try {
 
             $user = Auth::user();
@@ -761,6 +747,7 @@ class PageController extends Controller
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
+    
     public function isSuper(){
         $user = Auth::user();
         $getRole = $this->admin->where('userId', $user->id)->first();
@@ -772,7 +759,7 @@ class PageController extends Controller
             return false;
         }
     }
-
+    
     public function isIntroducerAdmin(){
         $user = Auth::user();
         $getRole = $this->admin->where('userId', $user->id)->first();

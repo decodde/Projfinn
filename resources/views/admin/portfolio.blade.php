@@ -67,7 +67,6 @@
                                     <td>
                                         <a href="{{URL('/admin/rouzz/portfolio/'.encrypt($portfolio->id))}}" class="btn btn-primary">View</a>
                                     </td>
-
                                 </tr>
                             @endforeach
                             </tbody>

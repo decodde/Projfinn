@@ -75,9 +75,13 @@
                                 <dt class="col-md-9">Account Details</dt>
                                 <dd class="col-md-3 text-right">
                                     <div class="guarantor">
-                                        <p>Account Number: <span>{{$account->accountNumber}}</span></p>
-                                        <br>
-                                        <p>Bank: <span>{{$account->bank->name}}</span></p>
+                                        @if($account !== null)
+                                            <p>Account Number: <span>{{$account->accountNumber}}</span></p>
+                                            <br>
+                                            <p>Bank: <span>{{$account->bank->name}}</span></p>
+                                        @else
+                                        <p>No Account details Found</p>
+                                        @endif
                                     </div>
                                 </dd>
                             </dl>

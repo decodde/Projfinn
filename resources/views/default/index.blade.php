@@ -35,11 +35,11 @@
                         class="lqd-column col-md-7 col-xs-12 mb-7 mb-md-0"
                         data-custom-animations="true"
                         data-ca-options='{ "triggerHandler":"inview", "animationTarget":"all-childs", "duration":"1200", "delay":"150", "easing":"easeOutQuint", "direction":"forward", "initValues":{"translateY":60, "opacity":0}, "animations":{"translateY":0, "opacity":1} }'>
-                        <h1
-                            class="text-white mt-0 mb-30 font-weight-normal">Peer to peer financial services for the under banked
+                         <h1
+                            class="text-white mt-0 mb-30 font-weight-normal">Peer to peer financing for SME's and the Green economy
                         </h1>
 
-                        <p class="font-size-14 lh-175 text-fade-white-07 pr-md-9 mr-md-9 mb-50">Support small businesses to grow and contribute to economic development.</p>
+                        <p class="font-size-14 lh-175 text-fade-white-07 pr-md-9 mr-md-9 mb-50">Support small businesses to grow and contribute to economic development using green energy.</p>
 
                         <a href="{{URL('/sign-up')}}" class="btn btn-default btn-sm border-none btn-register box-shadow-3 f-1 font-weight-light">
                             <span>
@@ -47,12 +47,30 @@
                             </span>
                         </a>
                         <p class="text-white mb-0 hidden-lg" style="margin-top: 10px !important; margin-bottom: 5px !important;">Or</p>
+                         @if(auth()->check())
+                            @if(auth()->user()->type === "investor")
+                            <a href="{{URL('/dashboard/i')}}" class="btn btn-white btn-sm border-none btn-login box-shadow-3 f-1 hidden-lg font-weight-light mt-1">
+                                <span>
+                                    <span class="btn-txt"> &nbsp; Dashboard &nbsp;</span>
+                                    <span class="icon-ion-ios-arrow-forward"></span>
+                                </span>
+                            </a>
+                            @else
+                                <a href="{{URL('/login')}}" class="btn btn-white btn-sm border-none btn-login box-shadow-3 f-1 hidden-lg font-weight-light mt-1">
+                                    <span>
+                                        <span class="btn-txt"> &nbsp; Dashboard &nbsp;</span>
+                                        <span class="icon-ion-ios-arrow-forward"></span>
+                                    </span>
+                                </a>
+                            @endif
+                        @else
                         <a href="{{URL('/login')}}" class="btn btn-white btn-sm border-none btn-login box-shadow-3 f-1 hidden-lg font-weight-light mt-1">
                             <span>
                                 <span class="btn-txt"> &nbsp; Login &nbsp;</span>
                                 <span class="icon-ion-ios-arrow-forward"></span>
                             </span>
                         </a>
+                        @endif
                         <div class="d-flex mt-3">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -254,7 +272,7 @@
                         <header class="fancy-title mb-20">
                             <h2 class="mt-20 mb-1 font-weight-bold">About Rouzo</h2>
                             <br>
-                            <p class="font-size-16">Rouzo is a portfolio managed platform that allows smart individual and corporate investors invest in portfolios that are used to provide financing for small businesses. Rouzo platform is owned by Owoafara Fintech services a financial technology company that builds platforms and tools to facilitate small business financing, support and growth.
+                            <p class="font-size-16">Rouzo is a portfolio managed platform that allows smart individual and corporate investors invest in portfolios that are used to provide financing for small businesses. Rouzo platform is owned by Owoafara Fintech services a financial technology company that builds platforms and tools to facilitate small business financing, support and growth
                                 By investing on Rouzo, investors generate a healthy return and contribute to economic development by empowering small businesses to grow and expand.
                                 Since Owoafara launched in November 2019, we have curated and verified over 300 small businesses for matching with financial institutions with our signature algorithm which we have further refined in the last 3 months.
                                 With Rouzo, we are providing access to finance to these small businesses in the form of asset finance and working capital finance.
@@ -299,7 +317,6 @@
                         <header class="fancy-title text-center">
                             <h2 class="font-weight-bold">Our Business loan benefits</h2>
                             <p>If you know which product you would like to apply for, choose one from below:</p>
-
                         </header>
 
                     </div><!-- /.lqd-column col-md-12 -->
@@ -416,7 +433,6 @@
                         <div class="carousel-container carousel-nav-floated carousel-nav-center carousel-nav-middle carousel-nav-xl carousel-nav-bordered carousel-nav-circle carousel-nav-light carousel-dots-style1">
 
                             <div class="carousel-items row" data-lqd-flickity='{ "cellAlign":"center","prevNextButtons":true,"buttonsAppendTo":"self","pageDots":false,"groupCells":true,"wrapAround":true,"pauseAutoPlayOnHover":false,"navArrow":{"prev":"<i class=\"fa fa-angle-left\"></i>","next":"<i class=\"fa fa-angle-right\"></i>"},"navOffsets":{"prev":"-100px","next":"-100px"}}'>
-
                                 <div class="carousel-item col-xs-12">
 
                                     <div class="testimonial testimonial-xl text-center testimonial-details-sm testimonial-avatar-sm">
@@ -503,16 +519,14 @@ I encourage others to invest.
                                     <div class="testimonial testimonial-xl text-center testimonial-details-sm testimonial-avatar-sm">
                                         <div class="testimonial-quote">
                                             <blockquote>
-                                                <p><span style="font-size: 20px; line-height: 1.25em;color: #181b30;">“I got my rouzo loan so fast after meeting all the requirements, i was disbursed the same day my guarantor sent her details.”</span></p>
+                                                <p><span style="font-size: 20px; line-height: 1.25em;color: #181b30;">“I am impressed with the services Owoafara is providing I have not had any difficulties, challenges, or disappointments using the platform or investing in Rouzo.
+I will continue investing with Rouzo and I encourage people to invest with them.”</span></p>
                                             </blockquote>
                                         </div>
                                         <div class="testimonial-details">
-                                            <figure class="avatar ">
-                                                <img src="{{ asset('assets/assets/img/testimonials/client1.jpg') }}" alt="Mrs Oyibo Yewande">
-                                            </figure>
                                             <div class="testimonial-info">
-                                                <h5>Mrs Oyibo Yewande</h5>
-                                                <h6 class="font-weight-normal">Famous5 Caterers</h6>
+                                                <h5>Mrs. Abiodun Tukuru</h5>
+                                                <h6 class="font-weight-normal">Investor</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -523,14 +537,16 @@ I encourage others to invest.
                                     <div class="testimonial testimonial-xl text-center testimonial-details-sm testimonial-avatar-sm">
                                         <div class="testimonial-quote">
                                             <blockquote>
-                                                <p><span style="font-size: 20px; line-height: 1.25em;color: #181b30;">“I am impressed with the services Owoafara is providing I have not had any difficulties, challenges, or disappointments using the platform or investing in Rouzo.
-I will continue investing with Rouzo and I encourage people to invest with them.”</span></p>
+                                                <p><span style="font-size: 20px; line-height: 1.25em;color: #181b30;">“I got my rouzo loan so fast after meeting all the requirements, i was disbursed the same day my guarantor sent her details.”</span></p>
                                             </blockquote>
                                         </div>
                                         <div class="testimonial-details">
+                                            <figure class="avatar ">
+                                                <img src="{{ asset('assets/assets/img/testimonials/client1.jpg') }}" alt="Mrs Oyibo Yewande">
+                                            </figure>
                                             <div class="testimonial-info">
-                                                <h5>Mrs. Abiodun Tukuru</h5>
-                                                <h6 class="font-weight-normal">Investor</h6>
+                                                <h5>Mrs Oyibo Yewande</h5>
+                                                <h6 class="font-weight-normal">Famous5 Caterers</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -547,6 +563,7 @@ I will continue investing with Rouzo and I encourage people to invest with them.
                 </div><!-- /.row -->
             </div><!-- /.container -->
         </section>
+        
         <section id="sponsor" class="vc_row pt-50 pb-70">
             <div class="container">
                 <div class="row">

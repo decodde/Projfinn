@@ -61,7 +61,7 @@
                                 <img src="https://images.unsplash.com/photo-1573496528013-454181200d92?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Parallax Image">
                             </figure>
                             <div class="txt-container bg-white py-4 px-md-3" data-parallax="true" data-parallax-from='{"translateY": -46}' data-parallax-to='{"translateY": -114}' data-parallax-options='{"overflowHidden":false, "ease":"linear","reverse":true,"triggerHook":"onEnter"}'>
-                                <h2 class="my-0 font-size-35 lh-11">All you need to do is <span class="text-primary">investment</span></h2>
+                                <h2 class="my-0 font-size-35 lh-11">All you need to do is <span class="text-primary text-uppercase">invest</span></h2>
                             </div><!-- /.py-2 px-2 -->
 
                         </div><!-- /.lqd-parallax-images-5 -->

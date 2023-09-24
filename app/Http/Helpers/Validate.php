@@ -182,7 +182,7 @@ class Validate {
                 break;
         }
     }
-
+    
     public function introducer($data, $type)
     {
         switch ($type) {
@@ -397,7 +397,7 @@ class Validate {
                     'amount' => 'required',
                     'name' => 'required',
                 ]);
-                break;
+                break;    
             default:
                 # code...
                 break;

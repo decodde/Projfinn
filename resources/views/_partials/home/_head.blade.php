@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#3ed2a7">
 
     <link rel="shortcut icon" href="{{ asset('assets/app-assets/images/adobe/logo.png') }}" />
-    <title>{{ isset($title) ? "Projfinn - ".$title : "Projfinn" }}</title>
+    <title>{{ isset($title) ? "Rouzo - ".$title : "Rouzo" }}</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto%7cRubik:300,400" rel="stylesheet">
 
@@ -20,13 +20,13 @@
     <!-- Head Libs -->
     <script async  href="{{ asset('assets/vendors/modernizr.min.js') }}"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-169217379-1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-71302918-3"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-169217379-1');
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-71302918-3');
     </script>
     <!-- Facebook Pixel Code -->
     <script>
@@ -46,7 +46,7 @@
              src="https://www.facebook.com/tr?id=2794217997524780&ev=PageView
 &noscript=1"/>
     </noscript>
-    <script>
+        <script>
         var loadCounter = 0;
         var loaded = function() {
             loadCounter += 1;

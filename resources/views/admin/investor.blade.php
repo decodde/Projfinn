@@ -4,51 +4,59 @@
         <div class="kt-content  kt-grid__item kt-grid__item--fluid row" id="kt_content">
             <div class="col-md-12">
                 <div class="kt-portlet">
-                    <div class="kt-portlet__head">
-                        <div class="kt-portlet__head-label">
-                            <h3 class="kt-portlet__head-title">
-                                Details for <a style="color: #5867dd; font-weight: bold">{{$gUser->name}}</a>
-                            </h3>
-                        </div>
-                    </div>
-                    <div class="kt-portlet__body">
-                        <div class="card-text">
-                            <dl class="row text-black">
-                                <dt class="col-md-8">Email Address</dt>
-                                <dd class="col-md-4 text-right">{{ $gUser->email }}</dd>
-                            </dl>
-                            <hr>
-                            <dl class="row text-black">
-                                <dt class="col-md-9">Phone Number</dt>
-                                <dd class="col-md-3 text-right"> {{ $gUser->phone }}</dd>
-                            </dl>
-                            <hr>
-                            <dl class="row text-black">
-                                <dt class="col-md-9">Number of Transactions Made</dt>
-                                <dd class="col-md-3 text-right text-success">{{count($transactions)}}</dd>
-                            </dl>
-                            <hr>
-                            <dl class="row text-black">
-                                <dt class="col-md-9">Stash Balance</dt>
-                                <dt class="col-md-3 text-right text-success" style="font-size: 16px">₦ {{App\Http\Helpers\Formatter::MoneyConvert($stash->availableAmount, "full")}}</dt>
-                            </dl>
-                            <hr>
-                            <dl class="row text-black">
-                                <dt class="col-md-9">Account Details</dt>
-                                <dd class="col-md-3 text-right">
-                                    <div class="guarantor">
-                                        <p>BVN: <span>{{strtoupper($account->bvn)}}</span></p>
-                                        <br>
-                                        <p>Account Number: <span>{{$account->accountNumber}}</span></p>
-                                        <br>
-                                        <p>Bank: <span>{{$account->bank->name}}</span></p>
-                                    </div>
-                                    <hr>
-                                </dd>
-                            </dl>
-                        </div>
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            Details for <a style="color: #5867dd; font-weight: bold">{{$gUser->name}}</a>
+                        </h3>
                     </div>
                 </div>
+                <div class="kt-portlet__body">
+                    <div class="card-text">
+                        <dl class="row text-black">
+                            <dt class="col-md-8">Email Address</dt>
+                            <dd class="col-md-4 text-right">{{ $gUser->email }}</dd>
+                        </dl>
+                        <hr>
+                        <dl class="row text-black">
+                            <dt class="col-md-9">Phone Number</dt>
+                            <dd class="col-md-3 text-right"> {{ $gUser->phone }}</dd>
+                        </dl>
+                        <hr>
+                        <dl class="row text-black">
+                            <dt class="col-md-9">Number of Transactions Made</dt>
+                            <dd class="col-md-3 text-right text-success">{{count($transactions)}}</dd>
+                        </dl>
+                        <hr>
+                        <dl class="row text-black">
+                            <dt class="col-md-9">Stash Balance</dt>
+                            @if($stash !== null)
+                                <dt class="col-md-3 text-right text-success" style="font-size: 16px">₦ {{App\Http\Helpers\Formatter::MoneyConvert($stash->availableAmount, "full")}}</dt>
+                            @else
+                                <dt class="col-md-3 text-right text-success" style="font-size: 16px">₦ 0.00</dt>
+                            @endif
+                        </dl>
+                        <hr>
+                        <dl class="row text-black">
+                            <dt class="col-md-9">Account Details</dt>
+                            <dd class="col-md-3 text-right">
+                                @if($account !== null && $account->bank !== null)
+                                <div class="guarantor">
+                                    <p>BVN: <span>{{strtoupper($account->bvn)}}</span></p>
+                                    <br>
+                                    <p>Account Number: <span>{{$account->accountNumber}}</span></p>
+                                    <br>
+                                    <p>Bank: <span>{{$account->bank->name}}</span></p>
+                                </div>
+                                @else
+                                <p>No account Details</p>
+                                @endif
+                                <hr>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
             </div>
             @if($adminType !== "clientservice-admin")
                 <div class="col-md-12">

@@ -50,7 +50,7 @@ class RouteServiceProvider extends ServiceProvider
 
         //Account
         $this->mapAccountRoutes();
-
+        
         //Cron
         $this->mapCronRoutes();
 
@@ -62,7 +62,7 @@ class RouteServiceProvider extends ServiceProvider
 
         //Funds
         $this->mapFundsRoutes();
-
+        
         //Introducer
         $this->mapIntroducerRoutes();
 
@@ -86,10 +86,10 @@ class RouteServiceProvider extends ServiceProvider
 
         //Investment
         $this->mapInvestmentRoutes();
-
+        
         //Stash
         $this->mapStashRoutes();
-
+        
         //Transaction
         $this->mapTransactionRoutes();
     }
@@ -119,7 +119,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix('api')
             ->middleware('api')
-            ->namespace($this->namespace)
+            ->namespace($this->namespace.'\Api')
             ->group(base_path('routes/api.php'));
     }
 
@@ -136,7 +136,7 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace.'\Auth')
             ->group(base_path('routes/auth.php'));
     }
-
+    
     /**
      * Define the "cron" routes for the application.
      *
@@ -151,7 +151,7 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace.'\Cron')
             ->group(base_path('routes/cron.php'));
     }
-
+    
     /**
      * Define the "auth" routes for the application.
      *
@@ -167,8 +167,8 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/funds.php'));
     }
 
-    /**
-     * Define the "auth" routes for the application.
+     /**
+     * Define the "introducer" routes for the application.
      *
      * These routes are typically stateless.
      *
@@ -261,7 +261,7 @@ class RouteServiceProvider extends ServiceProvider
     }
 
 
-    /**
+     /**
      * Define the "Guarantor" routes for the application.
      *
      * These routes are typically stateless.
@@ -276,8 +276,7 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/guarantor.php'));
     }
 
-
-    /**
+     /**
      * Define the "Stash" routes for the application.
      *
      * These routes are typically stateless.
@@ -291,7 +290,7 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace.'\Stash')
             ->group(base_path('routes/stash.php'));
     }
-
+    
     /**
      * Define the "Document" routes for the application.
      *
@@ -337,7 +336,8 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace.'\Investment')
             ->group(base_path('routes/investment.php'));
     }
-
+    
+    
     /**
      * Define the "Investment" routes for the application.
      *

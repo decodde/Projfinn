@@ -184,7 +184,6 @@ class LoadController extends Controller
                 else{
                     $roiInPer = $getPer->twelve - $getP['managementFee'];
                 }
-
                 $roi = (($roiInPer / 100) * $data["amount"]);
 
                 $invData["roi"] = $roi;
@@ -222,7 +221,7 @@ class LoadController extends Controller
             }
 
             if($data["progress"] === "approved") {
-                $fund_r = $this->funds->where('businessId', $data["businessId"]);
+                $fund_r = $this->funds->where('id', $data["fundId"]);
 
                 $funding = $fund_r->first();
                 $nextPayment = Carbon::now()->addMonths(1);
@@ -249,6 +248,7 @@ class LoadController extends Controller
                 $this->funds->where('businessId', $data["businessId"])->update(['message' => $data["message"]]);
             }
 
+
             if($data["progress"] === "payment") {
                 $params = [
                     "name" => $data["name"],
@@ -257,7 +257,6 @@ class LoadController extends Controller
                 ];
                 $this->mail->sendMailForPayment($params);
             }
-
             $this->funds->where('businessId', $data["businessId"])->update(['progress' => $data["progress"]]);
             \Session::put('success', true);
             return back()->withErrors('Application Status Changed');
@@ -279,7 +278,7 @@ class LoadController extends Controller
 
             $stash->decrement('totalAmount', $transfer->first()->amount);
             $stash->decrement('availableAmount', $transfer->first()->amount);
-
+            
             $transfer->update(['otpConfirmed' => true]);
             \Session::put('success', true);
             return back()->withErrors('Transaction Verified');
@@ -388,7 +387,7 @@ class LoadController extends Controller
             return false;
         }
     }
-
+    
     public function openPortfolio(Request $request){
         try {
             $id = decrypt($request->id);
@@ -524,7 +523,7 @@ class LoadController extends Controller
 
             //credit the Investor's wallet
             $stash = $this->stash->where('investorId', $user->investor()->id);
-            $customerRaw = $this->api->call('/customer/'.$user->email, 'GET');
+            $customerRaw = $this->api->call('/customer', 'POST', ['email' => $user->email]);
 
             if ($customerRaw->status != false) {
                 $customer = $customerRaw->data;
@@ -574,7 +573,6 @@ class LoadController extends Controller
             $getFunds = $fund->first();
             $payment = $this->fundPayment->where(["fundId" => $request->id, "isCompleted" => false]);
             $getPayment = $payment->first();
-
             $ref = '9285'.str_random(10);
 
             $Cdata = [
@@ -623,7 +621,7 @@ class LoadController extends Controller
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
-
+    
     public function liquidate(Request $request)
     {
         try {

@@ -1846,7 +1846,7 @@ input:focus ~ .bg-info {
       } */
 .btn-info {
   border-color: #3d22c2 !important;
-  background-color:#3d22c2 !important;
+  background-color: #3d22c2 !important;
   color: #FFFFFF; }
   .btn-info:hover {
     border-color: #3d22c2 !important;

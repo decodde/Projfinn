@@ -17,7 +17,7 @@ class Introducer extends Model
     public function account() {
         return $this->hasOne('App\Models\introducerAccount', 'userId', 'userId');
     }
-
+    
     public function owner() {
         return $this->hasOne('App\Models\User', 'id', 'userId');
     }

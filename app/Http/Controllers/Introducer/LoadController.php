@@ -54,12 +54,12 @@ class LoadController extends Controller
                 return back()->withErrors($validation->getMessageBag())->withInput();
             } else {
                 $register = $this->registration->createUser($request)->getData();
-                $user = $register->data;
+                
                 if(!isset($register->data)) {
                     \Session::put('warning', true);
                     return back()->withErrors($register->message)->withInput()->withInput();
                 } else {
-
+                    $user = $register->data;
                     $params = $request->only('l_name', 'f_name', 'email', 'phone', 'address');
 
                     $params['userId'] = $user->id;
@@ -133,8 +133,8 @@ class LoadController extends Controller
             return back()->withErrors('An error has occurred: '.$e->getMessage())->withInput();
         }
     }
-
-    public function create_reserve(Request $request){
+    
+        public function create_reserve(Request $request){
         try{
             $data = $request->except('_token');
 

@@ -48,7 +48,6 @@ class LoadController extends Controller
 //                dd($value);
                 $options = $this->partials->eligibilityOptions($key);
                 for ($i=0; $i < count($options); $i++) {
-                    dd($body);
                     if($options[$i]->id == $value) {
                         array_push($scores, $options[$i]->score);
 
@@ -56,7 +55,7 @@ class LoadController extends Controller
                     }
                 }
             }
-            dd($scores);
+//            dd($scores);
 
             $scoreSum = array_sum($scores);
             $scoreParams['score'] = $scoreSum;

@@ -135,6 +135,7 @@ return [
     */
 
     'providers' => [
+        PHPOpenSourceSaver\JWTAuth\Providers\LaravelServiceProvider::class,
 
         /*
          * Laravel Framework Service Providers...
@@ -166,7 +167,6 @@ return [
          * Package Service Providers...
          */
         JD\Cloudder\CloudderServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -228,7 +228,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Cloudder' => JD\Cloudder\Facades\Cloudder::class,
-        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];

@@ -24,6 +24,7 @@ Route::group(['namespace' => 'Index'], function() {
     Route::post('/contact', 'PageController@contactUs');
     Route::get('/faq', 'PageController@faq');
     Route::get('/women', 'PageController@women');
+     Route::get('/autokash', 'PageController@autokash');
     Route::get('/wbc', 'PageController@wbc');
     Route::get('/sign-up', 'PageController@signup');
 });

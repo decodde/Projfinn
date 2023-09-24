@@ -39,7 +39,7 @@
                                                                 <input type="hidden" name="rCode" value="{{$r_user["code"]}}">
                                                                 @if($r_user["email"] == 'nomail')
                                                                     <input type="hidden" name="nomail" value="true">
-                                                            @endif
+                                                                @endif
                                                             @endif
 
                                                             <!-- Step 1 -->
@@ -188,6 +188,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="modal fade" id="businessTerms" tabindex="-1" role="dialog" aria-labelledby="businessTermsTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">

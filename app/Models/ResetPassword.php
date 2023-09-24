@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class   ResetPassword extends Model
+class ResetPassword extends Model
 {
-    protected $table = "resetPasswords";
+    protected $table = "resetpasswords";
 
     /**
      * The attributes that are mass assignable.

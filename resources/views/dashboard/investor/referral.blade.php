@@ -44,7 +44,7 @@
                                     </div>
                                 </div>
                                 <p>Or Share through social Media</p>
-                                <div class="addthis_inline_share_toolbox" data-url="{{$user->referralLink.$user->referralSlug}}" data-title="Join Rouzo Now and Invest alongside Thousands of Investors" data-description="Hey friend, check out this cool new platform that allows you to invest in portfolios that finance small businesses and get healthy return" data-media="THE IMAGE"></div>
+                                <div class="addthis_inline_share_toolbox" data-url="{{$user->referralLink.$user->referralSlug}}" data-title="Hey friend, check out this cool new platform that allows you to invest in portfolios that finance small businesses and get healthy return" data-description="Hey friend, check out this cool new platform that allows you to invest in portfolios that finance small businesses and get healthy return" data-media="THE IMAGE"></div>
                             </div>
                         </div>
                         @endif
@@ -63,7 +63,7 @@
                         <div class="row" style="margin-bottom: 10px;">
                             <div class="col-md-4 col-12 border-right-blue-grey border-right-lighten-5 text-center">
                                 <p class="blue-grey lighten-2 mb-0">Amount Per Referral (Naira)</p>
-                                <h6 class="text-bold-400"><a class="blue-grey">₦ 0.00</a></h6>
+                                <h6 class="text-bold-400"><a class="blue-grey">₦ 1,000.00</a></h6>
                             </div>
                             <div class="col-md-4 col-12 border-right-blue-grey border-right-lighten-5 text-center">
                                 <p class="blue-grey lighten-2 mb-0">Number Of Referrals</p>

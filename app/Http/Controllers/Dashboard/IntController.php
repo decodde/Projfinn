@@ -101,7 +101,7 @@ class IntController extends Controller{
                 return redirect('/dashboard/e/settings')->withErrors('Please Provide Your Account Details');
             }
 
-            $invites = $this->invite->where("introducerId", $user->introducer->id)->paginate(10);
+            $invites = $this->invite->where("introducerId", $user->introducer->id)->get();
             $inviteLink = URL('rTD/'.$user->introducer->slug.'/nomail');
             $invitesAccepted = 0;
 
@@ -118,8 +118,8 @@ class IntController extends Controller{
             return redirect('/')->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
-
-    public function save(){
+    
+     public function save(){
         try{
             $user = $this->auth::user();
 

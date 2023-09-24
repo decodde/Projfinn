@@ -24,7 +24,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="row py-1" style="flex-wrap: nowrap; overflow-x: auto">
+    <div class="row py-1" style="flex-wrap: nowrap; overflow-x: auto">
                 @foreach($portfolios as $portfolio)
                     <div class="col-md-4 col-9">
                         <div class="card" style="border-radius: 10px">
@@ -93,17 +93,17 @@
                                         @else
                                             <a href="{{URL('/dashboard/i/investment/'.encrypt($portfolio->id))}}" class="btn btn-outline-info info float-right">Invest Now<i class="ft-arrow-right position-relative" style="top: 2px;margin-left: 6px; font-size: 15px"></i></a>
                                         @endif
-                                    @else
+                                            @else
                                         <a class="btn btn-outline-danger danger float-right" disabled="disabled" style="cursor: not-allowed">Closed <i class="icon-ion-ios-close-circle-outline"></i></a>
                                     @endif
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
         </div>
-    </div>
     <div class="row">
         <div class="col-12">
             <div class="card pb-1" style="border-radius: 10px">
@@ -113,7 +113,12 @@
                 <div class="card-content collapse show">
                     <div class="card-body">
                         @if(count($investments) !== 0 )
-                            <p>Clcik on the <code>View Full Details</code> button for complete information of a specific investment</p>
+                            <p>Click on the <code>View Full Details</code> button for complete information of a specific investment</p>
+                            <div class="text-right">
+                                <a class="btn text-right btn-blue border-0 box-shadow-2  text-white mx-1 my--01"  data-toggle="modal" data-target="#investmentHistoryDownload">
+                                    Download Investment History
+                                </a>
+                            </div>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
@@ -133,7 +138,8 @@
                                                 <br>
                                                 <a class="info lighten-2">{{App\Http\Helpers\Formatter::dataTime($investment->datePurchased)}}</a>
                                             </td>
-                                            <td>
+                                            
+                                             <td>
                                                 @if($investment->isOpen === "true")
                                                     @if($investment->isReady === false)
                                                     <a class="btn btn-blue border-0 box-shadow-2 text-white mx-1 my--01" href="javascript:void(0);" onclick="window.alert('Your invest will be matured after {{$investment->period}} months from Investment');">
@@ -145,9 +151,9 @@
                                                 @else
                                                         Investment Closed
                                                 @endif
-                                                <a class="btn btn-outline-info info mx-1 my--01" data-toggle="modal" data-target="#details{{$i}}">
-                                                    View Full Details
-                                                </a>
+                                                    <a class="btn btn-outline-info info mx-1 my--01" data-toggle="modal" data-target="#details{{$i}}">
+                                                        View Full Details
+                                                    </a>
                                                 <div id="details{{$i}}" class="modal fade" role="dialog">
                                                     <div class="modal-dialog modal-dialog-centered">
                                                         <!-- Modal content-->
@@ -213,7 +219,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                @if($investment->isCompleted == false)
+                                                 @if($investment->isCompleted == false)
                                                     <a class="btn btn-outline-warning warning mx-1 my--01" data-toggle="modal" data-target="#update{{$i}}">
                                                         Update Lock Period
                                                     </a>
@@ -278,7 +284,7 @@
                                                 @endif
                                             </td>
                                         </tr>
-                                        @php
+                                         @php
                                             $i++;
                                         @endphp
                                     @endforeach
@@ -291,6 +297,29 @@
                             </div>
                         @endif
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="investmentHistoryDownload" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <!-- Modal content-->
+            <div class="modal-content px-2" style="border: none">
+                <div class="modal-header text-center align-items-center px-0" style="justify-content: normal; border-bottom: 1px solid #c6d4df">
+                     <h6 class="font-size-16px grey-blue font-weight-bold lighten-2">Download your Rouzo investment history</h6>
+                </div>
+                <div class="modal-body text-center">
+                    <a class="btn btn-blue border-0 box-shadow-2  text-white mx-1 my--01"  data-toggle="modal" data-target="#investmentHistoryDownload">
+                        Download 
+                    </a>
+                    <div>
+                        <input type="checkbox" id="sendInvestHistoryToMail > 
+                        <label for="sendInvestHistoryToMail">Send investment history file to email address <span class="user-name text-bold-700">{{$user->email}}</span> </label>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border-top: 1px solid #c6d4df">
+                    <a data-dismiss="modal" class="text-center m-auto info" style="text-decoration: underline">Dismiss</a>
                 </div>
             </div>
         </div>

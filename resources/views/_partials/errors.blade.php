@@ -11,13 +11,14 @@
     <div class="alert alert-success alert-dismissable flat">
     @endif
         <div class="container">
-            {!! ucfirst($error) !!}
             <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {!! ucfirst($error) !!}
         </div>
     </div>
 @endforeach
 
 <?php Session::forget('warning'); Session::forget('danger'); Session::forget('info'); Session::forget('success'); ?>
+
 
 
 @if(isset($user) && $user->type == 'investor')

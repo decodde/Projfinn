@@ -11,7 +11,6 @@ use Crypt;
 use App\Models\Category;
 use App\Models\LenderCategory;
 use App\Models\User;
-use Laravel\Socialite\Facades\Socialite;
 
 class PageController extends Controller
 {
@@ -46,6 +45,7 @@ class PageController extends Controller
 //        dd("Hey");
         return view('auth.forgot-password', $data);
     }
+
 
     public function resetPassword(Request $request, $token){
         try{
@@ -159,8 +159,8 @@ class PageController extends Controller
         $r_user["l_name"] = $name[1];
         return redirect('lender?rC='.encrypt($referralSlug).'&rN='.encrypt($r_user["f_name"]));
     }
-
-    public function businessInvite(Request $request, $slug, $email)
+    
+     public function businessInvite(Request $request, $slug, $email)
     {
         try {
 

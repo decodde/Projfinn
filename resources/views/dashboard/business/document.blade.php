@@ -125,8 +125,8 @@
                                 <a href="javascript:void(0);" data-toggle="modal" data-target="#addGuarantor" class="pull-right btn btn-sm btn-success">Add a guarantor</a>
                                 <br><br>
                             @endif
-                        <div class="table-responsive">
-                            <table class="table">
+                            <div class="table-responsive">
+                                <table class="table">
                                 <tbody>
                                 @foreach($guarantors as $key => $guarantor)
                                     <tr>
@@ -221,7 +221,6 @@
                                     <script>
                                         function editGuarantorNumber(event) {
                                             field = document.getElementById('editGuarantorNumber' + '<?php echo $key; ?>')
-
                                             if(field.value.length < 11) {
                                                 return true
                                             } else if(field.value.length == 11) {
@@ -238,7 +237,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                        </div>
+                            </div>
                         @else
                             <div>
                                 <p>

@@ -12,7 +12,7 @@
 
         <div class="content-wrapper">
             <div class="content-body">
-                <section class="flexbox-container d-block pt-5" style="height: 90vh">
+                 <section class="flexbox-container d-block pt-5" style="height: 90vh">
                     <h2 class="text-center">Select Account type</h2>
                     <div class="col-12 row align-items-center justify-content-center">
                         <div class="col-md-3 col-sm-12 pt-4">
@@ -65,7 +65,7 @@
                                 </div><!-- /.iconbox-icon-wrap -->
                                 <div class="contents">
                                     <h3 class="font-weight-normal">Introducer</h3>
-                                    <p>Introduce businesses within your network to get access to financing and earn commission</p>
+                                    <p>Help businesses get access to financing and earn commissions</p>
                                     <a href="{{URL('/introducer')}}" class="border-thin mt-0">
 										<span>
 											<span class="btn btn-outline-info">Sign Up</span>
@@ -73,7 +73,6 @@
                                     </a>
                                 </div><!-- /.contents -->
                             </div><!-- /.iconbox -->
-
                         </div>
                     </div>
                 </section>

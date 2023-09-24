@@ -71,7 +71,6 @@ class LoadController extends Controller
                 //return validation error
                 return back()->withErrors("Sorry Only ".$unitsRemaining." units of the ".$getPortfolio->name." Portfolio is left. Pay ₦". $this->format->MoneyConvert($getPortfolio->sizeRemaining, 'full')." to acquire it")->withInput();
             }
-
             if($data["paymentMethod"] == 'bank'){
                 \Session::put('type', 'debit');
                 \Session::put('portfolioId', $data["portfolioId"]);
@@ -97,7 +96,7 @@ class LoadController extends Controller
                 $stash = $this->stash->where('investorId', $user->investor()->id);
 
                 $getStash = $stash->first();
-
+                
                 if($getStash == null){
                     $trnxData = [
                         'reference' => str_random(10),
@@ -173,7 +172,6 @@ class LoadController extends Controller
                     "oldInv" => false,
                     "isCompleted" => true
                 ];
-
                 $portfolio = $this->portfolio->where("id", $data["portfolioId"]);
 
                 $getPortfolio = $portfolio->first();
@@ -182,16 +180,16 @@ class LoadController extends Controller
                     \Session::put('danger', true);
                     return back()->withErrors('An error has occurred: ');
                 }
-
+                
                 $getPer = $this->rates->where("id", $data["portfolioId"])->first();
 
-                if ($data["period"] == "3"){
+                if ($data["months"] == "3"){
                     $roiInPer = $getPer->three - $getPortfolio['managementFee'];
                 }
-                elseif ($data["period"] == "6"){
+                elseif ($data["months"] == "6"){
                     $roiInPer = $getPer->six - $getPortfolio['managementFee'];
                 }
-                elseif ($data["period"] == "9"){
+                elseif ($data["months"] == "9"){
                     $roiInPer = $getPer->nine - $getPortfolio['managementFee'];
                 }
                 else{
@@ -219,7 +217,7 @@ class LoadController extends Controller
 
         return $transactionId;
     }
-
+    
     public function transfer(Request $request){
         try{
             $user = Auth::user();
@@ -261,8 +259,8 @@ class LoadController extends Controller
             return back()->withErrors('An error has occurred: '.$e->getMessage());
         }
     }
-
-    public function update(Request $request){
+    
+     public function update(Request $request){
         try{
             $user = Auth::user();
             $data = $request->except('_token');
@@ -288,6 +286,7 @@ class LoadController extends Controller
         return redirect("/dashboard/i/stash")->withErrors("Transfer Initiated, The transaction will be validated in the next 24hours");
     }
     public function danger(Request $request){
+
         \Session::put('danger', true);
         return redirect("/dashboard/i/stash")->withErrors($request->message);
     }
